@@ -9,7 +9,7 @@ public abstract class SyntaxNodeOrToken {
 
     private SyntaxNode _parent;
 
-    private SyntaxKind _kind;
+    private int _kind;
 
     private String _rawString;
 
@@ -17,7 +17,7 @@ public abstract class SyntaxNodeOrToken {
 
     private SyntaxTrivia _trialingTrivia;
 
-    public SyntaxNodeOrToken(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, SyntaxKind kind) {
+    public SyntaxNodeOrToken(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind) {
         this._parent = parent;
         this._span = new Span(spanStart, spanEnd);
         this._fullSpan = new Span(fullSpanStart, fullSpanEnd);
@@ -38,7 +38,7 @@ public abstract class SyntaxNodeOrToken {
     }
 
     public SyntaxKind kind() {
-        return _kind;
+        return SyntaxFacts.getKind(this._kind);
     }
 
     public String rawString() {

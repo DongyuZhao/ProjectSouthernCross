@@ -8,7 +8,7 @@ import java.util.Optional;
  */
 public class SyntaxToken extends SyntaxNodeOrToken {
 
-    public SyntaxToken(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, SyntaxKind kind) {
+    public SyntaxToken(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind) {
         super(parent, rawString, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind);
     }
 

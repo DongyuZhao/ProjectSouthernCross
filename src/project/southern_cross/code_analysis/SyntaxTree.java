@@ -1,5 +1,7 @@
 package project.southern_cross.code_analysis;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 /**
  * Created by Dy.Zhao on 2016/5/11 0011.
  */
@@ -21,5 +23,9 @@ public abstract class SyntaxTree {
 
     public String filePath() {
         return this._filePath;
+    }
+
+    public static SyntaxTree Parse(String text){
+        throw new NotImplementedException();
     }
 }
