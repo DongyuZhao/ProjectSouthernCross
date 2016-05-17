@@ -17,12 +17,15 @@ public abstract class SyntaxNodeOrToken {
 
     private SyntaxTrivia _trialingTrivia;
 
-    public SyntaxNodeOrToken(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind) {
+    private boolean _isMissing;
+
+    public SyntaxNodeOrToken(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
         this._parent = parent;
         this._span = new Span(spanStart, spanEnd);
         this._fullSpan = new Span(fullSpanStart, fullSpanEnd);
         this._kind = kind;
         this._rawString = rawString;
+        this._isMissing = isMissing;
     }
 
     public Span span() {
@@ -51,5 +54,9 @@ public abstract class SyntaxNodeOrToken {
 
     public SyntaxTrivia trialingTrivia() {
         return _trialingTrivia;
+    }
+
+    public boolean isMissing() {
+        return this._isMissing;
     }
 }
