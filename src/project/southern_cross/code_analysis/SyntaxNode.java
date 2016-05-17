@@ -11,8 +11,8 @@ public class SyntaxNode extends SyntaxNodeOrToken {
     private ArrayList<SyntaxNode> _childNodes = new ArrayList<>();
     private ArrayList<SyntaxToken> _childTokens = new ArrayList<>();
 
-    public SyntaxNode(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, SyntaxKind kind) {
-        super(parent, rawString, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind);
+    public SyntaxNode(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
+        super(parent, rawString, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
     }
 
     public ArrayList<SyntaxNode> childNodes() {

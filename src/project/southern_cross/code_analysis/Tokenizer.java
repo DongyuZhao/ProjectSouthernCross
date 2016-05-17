@@ -24,37 +24,42 @@ class Tokenizer {
             if (specialTokenList.contains("" + c)){
                 if (state == TokenizerStates.text || state == TokenizerStates.trialingSpace) {
                     String rawString = stringBuilder.toString();
-                    tokenList.add(new SyntaxToken(null, rawString, spanStart, spanEnd, spanStart, i, SyntaxKind.Undetermined));
+                    tokenList.add(new SyntaxToken(null, rawString, spanStart, spanEnd, spanStart, i, SyntaxKind.Undetermined, false));
                     stringBuilder = new StringBuilder();
                     state = TokenizerStates.specialToken;
                     spanStart = i;
                 }
-                if (state == TokenizerStates.specialToken && specialTokenList.contains("" + c)) {
+                if (state == TokenizerStates.specialToken) {
                     stringBuilder.append(c);
                     spanEnd = i + 1;
                 }
+                continue;
             }
             if (state == TokenizerStates.leadingSpace && !Character.isWhitespace(c) && !specialTokenList.contains("" + c)) {
                 stringBuilder.append(c);
                 state = TokenizerStates.text;
                 spanStart = i;
                 spanEnd = i + 1;
+                continue;
             }
             if (state == TokenizerStates.text && !Character.isWhitespace(c) && !specialTokenList.contains("" + c)) {
                 stringBuilder.append(c);
                 spanEnd = i + 1;
+                continue;
             }
             if ((state == TokenizerStates.text || state == TokenizerStates.specialToken) && Character.isWhitespace(c)) {
                 state = TokenizerStates.trialingSpace;
+                continue;
             }
             if (state == TokenizerStates.trialingSpace && !Character.isWhitespace(c) && !specialTokenList.contains("" + c)) {
                 String rawString = stringBuilder.toString();
-                tokenList.add(new SyntaxToken(null, rawString, spanStart, spanEnd, spanStart, i, SyntaxKind.Undetermined));
+                tokenList.add(new SyntaxToken(null, rawString, spanStart, spanEnd, spanStart, i, SyntaxKind.Undetermined, false));
                 stringBuilder = new StringBuilder();
                 stringBuilder.append(c);
                 state = TokenizerStates.text;
                 spanStart = i;
                 spanEnd = i + 1;
+                continue;
             }
         }
         return tokenList;
