@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Dy.Zhao on 2016/5/17 0017.
  */
-class Tokenizer {
+public class Tokenizer {
     enum TokenizerStates {
         leadingSpace,
         trialingSpace,
@@ -29,12 +29,35 @@ class Tokenizer {
                     state = TokenizerStates.specialToken;
                     spanStart = i;
                 }
-                if (state == TokenizerStates.specialToken) {
-                    stringBuilder.append(c);
-                    spanEnd = i + 1;
+                if (state == TokenizerStates.specialToken)  {
+                    if (specialTokenList.contains(stringBuilder.toString() + c)) {
+                        stringBuilder.append(c);
+                        spanEnd = i + 1;
+                    }
+                    else {
+                        String rawString = stringBuilder.toString();
+                        tokenList.add(new SyntaxToken(null, rawString, spanStart, spanEnd, spanStart, i, SyntaxKind.Undetermined, false));
+                        stringBuilder = new StringBuilder();
+                        state = TokenizerStates.specialToken;
+                        spanStart = i;
+                        stringBuilder.append(c);
+                        spanEnd = i + 1;
+                    }
                 }
                 continue;
             }
+
+            if(state == TokenizerStates.specialToken && !Character.isWhitespace(c) && !specialTokenList.contains("" + c)){
+                String rawString = stringBuilder.toString();
+                tokenList.add(new SyntaxToken(null, rawString, spanStart, spanEnd, spanStart, i, SyntaxKind.Undetermined, false));
+                stringBuilder = new StringBuilder();
+                state = TokenizerStates.text;
+                spanStart = i;
+                stringBuilder.append(c);
+                spanEnd = i + 1;
+                continue;
+            }
+
             if (state == TokenizerStates.leadingSpace && !Character.isWhitespace(c) && !specialTokenList.contains("" + c)) {
                 stringBuilder.append(c);
                 state = TokenizerStates.text;
@@ -61,6 +84,11 @@ class Tokenizer {
                 spanEnd = i + 1;
                 continue;
             }
+        }
+        String finalString = stringBuilder.toString();
+        if (!finalString.equals("")) {
+            tokenList.add(new SyntaxToken(null, finalString, spanStart, spanEnd, spanStart, text.length(), SyntaxKind.Undetermined, false));
+            spanEnd=text.length();
         }
         return tokenList;
     }
