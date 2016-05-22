@@ -24,23 +24,13 @@ public class TweetQlSyntaxParser {
     }
 
     private void updateContextFreeTokens() {
-        for (int i = 0; i < tokenList.size(); i++) {
-            SyntaxToken token = tokenList.get(i);
+        for (SyntaxToken token : tokenList) {
             String rawString = token.rawString();
             if (TweetQlLanguageFeatures.SyntaxFacts.isKeyword(rawString)) {
-                tokenList.add(i, new SyntaxToken(
-                        null,
-                        rawString,
-                        token.span().start(),
-                        token.span().end(),
-                        token.fullSpan().start(),
-                        token.fullSpan().end(),
-                        TweetQlLanguageFeatures.SyntaxFacts.getSyntaxKind(rawString),
-                        false)
-                );
+                token.setKind(TweetQlLanguageFeatures.SyntaxFacts.getSyntaxKind(rawString));
             }
         }
     }
 
-
+    
 }

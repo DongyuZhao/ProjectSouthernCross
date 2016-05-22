@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Created by Dy.Zhao on 2016/5/17 0017.
  */
 public class Tokenizer {
+
     private enum TokenizerStates {
         leadingSpace,
         trialingSpace,
@@ -108,6 +109,15 @@ public class Tokenizer {
 
     public ArrayList<SyntaxToken> tokenize() {
         for (char c: this.rawInput.toCharArray()) {
+            if (c == '\r' || c == '\n'){
+                if (!this.currentSession.getRawString().equals("")){
+                    this.submitSession();
+                    this.createNewSession();
+                    this.changeState(TokenizerStates.leadingSpace);
+                    this.currentPosition += 1;
+                    continue;
+                }
+            }
             if (this.currentState == TokenizerStates.leadingSpace && !Character.isWhitespace(c) && !this.isSpecialToken(c)) {
                 this.createNewSession();
                 this.changeState(TokenizerStates.text);

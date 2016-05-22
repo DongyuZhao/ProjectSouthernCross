@@ -59,4 +59,20 @@ public abstract class SyntaxNodeOrToken {
     public boolean isMissing() {
         return this._isMissing;
     }
+
+    void setParent(SyntaxNode _parent) {
+        this._parent = _parent;
+    }
+
+    public void setKind(int _kind) {
+        this._kind = _kind;
+    }
+
+    void setLeadingTrivia(SyntaxTrivia _leadingTrivia) {
+        this._leadingTrivia = _leadingTrivia;
+    }
+
+    void setTrialingTrivia(SyntaxTrivia _trialingTrivia) {
+        this._trialingTrivia = _trialingTrivia;
+    }
 }
