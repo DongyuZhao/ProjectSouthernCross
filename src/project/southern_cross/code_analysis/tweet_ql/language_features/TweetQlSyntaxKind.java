@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis.tweet_ql;
+package project.southern_cross.code_analysis.tweet_ql.language_features;
 
 import project.southern_cross.code_analysis.SyntaxKind;
 
@@ -23,7 +23,7 @@ public class TweetQlSyntaxKind extends SyntaxKind {
     public final static int OR=11;
     public final static int AND=12;
 
-    public HashMap<String, Integer> keyWorld = new HashMap<String, Integer>() {
+    public static HashMap<String, Integer> KeyWord = new HashMap<String, Integer>() {
         {
             put("CREATE", CREATE);
             put("SELECT",SELECT);

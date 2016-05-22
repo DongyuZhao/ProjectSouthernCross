@@ -40,8 +40,8 @@ public abstract class SyntaxNodeOrToken {
         return _parent;
     }
 
-    public SyntaxKind kind() {
-        return SyntaxFacts.getKind(this._kind);
+    public int kind() {
+        return this._kind;
     }
 
     public String rawString() {
