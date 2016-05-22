@@ -23,11 +23,11 @@ public class Tokenizer {
             char c = text.charAt(i);
             if (specialTokenList.contains("" + c)){
                 if (state == TokenizerStates.text || state == TokenizerStates.trialingSpace) {
-                    String rawString = stringBuilder.toString();
-                    tokenList.add(new SyntaxToken(null, rawString, spanStart, spanEnd, spanStart, i, SyntaxKind.Undetermined, false));
+                    submitSession(tokenList, stringBuilder, spanStart, spanEnd, i);
                     stringBuilder = new StringBuilder();
                     state = TokenizerStates.specialToken;
                     spanStart = i;
+                    spanEnd = i;
                 }
                 if (state == TokenizerStates.specialToken)  {
                     if (specialTokenList.contains(stringBuilder.toString() + c)) {
@@ -35,8 +35,7 @@ public class Tokenizer {
                         spanEnd = i + 1;
                     }
                     else {
-                        String rawString = stringBuilder.toString();
-                        tokenList.add(new SyntaxToken(null, rawString, spanStart, spanEnd, spanStart, i, SyntaxKind.Undetermined, false));
+                        submitSession(tokenList, stringBuilder, spanStart, spanEnd, i);
                         stringBuilder = new StringBuilder();
                         state = TokenizerStates.specialToken;
                         spanStart = i;
@@ -48,12 +47,11 @@ public class Tokenizer {
             }
 
             if(state == TokenizerStates.specialToken && !Character.isWhitespace(c) && !specialTokenList.contains("" + c)){
-                String rawString = stringBuilder.toString();
-                tokenList.add(new SyntaxToken(null, rawString, spanStart, spanEnd, spanStart, i, SyntaxKind.Undetermined, false));
+                submitSession(tokenList, stringBuilder, spanStart, spanEnd, i);
                 stringBuilder = new StringBuilder();
                 state = TokenizerStates.text;
-                spanStart = i;
                 stringBuilder.append(c);
+                spanStart = i;
                 spanEnd = i + 1;
                 continue;
             }
@@ -75,8 +73,7 @@ public class Tokenizer {
                 continue;
             }
             if (state == TokenizerStates.trialingSpace && !Character.isWhitespace(c) && !specialTokenList.contains("" + c)) {
-                String rawString = stringBuilder.toString();
-                tokenList.add(new SyntaxToken(null, rawString, spanStart, spanEnd, spanStart, i, SyntaxKind.Undetermined, false));
+                submitSession(tokenList, stringBuilder, spanStart, spanEnd, i);
                 stringBuilder = new StringBuilder();
                 stringBuilder.append(c);
                 state = TokenizerStates.text;
@@ -91,5 +88,10 @@ public class Tokenizer {
             spanEnd=text.length();
         }
         return tokenList;
+    }
+
+    private static void submitSession(ArrayList<SyntaxToken> tokenList, StringBuilder stringBuilder, int spanStart, int spanEnd, int i) {
+        String rawString = stringBuilder.toString();
+        tokenList.add(new SyntaxToken(null, rawString, spanStart, spanEnd, spanStart, i, SyntaxKind.Undetermined, false));
     }
 }
