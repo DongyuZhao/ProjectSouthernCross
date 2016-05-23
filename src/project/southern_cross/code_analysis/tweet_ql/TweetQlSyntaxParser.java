@@ -2,6 +2,7 @@ package project.southern_cross.code_analysis.tweet_ql;
 
 import project.southern_cross.code_analysis.SyntaxToken;
 import project.southern_cross.code_analysis.Tokenizer;
+import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSyntaxKind;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
@@ -11,10 +12,9 @@ import java.util.ArrayList;
  */
 public class TweetQlSyntaxParser {
     private ArrayList<SyntaxToken> tokenList;
-    private static ArrayList<String> SpecialTokens = TweetQlLanguageFeatures.SyntaxFacts.getSpecialTokenList();
 
     public TweetQlSyntaxParser(String source) {
-        Tokenizer tokenizer = new Tokenizer(source, TweetQlSyntaxParser.SpecialTokens);
+        Tokenizer tokenizer = new Tokenizer(source, TweetQlSyntaxKind.Operator.keySet());
         this.tokenList = tokenizer.tokenize();
     }
 

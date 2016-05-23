@@ -1,8 +1,6 @@
 package project.southern_cross.code_analysis;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by Dy.Zhao on 2016/5/11 0011.
@@ -22,5 +20,5 @@ public abstract class SyntaxFacts {
 
     public abstract String getFullString(int syntaxKind);
 
-    public abstract ArrayList<String> getSpecialTokenList();
+    public abstract Set<String> getSpecialTokenList();
 }
