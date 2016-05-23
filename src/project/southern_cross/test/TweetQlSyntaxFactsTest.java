@@ -20,10 +20,11 @@ public class TweetQlSyntaxFactsTest {
 
         TweetQlSyntaxFacts fact = new TweetQlSyntaxFacts();
         int value = fact.getSyntaxKind("SELECT");
-        int value1 = fact.getSyntaxKind("..");
-
-        assertEquals(1,value);
-        assertEquals(-1,value1);
+        int value1 = fact.getSyntaxKind("'");
+        int value2 = fact.getSyntaxKind("\"");
+        assertEquals(2,value);
+        assertEquals(22,value1);
+        assertEquals(23,value2);
     }
 
 }

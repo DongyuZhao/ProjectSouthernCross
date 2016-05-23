@@ -150,4 +150,17 @@ public class TokenizerTest {
             assertEquals(token.get(i+1).span().start(), token.get(i).fullSpan().end());
         }
     }
+
+    @Test
+    public void test10(){
+        ArrayList<SyntaxToken> tokenList = new ArrayList<>();
+        String s="SELECT";
+        tokenizer = new Tokenizer();
+        ArrayList<SyntaxToken> token=new ArrayList<>();
+        token=tokenizer.tokenize(s,specialTokenList);
+        assertEquals(2,token.get(0).kind());
+    }
+
+
+
 }
