@@ -23,6 +23,21 @@ public class TweetQlSyntaxKind extends SyntaxKind {
     public final static int OR=11;
     public final static int AND=12;
 
+    public final static int DotAccessOperator = 3001;
+    public final static int PlusOperator = 3002;
+    public final static int MinusOperator = 3003;
+    public final static int MultipleOperator = 3004;
+    public final static int DivideOperator = 3005;
+    public final static int ModOperator = 3006;
+    public final static int PowerOperator = 3007;
+    public final static int LogicAndOperator = 3008;
+    public final static int LogicOrOperator = 3009;
+    public final static int LogicNotOperator = 3010;
+    public final static int EqualOperator = 3011;
+    public final static int AssignOperator = 3012;
+    public final static int LambdaOperator = 3013;
+
+
     public static HashMap<String, Integer> KeyWord = new HashMap<String, Integer>() {
         {
             put("CREATE", CREATE);
@@ -41,4 +56,21 @@ public class TweetQlSyntaxKind extends SyntaxKind {
         }
     };
 
+    public static HashMap<String, Integer> Operator = new HashMap<String, Integer>() {
+        {
+            put(".", DotAccessOperator);
+            put("+", PlusOperator);
+            put("-", MinusOperator);
+            put("*", MultipleOperator);
+            put("/", DivideOperator);
+            put("%", ModOperator);
+            put("^", PowerOperator);
+            put("&&", LogicAndOperator);
+            put("||", LogicOrOperator);
+            put("!", LogicNotOperator);
+            put("==", EqualOperator);
+            put("=", AssignOperator);
+            put("=>", LambdaOperator);
+        }
+    };
 }

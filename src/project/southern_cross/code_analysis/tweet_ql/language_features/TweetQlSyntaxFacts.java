@@ -16,10 +16,11 @@ public class TweetQlSyntaxFacts extends SyntaxFacts {
         add("*");
         add("/");
         add("%");
-        add("&");
-        add("~");
-        add("|");
         add("^");
+        add("&&");
+        add("||");
+        add("!");
+        add("==");
         add("=");
         add("=>");
     }};
@@ -33,6 +34,11 @@ public class TweetQlSyntaxFacts extends SyntaxFacts {
     @Override
     protected boolean isKeyword(int rawKind) {
         return rawKind > SyntaxKind.ReservedKeyword && rawKind < SyntaxKind.PredefinedType;
+    }
+
+    @Override
+    protected boolean isOperator(int rawKind) {
+        return rawKind > SyntaxKind.ReservedOperator;
     }
 
     @Override
