@@ -45,6 +45,9 @@ public class TweetQlSyntaxFacts extends SyntaxFacts {
         if (TweetQlSyntaxKind.KeyWord.keySet().contains(rawString)) {
             return TweetQlSyntaxKind.KeyWord.get(rawString);
         }
+        if(TweetQlSyntaxKind.PredefinedType.keySet().contains(rawString)){
+            return TweetQlSyntaxKind.PredefinedType.get(rawString);
+        }
         return -1;
     }
 

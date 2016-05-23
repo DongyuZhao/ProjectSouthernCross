@@ -4,9 +4,7 @@ import project.southern_cross.code_analysis.SyntaxKind;
 import project.southern_cross.code_analysis.SyntaxNode;
 import project.southern_cross.code_analysis.SyntaxToken;
 import project.southern_cross.code_analysis.Tokenizer;
-import project.southern_cross.code_analysis.tweet_ql.language_features.CreateExpressionNode;
-import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSyntaxFacts;
-import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSyntaxKind;
+import project.southern_cross.code_analysis.tweet_ql.language_features.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
@@ -17,7 +15,10 @@ import java.util.ArrayList;
 public class TweetQlSyntaxParser {
     private enum ParserStates {
         Root,
-        CreateExpression
+        CreateExpression,
+        SelectExpression,
+        FromExpression
+
     }
     private ArrayList<SyntaxToken> tokenList;
     private SyntaxNode root;
@@ -62,11 +63,65 @@ public class TweetQlSyntaxParser {
                             false);
                     this.currentParent.addChildNode(createExpression);
                     this.currentParent = createExpression;
+                    this.currentState=ParserStates.CreateExpression;
+                    continue;
                 }
-                if (this.currentState == ParserStates.CreateExpression) {
 
+                if (token.kind() == TweetQlSyntaxKind.SELECT){
+                    SyntaxNode SelectExpression = new CreateExpressionNode(
+                            currentParent,
+                            token.rawString(),
+                            token.span().start(),
+                            token.span().end(),
+                            token.fullSpan().start(),
+                            token.fullSpan().end(),
+                            token.kind(),
+                            false);
+                    this.currentParent.addChildNode(SelectExpression);
+                    this.currentParent = SelectExpression;
+                    this.currentState=ParserStates.SelectExpression;
+                    continue;
                 }
+
             }
+
+            if(token.kind()==TweetQlSyntaxKind.Undetermined){
+                int kind=token.kind();
+                if(currentState==ParserStates.CreateExpression){
+                    kind=TweetQlSyntaxKind.UserDefinedType;
+                }else if (currentState ==ParserStates.FromExpression){
+                    kind=TweetQlSyntaxKind.UserDefinedType;
+                }
+                SyntaxNode userDefined = new UserDefinedTypeNode(
+                        currentParent,
+                        token.rawString(),
+                        token.span().start(),
+                        token.span().end(),
+                        token.fullSpan().start(),
+                        token.fullSpan().end(),
+                        kind,
+                        false);
+                this.currentParent.addChildNode(userDefined);
+                continue;
+            }
+
+
+            if (token.kind()==TweetQlSyntaxKind.FROM){
+                SyntaxNode fromExpress = new FromExpressionNode(
+                        currentParent,
+                        token.rawString(),
+                        token.span().start(),
+                        token.span().end(),
+                        token.fullSpan().start(),
+                        token.fullSpan().end(),
+                        token.kind(),
+                        false );
+                this.currentParent.addChildNode(fromExpress);
+                this.currentParent = fromExpress;
+                this.currentState=ParserStates.FromExpression;
+            }
+
+
         }
     }
 }
