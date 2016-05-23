@@ -25,7 +25,5 @@ public abstract class SyntaxTree {
         return this._filePath;
     }
 
-    public static SyntaxTree Parse(String text){
-        throw new NotImplementedException();
-    }
+    public abstract void ParseSource(String source);
 }
