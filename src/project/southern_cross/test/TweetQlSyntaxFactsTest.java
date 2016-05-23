@@ -1,7 +1,7 @@
 package project.southern_cross.test;
 
 import org.junit.Test;
-import project.southern_cross.code_analysis.tweet_ql.TweetQlSyntaxFacts;
+import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSyntaxFacts;
 
 import static org.junit.Assert.*;
 
