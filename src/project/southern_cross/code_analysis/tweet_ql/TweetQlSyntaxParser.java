@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class TweetQlSyntaxParser {
     private ArrayList<SyntaxToken> tokenList;
+    private TweetQlSyntaxTree root;
 
     public TweetQlSyntaxParser(String source) {
         Tokenizer tokenizer = new Tokenizer(source, TweetQlSyntaxKind.Operator.keySet());
@@ -32,5 +33,8 @@ public class TweetQlSyntaxParser {
         }
     }
 
-
+    private void ConstructSyntaxTree(String source) {
+        this.root = new TweetQlSyntaxTree();
+        
+    }
 }
