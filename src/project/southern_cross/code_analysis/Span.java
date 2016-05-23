@@ -23,4 +23,10 @@ public class Span {
         this._start = start;
         this._end = end;
     }
+
+    public void updateEnd(int end) {
+        if (end > this._end) {
+            this._end = end;
+        }
+    }
 }

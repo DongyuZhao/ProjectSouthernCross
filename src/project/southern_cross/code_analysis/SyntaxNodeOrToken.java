@@ -11,7 +11,7 @@ public abstract class SyntaxNodeOrToken {
 
     private int _kind;
 
-    private String _rawString;
+    protected String _rawString;
 
     private SyntaxTrivia _leadingTrivia;
 

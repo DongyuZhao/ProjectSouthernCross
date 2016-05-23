@@ -38,4 +38,22 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         result.add(this);
         return result;
     }
+
+    public void addChildNode(SyntaxNode child){
+        this._childNodes.add(child);
+        int spaceCount = this.fullSpan().end() - this.span().end();
+        for (int i = 0; i < spaceCount; i++) {
+            this._rawString += " ";
+        }
+        this._rawString += child._rawString;
+        this.span().updateEnd(child.span().end());
+        this.fullSpan().updateEnd(child.fullSpan().end());
+
+    }
+
+    public void addChildToken(SyntaxToken child) {
+        this._childTokens.add(child);
+        this.span().updateEnd(child.span().end());
+        this.fullSpan().updateEnd(child.fullSpan().end());
+    }
 }

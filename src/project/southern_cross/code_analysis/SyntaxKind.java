@@ -8,5 +8,6 @@ public class SyntaxKind {
     public final static int ReservedKeyword = 0;
     public final static int PredefinedType = 1000;
     public final static int UserDefinedType = 2000;
-    public final static int ReservedOperator = 300;
+    public final static int ReservedOperator = 3000;
+    public final static int Root = 9999;
 }
