@@ -1,14 +1,11 @@
 package project.southern_cross.test;
 
-import org.junit.Before;
 import org.junit.Test;
-import project.southern_cross.code_analysis.Span;
 import project.southern_cross.code_analysis.SyntaxToken;
 import project.southern_cross.code_analysis.Tokenizer;
 import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSyntaxKind;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
