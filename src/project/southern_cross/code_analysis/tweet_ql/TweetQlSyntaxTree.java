@@ -7,6 +7,9 @@ import project.southern_cross.code_analysis.Tokenizer;
 import java.util.ArrayList;
 
 /**
+ * Project Southern Cross
+ * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
+ *
  * Created by Dy.Zhao on 2016/5/17 0017.
  */
 public class TweetQlSyntaxTree extends SyntaxTree {
