@@ -1,18 +1,18 @@
 package project.southern_cross.test;
 
-import org.junit.Before;
 import org.junit.Test;
-import project.southern_cross.code_analysis.Span;
 import project.southern_cross.code_analysis.SyntaxToken;
 import project.southern_cross.code_analysis.Tokenizer;
 import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSyntaxKind;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
 /**
+ * Project Southern Cross
+ * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
+ *
  * Created by Junjie on 17/05/2016.
  */
 public class TokenizerTest {
@@ -29,10 +29,10 @@ public class TokenizerTest {
         tokenizer = new Tokenizer(s, TweetQlSyntaxKind.Operator.keySet());
         ArrayList<SyntaxToken> token=new ArrayList<>();
         token=tokenizer.tokenize();
-        assertEquals("select", token.get(0).rawString());
-        assertEquals("from", token.get(1).rawString());
-        assertEquals("where", token.get(2).rawString());
-        assertEquals(".", token.get(3).rawString());
+        assertEquals("select", token.get(0).getRawString());
+        assertEquals("from", token.get(1).getRawString());
+        assertEquals("where", token.get(2).getRawString());
+        assertEquals(".", token.get(3).getRawString());
         for(int i=0;i<token.size()-1;i++) {
             assertEquals(token.get(i+1).span().start(), token.get(i).fullSpan().end());
         }
@@ -45,10 +45,10 @@ public class TokenizerTest {
         tokenizer = new Tokenizer(s,TweetQlSyntaxKind.Operator.keySet());
         ArrayList<SyntaxToken> token=new ArrayList<>();
         token=tokenizer.tokenize();
-        assertEquals("select", token.get(0).rawString());
-        assertEquals("+", token.get(1).rawString());
-        assertEquals("+", token.get(2).rawString());
-        assertEquals("from", token.get(3).rawString());
+        assertEquals("select", token.get(0).getRawString());
+        assertEquals("+", token.get(1).getRawString());
+        assertEquals("+", token.get(2).getRawString());
+        assertEquals("from", token.get(3).getRawString());
         for(int i=0;i<token.size()-1;i++) {
             assertEquals(token.get(i+1).span().start(), token.get(i).fullSpan().end());
         }
@@ -62,7 +62,7 @@ public class TokenizerTest {
         tokenizer = new Tokenizer(s,TweetQlSyntaxKind.Operator.keySet());
         ArrayList<SyntaxToken> token=new ArrayList<>();
         token=tokenizer.tokenize();
-        assertEquals("select", token.get(0).rawString());
+        assertEquals("select", token.get(0).getRawString());
         for(int i=0;i<token.size()-1;i++) {
             assertEquals(token.get(i+1).span().start(), token.get(i).fullSpan().end());
         }
@@ -75,7 +75,7 @@ public class TokenizerTest {
         tokenizer = new Tokenizer(s,TweetQlSyntaxKind.Operator.keySet());
         ArrayList<SyntaxToken> token=new ArrayList<>();
         token=tokenizer.tokenize();
-        assertEquals("s", token.get(0).rawString());
+        assertEquals("s", token.get(0).getRawString());
         for(int i=0;i<token.size()-1;i++) {
             assertEquals(token.get(i+1).span().start(), token.get(i).fullSpan().end());
         }
@@ -88,10 +88,10 @@ public class TokenizerTest {
         tokenizer = new Tokenizer(s,TweetQlSyntaxKind.Operator.keySet());
         ArrayList<SyntaxToken> token=new ArrayList<>();
         token=tokenizer.tokenize();
-        assertEquals("from", token.get(0).rawString());
-        assertEquals("+", token.get(1).rawString());
-        assertEquals("where", token.get(2).rawString());
-        assertEquals("are", token.get(3).rawString());
+        assertEquals("from", token.get(0).getRawString());
+        assertEquals("+", token.get(1).getRawString());
+        assertEquals("where", token.get(2).getRawString());
+        assertEquals("are", token.get(3).getRawString());
         for(int i=0;i<token.size()-1;i++) {
             assertEquals(token.get(i+1).span().start(), token.get(i).fullSpan().end());
         }
@@ -104,9 +104,9 @@ public class TokenizerTest {
         tokenizer = new Tokenizer(s,TweetQlSyntaxKind.Operator.keySet());
         ArrayList<SyntaxToken> token=new ArrayList<>();
         token=tokenizer.tokenize();
-        assertEquals("are", token.get(0).rawString());
-        assertEquals(".", token.get(1).rawString());
-        assertEquals("+", token.get(2).rawString());
+        assertEquals("are", token.get(0).getRawString());
+        assertEquals(".", token.get(1).getRawString());
+        assertEquals("+", token.get(2).getRawString());
         for(int i=0;i<token.size()-1;i++) {
             assertEquals(token.get(i+1).span().start(), token.get(i).fullSpan().end());
         }
@@ -119,10 +119,10 @@ public class TokenizerTest {
         tokenizer = new Tokenizer(s,TweetQlSyntaxKind.Operator.keySet());
         ArrayList<SyntaxToken> token=new ArrayList<>();
         token=tokenizer.tokenize();
-        assertEquals("hello", token.get(0).rawString());
-        assertEquals(".", token.get(1).rawString());
-        assertEquals("world", token.get(2).rawString());
-        assertEquals(".", token.get(3).rawString());
+        assertEquals("hello", token.get(0).getRawString());
+        assertEquals(".", token.get(1).getRawString());
+        assertEquals("world", token.get(2).getRawString());
+        assertEquals(".", token.get(3).getRawString());
         for(int i=0;i<token.size()-1;i++) {
             assertEquals(token.get(i+1).span().start(), token.get(i).fullSpan().end());
         }

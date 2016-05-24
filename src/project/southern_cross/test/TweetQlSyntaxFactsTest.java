@@ -6,6 +6,9 @@ import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSy
 import static org.junit.Assert.*;
 
 /**
+ * Project Southern Cross
+ * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
+ *
  * Created by Administrator on 18/05/2016.
  */
 public class TweetQlSyntaxFactsTest {

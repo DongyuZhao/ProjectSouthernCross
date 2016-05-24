@@ -1,78 +1,74 @@
 package project.southern_cross.code_analysis;
 
 /**
+ * Project Southern Cross
+ * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
+ *
  * Created by Dy.Zhao on 2016/5/11 0011.
  */
 public abstract class SyntaxNodeOrToken {
-    private Span _span = new Span();
-    private Span _fullSpan = new Span();
+    private Span span = new Span();
+    private Span fullSpan = new Span();
 
-    private SyntaxNode _parent;
+    private SyntaxNode parent;
 
-    private int _kind;
+    private int kind;
 
-    protected String _rawString;
+    private SyntaxTrivia leadingTrivia;
 
-    private SyntaxTrivia _leadingTrivia;
+    private SyntaxTrivia trialingTrivia;
 
-    private SyntaxTrivia _trialingTrivia;
+    private boolean isMissing;
 
-    private boolean _isMissing;
-
-    public SyntaxNodeOrToken(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
-        this._parent = parent;
-        this._span = new Span(spanStart, spanEnd);
-        this._fullSpan = new Span(fullSpanStart, fullSpanEnd);
-        this._kind = kind;
-        this._rawString = rawString;
-        this._isMissing = isMissing;
+    public SyntaxNodeOrToken(SyntaxNode parent, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
+        this.parent = parent;
+        this.span = new Span(spanStart, spanEnd);
+        this.fullSpan = new Span(fullSpanStart, fullSpanEnd);
+        this.kind = kind;
+        this.isMissing = isMissing;
     }
 
     public Span span() {
-        return _span;
+        return span;
     }
 
     public Span fullSpan() {
-        return _fullSpan;
+        return fullSpan;
     }
 
     public SyntaxNode parent() {
-        return _parent;
+        return parent;
     }
 
     public int kind() {
-        return this._kind;
-    }
-
-    public String rawString() {
-        return _rawString;
+        return this.kind;
     }
 
     public SyntaxTrivia leadingTrivia() {
-        return _leadingTrivia;
+        return leadingTrivia;
     }
 
     public SyntaxTrivia trialingTrivia() {
-        return _trialingTrivia;
+        return trialingTrivia;
     }
 
     public boolean isMissing() {
-        return this._isMissing;
+        return this.isMissing;
     }
 
     void setParent(SyntaxNode _parent) {
-        this._parent = _parent;
+        this.parent = _parent;
     }
 
     public void setKind(int _kind) {
-        this._kind = _kind;
+        this.kind = _kind;
     }
 
     void setLeadingTrivia(SyntaxTrivia _leadingTrivia) {
-        this._leadingTrivia = _leadingTrivia;
+        this.leadingTrivia = _leadingTrivia;
     }
 
     void setTrialingTrivia(SyntaxTrivia _trialingTrivia) {
-        this._trialingTrivia = _trialingTrivia;
+        this.trialingTrivia = _trialingTrivia;
     }
 }
