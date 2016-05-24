@@ -28,34 +28,44 @@ public abstract class SyntaxNodeBuilder<T extends SyntaxNode> {
 
     public void appendChildToken(SyntaxToken token) {
         this.childTokens.add(token);
+        this.built = false;
         //this.rule.updateChildToken();
         this.span.updateEnd(token.fullSpan().end());
     }
 
     public void appendChildNode(SyntaxNode node) {
         this.getNode().addChildNode(node);
+        this.built = false;
         //this.rule.updateChildNode();
         this.span.updateEnd(node.fullSpan().end());
     }
 
     public void appendLeadingTrivia(SyntaxTrivia trivia) {
         this.leadingTrivia.add(trivia);
+        this.built = false;
         //this.rule.updateLeadingTrivia();
     }
 
     public void appendTrialingTrivia(SyntaxTrivia trivia) {
         this.trialingTrivia.add(trivia);
+        this.built = false;
         //this.rule.updateTrialingTrivia();
     }
 
     public void specifiedRule(SyntaxNodeBuildRule<T> rule) {
         this.rule = rule;
+        this.built = false;
         this.rule.setContext(this);
     }
 
     public T getNode() {
+        return this.node;
+    }
+
+    public T toSyntaxNode() {
         if (!this.built) {
             this.rule.build();
+            this.built = true;
         }
         return this.node;
     }
@@ -90,9 +100,5 @@ public abstract class SyntaxNodeBuilder<T extends SyntaxNode> {
 
     public SyntaxNodeBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         this.node = (T) new SyntaxNode(parent, startSpan, 0, startFullSpan, 0, SyntaxKind.Undetermined, false);
-    }
-
-    public void build() {
-        this.rule.build();
     }
 }
