@@ -2,6 +2,8 @@ package project.southern_cross.code_analysis.tweet_ql.language_features;
 
 import project.southern_cross.code_analysis.SyntaxNode;
 
+import java.util.ArrayList;
+
 /**
  * Project Southern Cross
  * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
@@ -10,6 +12,18 @@ import project.southern_cross.code_analysis.SyntaxNode;
  */
 public class FromExpressionSyntax extends SyntaxNode {
     public FromExpressionSyntax(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
-        super(parent, rawString, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
+        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
+    }
+
+
+
+    private UserDefinedTypeSyntax source;
+
+    public UserDefinedTypeSyntax getSource() {
+        return source;
+    }
+
+    public void setSource(UserDefinedTypeSyntax source) {
+        this.source = source;
     }
 }
