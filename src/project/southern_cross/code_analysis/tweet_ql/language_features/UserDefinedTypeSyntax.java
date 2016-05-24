@@ -1,6 +1,9 @@
 package project.southern_cross.code_analysis.tweet_ql.language_features;
 
+import project.southern_cross.code_analysis.SymbolInfo;
 import project.southern_cross.code_analysis.SyntaxNode;
+
+import java.util.ArrayList;
 
 /**
  * Project Southern Cross
@@ -9,17 +12,28 @@ import project.southern_cross.code_analysis.SyntaxNode;
  * Created by Dy.Zhao on 2016/5/23 0023.
  */
 public class UserDefinedTypeSyntax extends SyntaxNode {
-    public UserDefinedTypeSyntax(SyntaxNode parent, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
+    private SymbolInfo type;
+    private ArrayList<String> attributes = new ArrayList<>();
+
+    public UserDefinedTypeSyntax(SyntaxNode parent, String name, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
         super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
+        this.type = new SymbolInfo(name);
     }
 
-    private String definedName;
-
-    public void setName(String name){
-        this.definedName=name;
+    public SymbolInfo getType() {
+        return type;
     }
-    public String getName() {
 
-        return this.definedName;
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    @Override
+    public void addChildNode(SyntaxNode child) {
+        if (child.kind() == TweetQlSyntaxKind.AttributeName) {
+            this.attributes.add(child.toString());
+        }
+        super.addChildNode(child);
     }
 }
