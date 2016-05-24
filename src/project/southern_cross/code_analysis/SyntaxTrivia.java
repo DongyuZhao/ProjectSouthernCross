@@ -9,20 +9,20 @@ import java.util.Optional;
  * Created by Dy.Zhao on 2016/5/11 0011.
  */
 public class SyntaxTrivia {
-    private Span _span = new Span();
-    private String _rawString;
+    private Span span = new Span();
+    private String rawString;
 
     public SyntaxTrivia(String rawString, int spanStart, int spanEnd) {
-        this._rawString = rawString;
-        this._span = new Span(spanStart, spanEnd);
+        this.rawString = rawString;
+        this.span = new Span(spanStart, spanEnd);
     }
 
     public Span span() {
-        return _span;
+        return span;
     }
 
     public String rawString() {
-        return _rawString;
+        return rawString;
     }
 
 

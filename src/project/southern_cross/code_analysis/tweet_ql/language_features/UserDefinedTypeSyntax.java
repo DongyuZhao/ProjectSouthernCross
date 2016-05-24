@@ -8,9 +8,9 @@ import project.southern_cross.code_analysis.SyntaxNode;
  *
  * Created by Dy.Zhao on 2016/5/23 0023.
  */
-public class UserDefinedTypeNode extends SyntaxNode {
-    public UserDefinedTypeNode(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
-        super(parent, rawString, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
+public class UserDefinedTypeSyntax extends SyntaxNode {
+    public UserDefinedTypeSyntax(SyntaxNode parent, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
+        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
     }
 
     private String definedName;
