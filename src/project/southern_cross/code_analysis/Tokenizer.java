@@ -94,8 +94,7 @@ public class Tokenizer {
                         this.currentSession.getSpanEnd(),
                         this.currentSession.getFullSpanStart(),
                         this.currentSession.getFullSpanEnd(),
-                        SyntaxKind.Undetermined,
-                        false)
+                        SyntaxKind.Undetermined)
         );
     }
 
@@ -135,6 +134,9 @@ public class Tokenizer {
         for (char c: this.rawInput.toCharArray()) {
             if (c == '\r' || c == '\n'){
                 if (!this.currentSession.getRawString().equals("")){
+                    this.submitSession();
+                    this.createNewSession();
+                    this.currentSession.appendCharacter('\n');
                     this.submitSession();
                     this.createNewSession();
                     this.changeState(TokenizerStates.leadingSpace);

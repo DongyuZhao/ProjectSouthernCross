@@ -11,8 +11,8 @@ import java.util.Optional;
  */
 public class SyntaxToken extends SyntaxNodeOrToken {
     private String rawString;
-    public SyntaxToken(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
-        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
+    public SyntaxToken(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind) {
+        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind);
 
         this.rawString = rawString;
     }
