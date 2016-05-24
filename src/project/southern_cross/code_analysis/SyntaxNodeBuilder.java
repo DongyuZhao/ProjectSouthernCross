@@ -49,4 +49,8 @@ public abstract class SyntaxNodeBuilder<T extends SyntaxNode> {
     public T getNode() {
         return this.node;
     }
+
+    public SyntaxNodeBuilder() {
+        this.node = (T) new SyntaxNode(null, 0, 0, 0, 0, SyntaxKind.Undetermined, false);
+    }
 }
