@@ -5,7 +5,7 @@ import project.southern_cross.code_analysis.SyntaxNode;
 /**
  * Project Southern Cross
  * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
- * <p>
+ *
  * Created by donggeliu on 24/05/2016.
  */
 public class FromKeywordSyntax  extends SyntaxNode{

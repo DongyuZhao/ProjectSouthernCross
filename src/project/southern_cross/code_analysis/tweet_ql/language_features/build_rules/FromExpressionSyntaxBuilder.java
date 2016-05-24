@@ -40,7 +40,7 @@ public class FromExpressionSyntaxBuilder extends SyntaxNodeBuilder<FromExpressio
                         if (token.kind() == TweetQlSyntaxKind.FROM) {
                             fromKeywordBuilder.appendChildToken(token);
                         }
-                        this.buildContext.appendChildNode(fromKeywordBuilder.getNode());
+                        this.buildContext.appendChildNode(fromKeywordBuilder.toSyntaxNode());
                     }
                 }
             }

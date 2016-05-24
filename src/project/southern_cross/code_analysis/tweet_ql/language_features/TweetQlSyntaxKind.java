@@ -53,8 +53,11 @@ public class TweetQlSyntaxKind extends SyntaxKind {
     public final static int DoubleQuote = 3015;
     public final static int SemiColon = 3016;
     public final static int Comma = 3017;
-    public final static int LeftBracket = 3018;
-    public final static int RightBracket = 3019;
+    public final static int LeftParenthesis = 3018;
+    public final static int RightParenthesis = 3019;
+    public final static int LeftBracket = 3020;
+    public final static int RightBracket = 3021;
+
 
 
     public static HashMap<String, Integer> KeyWord = new HashMap<String, Integer>() {
@@ -97,6 +100,8 @@ public class TweetQlSyntaxKind extends SyntaxKind {
             put(",", Comma);
             put("(", LeftBracket);
             put(")", RightBracket);
+            put("[", LeftParenthesis);
+            put("]", RightParenthesis);
         }
     };
 

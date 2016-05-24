@@ -59,6 +59,10 @@ public abstract class SyntaxNodeBuilder<T extends SyntaxNode> {
     }
 
     public T getNode() {
+        return this.node;
+    }
+
+    public T toSyntaxNode() {
         if (!this.built) {
             this.rule.build();
             this.built = true;

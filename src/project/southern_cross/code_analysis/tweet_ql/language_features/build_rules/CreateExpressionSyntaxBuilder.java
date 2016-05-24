@@ -1,6 +1,5 @@
 package project.southern_cross.code_analysis.tweet_ql.language_features.build_rules;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Syntax;
 import project.southern_cross.code_analysis.SyntaxNode;
 import project.southern_cross.code_analysis.SyntaxNodeBuildRule;
 import project.southern_cross.code_analysis.SyntaxNodeBuilder;
@@ -40,7 +39,7 @@ public class CreateExpressionSyntaxBuilder extends SyntaxNodeBuilder<CreateExpre
                         if (token.kind() == TweetQlSyntaxKind.CREATE) {
                             createKeywordBuilder.appendChildToken(token);
                         }
-                        this.buildContext.appendChildNode(createKeywordBuilder.getNode());
+                        this.buildContext.appendChildNode(createKeywordBuilder.toSyntaxNode());
                     }
                 }
             }

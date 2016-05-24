@@ -7,13 +7,24 @@ package project.southern_cross.code_analysis;
  * Created by Dy.Zhao on 2016/5/24 0024.
  */
 public class SymbolInfo {
-    private String name = "";
+    private String type = "";
+    private String convertedType = "";
 
-    public SymbolInfo(String name) {
-        this.name = name;
+    public SymbolInfo(String type) {
+        this.type = type;
+        //this.convertedType = type;
     }
 
-    public String getName() {
-        return name;
+    public SymbolInfo(String type, String convertedType) {
+        this.type = type;
+        this.convertedType = convertedType;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getConvertedType() {
+        return convertedType;
     }
 }
