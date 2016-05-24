@@ -14,8 +14,11 @@ public class SyntaxNode extends SyntaxNodeOrToken {
     private ArrayList<SyntaxNode> childNodes = new ArrayList<>();
     private ArrayList<SyntaxToken> childTokens = new ArrayList<>();
 
+    private boolean isMissing;
+
     public SyntaxNode(SyntaxNode parent, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
-        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
+        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind);
+        this.isMissing = isMissing;
     }
 
     public ArrayList<SyntaxNode> childNodes() {
@@ -55,6 +58,15 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         this.span().updateEnd(child.span().end());
         this.fullSpan().updateEnd(child.fullSpan().end());
     }
+
+    public boolean isMissing() {
+        return this.isMissing;
+    }
+
+    public void setMissing(boolean isMissing) {
+        this.isMissing = isMissing;
+    }
+
 
     @Override
     public String toString() {

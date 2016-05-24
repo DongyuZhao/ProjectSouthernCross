@@ -20,12 +20,12 @@ public class TweetQlSyntaxFacts extends SyntaxFacts {
     }
 
     @Override
-    protected boolean isKeyword(int rawKind) {
+    public boolean isKeyword(int rawKind) {
         return rawKind > SyntaxKind.ReservedKeyword && rawKind < SyntaxKind.PredefinedType;
     }
 
     @Override
-    protected boolean isOperator(int rawKind) {
+    public boolean isOperator(int rawKind) {
         return rawKind > SyntaxKind.ReservedOperator;
     }
 
@@ -36,7 +36,7 @@ public class TweetQlSyntaxFacts extends SyntaxFacts {
     }
 
     @Override
-    protected boolean isPredefinedType(int rawKind) {
+    public boolean isPredefinedType(int rawKind) {
         return rawKind > SyntaxKind.PredefinedType && rawKind < SyntaxKind.UserDefinedType;
     }
 
