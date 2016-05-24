@@ -9,21 +9,6 @@ import java.util.*;
  * Created by Dy.Zhao on 2016/5/17 0017.
  */
 public class TweetQlSyntaxFacts extends SyntaxFacts {
-    private static ArrayList<String> specialTokenList = new ArrayList<String>() {{
-        add(".");
-        add("+");
-        add("-");
-        add("*");
-        add("/");
-        add("%");
-        add("^");
-        add("&&");
-        add("||");
-        add("!");
-        add("==");
-        add("=");
-        add("=>");
-    }};
 
     @Override
     public boolean isKeyword(String rawString) {
@@ -54,7 +39,16 @@ public class TweetQlSyntaxFacts extends SyntaxFacts {
 
     @Override
     public int getSyntaxKind(String rawString){
-        return TweetQlSyntaxKind.KeyWord.getOrDefault(rawString, -1);
+        if (TweetQlSyntaxKind.Operator.keySet().contains(rawString)) {
+            return TweetQlSyntaxKind.Operator.get(rawString);
+        }
+        if (TweetQlSyntaxKind.KeyWord.keySet().contains(rawString)) {
+            return TweetQlSyntaxKind.KeyWord.get(rawString);
+        }
+        if(TweetQlSyntaxKind.PredefinedType.keySet().contains(rawString)){
+            return TweetQlSyntaxKind.PredefinedType.get(rawString);
+        }
+        return -1;
     }
 
     @Override
@@ -64,12 +58,17 @@ public class TweetQlSyntaxFacts extends SyntaxFacts {
                 return entry.getKey();
             }
         }
+        for (Map.Entry<String, Integer> entry: TweetQlSyntaxKind.Operator.entrySet()) {
+            if (entry.getValue() == syntaxKind) {
+                return entry.getKey();
+            }
+        }
         return "";
     }
 
     @Override
-    public ArrayList<String> getSpecialTokenList() {
-        return specialTokenList;
+    public Set<String> getSpecialTokenList() {
+        return TweetQlSyntaxKind.Operator.keySet();
     }
 
     // 

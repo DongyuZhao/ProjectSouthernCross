@@ -13,11 +13,11 @@ public abstract class SyntaxTree {
         return this._root;
     }
 
-    public SyntaxTree(String source) {
+    public SyntaxTree() {
 
     }
 
-    public SyntaxTree(String source, String filePath) {
+    public SyntaxTree(String filePath) {
         this._filePath = filePath;
     }
 

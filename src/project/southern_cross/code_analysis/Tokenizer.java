@@ -1,6 +1,7 @@
 package project.southern_cross.code_analysis;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by Dy.Zhao on 2016/5/17 0017.
@@ -61,7 +62,7 @@ public class Tokenizer {
 
     private String rawInput;
 
-    private ArrayList<String> specialTokenList;
+    private Set<String> specialTokenList;
 
     private ArrayList<SyntaxToken> tokenList = new ArrayList<>();
 
@@ -71,7 +72,7 @@ public class Tokenizer {
 
     private int currentPosition = 0;
 
-    public Tokenizer(String rawInput, ArrayList<String> specialTokenList) {
+    public Tokenizer(String rawInput, Set<String> specialTokenList) {
         this.rawInput = rawInput;
         this.specialTokenList = specialTokenList;
         this.createNewSession();
@@ -107,6 +108,26 @@ public class Tokenizer {
         return this.specialTokenList.contains(s);
     }
 
+    private boolean isPartialSpecialToken(char c) {
+        for (String token : this.specialTokenList) {
+            if (token.toCharArray()[0] == c){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isPartialSpecialToken(String s){
+        if (s != null) {
+            for (String token : this.specialTokenList) {
+                if (s.length() <= token.length() && token.substring(0, s.length()).equals(s)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public ArrayList<SyntaxToken> tokenize() {
         for (char c: this.rawInput.toCharArray()) {
             if (c == '\r' || c == '\n'){
@@ -118,21 +139,24 @@ public class Tokenizer {
                     continue;
                 }
             }
-            if (this.currentState == TokenizerStates.leadingSpace && !Character.isWhitespace(c) && !this.isSpecialToken(c)) {
+            if (this.currentState == TokenizerStates.leadingSpace && !Character.isWhitespace(c) && !this.isSpecialToken(c) && !this.isPartialSpecialToken(c)) {
                 this.createNewSession();
                 this.changeState(TokenizerStates.text);
                 this.currentSession.appendCharacter(c);
                 this.currentPosition += 1;
                 continue;
             }
-            if (this.isSpecialToken(c)) {
+            if (this.isSpecialToken(c)
+                    || this.isPartialSpecialToken(c)
+                    || this.isPartialSpecialToken(this.currentSession.getRawString() + c)) {
                 if (this.currentState == TokenizerStates.text || this.currentState == TokenizerStates.trialingSpace) {
                     this.submitSession();
                     this.createNewSession();
                     this.changeState(TokenizerStates.specialToken);
                 }
                 if (this.currentState == TokenizerStates.specialToken) {
-                    if (this.isSpecialToken(this.currentSession.getRawString() + c)) {
+                    if (this.isSpecialToken(this.currentSession.getRawString() + c)
+                            || this.isPartialSpecialToken(this.currentSession.getRawString() + c)) {
                         this.currentSession.appendCharacter(c);
                     }
                     else {
@@ -145,7 +169,10 @@ public class Tokenizer {
                 this.currentPosition += 1;
                 continue;
             }
-            if((this.currentState == TokenizerStates.specialToken || this.currentState == TokenizerStates.trialingSpace) && !Character.isWhitespace(c) && !this.isSpecialToken(c)){
+            if((this.currentState == TokenizerStates.specialToken || this.currentState == TokenizerStates.trialingSpace)
+                    && !Character.isWhitespace(c)
+                    && !this.isSpecialToken(c)
+                    && !this.isPartialSpecialToken(this.currentSession.getRawString() + c)){
                 this.submitSession();
                 this.createNewSession();
                 this.changeState(TokenizerStates.text);
@@ -153,12 +180,16 @@ public class Tokenizer {
                 this.currentPosition += 1;
                 continue;
             }
-            if (this.currentState == TokenizerStates.text && !Character.isWhitespace(c) && !this.isSpecialToken(c)) {
+            if (this.currentState == TokenizerStates.text
+                    && !Character.isWhitespace(c)
+                    && !this.isSpecialToken(c)
+                    && !this.isPartialSpecialToken(c)) {
                 this.currentSession.appendCharacter(c);
                 this.currentPosition += 1;
                 continue;
             }
-            if ((this.currentState == TokenizerStates.text || this.currentState == TokenizerStates.specialToken) && Character.isWhitespace(c)) {
+            if ((this.currentState == TokenizerStates.text || this.currentState == TokenizerStates.specialToken)
+                    && Character.isWhitespace(c)) {
                 this.changeState(TokenizerStates.trialingSpace);
                 this.currentSession.appendSpace();
                 this.currentPosition += 1;
@@ -170,9 +201,7 @@ public class Tokenizer {
                 continue;
             }
         }
-        if (!this.currentSession.getRawString().equals("")) {
-            this.submitSession();
-        }
+        this.submitSession();
         return this.tokenList;
     }
 }

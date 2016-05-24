@@ -10,12 +10,12 @@ import java.util.ArrayList;
  * Created by Dy.Zhao on 2016/5/17 0017.
  */
 public class TweetQlSyntaxTree extends SyntaxTree {
-    public TweetQlSyntaxTree(String source) {
-        super(source);
+    public TweetQlSyntaxTree() {
+        super();
     }
 
-    public TweetQlSyntaxTree(String source, String filePath) {
-        super(source, filePath);
+    public TweetQlSyntaxTree(String filePath) {
+        super(filePath);
     }
 
     @Override
