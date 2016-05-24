@@ -40,7 +40,6 @@ public class CreateExpressionSyntaxBuilder extends SyntaxNodeBuilder<CreateExpre
                         if (token.kind() == TweetQlSyntaxKind.CREATE) {
                             createKeywordBuilder.appendChildToken(token);
                         }
-                        createKeywordBuilder.build();
                         this.buildContext.appendChildNode(createKeywordBuilder.getNode());
                     }
                 }
