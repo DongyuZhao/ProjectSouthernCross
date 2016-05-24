@@ -33,7 +33,7 @@ public abstract class SyntaxNodeBuilder<T extends SyntaxNode> {
     }
 
     public void appendChildNode(SyntaxNode node) {
-        //this.childNodes.add(node);
+        this.getNode().addChildNode(node);
         //this.rule.updateChildNode();
         this.span.updateEnd(node.fullSpan().end());
     }
@@ -90,5 +90,9 @@ public abstract class SyntaxNodeBuilder<T extends SyntaxNode> {
 
     public SyntaxNodeBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         this.node = (T) new SyntaxNode(parent, startSpan, 0, startFullSpan, 0, SyntaxKind.Undetermined, false);
+    }
+
+    public void build() {
+        this.rule.build();
     }
 }
