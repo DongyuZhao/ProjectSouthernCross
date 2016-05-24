@@ -33,6 +33,9 @@ public class TweetQlSyntaxKind extends SyntaxKind {
     public final static int DateType = 1004;
 
 
+    public final static int AttributeName = 2001;
+
+
     public final static int DotAccessOperator = 3001;
     public final static int PlusOperator = 3002;
     public final static int MinusOperator = 3003;

@@ -10,7 +10,7 @@ import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSy
 /**
  * Project Southern Cross
  * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
- * <p>
+ *
  * Created by donggeliu on 24/05/2016.
  */
 public class FromExpressionSyntaxBuilder extends SyntaxNodeBuilder<FromExpressionSyntax>{
@@ -40,7 +40,6 @@ public class FromExpressionSyntaxBuilder extends SyntaxNodeBuilder<FromExpressio
                         if (token.kind() == TweetQlSyntaxKind.FROM) {
                             fromKeywordBuilder.appendChildToken(token);
                         }
-                        fromKeywordBuilder.build();
                         this.buildContext.appendChildNode(fromKeywordBuilder.getNode());
                     }
                 }
