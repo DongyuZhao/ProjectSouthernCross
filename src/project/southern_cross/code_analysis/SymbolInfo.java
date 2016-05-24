@@ -27,4 +27,9 @@ public class SymbolInfo {
     public String getConvertedType() {
         return convertedType;
     }
+
+    @Override
+    public String toString() {
+        return this.getType();
+    }
 }

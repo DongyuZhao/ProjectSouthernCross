@@ -48,78 +48,78 @@ public class TweetQlSyntaxParser {
     }
 
     private void constructSyntaxTree(String source) {
-        this.root = new SyntaxNode(null, 0, source.length(), 0, source.length(), SyntaxKind.Root, false);
+        this.root = new SyntaxNode(null, 0, source.length(), 0, source.length(), SyntaxKind.Root, false, false);
         this.currentParent = this.root;
         this.currentState = ParserStates.Root;
         for (int i = 0; i < this.tokenList.size(); i++) {
             SyntaxToken token = this.tokenList.get(i);
-            if(this.currentState == ParserStates.Root) {
-                if (token.kind() == TweetQlSyntaxKind.CREATE){
-                    SyntaxNode createExpression = new CreateExpressionSyntax(
-                            currentParent,
-                            token.span().start(),
-                            token.span().end(),
-                            token.fullSpan().start(),
-                            token.fullSpan().end(),
-                            token.kind(),
-                            false);
-                    this.currentParent.addChildNode(createExpression);
-                    this.currentParent = createExpression;
-                    this.currentState=ParserStates.CreateExpression;
-                    continue;
-                }
-
-                if (token.kind() == TweetQlSyntaxKind.SELECT){
-                    SyntaxNode SelectExpression = new CreateExpressionSyntax(
-                            currentParent,
-                            token.span().start(),
-                            token.span().end(),
-                            token.fullSpan().start(),
-                            token.fullSpan().end(),
-                            token.kind(),
-                            false);
-                    this.currentParent.addChildNode(SelectExpression);
-                    this.currentParent = SelectExpression;
-                    this.currentState=ParserStates.SelectExpression;
-                    continue;
-                }
-
-            }
-
-            if(token.kind()==TweetQlSyntaxKind.Undetermined){
-                int kind=token.kind();
-                if(currentState==ParserStates.CreateExpression){
-                    kind=TweetQlSyntaxKind.UserDefinedType;
-                }else if (currentState ==ParserStates.FromExpression){
-                    kind=TweetQlSyntaxKind.UserDefinedType;
-                }
-                SyntaxNode userDefined = new UserDefinedTypeSyntax(
-                        currentParent,
-                        token.span().start(),
-                        token.span().end(),
-                        token.fullSpan().start(),
-                        token.fullSpan().end(),
-                        kind,
-                        false);
-                this.currentParent.addChildNode(userDefined);
-                continue;
-            }
-
-
-            if (token.kind()==TweetQlSyntaxKind.FROM){
-                SyntaxNode fromExpress = new FromExpressionSyntax(
-                        currentParent,
-                        token.getRawString(),
-                        token.span().start(),
-                        token.span().end(),
-                        token.fullSpan().start(),
-                        token.fullSpan().end(),
-                        token.kind(),
-                        false );
-                this.currentParent.addChildNode(fromExpress);
-                this.currentParent = fromExpress;
-                this.currentState=ParserStates.FromExpression;
-            }
+//            if(this.currentState == ParserStates.Root) {
+//                if (token.kind() == TweetQlSyntaxKind.CREATE){
+//                    SyntaxNode createExpression = new CreateExpressionSyntax(
+//                            currentParent,
+//                            token.span().start(),
+//                            token.span().end(),
+//                            token.fullSpan().start(),
+//                            token.fullSpan().end(),
+//                            token.kind(),
+//                            false);
+//                    this.currentParent.addChildNode(createExpression);
+//                    this.currentParent = createExpression;
+//                    this.currentState=ParserStates.CreateExpression;
+//                    continue;
+//                }
+//
+//                if (token.kind() == TweetQlSyntaxKind.SELECT){
+//                    SyntaxNode SelectExpression = new CreateExpressionSyntax(
+//                            currentParent,
+//                            token.span().start(),
+//                            token.span().end(),
+//                            token.fullSpan().start(),
+//                            token.fullSpan().end(),
+//                            token.kind(),
+//                            false);
+//                    this.currentParent.addChildNode(SelectExpression);
+//                    this.currentParent = SelectExpression;
+//                    this.currentState=ParserStates.SelectExpression;
+//                    continue;
+//                }
+//
+//            }
+//
+////            if(token.kind()==TweetQlSyntaxKind.UnDetermined){
+////                int kind=token.kind();
+////                if(currentState==ParserStates.CreateExpression){
+////                    kind=TweetQlSyntaxKind.UserDefinedType;
+////                }else if (currentState ==ParserStates.FromExpression){
+////                    kind=TweetQlSyntaxKind.UserDefinedType;
+////                }
+////                SyntaxNode userDefined = new UserDefinedTypeSyntax(
+////                        currentParent,
+////                        token.span().start(),
+////                        token.span().end(),
+////                        token.fullSpan().start(),
+////                        token.fullSpan().end(),
+////                        kind,
+////                        false);
+////                this.currentParent.addChildNode(userDefined);
+////                continue;
+////            }
+//
+//
+//            if (token.kind()==TweetQlSyntaxKind.FROM){
+//                SyntaxNode fromExpress = new FromExpressionSyntax(
+//                        currentParent,
+//                        token.getRawString(),
+//                        token.span().start(),
+//                        token.span().end(),
+//                        token.fullSpan().start(),
+//                        token.fullSpan().end(),
+//                        token.kind(),
+//                        false );
+//                this.currentParent.addChildNode(fromExpress);
+//                this.currentParent = fromExpress;
+//                this.currentState=ParserStates.FromExpression;
+//            }
         }
     }
 }

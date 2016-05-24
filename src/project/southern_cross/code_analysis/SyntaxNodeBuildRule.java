@@ -15,7 +15,7 @@ public abstract class SyntaxNodeBuildRule<T extends SyntaxNode> {
 //        return this.buildContext.getChildNodes();
 //    }
 
-    protected ArrayList<SyntaxToken> getChildToken() {
+    protected ArrayList<SyntaxToken> getChildTokens() {
         return this.buildContext.getChildTokens();
     }
 
@@ -35,8 +35,8 @@ public abstract class SyntaxNodeBuildRule<T extends SyntaxNode> {
 //        return this.getChildNodes().get(this.getChildNodes().size());
 //    }
 
-    protected SyntaxToken getLastChildTokens() {
-        return this.getChildToken().get(this.getChildToken().size());
+    protected SyntaxToken getLastChildToken() {
+        return this.getChildTokens().get(this.getChildTokens().size());
     }
 
     protected SyntaxTrivia getLastLeadingTrivia() {
