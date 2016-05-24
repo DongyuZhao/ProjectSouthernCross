@@ -8,8 +8,8 @@ import project.southern_cross.code_analysis.SyntaxNode;
  *
  * Created by Dy.Zhao on 2016/5/23 0023.
  */
-public class CreateExpressionNode extends SyntaxNode{
-    public CreateExpressionNode(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
+public class WhereExpressionSyntax extends SyntaxNode {
+    public WhereExpressionSyntax(SyntaxNode parent, String rawString, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
         super(parent, rawString, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
     }
 }

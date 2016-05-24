@@ -55,7 +55,7 @@ public class TweetQlSyntaxParser {
             SyntaxToken token = this.tokenList.get(i);
             if(this.currentState == ParserStates.Root) {
                 if (token.kind() == TweetQlSyntaxKind.CREATE){
-                    SyntaxNode createExpression = new CreateExpressionNode(
+                    SyntaxNode createExpression = new CreateExpressionSyntax(
                             currentParent,
                             token.rawString(),
                             token.span().start(),
@@ -71,7 +71,7 @@ public class TweetQlSyntaxParser {
                 }
 
                 if (token.kind() == TweetQlSyntaxKind.SELECT){
-                    SyntaxNode SelectExpression = new CreateExpressionNode(
+                    SyntaxNode SelectExpression = new CreateExpressionSyntax(
                             currentParent,
                             token.rawString(),
                             token.span().start(),
@@ -95,7 +95,7 @@ public class TweetQlSyntaxParser {
                 }else if (currentState ==ParserStates.FromExpression){
                     kind=TweetQlSyntaxKind.UserDefinedType;
                 }
-                SyntaxNode userDefined = new UserDefinedTypeNode(
+                SyntaxNode userDefined = new UserDefinedTypeSyntax(
                         currentParent,
                         token.rawString(),
                         token.span().start(),
@@ -110,7 +110,7 @@ public class TweetQlSyntaxParser {
 
 
             if (token.kind()==TweetQlSyntaxKind.FROM){
-                SyntaxNode fromExpress = new FromExpressionNode(
+                SyntaxNode fromExpress = new FromExpressionSyntax(
                         currentParent,
                         token.rawString(),
                         token.span().start(),
