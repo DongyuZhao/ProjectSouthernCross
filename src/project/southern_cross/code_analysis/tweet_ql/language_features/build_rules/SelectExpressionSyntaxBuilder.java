@@ -8,7 +8,7 @@ import project.southern_cross.code_analysis.tweet_ql.language_features.SelectExp
 /**
  * Project Southern Cross
  * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
- * <p>
+ *
  * Created by Dy.Zhao on 2016/5/25 0025.
  */
 public class SelectExpressionSyntaxBuilder extends SyntaxNodeBuilder<SelectExpressionSyntax> {
