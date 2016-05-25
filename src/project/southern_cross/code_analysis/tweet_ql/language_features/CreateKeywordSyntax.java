@@ -9,7 +9,7 @@ import project.southern_cross.code_analysis.SyntaxNode;
  * Created by Dy.Zhao on 2016/5/24 0024.
  */
 public class CreateKeywordSyntax extends SyntaxNode {
-    public CreateKeywordSyntax(SyntaxNode parent, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
-        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
+    public CreateKeywordSyntax(SyntaxNode parent, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing, boolean isUnexpected, boolean withError) {
+        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing, isUnexpected, withError);
     }
 }

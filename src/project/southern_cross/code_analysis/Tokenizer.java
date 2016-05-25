@@ -94,7 +94,9 @@ public class Tokenizer {
                         this.currentSession.getSpanEnd(),
                         this.currentSession.getFullSpanStart(),
                         this.currentSession.getFullSpanEnd(),
-                        SyntaxKind.Undetermined)
+                        SyntaxKind.UnDetermined,
+                        false,
+                        false)
         );
     }
 

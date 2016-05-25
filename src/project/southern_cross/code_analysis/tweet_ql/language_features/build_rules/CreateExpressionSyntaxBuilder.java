@@ -4,8 +4,7 @@ import project.southern_cross.code_analysis.SyntaxNode;
 import project.southern_cross.code_analysis.SyntaxNodeBuildRule;
 import project.southern_cross.code_analysis.SyntaxNodeBuilder;
 import project.southern_cross.code_analysis.SyntaxToken;
-import project.southern_cross.code_analysis.tweet_ql.language_features.CreateExpressionSyntax;
-import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSyntaxKind;
+import project.southern_cross.code_analysis.tweet_ql.language_features.*;
 
 /**
  * Project Southern Cross
@@ -14,11 +13,13 @@ import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSy
  * Created by Dy.Zhao on 2016/5/24 0024.
  */
 public class CreateExpressionSyntaxBuilder extends SyntaxNodeBuilder<CreateExpressionSyntax> {
-    public enum BuilderStates {
+    private enum BuilderStates {
         Default,
         CreateKeyWord,
+        FromKeyWord,
         InstanceAttribute,
-        SubExpression
+        SubExpression,
+        ParsedDefault
     }
 
     private class CreateExpressionSyntaxRule extends SyntaxNodeBuildRule<CreateExpressionSyntax> {
@@ -26,11 +27,18 @@ public class CreateExpressionSyntaxBuilder extends SyntaxNodeBuilder<CreateExpre
 
         @Override
         public void build() {
-            for(int i = 0; i < this.getChildToken().size(); i ++) {
-                SyntaxToken token = this.getChildToken().get(i);
-                boolean missing = false;
+            int skip = 0;
+            UserDefinedTypeSyntaxBuilder userDefinedTypeSyntaxBuilder = null;
+            FromExpressionSyntaxBuilder fromExpressionSyntaxBuilder = null;
+            for(int i = 0; i < this.getChildTokens().size(); i ++) {
+                SyntaxToken token = this.getChildTokens().get(i);
+                if (token.kind() == TweetQlSyntaxKind.ChangeLine) {
+                    this.buildContext.getNode().addChildToken(token);
+                    skip += 1;
+                    continue;
+                }
                 if (this.currentState == BuilderStates.Default) {
-                    if (i == 0) {
+                    if (i == skip) {
                         CreateKeywordBuilder createKeywordBuilder = new CreateKeywordBuilder(
                                 this.buildContext.getNode(),
                                 token.span().start(),
@@ -38,9 +46,59 @@ public class CreateExpressionSyntaxBuilder extends SyntaxNodeBuilder<CreateExpre
                         );
                         if (token.kind() == TweetQlSyntaxKind.CREATE) {
                             createKeywordBuilder.appendChildToken(token);
+                        } else {
+                            i -= 1;
                         }
                         this.buildContext.appendChildNode(createKeywordBuilder.toSyntaxNode());
+                        this.currentState = BuilderStates.CreateKeyWord;
                     }
+                    continue;
+                }
+                if (this.currentState == BuilderStates.CreateKeyWord) {
+                    if (token.kind() == TweetQlSyntaxKind.FROM) {
+                        if (userDefinedTypeSyntaxBuilder != null) {
+                            this.buildContext.getNode().addChildNode(userDefinedTypeSyntaxBuilder.toSyntaxNode());
+                            userDefinedTypeSyntaxBuilder = null;
+                        }
+                        if (fromExpressionSyntaxBuilder == null) {
+                            fromExpressionSyntaxBuilder = new FromExpressionSyntaxBuilder(
+                                    this.buildContext.getNode(),
+                                    token.span().start(),
+                                    token.fullSpan().start()
+                            );
+                        }
+                        fromExpressionSyntaxBuilder.appendChildToken(token);
+                        this.currentState = BuilderStates.FromKeyWord;
+                        continue;
+                    }
+                    if (userDefinedTypeSyntaxBuilder == null) {
+                        userDefinedTypeSyntaxBuilder = new UserDefinedTypeSyntaxBuilder(
+                                this.buildContext.getNode(),
+                                token.span().start(),
+                                token.fullSpan().start()
+                        );
+                    }
+                    userDefinedTypeSyntaxBuilder.appendChildToken(token);
+                    continue;
+                }
+                if (this.currentState == BuilderStates.FromKeyWord) {
+                    if (token.kind() == TweetQlSyntaxKind.SemiColon) {
+                        this.buildContext.getNode().addChildToken(token);
+                        if (fromExpressionSyntaxBuilder != null) {
+                            this.buildContext.getNode().addChildNode(fromExpressionSyntaxBuilder.toSyntaxNode());
+                            fromExpressionSyntaxBuilder = null;
+                        }
+                        this.currentState = BuilderStates.ParsedDefault;
+                        continue;
+                    }
+                }
+            }
+            if (this.currentState != BuilderStates.ParsedDefault) {
+                if (userDefinedTypeSyntaxBuilder != null) {
+                    this.buildContext.getNode().addChildNode(userDefinedTypeSyntaxBuilder.toSyntaxNode());
+                }
+                if (fromExpressionSyntaxBuilder != null) {
+                    this.buildContext.getNode().addChildNode(fromExpressionSyntaxBuilder.toSyntaxNode());
                 }
             }
         }

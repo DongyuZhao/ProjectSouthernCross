@@ -11,7 +11,7 @@ import project.southern_cross.code_analysis.SyntaxNode;
 public class FromKeywordSyntax  extends SyntaxNode{
 
     public FromKeywordSyntax(SyntaxNode parent, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd,
-                             int kind, boolean isMissing) {
-        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
+                             int kind, boolean isMissing, boolean isUnexpected, boolean withError) {
+        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing, isUnexpected, withError);
     }
 }

@@ -99,6 +99,6 @@ public abstract class SyntaxNodeBuilder<T extends SyntaxNode> {
     }
 
     public SyntaxNodeBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
-        this.node = (T) new SyntaxNode(parent, startSpan, 0, startFullSpan, 0, SyntaxKind.Undetermined, false);
+        this.node = (T) new SyntaxNode(parent, startSpan, 0, startFullSpan, 0, SyntaxKind.UnDetermined, false, false, false);
     }
 }
