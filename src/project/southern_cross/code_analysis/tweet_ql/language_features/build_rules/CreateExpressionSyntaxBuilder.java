@@ -104,11 +104,10 @@ public class CreateExpressionSyntaxBuilder extends SyntaxNodeBuilder<CreateExpre
         }
     }
 
-    private CreateExpressionSyntaxRule rule = new CreateExpressionSyntaxRule();
-
     public CreateExpressionSyntaxBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
-        rule.setContext(this);
+        this.specifiedRule(new CreateExpressionSyntaxRule());
+        this.rule.setContext(this);
     }
 
 

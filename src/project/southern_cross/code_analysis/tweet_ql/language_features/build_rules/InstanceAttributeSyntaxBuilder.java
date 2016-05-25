@@ -112,5 +112,7 @@ public class InstanceAttributeSyntaxBuilder extends SyntaxNodeBuilder<InstanceAt
 
     public InstanceAttributeSyntaxBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.specifiedRule(new InstanceAtrributeSyntaxBuildRule());
+        this.rule.setContext(this);
     }
 }

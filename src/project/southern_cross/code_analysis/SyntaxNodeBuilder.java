@@ -14,7 +14,7 @@ public abstract class SyntaxNodeBuilder<T extends SyntaxNode> {
     //private ArrayList<SyntaxNode> childNodes = new ArrayList<>();
     private ArrayList<SyntaxTrivia> leadingTrivia = new ArrayList<>();
     private ArrayList<SyntaxTrivia> trialingTrivia = new ArrayList<>();
-    private SyntaxNodeBuildRule<T> rule;
+    protected SyntaxNodeBuildRule<T> rule;
     private Span span = new Span();
     private Span fullSpan = new Span();
     private SyntaxNode parent;

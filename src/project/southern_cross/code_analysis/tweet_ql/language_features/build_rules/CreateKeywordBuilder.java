@@ -61,5 +61,7 @@ public class CreateKeywordBuilder extends SyntaxNodeBuilder<CreateKeywordSyntax>
 
     public CreateKeywordBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.specifiedRule(new CreateKeywordSyntaxRule());
+        this.rule.setContext(this);
     }
 }

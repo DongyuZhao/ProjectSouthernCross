@@ -48,7 +48,7 @@ public class TweetQlSyntaxParser {
     }
 
     private void constructSyntaxTree(String source) {
-        this.root = new SyntaxNode(null, 0, source.length(), 0, source.length(), SyntaxKind.Root, false, false);
+        this.root = new SyntaxNode(null, 0, source.length(), 0, source.length(), SyntaxKind.Root, false, false, false);
         this.currentParent = this.root;
         this.currentState = ParserStates.Root;
         for (int i = 0; i < this.tokenList.size(); i++) {

@@ -116,12 +116,10 @@ public class FromExpressionSyntaxBuilder extends SyntaxNodeBuilder<FromExpressio
         }
     }
 
-
-    private FromExpressionSyntaxBuilder.FromExpressionSyntaxRule rule = new FromExpressionSyntaxBuilder.FromExpressionSyntaxRule();
-
     public FromExpressionSyntaxBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
-        rule.setContext(this);
+        this.specifiedRule(new FromExpressionSyntaxRule());
+        this.rule.setContext(this);
     }
 
 

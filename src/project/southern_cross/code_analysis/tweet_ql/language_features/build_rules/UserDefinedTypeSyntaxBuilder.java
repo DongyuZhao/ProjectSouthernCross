@@ -126,5 +126,7 @@ public class UserDefinedTypeSyntaxBuilder extends SyntaxNodeBuilder<UserDefinedT
 
     public UserDefinedTypeSyntaxBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.specifiedRule(new UserDefinedTypeSyntaxBuildRule());
+        this.rule.setContext(this);
     }
 }

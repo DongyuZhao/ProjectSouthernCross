@@ -142,5 +142,7 @@ public class SystemObjectSyntaxBuilder extends SyntaxNodeBuilder<SystemObjectSyn
 
     public SystemObjectSyntaxBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.specifiedRule(new SystemObjectSyntaxBuildRule());
+        this.rule.setContext(this);
     }
 }
