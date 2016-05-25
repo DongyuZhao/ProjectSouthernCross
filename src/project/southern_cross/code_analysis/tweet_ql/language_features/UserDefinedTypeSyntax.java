@@ -15,7 +15,7 @@ public class UserDefinedTypeSyntax extends SyntaxNode {
     private SymbolInfo type;
     private ArrayList<String> attributes = new ArrayList<>();
 
-    public UserDefinedTypeSyntax(SyntaxNode parent, String name, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
+    public UserDefinedTypeSyntax(SyntaxNode parent, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
         super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
         this.type = new SymbolInfo(name);
     }
