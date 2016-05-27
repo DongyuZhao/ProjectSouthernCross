@@ -25,9 +25,9 @@ public class TweetQlSyntaxFactsTest {
         int value = fact.getSyntaxKind("SELECT");
         int value1 = fact.getSyntaxKind("'");
         int value2 = fact.getSyntaxKind("\"");
-        assertEquals(2,value);
-        assertEquals(22,value1);
-        assertEquals(23,value2);
+        assertEquals(3,value);
+        assertEquals(3014,value1);
+        assertEquals(3015,value2);
     }
 
 }
