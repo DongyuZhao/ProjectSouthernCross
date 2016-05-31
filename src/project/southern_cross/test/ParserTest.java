@@ -17,6 +17,6 @@ public class ParserTest {
         String source = "CREATE a FROM (B);";
         TweetQlSyntaxParser parser = new TweetQlSyntaxParser(source);
         TweetQlSyntaxTree tree = parser.parse();
-        Assert.assertNotNull(tree.root().toString());
+        Assert.assertEquals("CREATE a FROM (B);",tree.root().toString());
     }
 }

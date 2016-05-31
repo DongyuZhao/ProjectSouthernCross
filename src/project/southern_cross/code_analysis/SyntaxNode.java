@@ -6,7 +6,7 @@ import java.util.Optional;
 /**
  * Project Southern Cross
  * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
- *
+ * <p>
  * Created by Dy.Zhao on 2016/5/11 0011.
  */
 public class SyntaxNode extends SyntaxNodeOrToken {
@@ -42,7 +42,7 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         return result;
     }
 
-    public void addChildNode(SyntaxNode child){
+    public void addChildNode(SyntaxNode child) {
         child.setParent(this);
         this.childNodes.add(child);
         int spaceCount = this.fullSpan().end() - this.span().end();
@@ -62,15 +62,15 @@ public class SyntaxNode extends SyntaxNodeOrToken {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        if (this.childNodes.size() == 0) {
-            for (SyntaxToken token: this.childTokens) {
-                stringBuilder.append(token.getRawString());
+        for (int i = 0; i < childNodes.size(); i++) {
+            SyntaxNode node = childNodes.get(i);
+            stringBuilder.append(node.toString());
+            if (i != childNodes.size() - 1) {
+                stringBuilder.append(" ");
             }
         }
-        else {
-            for (SyntaxNode node: this.childNodes) {
-                stringBuilder.append(node.toString());
-            }
+        for (SyntaxToken token : this.childTokens) {
+            stringBuilder.append(token.getRawString());
         }
         return stringBuilder.toString();
     }
