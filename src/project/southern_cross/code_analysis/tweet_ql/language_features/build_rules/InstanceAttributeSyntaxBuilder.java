@@ -112,6 +112,7 @@ public class InstanceAttributeSyntaxBuilder extends SyntaxNodeBuilder<InstanceAt
 
     public InstanceAttributeSyntaxBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.node = new InstanceAttributeSyntax(parent, "", startSpan, 0, startFullSpan, 0, TweetQlSyntaxKind.InstanceAttribute, false, false, false);
         this.specifiedRule(new InstanceAtrributeSyntaxBuildRule());
         this.rule.setContext(this);
     }

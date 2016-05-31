@@ -25,8 +25,14 @@ public class TweetQlSyntaxFacts extends SyntaxFacts {
     }
 
     @Override
-    public boolean isOperator(int rawKind) {
-        return rawKind > SyntaxKind.ReservedOperator;
+    protected boolean isOperator(int rawKind) {
+        return rawKind > SyntaxKind.ReservedOperator && rawKind < TweetQlSyntaxKind.SystemObject;
+    }
+
+    @Override
+    public boolean isOperator(String rawString) {
+        int rawKind = getSyntaxKind(rawString);
+        return this.isOperator(rawKind);
     }
 
     @Override

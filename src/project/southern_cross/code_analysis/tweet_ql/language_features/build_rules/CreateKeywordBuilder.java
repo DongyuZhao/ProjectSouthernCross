@@ -1,9 +1,6 @@
 package project.southern_cross.code_analysis.tweet_ql.language_features.build_rules;
 
-import project.southern_cross.code_analysis.SyntaxNode;
-import project.southern_cross.code_analysis.SyntaxNodeBuildRule;
-import project.southern_cross.code_analysis.SyntaxNodeBuilder;
-import project.southern_cross.code_analysis.SyntaxToken;
+import project.southern_cross.code_analysis.*;
 import project.southern_cross.code_analysis.tweet_ql.language_features.CreateKeywordSyntax;
 import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSyntaxKind;
 
@@ -61,6 +58,7 @@ public class CreateKeywordBuilder extends SyntaxNodeBuilder<CreateKeywordSyntax>
 
     public CreateKeywordBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.node = new CreateKeywordSyntax(parent, startSpan, 0, startFullSpan, 0, TweetQlSyntaxKind.CREATE, false, false, false);
         this.specifiedRule(new CreateKeywordSyntaxRule());
         this.rule.setContext(this);
     }

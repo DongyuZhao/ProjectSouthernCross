@@ -1,6 +1,7 @@
 package project.southern_cross.code_analysis.tweet_ql.language_features.build_rules;
 
 import project.southern_cross.code_analysis.*;
+import project.southern_cross.code_analysis.tweet_ql.language_features.SelectExpressionSyntax;
 import project.southern_cross.code_analysis.tweet_ql.language_features.SystemObjectSyntax;
 import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSyntaxKind;
 
@@ -142,6 +143,7 @@ public class SystemObjectSyntaxBuilder extends SyntaxNodeBuilder<SystemObjectSyn
 
     public SystemObjectSyntaxBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.node = new SystemObjectSyntax(parent, "", startSpan, 0, startFullSpan, 0, TweetQlSyntaxKind.SystemObject, false, false, false);
         this.specifiedRule(new SystemObjectSyntaxBuildRule());
         this.rule.setContext(this);
     }

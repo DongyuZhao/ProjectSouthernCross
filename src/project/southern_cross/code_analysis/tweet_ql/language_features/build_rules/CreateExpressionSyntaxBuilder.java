@@ -1,9 +1,6 @@
 package project.southern_cross.code_analysis.tweet_ql.language_features.build_rules;
 
-import project.southern_cross.code_analysis.SyntaxNode;
-import project.southern_cross.code_analysis.SyntaxNodeBuildRule;
-import project.southern_cross.code_analysis.SyntaxNodeBuilder;
-import project.southern_cross.code_analysis.SyntaxToken;
+import project.southern_cross.code_analysis.*;
 import project.southern_cross.code_analysis.tweet_ql.language_features.*;
 
 /**
@@ -91,6 +88,8 @@ public class CreateExpressionSyntaxBuilder extends SyntaxNodeBuilder<CreateExpre
                         this.currentState = BuilderStates.ParsedDefault;
                         continue;
                     }
+                    fromExpressionSyntaxBuilder.appendChildToken(token);
+                    continue;
                 }
             }
             if (this.currentState != BuilderStates.ParsedDefault) {
@@ -106,6 +105,7 @@ public class CreateExpressionSyntaxBuilder extends SyntaxNodeBuilder<CreateExpre
 
     public CreateExpressionSyntaxBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.node = new CreateExpressionSyntax(parent, startSpan, 0, startFullSpan, 0, TweetQlSyntaxKind.CreateExpression, false, false, false);
         this.specifiedRule(new CreateExpressionSyntaxRule());
         this.rule.setContext(this);
     }

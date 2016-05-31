@@ -19,7 +19,7 @@ public abstract class SyntaxNodeBuilder<T extends SyntaxNode> {
     private Span fullSpan = new Span();
     private SyntaxNode parent;
     private boolean built = false;
-    private T node;
+    protected T node;
 
     public void clear() {
         // this.childNodes.clear();

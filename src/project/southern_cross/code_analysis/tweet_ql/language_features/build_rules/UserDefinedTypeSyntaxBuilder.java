@@ -4,6 +4,7 @@ import project.southern_cross.code_analysis.SyntaxNode;
 import project.southern_cross.code_analysis.SyntaxNodeBuildRule;
 import project.southern_cross.code_analysis.SyntaxNodeBuilder;
 import project.southern_cross.code_analysis.SyntaxToken;
+import project.southern_cross.code_analysis.tweet_ql.language_features.SelectExpressionSyntax;
 import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSyntaxKind;
 import project.southern_cross.code_analysis.tweet_ql.language_features.UserDefinedTypeSyntax;
 
@@ -126,6 +127,7 @@ public class UserDefinedTypeSyntaxBuilder extends SyntaxNodeBuilder<UserDefinedT
 
     public UserDefinedTypeSyntaxBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.node = new UserDefinedTypeSyntax(parent, "", startSpan, 0, startFullSpan, 0, TweetQlSyntaxKind.UserDefinedType, false, false, false);
         this.specifiedRule(new UserDefinedTypeSyntaxBuildRule());
         this.rule.setContext(this);
     }

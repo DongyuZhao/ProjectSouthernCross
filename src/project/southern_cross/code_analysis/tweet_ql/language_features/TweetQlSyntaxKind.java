@@ -59,6 +59,14 @@ public class TweetQlSyntaxKind extends SyntaxKind {
     public final static int LeftBracket = 3020;
     public final static int RightBracket = 3021;
 
+    public final static int SystemObject = 5000;
+    public final static int UserDefinedType = 5001;
+    public final static int InstanceAttribute = 5002;
+    public final static int CreateExpression = 5003;
+    public final static int FromExpression = 5004;
+    public final static int SelectExpression = 5005;
+
+
 
 
     public static HashMap<String, Integer> KeyWord = new HashMap<String, Integer>() {

@@ -20,6 +20,10 @@ public abstract class SyntaxTree {
 
     }
 
+    public SyntaxTree(SyntaxNode root) {
+        this._root = root;
+    }
+
     public SyntaxTree(String filePath) {
         this._filePath = filePath;
     }

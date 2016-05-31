@@ -61,6 +61,7 @@ public class FromKeywordBuilder extends SyntaxNodeBuilder<FromKeywordSyntax> {
 
     public FromKeywordBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.node = new FromKeywordSyntax(parent, startSpan, 0, startFullSpan, 0, TweetQlSyntaxKind.FROM, false, false, false);
         this.specifiedRule(new FromKeywordSyntaxRule());
         this.rule.setContext(this);
     }

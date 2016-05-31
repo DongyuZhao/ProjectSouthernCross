@@ -34,7 +34,6 @@ public class FromExpressionSyntaxBuilder extends SyntaxNodeBuilder<FromExpressio
             UserDefinedTypeSyntaxBuilder userDefinedTypeSyntaxBuilder = null;
             for (int i = 0; i < this.getChildTokens().size(); i++) {
                 SyntaxToken token = this.getChildTokens().get(i);
-                boolean missing = false;
                 if (token.kind() == TweetQlSyntaxKind.ChangeLine) {
                     this.buildContext.getNode().addChildToken(token);
                     skip += 1;
@@ -118,6 +117,7 @@ public class FromExpressionSyntaxBuilder extends SyntaxNodeBuilder<FromExpressio
 
     public FromExpressionSyntaxBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.node = new FromExpressionSyntax(parent, startSpan, 0, startFullSpan, 0, TweetQlSyntaxKind.FromExpression, false, false, false);
         this.specifiedRule(new FromExpressionSyntaxRule());
         this.rule.setContext(this);
     }
