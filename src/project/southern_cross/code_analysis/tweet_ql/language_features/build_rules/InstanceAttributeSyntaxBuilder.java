@@ -53,10 +53,8 @@ public class InstanceAttributeSyntaxBuilder extends SyntaxNodeBuilder<InstanceAt
                                     true
                             )
                     );
-                    this.buildContext.getNode().setWithError(true);
                     this.currentState = BuilderStates.AttributeName;
                     token.setUnexpected(true);
-                    token.setWithError(true);
                     this.buildContext.getNode().addChildToken(token);
                     continue;
                 }
@@ -72,7 +70,6 @@ public class InstanceAttributeSyntaxBuilder extends SyntaxNodeBuilder<InstanceAt
                         continue;
                     }
                     token.setUnexpected(true);
-                    token.setWithError(true);
                     this.buildContext.getNode().addChildToken(token);
                     continue;
                 }
@@ -85,13 +82,11 @@ public class InstanceAttributeSyntaxBuilder extends SyntaxNodeBuilder<InstanceAt
                         continue;
                     }
                     token.setUnexpected(true);
-                    token.setWithError(true);
                     this.buildContext.getNode().addChildToken(token);
                     continue;
                 }
                 if (this.currentState == BuilderStates.ParsedDefault) {
                     token.setUnexpected(true);
-                    token.setWithError(true);
                     this.buildContext.getNode().addChildToken(token);
                     continue;
                 }
@@ -102,7 +97,6 @@ public class InstanceAttributeSyntaxBuilder extends SyntaxNodeBuilder<InstanceAt
                         continue;
                     }
                     token.setUnexpected(true);
-                    token.setWithError(true);
                     this.buildContext.getNode().addChildToken(token);
                     continue;
                 }

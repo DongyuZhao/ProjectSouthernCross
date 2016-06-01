@@ -1,21 +1,24 @@
 package project.southern_cross.code_analysis.tweet_ql.language_features.build_rules;
 
-import project.southern_cross.code_analysis.*;
-import project.southern_cross.code_analysis.tweet_ql.language_features.CreateKeywordSyntax;
+import project.southern_cross.code_analysis.SyntaxNode;
+import project.southern_cross.code_analysis.SyntaxNodeBuildRule;
+import project.southern_cross.code_analysis.SyntaxNodeBuilder;
+import project.southern_cross.code_analysis.SyntaxToken;
+import project.southern_cross.code_analysis.tweet_ql.language_features.SelectKeywordSyntax;
 import project.southern_cross.code_analysis.tweet_ql.language_features.TweetQlSyntaxKind;
 
 /**
  * Project Southern Cross
  * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
- *
- * Created by Dy.Zhao on 2016/5/24 0024.
+ * <p>
+ * Created by donggeliu on 1/06/2016.
  */
-public class CreateKeywordBuilder extends SyntaxNodeBuilder<CreateKeywordSyntax> {
+public class SelectKeywordBuilder extends SyntaxNodeBuilder<SelectKeywordSyntax> {
     private enum BuilderStates {
         Default,
-        CreateKeyword,
+        SelectKeyword,
     }
-    private class CreateKeywordSyntaxRule extends SyntaxNodeBuildRule<CreateKeywordSyntax> {
+    private class SelectKeywordSyntaxRule extends SyntaxNodeBuildRule<SelectKeywordSyntax> {
         private BuilderStates currentState = BuilderStates.Default;
         @Override
         public void build() {
@@ -25,9 +28,9 @@ public class CreateKeywordBuilder extends SyntaxNodeBuilder<CreateKeywordSyntax>
                     continue;
                 }
                 if (this.currentState == BuilderStates.Default) {
-                    if (token.kind() == TweetQlSyntaxKind.CREATE) {
+                    if (token.kind() == TweetQlSyntaxKind.SELECT) {
                         this.buildContext.getNode().addChildToken(token);
-                        this.currentState = BuilderStates.CreateKeyword;
+                        this.currentState = BuilderStates.SelectKeyword;
                         continue;
                     }
                 }
@@ -43,7 +46,7 @@ public class CreateKeywordBuilder extends SyntaxNodeBuilder<CreateKeywordSyntax>
                                 0,
                                 this.buildContext.getSpan().start(),
                                 0,
-                                TweetQlSyntaxKind.CREATE,
+                                TweetQlSyntaxKind.SELECT,
                                 true,
                                 false,
                                 true
@@ -54,10 +57,10 @@ public class CreateKeywordBuilder extends SyntaxNodeBuilder<CreateKeywordSyntax>
         }
     }
 
-    public CreateKeywordBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
+    public SelectKeywordBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
-        this.node = new CreateKeywordSyntax(parent, startSpan, 0, startFullSpan, 0, TweetQlSyntaxKind.CREATE, false, false, false);
-        this.specifiedRule(new CreateKeywordSyntaxRule());
+        this.node = new SelectKeywordSyntax(parent, startSpan, 0, startFullSpan, 0, TweetQlSyntaxKind.SELECT, false, false, false);
+        this.specifiedRule(new SelectKeywordSyntaxRule());
         this.rule.setContext(this);
     }
 }

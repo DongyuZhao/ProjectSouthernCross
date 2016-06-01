@@ -82,10 +82,16 @@ public abstract class SyntaxNodeOrToken {
 
     public void setMissing(boolean isMissing) {
         this.isMissing = isMissing;
+        if (isMissing) {
+            this.setWithError(true);
+        }
     }
 
     public void setUnexpected(boolean isUnexpected) {
         this.isUnexpected = isUnexpected;
+        if (isUnexpected) {
+            this.setWithError(true);
+        }
     }
 
     public boolean isWithError() {
