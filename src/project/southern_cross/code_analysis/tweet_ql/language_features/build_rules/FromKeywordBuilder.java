@@ -36,7 +36,6 @@ public class FromKeywordBuilder extends SyntaxNodeBuilder<FromKeywordSyntax> {
                 }
                 token.setUnexpected(true);
                 this.buildContext.getNode().addChildToken(token);
-                this.buildContext.getNode().setWithError(true);
             }
             if (this.currentState == BuilderStates.Default) {
                 this.buildContext.getNode().addChildToken(
@@ -54,7 +53,6 @@ public class FromKeywordBuilder extends SyntaxNodeBuilder<FromKeywordSyntax> {
                         )
                 );
                 this.buildContext.getNode().setMissing(true);
-                this.buildContext.getNode().setWithError(true);
             }
         }
     }

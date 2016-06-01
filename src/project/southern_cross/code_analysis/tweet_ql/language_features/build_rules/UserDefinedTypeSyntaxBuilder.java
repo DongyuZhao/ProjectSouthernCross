@@ -26,14 +26,11 @@ public class UserDefinedTypeSyntaxBuilder extends SyntaxNodeBuilder<UserDefinedT
 
     private class UserDefinedTypeSyntaxBuildRule extends SyntaxNodeBuildRule<UserDefinedTypeSyntax> {
         private BuilderStates currentState = BuilderStates.Default;
+        private BuilderStates previousState = BuilderStates.Default;
 
         @Override
         public void build() {
-            InstanceAttributeSyntaxBuilder instanceAttributeSyntaxBuilder = new InstanceAttributeSyntaxBuilder(
-                    this.buildContext.getNode(),
-                    this.buildContext.getSpan().start(),
-                    this.buildContext.getFullSpan().start()
-            );
+            InstanceAttributeSyntaxBuilder instanceAttributeSyntaxBuilder = new InstanceAttributeSyntaxBuilder(this.buildContext.getNode(), this.buildContext.getSpan().start(), this.buildContext.getFullSpan().start());
             for (int i = 0; i < this.getChildTokens().size(); i++) {
                 SyntaxToken token = this.getChildTokens().get(i);
                 if (token.kind() == TweetQlSyntaxKind.ChangeLine) {
@@ -43,6 +40,7 @@ public class UserDefinedTypeSyntaxBuilder extends SyntaxNodeBuilder<UserDefinedT
                 if (token.kind() == TweetQlSyntaxKind.Comma) {
                     instanceAttributeSyntaxBuilder.appendChildToken(token);
                     this.buildContext.getNode().addChildNode(instanceAttributeSyntaxBuilder.toSyntaxNode());
+                    this.previousState = this.currentState;
                     this.currentState = BuilderStates.Comma;
                     continue;
                 }
@@ -53,21 +51,24 @@ public class UserDefinedTypeSyntaxBuilder extends SyntaxNodeBuilder<UserDefinedT
                             token.fullSpan().start()
                     );
                     i -= 1;
-                    this.currentState = BuilderStates.Default;
+                    //this.previousState = this.currentState;
+                    this.currentState = this.previousState;
                     continue;
                 }
                 if (this.currentState == BuilderStates.Default) {
                     if (token.kind() == TweetQlSyntaxKind.LeftBracket) {
+                        this.previousState = this.currentState;
                         this.currentState = BuilderStates.LeftBracket;
+                        this.buildContext.getNode().addChildToken(token);
                         continue;
                     }
                     if (token.kind() == TweetQlSyntaxKind.RightBracket) {
                         token.setUnexpected(true);
-                        token.setWithError(true);
                         this.buildContext.getNode().addChildToken(token);
                         continue;
                     }
                     if (token.kind() == TweetQlSyntaxKind.AS) {
+                        this.previousState = this.currentState;
                         this.currentState = BuilderStates.As;
                         continue;
                     }
@@ -75,29 +76,36 @@ public class UserDefinedTypeSyntaxBuilder extends SyntaxNodeBuilder<UserDefinedT
                 }
                 if (this.currentState == BuilderStates.LeftBracket) {
                     if (token.kind() == TweetQlSyntaxKind.RightBracket) {
+                        this.previousState = this.currentState;
                         this.currentState = BuilderStates.RightBracket;
                         this.buildContext.getNode().addChildNode(instanceAttributeSyntaxBuilder.toSyntaxNode());
+                        this.buildContext.getNode().addChildToken(token);
                         continue;
                     }
+                    instanceAttributeSyntaxBuilder = new InstanceAttributeSyntaxBuilder(this.buildContext.getNode(),
+                            token.span().start(),
+                            token.fullSpan().start());
+                    instanceAttributeSyntaxBuilder.appendChildToken(token);
+                    continue;
                 }
                 if (this.currentState == BuilderStates.RightBracket) {
                     if (token.kind() == TweetQlSyntaxKind.AS) {
+                        this.previousState = this.currentState;
                         this.currentState = BuilderStates.As;
                         continue;
                     }
                     token.setUnexpected(true);
-                    token.setWithError(true);
                     this.buildContext.getNode().addChildToken(token);
                     continue;
                 }
                 if (this.currentState == BuilderStates.As) {
                     if (token.kind() == TweetQlSyntaxKind.UnDetermined) {
+                        this.previousState = this.currentState;
                         this.buildContext.getNode().setType(token.getRawString());
                         this.currentState = BuilderStates.ParsedDefault;
                         continue;
                     }
                     token.setUnexpected(true);
-                    token.setWithError(true);
                     this.buildContext.getNode().addChildToken(token);
                     continue;
                 }
@@ -117,9 +125,8 @@ public class UserDefinedTypeSyntaxBuilder extends SyntaxNodeBuilder<UserDefinedT
                                 true
                         )
                 );
-                this.buildContext.getNode().setWithError(true);
             }
-            if (this.currentState == BuilderStates.Default) {
+            if (this.currentState == BuilderStates.Default && instanceAttributeSyntaxBuilder != null) {
                 this.buildContext.getNode().addChildNode(instanceAttributeSyntaxBuilder.toSyntaxNode());
             }
         }
