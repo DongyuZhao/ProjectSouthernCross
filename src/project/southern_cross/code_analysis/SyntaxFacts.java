@@ -15,6 +15,8 @@ public abstract class SyntaxFacts {
 
     protected abstract boolean isOperator(int rawKind);
 
+    public abstract boolean isOperator(String rawString);
+
     public abstract boolean isPredefinedType(String rawString);
 
     protected abstract boolean isPredefinedType(int rawKind);

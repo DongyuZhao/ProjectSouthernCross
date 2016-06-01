@@ -5,6 +5,7 @@ import project.southern_cross.code_analysis.SyntaxNode;
 import project.southern_cross.code_analysis.SyntaxToken;
 import project.southern_cross.code_analysis.Tokenizer;
 import project.southern_cross.code_analysis.tweet_ql.language_features.*;
+import project.southern_cross.code_analysis.tweet_ql.language_features.build_rules.CreateExpressionSyntaxBuilder;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
@@ -34,92 +35,29 @@ public class TweetQlSyntaxParser {
     }
 
     public TweetQlSyntaxTree parse() {
-        updateContextFreeTokens();
-        throw new NotImplementedException();
+        this.updateContextFreeTokens();
+        this.constructSyntaxTree();
+        return new TweetQlSyntaxTree(this.root);
     }
 
     private void updateContextFreeTokens() {
         for (SyntaxToken token : this.tokenList) {
             String rawString = token.getRawString();
-            if (TweetQlLanguageFeatures.SyntaxFacts.isKeyword(rawString)) {
+            if (TweetQlLanguageFeatures.SyntaxFacts.isKeyword(rawString) || TweetQlLanguageFeatures.SyntaxFacts.isOperator(rawString)) {
                 token.setKind(TweetQlLanguageFeatures.SyntaxFacts.getSyntaxKind(rawString));
             }
         }
     }
 
-    private void constructSyntaxTree(String source) {
-        this.root = new SyntaxNode(null, 0, source.length(), 0, source.length(), SyntaxKind.Root, false);
+    private void constructSyntaxTree() {
+        this.root = new SyntaxNode(null, 0, 0, 0, 0, SyntaxKind.Root, false, false, false);
         this.currentParent = this.root;
         this.currentState = ParserStates.Root;
+        CreateExpressionSyntaxBuilder createExpressionSyntaxBuilder = new CreateExpressionSyntaxBuilder(this.root, 0, 0);
         for (int i = 0; i < this.tokenList.size(); i++) {
             SyntaxToken token = this.tokenList.get(i);
-            if(this.currentState == ParserStates.Root) {
-                if (token.kind() == TweetQlSyntaxKind.CREATE){
-                    SyntaxNode createExpression = new CreateExpressionSyntax(
-                            currentParent,
-                            token.span().start(),
-                            token.span().end(),
-                            token.fullSpan().start(),
-                            token.fullSpan().end(),
-                            token.kind(),
-                            false);
-                    this.currentParent.addChildNode(createExpression);
-                    this.currentParent = createExpression;
-                    this.currentState=ParserStates.CreateExpression;
-                    continue;
-                }
-
-                if (token.kind() == TweetQlSyntaxKind.SELECT){
-                    SyntaxNode SelectExpression = new CreateExpressionSyntax(
-                            currentParent,
-                            token.span().start(),
-                            token.span().end(),
-                            token.fullSpan().start(),
-                            token.fullSpan().end(),
-                            token.kind(),
-                            false);
-                    this.currentParent.addChildNode(SelectExpression);
-                    this.currentParent = SelectExpression;
-                    this.currentState=ParserStates.SelectExpression;
-                    continue;
-                }
-
-            }
-
-            if(token.kind()==TweetQlSyntaxKind.Undetermined){
-                int kind=token.kind();
-                if(currentState==ParserStates.CreateExpression){
-                    kind=TweetQlSyntaxKind.UserDefinedType;
-                }else if (currentState ==ParserStates.FromExpression){
-                    kind=TweetQlSyntaxKind.UserDefinedType;
-                }
-                SyntaxNode userDefined = new UserDefinedTypeSyntax(
-                        currentParent,
-                        token.span().start(),
-                        token.span().end(),
-                        token.fullSpan().start(),
-                        token.fullSpan().end(),
-                        kind,
-                        false);
-                this.currentParent.addChildNode(userDefined);
-                continue;
-            }
-
-
-            if (token.kind()==TweetQlSyntaxKind.FROM){
-                SyntaxNode fromExpress = new FromExpressionSyntax(
-                        currentParent,
-                        token.getRawString(),
-                        token.span().start(),
-                        token.span().end(),
-                        token.fullSpan().start(),
-                        token.fullSpan().end(),
-                        token.kind(),
-                        false );
-                this.currentParent.addChildNode(fromExpress);
-                this.currentParent = fromExpress;
-                this.currentState=ParserStates.FromExpression;
-            }
+            createExpressionSyntaxBuilder.appendChildToken(token);
         }
+        this.root.addChildNode(createExpressionSyntaxBuilder.toSyntaxNode());
     }
 }

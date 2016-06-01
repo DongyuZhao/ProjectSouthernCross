@@ -1,5 +1,6 @@
 package project.southern_cross.code_analysis.tweet_ql;
 
+import project.southern_cross.code_analysis.SyntaxNode;
 import project.southern_cross.code_analysis.SyntaxToken;
 import project.southern_cross.code_analysis.SyntaxTree;
 import project.southern_cross.code_analysis.Tokenizer;
@@ -19,6 +20,11 @@ public class TweetQlSyntaxTree extends SyntaxTree {
 
     public TweetQlSyntaxTree(String filePath) {
         super(filePath);
+    }
+
+    public TweetQlSyntaxTree(SyntaxNode root)
+    {
+        super(root);
     }
 
     @Override

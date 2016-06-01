@@ -19,22 +19,50 @@ public class FromKeywordBuilder extends SyntaxNodeBuilder<FromKeywordSyntax> {
         FromKeyword
     }
     private class FromKeywordSyntaxRule extends SyntaxNodeBuildRule<FromKeywordSyntax> {
-        private FromKeywordBuilder.BuilderStates currentState = BuilderStates.Default;
+        private BuilderStates currentState = BuilderStates.Default;
         @Override
         public void build() {
-            for(SyntaxToken token: this.getChildToken()) {
+            for(SyntaxToken token: this.getChildTokens()) {
+                if (token.kind() == TweetQlSyntaxKind.ChangeLine) {
+                    this.buildContext.getNode().addChildToken(token);
+                    continue;
+                }
                 if (this.currentState == BuilderStates.Default) {
                     if (token.kind() == TweetQlSyntaxKind.FROM) {
                         this.buildContext.getNode().addChildToken(token);
                         this.currentState = BuilderStates.FromKeyword;
-                        return;
+                        continue;
                     }
                 }
+                token.setUnexpected(true);
+                this.buildContext.getNode().addChildToken(token);
+                this.buildContext.getNode().setWithError(true);
+            }
+            if (this.currentState == BuilderStates.Default) {
+                this.buildContext.getNode().addChildToken(
+                        new SyntaxToken(
+                                this.buildContext.getNode(),
+                                "",
+                                this.buildContext.getSpan().start(),
+                                0,
+                                this.buildContext.getSpan().start(),
+                                0,
+                                TweetQlSyntaxKind.FROM,
+                                true,
+                                false,
+                                true
+                        )
+                );
+                this.buildContext.getNode().setMissing(true);
+                this.buildContext.getNode().setWithError(true);
             }
         }
     }
 
     public FromKeywordBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
+        this.node = new FromKeywordSyntax(parent, startSpan, 0, startFullSpan, 0, TweetQlSyntaxKind.FROM, false, false, false);
+        this.specifiedRule(new FromKeywordSyntaxRule());
+        this.rule.setContext(this);
     }
 }

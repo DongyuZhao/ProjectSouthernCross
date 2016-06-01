@@ -11,8 +11,8 @@ import project.southern_cross.code_analysis.SyntaxNode;
  */
 public class InstanceAttributeSyntax extends SyntaxNode {
     private SymbolInfo type;
-    public InstanceAttributeSyntax(SyntaxNode parent, String name, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing) {
-        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing);
+    public InstanceAttributeSyntax(SyntaxNode parent, String name, int spanStart, int spanEnd, int fullSpanStart, int fullSpanEnd, int kind, boolean isMissing, boolean isUnexpected, boolean withError) {
+        super(parent, spanStart, spanEnd, fullSpanStart, fullSpanEnd, kind, isMissing, isUnexpected, withError);
         this.type = new SymbolInfo(name);
     }
 
@@ -20,8 +20,24 @@ public class InstanceAttributeSyntax extends SyntaxNode {
         return type;
     }
 
+    public void setType(String type) {
+        this.type = new SymbolInfo(type, type);
+    }
+
+    public void setType(String type, String displayName) {
+        this.type = new SymbolInfo(displayName, type);
+    }
+
+    public String getAttributeName() {
+        return this.type.getConvertedType();
+    }
+
+    public String getDisplayName() {
+        return this.type.getType();
+    }
+
     @Override
     public String toString() {
-        return this.type.getName();
+        return this.type.toString();
     }
 }

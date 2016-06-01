@@ -14,12 +14,12 @@ public abstract class SyntaxNodeBuilder<T extends SyntaxNode> {
     //private ArrayList<SyntaxNode> childNodes = new ArrayList<>();
     private ArrayList<SyntaxTrivia> leadingTrivia = new ArrayList<>();
     private ArrayList<SyntaxTrivia> trialingTrivia = new ArrayList<>();
-    private SyntaxNodeBuildRule<T> rule;
+    protected SyntaxNodeBuildRule<T> rule;
     private Span span = new Span();
     private Span fullSpan = new Span();
     private SyntaxNode parent;
     private boolean built = false;
-    private T node;
+    protected T node;
 
     public void clear() {
         // this.childNodes.clear();
@@ -99,6 +99,6 @@ public abstract class SyntaxNodeBuilder<T extends SyntaxNode> {
     }
 
     public SyntaxNodeBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
-        this.node = (T) new SyntaxNode(parent, startSpan, 0, startFullSpan, 0, SyntaxKind.Undetermined, false);
+        this.node = (T) new SyntaxNode(parent, startSpan, 0, startFullSpan, 0, SyntaxKind.UnDetermined, false, false, false);
     }
 }
