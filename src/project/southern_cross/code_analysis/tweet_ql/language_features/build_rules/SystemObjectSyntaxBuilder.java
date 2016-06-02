@@ -77,7 +77,6 @@ public class SystemObjectSyntaxBuilder extends SyntaxNodeBuilder<SystemObjectSyn
                         );
                         token.setUnexpected(true);
                         this.buildContext.getNode().addChildToken(token);
-                        this.buildContext.getNode().setWithError(true);
                     }
                 }
                 if (this.currentState == BuilderStates.ParsedParenthesis) {
@@ -102,12 +101,10 @@ public class SystemObjectSyntaxBuilder extends SyntaxNodeBuilder<SystemObjectSyn
                         );
                         token.setUnexpected(true);
                         this.buildContext.getNode().addChildToken(token);
-                        this.buildContext.getNode().setWithError(true);
                     }
                 }
                 if (currentState == BuilderStates.ParsedDefault) {
                     token.setUnexpected(true);
-                    this.buildContext.getNode().setWithError(true);
                     this.buildContext.getNode().addChildToken(token);
                     continue;
                 }
@@ -135,7 +132,6 @@ public class SystemObjectSyntaxBuilder extends SyntaxNodeBuilder<SystemObjectSyn
                                     true
                             )
                     );
-                    this.buildContext.getNode().setWithError(true);
                 }
             }
         }

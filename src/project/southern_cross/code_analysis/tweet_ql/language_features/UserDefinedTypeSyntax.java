@@ -36,4 +36,14 @@ public class UserDefinedTypeSyntax extends SyntaxNode {
         }
         super.addChildNode(child);
     }
+
+    @Override
+    public String toString() {
+        if (this.getType().toString().equals("")) {
+            return super.toString();
+        }
+        else {
+            return super.toString() + " AS " + this.getType();
+        }
+    }
 }

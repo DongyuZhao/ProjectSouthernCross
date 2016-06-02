@@ -48,6 +48,7 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         int spaceCount = this.fullSpan().end() - this.span().end();
         this.span().updateEnd(child.span().end());
         this.fullSpan().updateEnd(child.fullSpan().end());
+        this.setWithError(child.isWithError());
 
     }
 
@@ -56,6 +57,7 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         this.childTokens.add(child);
         this.span().updateEnd(child.span().end());
         this.fullSpan().updateEnd(child.fullSpan().end());
+        this.setWithError(child.isWithError());
     }
 
 

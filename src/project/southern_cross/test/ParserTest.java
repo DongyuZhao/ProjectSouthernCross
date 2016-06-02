@@ -13,10 +13,34 @@ import project.southern_cross.code_analysis.tweet_ql.TweetQlSyntaxTree;
  */
 public class ParserTest {
     @Test
-    public void test(){
+    public void testCreate() {
         String source = "CREATE a FROM (B);";
         TweetQlSyntaxParser parser = new TweetQlSyntaxParser(source);
         TweetQlSyntaxTree tree = parser.parse();
         Assert.assertEquals("CREATE a FROM (B);",tree.root().toString());
+    }
+
+    @Test
+    public void testSelect() {
+        String source = "SELECT c FROM a;";
+        TweetQlSyntaxParser parser = new TweetQlSyntaxParser(source);
+        TweetQlSyntaxTree tree = parser.parse();
+        Assert.assertEquals("SELECT c FROM a;",tree.root().toString());
+    }
+
+    @Test
+    public void testSelectInstance() {
+        String source = "SELECT (c, d, e) FROM a;";
+        TweetQlSyntaxParser parser = new TweetQlSyntaxParser(source);
+        TweetQlSyntaxTree tree = parser.parse();
+        Assert.assertEquals("SELECT c d e() FROM a;",tree.root().toString());
+    }
+
+    @Test
+    public void testSelectAS() {
+        String source = "SELECT (c, d, e) AS f FROM a;";
+        TweetQlSyntaxParser parser = new TweetQlSyntaxParser(source);
+        TweetQlSyntaxTree tree = parser.parse();
+        Assert.assertEquals("SELECT c d e() AS f FROM a;",tree.root().toString());
     }
 }
