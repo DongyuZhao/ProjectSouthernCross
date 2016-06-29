@@ -29,17 +29,33 @@ public class TweetQlSyntaxParser {
     private ParserStates currentState = ParserStates.Root;
     private SyntaxNode currentParent;
 
+
+    /**
+     *  Split a string into several token
+     * @param source
+     * Return an arraylist contains all token
+     */
+
     public TweetQlSyntaxParser(String source) {
         Tokenizer tokenizer = new Tokenizer(source, TweetQlSyntaxKind.Operator.keySet());
         this.tokenList = tokenizer.tokenize();
     }
 
+    /**
+     * call updateContextFreeTokens() and constructSyntaxTree()
+     * @return
+     * return a SyntaxTree with this root node.
+     */
     public TweetQlSyntaxTree parse() {
         this.updateContextFreeTokens();
         this.constructSyntaxTree();
         return new TweetQlSyntaxTree(this.root);
     }
 
+    /**
+     * traversing all token in the tokenList
+     * if this token is Keyword or reserve word, change its SyntaxKind to corresponding value.
+     */
     private void updateContextFreeTokens() {
         for (SyntaxToken token : this.tokenList) {
             String rawString = token.getRawString();
@@ -49,6 +65,11 @@ public class TweetQlSyntaxParser {
         }
     }
 
+    /**
+     * used to generate a syntaxTree.
+     * now createExpression only.
+     *
+     */
     private void constructSyntaxTree() {
         this.root = new SyntaxNode(null, 0, 0, 0, 0, SyntaxKind.Root, false, false, false);
         this.currentParent = this.root;

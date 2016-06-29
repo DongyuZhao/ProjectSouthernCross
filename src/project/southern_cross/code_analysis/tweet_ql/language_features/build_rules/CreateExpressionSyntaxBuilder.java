@@ -103,6 +103,13 @@ public class CreateExpressionSyntaxBuilder extends SyntaxNodeBuilder<CreateExpre
         }
     }
 
+    /**
+     * initialize createExpression
+     * @param parent
+     * @param startSpan
+     * @param startFullSpan
+     *
+     */
     public CreateExpressionSyntaxBuilder(SyntaxNode parent, int startSpan, int startFullSpan) {
         super(parent, startSpan, startFullSpan);
         this.node = new CreateExpressionSyntax(parent, startSpan, 0, startFullSpan, 0, TweetQlSyntaxKind.CreateExpression, false, false, false);
