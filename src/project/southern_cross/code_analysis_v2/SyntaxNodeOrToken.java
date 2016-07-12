@@ -84,15 +84,6 @@ public class SyntaxNodeOrToken extends SyntaxUnit {
         this.error = missing || unexpected;
     }
 
-    public List<SyntaxNode> getAncestorNode() {
-        ArrayList<SyntaxNode> result = new ArrayList<>();
-        SyntaxNode node = this.getParentNode();
-        if (node != null) {
-            result.add(node);
-            result.addAll(node.getAncestorNode());
-        }
-        return result;
-    }
 
     public int getKind() {
         return kind;

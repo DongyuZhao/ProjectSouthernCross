@@ -2,6 +2,9 @@ package project.southern_cross.code_analysis_v2;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Project Southern Cross
  * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
@@ -17,8 +20,8 @@ public class SyntaxUnit {
 
     public SyntaxUnit() {
         this.parentNode = null;
-        this.span = new SyntaxSpan(-1,-1);
-        this.fullSpan = new SyntaxSpan(-1,-1);
+        this.span = new SyntaxSpan(-1, -1);
+        this.fullSpan = new SyntaxSpan(-1, -1);
     }
 
     public SyntaxUnit(int start) {
@@ -47,8 +50,8 @@ public class SyntaxUnit {
 
     public SyntaxUnit(SyntaxNode parentNode) {
         this.parentNode = parentNode;
-        this.span = new SyntaxSpan(-1,-1);
-        this.fullSpan = new SyntaxSpan(-1,-1);
+        this.span = new SyntaxSpan(-1, -1);
+        this.fullSpan = new SyntaxSpan(-1, -1);
     }
 
     public SyntaxUnit(SyntaxNode parentNode, int start) {
@@ -99,11 +102,12 @@ public class SyntaxUnit {
     }
 
     protected void setEnd(int end) {
-        if (end >= this.getStart() && end >= this.getEnd()) {
-            this.span.setEnd(end);
-            this.setFullEnd(end);
-        }
-        else {
+        if (end >= this.getStart()) {
+            if (end >= this.getEnd()) {
+                this.span.setEnd(end);
+                this.setFullEnd(end);
+            }
+        } else {
             throw new IllegalArgumentException("The argument 'end' is less than 'start'.");
         }
     }
@@ -123,13 +127,25 @@ public class SyntaxUnit {
     }
 
     protected void setFullEnd(int end) {
-        if (end >= this.getFullStart() && end >= this.getFullEnd()) {
-            this.fullSpan.setEnd(end);
-        }
-        else {
+        if (end >= this.getFullStart()) {
+            if (end >= this.getFullEnd()) {
+                this.fullSpan.setEnd(end);
+            }
+        } else {
             throw new IllegalArgumentException("The argument 'end' is less than 'start'.");
         }
     }
+
+    public List<SyntaxNode> getAncestorNode() {
+        ArrayList<SyntaxNode> result = new ArrayList<>();
+        SyntaxNode node = this.getParentNode();
+        if (node != null) {
+            result.add(node);
+            result.addAll(node.getAncestorNode());
+        }
+        return result;
+    }
+
 
     public String getRawString() {
         throw new NotImplementedException();
