@@ -1,7 +1,5 @@
 package project.southern_cross.code_analysis;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * Project Southern Cross
  * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
@@ -9,11 +7,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * Created by Dy.Zhao on 2016/5/11 0011.
  */
 public abstract class SyntaxTree {
-    private SyntaxNode _root;
-    private String _filePath = "";
+    private SyntaxNode root;
+    private String filePath = "";
 
     public SyntaxNode root() {
-        return this._root;
+        return this.root;
     }
 
     public SyntaxTree() {
@@ -21,16 +19,14 @@ public abstract class SyntaxTree {
     }
 
     public SyntaxTree(SyntaxNode root) {
-        this._root = root;
+        this.root = root;
     }
 
     public SyntaxTree(String filePath) {
-        this._filePath = filePath;
+        this.filePath = filePath;
     }
 
     public String filePath() {
-        return this._filePath;
+        return this.filePath;
     }
-
-    public abstract void ParseSource(String source);
 }

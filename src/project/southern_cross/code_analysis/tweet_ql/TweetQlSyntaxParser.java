@@ -1,9 +1,6 @@
 package project.southern_cross.code_analysis.tweet_ql;
 
-import project.southern_cross.code_analysis.SyntaxKind;
-import project.southern_cross.code_analysis.SyntaxNode;
-import project.southern_cross.code_analysis.SyntaxToken;
-import project.southern_cross.code_analysis.Tokenizer;
+import project.southern_cross.code_analysis.*;
 import project.southern_cross.code_analysis.tweet_ql.language_features.*;
 import project.southern_cross.code_analysis.tweet_ql.language_features.build_rules.CreateExpressionSyntaxBuilder;
 import project.southern_cross.code_analysis.tweet_ql.language_features.build_rules.SelectExpressionSyntaxBuilder;
@@ -17,14 +14,13 @@ import java.util.ArrayList;
  *
  * Created by Dy.Zhao on 2016/5/22 0022.
  */
-public class TweetQlSyntaxParser {
+public class TweetQlSyntaxParser extends SyntaxParser {
     private enum ParserStates {
         Root,
         CreateExpression,
         SelectExpression,
         FromExpression
     }
-    private ArrayList<SyntaxToken> tokenList;
     private SyntaxNode root;
     private ParserStates currentState = ParserStates.Root;
     private SyntaxNode currentParent;
@@ -37,8 +33,8 @@ public class TweetQlSyntaxParser {
      */
 
     public TweetQlSyntaxParser(String source) {
-        Tokenizer tokenizer = new Tokenizer(source, TweetQlSyntaxKind.Operator.keySet());
-        this.tokenList = tokenizer.tokenize();
+        super(source, TweetQlSyntaxKind.Operator.keySet());
+        this.updateContextFreeTokens();
     }
 
     /**
@@ -47,7 +43,7 @@ public class TweetQlSyntaxParser {
      * return a SyntaxTree with this root node.
      */
     public TweetQlSyntaxTree parse() {
-        this.updateContextFreeTokens();
+        // this.updateContextFreeTokens();
         this.constructSyntaxTree();
         return new TweetQlSyntaxTree(this.root);
     }

@@ -1,11 +1,13 @@
 package project.southern_cross.code_analysis.tweet_ql;
 
 import project.southern_cross.code_analysis.SyntaxNode;
-import project.southern_cross.code_analysis.SyntaxToken;
 import project.southern_cross.code_analysis.SyntaxTree;
-import project.southern_cross.code_analysis.Tokenizer;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 /**
  * Project Southern Cross
@@ -18,18 +20,23 @@ public class TweetQlSyntaxTree extends SyntaxTree {
         super();
     }
 
-    public TweetQlSyntaxTree(String filePath) {
-        super(filePath);
-    }
-
     public TweetQlSyntaxTree(SyntaxNode root)
     {
         super(root);
     }
 
-    @Override
-    public void ParseSource(String source) {
-
+    public static TweetQlSyntaxTree parse(String source) {
+        TweetQlSyntaxParser_v2 parser = new TweetQlSyntaxParser_v2(source);
+        return new TweetQlSyntaxTree(parser.parse());
     }
 
+    public static TweetQlSyntaxTree parseFile(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        if (Files.exists(path)) {
+            String source = new String(Files.readAllBytes(path));
+            TweetQlSyntaxParser_v2 parser = new TweetQlSyntaxParser_v2(source);
+            return new TweetQlSyntaxTree(parser.parse());
+        }
+        throw new IOException("File with path '" + filePath + "' is missing.");
+    }
 }
