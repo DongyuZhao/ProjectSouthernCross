@@ -8,22 +8,25 @@ import java.util.Set;
  * <p>
  * Created by Dy.Zhao on 2016/7/11.
  */
-public abstract class SyntaxFacts {
-    public abstract boolean isKeyword(String rawString);
+public interface SyntaxFacts {
 
-    protected abstract boolean isKeyword(int rawKind);
+    boolean isSyntaxToken(int rawKind);
 
-    protected abstract boolean isOperator(int rawKind);
+    boolean isSyntaxNode(int rawKind);
 
-    public abstract boolean isOperator(String rawString);
+    boolean isKeyword(String rawString);
 
-    public abstract boolean isPredefinedType(String rawString);
+    boolean isKeyword(int rawKind);
 
-    protected abstract boolean isPredefinedType(int rawKind);
+    boolean isOperator(int rawKind);
 
-    public abstract int getSyntaxKind(String rawString);
+    boolean isOperator(String rawString);
 
-    public abstract String getFullString(int syntaxKind);
+    boolean isPredefinedType(String rawString);
 
-    public abstract Set<String> getSpecialTokenList();
+    boolean isPredefinedType(int rawKind);
+
+    int getSyntaxKind(String rawString);
+
+    Set<String> getSpecialTokenList();
 }

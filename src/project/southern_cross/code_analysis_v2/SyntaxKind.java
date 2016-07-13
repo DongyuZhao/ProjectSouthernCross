@@ -18,4 +18,5 @@ public class SyntaxKind {
     public final static int OPERATOR_SYNTAX_NODE = 5000;
     public final static int EXPRESSION_SYNTAX_NODE = 6000;
     public final static int COMMENT_SYNTAX_TRIVIA = 7000;
+    public final static int ERROR = -1;
 }

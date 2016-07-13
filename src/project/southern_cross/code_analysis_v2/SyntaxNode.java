@@ -127,7 +127,7 @@ public class SyntaxNode extends SyntaxNodeOrToken {
 
     public List<SyntaxToken> getDescendTokens() {
         ArrayList<SyntaxToken> result = new ArrayList<>(this.childTokens);
-        this.getDescendNodes().stream().forEach(node -> result.addAll(node.getChildTokens()));
+        this.getDescendNodes().forEach(node -> result.addAll(node.getChildTokens()));
         return result;
     }
 
@@ -140,7 +140,7 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         this.setFullEnd(child.getFullEnd());
     }
 
-    protected int findSyntaxUnitInsertIndex(int start, int end, List<? extends SyntaxUnit> container) {
+    private int findSyntaxUnitInsertIndex(int start, int end, List<? extends SyntaxUnit> container) {
         if (container.size() == 0) {
             return 0;
         }
@@ -223,14 +223,14 @@ public class SyntaxNode extends SyntaxNodeOrToken {
     public String toString() {
         if (this.hasChildNode()) {
             StringBuilder stringBuilder = new StringBuilder();
-            this.getChildNodes().stream().forEach(node -> stringBuilder.append(node.getFullString()));
+            this.getChildNodes().forEach(node -> stringBuilder.append(node.getFullString()));
             return "SyntaxNode: '" + stringBuilder.toString() + "';";
         }
         else {
             StringBuilder stringBuilder = new StringBuilder();
             // this.getLeadingTrivia().stream().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
-            this.getChildTokens().stream().forEach(token -> stringBuilder.append(token.getFullString()));
-            // this.getLeadingTrivia().stream().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
+            this.getChildTokens().forEach(token -> stringBuilder.append(token.getFullString()));
+            // this.getTrialingTrivia().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
             return "SyntaxNode: '" + stringBuilder.toString() + "';";
         }
     }
@@ -239,14 +239,14 @@ public class SyntaxNode extends SyntaxNodeOrToken {
     public String getFullString() {
         if (this.hasChildNode()) {
             StringBuilder stringBuilder = new StringBuilder();
-            this.getChildNodes().stream().forEach(node -> stringBuilder.append(node.getFullString()));
+            this.getChildNodes().forEach(node -> stringBuilder.append(node.getFullString()));
             return stringBuilder.toString();
         }
         else {
             StringBuilder stringBuilder = new StringBuilder();
-            this.getLeadingTrivia().stream().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
-            this.getChildTokens().stream().forEach(token -> stringBuilder.append(token.getFullString()));
-            this.getLeadingTrivia().stream().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
+            this.getLeadingTrivia().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
+            this.getChildTokens().forEach(token -> stringBuilder.append(token.getFullString()));
+            this.getTrialingTrivia().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
             return stringBuilder.toString();
         }
     }
