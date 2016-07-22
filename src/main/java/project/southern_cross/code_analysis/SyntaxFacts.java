@@ -17,6 +17,8 @@ public interface SyntaxFacts {
 
     boolean isKeyword(int rawKind);
 
+    boolean isDigit(String rawString);
+
     boolean isOperator(int rawKind);
 
     boolean isOperator(String rawString);
@@ -30,4 +32,6 @@ public interface SyntaxFacts {
     Set<String> getSpecialSymbolList();
 
     Set<String> getChangeLineSymbols();
+
+    Set<Character> getPostDigitLabelList();
 }

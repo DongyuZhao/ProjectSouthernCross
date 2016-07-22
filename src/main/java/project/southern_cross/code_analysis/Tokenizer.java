@@ -82,11 +82,11 @@ public class Tokenizer {
             return fullEnd;
         }
 
-        public SyntaxToken getToken() {
+        SyntaxToken getToken() {
             return new SyntaxToken(this.getRawString(), getSyntaxFacts().getSyntaxKind(this.getRawString()), this.getStart(), this.getEnd(), this.getFullStart(), this.getFullEnd(), false, false);
         }
 
-        public void clear(int start, int fullStart) {
+        void clear(int start, int fullStart) {
             this.initStart(start, fullStart);
             this.initEnd(start, fullStart);
             this.stringBuilder = new StringBuilder();
@@ -117,6 +117,10 @@ public class Tokenizer {
 
     private Set<String> getChangeLineSymbols() {
         return this.getSyntaxFacts().getChangeLineSymbols();
+    }
+
+    private Set<Character> getPostDigitLabelList() {
+        return this.getSyntaxFacts().getPostDigitLabelList();
     }
 
     private boolean isSpecialSymbol(char c) {
@@ -170,17 +174,40 @@ public class Tokenizer {
             this.currentPosition = i;
             char c = charArray[i];
 
-            if (Character.isAlphabetic(c)) {
+
+
+            if (this.isInState(TokenizerState.DIGIT)) {
+                // Support 12l, 24f and close the modify
+                if (this.getPostDigitLabelList().contains(c)) {
+                    this.currentSession.appendCharacter(c);
+                    this.changeState(TokenizerState.TRIALING_SPACE);
+                    continue;
+                }
+                // Support 12.1
+                if (c == '.') {
+                    this.currentSession.appendCharacter(c);
+                    this.changeState(TokenizerState.FLOAT);
+                } else {
+                    // If it is not 12f and 12.1, submit
+                    this.submitSession();
+                    i -= 1;
+                }
+                continue;
+            }
+
+            if (Character.isAlphabetic(c) || c == '_') {
                 if (this.isInState(TokenizerState.LEADING_SPACE)) {
+                    // start from leading
                     this.changeState(TokenizerState.TEXT);
                 }
                 if (this.isInState(TokenizerState.TEXT)) {
+                    // append to existing session
                     this.currentSession.appendCharacter(c);
                     continue;
                 }
                 if (this.isInState(TokenizerState.TRIALING_SPACE) || this.isInState(TokenizerState.SPECIAL_SYMBOL)) {
+                    // start a new session
                     this.submitSession();
-                    // this.changeState(TokenizerState.LEADING_SPACE);
                     i -= 1;
                     continue;
                 }
@@ -188,15 +215,17 @@ public class Tokenizer {
 
             if (Character.isDigit(c)) {
                 if (this.isInState(TokenizerState.LEADING_SPACE)) {
+                    // start from leading
                     this.changeState(TokenizerState.DIGIT);
                 }
-                if (this.isInState(TokenizerState.DIGIT) || this.isInState(TokenizerState.FLOAT)) {
+                if (this.isInState(TokenizerState.TEXT) || this.isInState(TokenizerState.DIGIT) || this.isInState(TokenizerState.FLOAT)) {
+                    // support abc2, 1234, 123.45
                     this.currentSession.appendCharacter(c);
                     continue;
                 }
                 if (this.isInState(TokenizerState.TRIALING_SPACE) || this.isInState(TokenizerState.SPECIAL_SYMBOL)) {
+                    // start new session
                     this.submitSession();
-                    // this.changeState(TokenizerState.LEADING_SPACE);
                     i -= 1;
                     continue;
                 }
@@ -204,43 +233,36 @@ public class Tokenizer {
 
             if (Character.isWhitespace(c)) {
                 if (this.isInState(TokenizerState.LEADING_SPACE)) {
+                    // continue leading
                     this.currentSession.appendLeadingSpace();
                     continue;
                 }
                 if (this.isInState(TokenizerState.TRIALING_SPACE)) {
+                    // continue trialing
                     this.currentSession.appendTrialingSpace();
                     continue;
                 }
                 if (this.getChangeLineSymbols().contains(this.currentSession.getRawString())) {
+                    // if current session is change line symbol, submit the session without trialing
                     this.submitSession();
                     i -= 1;
                     continue;
                 }
+                // other wise, change to trialing space
                 this.changeState(TokenizerState.TRIALING_SPACE);
                 i -= 1;
                 continue;
             }
 
-            if (this.isInState(TokenizerState.DIGIT)) {
-                if (c == '.') {
-                    this.currentSession.appendCharacter(c);
-                    this.changeState(TokenizerState.FLOAT);
-                } else {
-                    this.submitSession();
-                    // this.changeState(TokenizerState.LEADING_SPACE);
-                    i -= 1;
-                }
-                continue;
-            }
-
             if (this.isInState(TokenizerState.TRIALING_SPACE)) {
+                // trialing meeting something, submit the current session
                 this.submitSession();
-                // this.changeState(TokenizerState.LEADING_SPACE);
                 i -= 1;
                 continue;
             }
 
             if (this.isInState(TokenizerState.LEADING_SPACE)) {
+                // leading meet something, switch to special symbol
                 this.currentSession.appendCharacter(c);
                 this.changeState(TokenizerState.SPECIAL_SYMBOL);
                 continue;
@@ -248,14 +270,25 @@ public class Tokenizer {
 
             if (this.isInState(TokenizerState.SPECIAL_SYMBOL)) {
                 if (this.isPartialSpecialToken(this.currentSession.getRawString() + c)) {
+                    // if we can match a longer symbol, we match it. which means => will not be split to = >
                     this.currentSession.appendCharacter(c);
                 } else {
+                    // other wise, submit the current one. === will be split as == =.
                     this.submitSession();
                     i -= 1;
                 }
                 continue;
             }
         }
+        if (!this.currentSession.getRawString().equals("")) {
+            // if we meet the end of the string, we check if there is un-submitted token.
+            this.submitSession();
+        }
+        this.updateTokenInfo();
         return this.tokenList;
+    }
+
+    private void updateTokenInfo() {
+        this.tokenList.forEach(syntaxToken -> syntaxToken.setKind(this.getSyntaxFacts().getSyntaxKind(syntaxToken.getRawString())));
     }
 }

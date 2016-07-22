@@ -104,6 +104,7 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         this.setFullStart(child.getFullStart());
         this.setEnd(child.getEnd());
         this.setFullEnd(child.getFullEnd());
+        this.setError(this.isError() || child.isError());
     }
 
     public boolean hasChildToken() {
