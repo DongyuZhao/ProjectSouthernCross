@@ -1,4 +1,6 @@
-package project.southern_cross.code_analysis;
+package project.southern_cross.code_analysis.parser;
+
+import project.southern_cross.code_analysis.SyntaxNode;
 
 /**
  * Project Southern Cross
@@ -19,6 +21,9 @@ public class SyntaxParseResult<T extends SyntaxNode> {
         this.postParserState = postParserState;
     }
 
+    // the node contains the node the expected token should be added to
+    // e.g. CREATE A FROM B; after CREATE, this node should be an CreateExpressionNode and,
+    // after A, this node should also be an CreateExpressionNode.
     public T getCurrentContextNode() {
         return this.currentContextNode;
     }

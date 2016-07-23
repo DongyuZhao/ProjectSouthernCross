@@ -1,4 +1,6 @@
-package project.southern_cross.code_analysis;
+package project.southern_cross.code_analysis.parser;
+
+import java.util.ArrayList;
 
 /**
  * Project Southern Cross

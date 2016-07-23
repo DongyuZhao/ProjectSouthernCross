@@ -1,6 +1,8 @@
-package project.southern_cross.code_analysis;
+package project.southern_cross.code_analysis.config;
 
-import java.util.ArrayList;
+import project.southern_cross.code_analysis.SyntaxNode;
+import project.southern_cross.code_analysis.SyntaxToken;
+import project.southern_cross.code_analysis.parser.SyntaxParseResult;
 
 /**
  * Project Southern Cross

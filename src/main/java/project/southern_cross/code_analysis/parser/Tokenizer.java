@@ -1,4 +1,7 @@
-package project.southern_cross.code_analysis;
+package project.southern_cross.code_analysis.parser;
+
+import project.southern_cross.code_analysis.SyntaxFacts;
+import project.southern_cross.code_analysis.SyntaxToken;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -284,11 +287,6 @@ public class Tokenizer {
             // if we meet the end of the string, we check if there is un-submitted token.
             this.submitSession();
         }
-        this.updateTokenInfo();
         return this.tokenList;
-    }
-
-    private void updateTokenInfo() {
-        this.tokenList.forEach(syntaxToken -> syntaxToken.setKind(this.getSyntaxFacts().getSyntaxKind(syntaxToken.getRawString())));
     }
 }

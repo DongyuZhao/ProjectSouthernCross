@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis;
+package project.southern_cross.code_analysis.config;
 
 /**
  * Project Southern Cross
