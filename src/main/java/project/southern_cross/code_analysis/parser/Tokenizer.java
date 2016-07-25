@@ -1,6 +1,6 @@
 package project.southern_cross.code_analysis.parser;
 
-import project.southern_cross.code_analysis.SyntaxFacts;
+import project.southern_cross.code_analysis.config.SyntaxFacts;
 import project.southern_cross.code_analysis.SyntaxToken;
 
 import java.util.ArrayList;
