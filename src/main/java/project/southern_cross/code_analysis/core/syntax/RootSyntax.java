@@ -1,7 +1,7 @@
-package project.southern_cross.code_analysis.syntax;
+package project.southern_cross.code_analysis.core.syntax;
 
-import project.southern_cross.code_analysis.SyntaxKind;
-import project.southern_cross.code_analysis.SyntaxNode;
+import project.southern_cross.code_analysis.core.SyntaxKind;
+import project.southern_cross.code_analysis.core.SyntaxNode;
 
 /**
  * Project Southern Cross

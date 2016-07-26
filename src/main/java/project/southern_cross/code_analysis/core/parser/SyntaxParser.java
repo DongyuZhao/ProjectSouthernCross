@@ -1,11 +1,11 @@
-package project.southern_cross.code_analysis.parser;
+package project.southern_cross.code_analysis.core.parser;
 
-import project.southern_cross.code_analysis.SyntaxNode;
-import project.southern_cross.code_analysis.SyntaxToken;
-import project.southern_cross.code_analysis.boot.BootLoader;
-import project.southern_cross.code_analysis.config.SyntaxParseRule;
-import project.southern_cross.code_analysis.config.SyntaxParserConfig;
-import project.southern_cross.code_analysis.syntax.RootSyntax;
+import project.southern_cross.code_analysis.core.SyntaxNode;
+import project.southern_cross.code_analysis.core.SyntaxToken;
+import project.southern_cross.code_analysis.core.boot.BootLoader;
+import project.southern_cross.code_analysis.core.config.SyntaxParseRule;
+import project.southern_cross.code_analysis.core.config.SyntaxParserConfig;
+import project.southern_cross.code_analysis.core.syntax.RootSyntax;
 
 import java.util.List;
 
@@ -23,6 +23,18 @@ public class SyntaxParser {
 
     private SyntaxNode currentContextNode;
 
+    private SyntaxParser(String language) {
+        this.language = language;
+        this.currentState = this.getInitState();
+    }
+
+    public static SyntaxParser createParser(String language) {
+        if (language == null) {
+            throw new IllegalArgumentException("Parameter 'language' is null.");
+        }
+        return new SyntaxParser(language);
+    }
+
     private SyntaxParserConfig getSyntaxParserConfig() {
         return BootLoader.getParserConfig(this.language);
     }
@@ -37,18 +49,6 @@ public class SyntaxParser {
 
     private List<SyntaxParseRule> getAvailableRule() {
         return this.getSyntaxParserConfig().getAvailableRules(this.currentState);
-    }
-
-    private SyntaxParser(String language) {
-        this.language = language;
-        this.currentState = this.getInitState();
-    }
-
-    public static SyntaxParser createParser(String language) {
-        if (language == null) {
-            throw new IllegalArgumentException("Parameter 'language' is null.");
-        }
-        return new SyntaxParser(language);
     }
 
     public SyntaxNode parse(String source) {

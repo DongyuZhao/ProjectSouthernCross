@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis;
+package project.southern_cross.code_analysis.core;
 
 /**
  * Project Southern Cross
@@ -8,11 +8,6 @@ package project.southern_cross.code_analysis;
  */
 public class SyntaxNodeOrToken extends SyntaxUnit {
 
-    private int kind;
-
-    private boolean missing;
-    private boolean unexpected;
-    private boolean error;
     public SyntaxNodeOrToken(int kind, boolean missing, boolean unexpected) {
         super();
         this.setKind(kind);
@@ -71,46 +66,5 @@ public class SyntaxNodeOrToken extends SyntaxUnit {
         super(parent, start, end, fullStart, fullEnd);
         this.setKind(kind);
         setError(missing, unexpected);
-    }
-
-    protected void setError(boolean missing, boolean unexpected) {
-        this.missing = missing;
-        this.unexpected = unexpected;
-        this.error = missing || unexpected;
-    }
-
-
-    public int getKind() {
-        return kind;
-    }
-
-    protected void setKind(int kind) {
-        this.kind = kind;
-    }
-
-    public boolean isMissing() {
-        return missing;
-    }
-
-    protected void setMissing(boolean missing) {
-        this.missing = missing;
-        this.setError(missing || this.error);
-    }
-
-    public boolean isUnexpected() {
-        return unexpected;
-    }
-
-    protected void setUnexpected(boolean unexpected) {
-        this.unexpected = unexpected;
-        this.setError(missing || this.error);
-    }
-
-    public boolean isError() {
-        return error;
-    }
-
-    protected void setError(boolean error) {
-        this.error = error;
     }
 }

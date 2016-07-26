@@ -1,6 +1,6 @@
-package project.southern_cross.code_analysis.parser;
+package project.southern_cross.code_analysis.core.parser;
 
-import project.southern_cross.code_analysis.SyntaxNode;
+import project.southern_cross.code_analysis.core.SyntaxNode;
 
 /**
  * Project Southern Cross

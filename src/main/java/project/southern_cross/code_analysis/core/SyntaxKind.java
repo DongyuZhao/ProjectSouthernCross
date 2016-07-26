@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis;
+package project.southern_cross.code_analysis.core;
 
 /**
  * Project Southern Cross
@@ -17,6 +17,6 @@ public class SyntaxKind {
     public final static int DOMAIN_SYNTAX_NODE = 4000;
     public final static int OPERATOR_SYNTAX_NODE = 5000;
     public final static int EXPRESSION_SYNTAX_NODE = 6000;
-    public final static int COMMENT_SYNTAX_TRIVIA = 7000;
+    public final static int SYNTAX_TRIVIA = 7000;
     public final static int ERROR = -1;
 }

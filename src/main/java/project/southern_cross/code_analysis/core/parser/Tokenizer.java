@@ -1,7 +1,7 @@
-package project.southern_cross.code_analysis.parser;
+package project.southern_cross.code_analysis.core.parser;
 
-import project.southern_cross.code_analysis.config.SyntaxFacts;
-import project.southern_cross.code_analysis.SyntaxToken;
+import project.southern_cross.code_analysis.core.SyntaxToken;
+import project.southern_cross.code_analysis.core.config.SyntaxFacts;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -14,96 +14,10 @@ import java.util.Set;
  */
 public class Tokenizer {
 
-    private enum TokenizerState {
-        LEADING_SPACE,
-        TRIALING_SPACE,
-        TEXT,
-        DIGIT,
-        FLOAT,
-        SPECIAL_SYMBOL
-    }
-
-    private class TokenizerSession {
-        private StringBuilder stringBuilder = new StringBuilder();
-        private int start = 0;
-        private int end = 0;
-        private int fullStart = 0;
-        private int fullEnd = 0;
-
-        TokenizerSession(int start, int fullStart) {
-            initStart(start, fullStart);
-            initEnd(start, fullStart);
-        }
-
-        private void initStart(int start, int fullStart) {
-            this.start = start;
-            this.fullStart = fullStart;
-        }
-
-        private void initEnd(int end, int fullEnd) {
-            this.end = end;
-            this.fullEnd = fullEnd;
-        }
-
-        void appendCharacter(char c) {
-            this.stringBuilder.append(c);
-            this.end += 1;
-            this.fullEnd += 1;
-        }
-
-        void appendLeadingSpace() {
-            this.start += 1;
-            if (this.start > this.end) {
-                this.end = this.start;
-            }
-            if (this.end > this.fullEnd) {
-                this.fullEnd = this.end;
-            }
-        }
-
-        void appendTrialingSpace() {
-            this.fullEnd += 1;
-        }
-
-        String getRawString() {
-            return this.stringBuilder.toString();
-        }
-
-        int getStart() {
-            return start;
-        }
-
-        int getEnd() {
-            return end;
-        }
-
-        int getFullStart() {
-            return fullStart;
-        }
-
-        int getFullEnd() {
-            return fullEnd;
-        }
-
-        SyntaxToken getToken() {
-            return new SyntaxToken(this.getRawString(), getSyntaxFacts().getSyntaxKind(this.getRawString()), this.getStart(), this.getEnd(), this.getFullStart(), this.getFullEnd(), false, false);
-        }
-
-        void clear(int start, int fullStart) {
-            this.initStart(start, fullStart);
-            this.initEnd(start, fullStart);
-            this.stringBuilder = new StringBuilder();
-        }
-    }
-
     private SyntaxFacts syntaxFacts;
-
     private TokenizerSession currentSession;
-
     private TokenizerState currentState = TokenizerState.LEADING_SPACE;
-
     private int currentPosition = 0;
-
     private ArrayList<SyntaxToken> tokenList = new ArrayList<>();
 
     public Tokenizer(SyntaxFacts syntaxFacts) {
@@ -288,5 +202,87 @@ public class Tokenizer {
             this.submitSession();
         }
         return this.tokenList;
+    }
+
+    private enum TokenizerState {
+        LEADING_SPACE,
+        TRIALING_SPACE,
+        TEXT,
+        DIGIT,
+        FLOAT,
+        SPECIAL_SYMBOL
+    }
+
+    private class TokenizerSession {
+        private StringBuilder stringBuilder = new StringBuilder();
+        private int start = 0;
+        private int end = 0;
+        private int fullStart = 0;
+        private int fullEnd = 0;
+
+        TokenizerSession(int start, int fullStart) {
+            initStart(start, fullStart);
+            initEnd(start, fullStart);
+        }
+
+        private void initStart(int start, int fullStart) {
+            this.start = start;
+            this.fullStart = fullStart;
+        }
+
+        private void initEnd(int end, int fullEnd) {
+            this.end = end;
+            this.fullEnd = fullEnd;
+        }
+
+        void appendCharacter(char c) {
+            this.stringBuilder.append(c);
+            this.end += 1;
+            this.fullEnd += 1;
+        }
+
+        void appendLeadingSpace() {
+            this.start += 1;
+            if (this.start > this.end) {
+                this.end = this.start;
+            }
+            if (this.end > this.fullEnd) {
+                this.fullEnd = this.end;
+            }
+        }
+
+        void appendTrialingSpace() {
+            this.fullEnd += 1;
+        }
+
+        String getRawString() {
+            return this.stringBuilder.toString();
+        }
+
+        int getStart() {
+            return start;
+        }
+
+        int getEnd() {
+            return end;
+        }
+
+        int getFullStart() {
+            return fullStart;
+        }
+
+        int getFullEnd() {
+            return fullEnd;
+        }
+
+        SyntaxToken getToken() {
+            return new SyntaxToken(this.getRawString(), getSyntaxFacts().getSyntaxKind(this.getRawString()), this.getStart(), this.getEnd(), this.getFullStart(), this.getFullEnd(), false, false);
+        }
+
+        void clear(int start, int fullStart) {
+            this.initStart(start, fullStart);
+            this.initEnd(start, fullStart);
+            this.stringBuilder = new StringBuilder();
+        }
     }
 }

@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis;
+package project.southern_cross.code_analysis.core;
 
 import java.util.ArrayList;
 
@@ -8,46 +8,46 @@ import java.util.ArrayList;
  *
  * Created by Dy.Zhao on 2016/7/11.
  */
-public class SyntaxTrivia extends SyntaxUnit {
+public class SyntaxTrivia extends SyntaxNodeOrTrivia {
     private ArrayList<SyntaxToken> childTokens = new ArrayList<>();
 
     public SyntaxTrivia() {
-        super();
+        super(SyntaxKind.SYNTAX_TRIVIA, false, false);
     }
 
     public SyntaxTrivia(int start) {
-        super(start);
+        super(SyntaxKind.SYNTAX_TRIVIA, start, false, false);
     }
 
     public SyntaxTrivia(int start, int end) {
-        super(start, end);
+        super(SyntaxKind.SYNTAX_TRIVIA, start, end, false, false);
     }
 
     public SyntaxTrivia(int start, int end, int fullEnd) {
-        super(start, end, fullEnd);
+        super(SyntaxKind.SYNTAX_TRIVIA, start, end, fullEnd, false, false);
     }
 
     public SyntaxTrivia(int start, int end, int fullStart, int fullEnd) {
-        super(start, end, fullStart, fullEnd);
+        super(SyntaxKind.SYNTAX_TRIVIA, start, end, fullStart, fullEnd, false, false);
     }
 
     public SyntaxTrivia(SyntaxNode parent) {
-        super(parent);
+        super(parent, SyntaxKind.SYNTAX_TRIVIA, false, false);
     }
 
     public SyntaxTrivia(SyntaxNode parent, int start) {
-        super(parent, start);
+        super(parent, SyntaxKind.SYNTAX_TRIVIA, start, false, false);
     }
 
     public SyntaxTrivia(SyntaxNode parent, int start, int end) {
-        super(parent, start, end);
+        super(parent, SyntaxKind.SYNTAX_TRIVIA, start, end, false, false);
     }
 
     public SyntaxTrivia(SyntaxNode parent, int start, int end, int fullEnd) {
-        super(parent, start, end, fullEnd);
+        super(parent, SyntaxKind.SYNTAX_TRIVIA, start, end, fullEnd, false, false);
     }
 
     public SyntaxTrivia(SyntaxNode parent, int start, int end, int fullStart, int fullEnd) {
-        super(parent, start, end, fullStart, fullEnd);
+        super(parent, SyntaxKind.SYNTAX_TRIVIA, start, end, fullStart, fullEnd, false, false);
     }
 }

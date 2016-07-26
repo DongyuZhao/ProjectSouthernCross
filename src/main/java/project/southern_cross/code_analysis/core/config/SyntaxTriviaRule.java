@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis.config;
+package project.southern_cross.code_analysis.core.config;
 
 /**
  * Project Southern Cross
@@ -7,4 +7,10 @@ package project.southern_cross.code_analysis.config;
  * Created by Dy.Zhao on 2016/7/17.
  */
 public interface SyntaxTriviaRule {
+
+    String getTrigger();
+
+    String getTerminator();
+
+    boolean isPartOfTrivia();
 }

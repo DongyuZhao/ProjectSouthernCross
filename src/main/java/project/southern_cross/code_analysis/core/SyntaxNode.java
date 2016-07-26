@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis;
+package project.southern_cross.code_analysis.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,9 @@ import java.util.List;
  * <p>
  * Created by Dy.Zhao on 2016/7/11.
  */
-public class SyntaxNode extends SyntaxNodeOrToken {
+public class SyntaxNode extends SyntaxNodeOrTrivia {
 
     private ArrayList<SyntaxNode> childNodes = new ArrayList<>();
-    private ArrayList<SyntaxToken> childTokens = new ArrayList<>();
 
     private ArrayList<SyntaxTrivia> leadingTrivia = new ArrayList<>();
     private ArrayList<SyntaxTrivia> trialingTrivia = new ArrayList<>();
@@ -62,14 +61,14 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         return this.childNodes.size() != 0;
     }
 
-    public void addChildNode(SyntaxNode child) {
-        int index = this.findSyntaxUnitInsertIndex(child.getFullStart(), child.getFullEnd(), this.childNodes);
-        if (index != -1) {
-            this.addChildNode(child, index);
-            return;
-        }
-        throw new IllegalArgumentException("New SyntaxNode's position is not suitable for the existing nodes.");
-    }
+//    public void addChildNode(SyntaxNode child) {
+//        int index = this.findSyntaxUnitInsertIndex(child.getFullStart(), child.getFullEnd(), this.childNodes);
+//        if (index != -1) {
+//            this.addChildNode(child, index);
+//            return;
+//        }
+//        throw new IllegalArgumentException("New SyntaxNode's position is not suitable for the existing nodes.");
+//    }
 
     public List<SyntaxNode> getChildNodes() {
         return new ArrayList<>(this.childNodes);
@@ -97,66 +96,47 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         return result;
     }
 
-    public void addChildNode(SyntaxNode child, int index) {
-        child.setParentNode(this);
-        this.childNodes.add(index, child);
-        this.setStart(child.getStart());
-        this.setFullStart(child.getFullStart());
-        this.setEnd(child.getEnd());
-        this.setFullEnd(child.getFullEnd());
-        this.setError(this.isError() || child.isError());
+    public void addChildNode(SyntaxNode node) {
+        this.addChildNode(node, this.getChildNodes().size());
+    }
+
+    public void addChildNode(SyntaxNode node, int index) {
+        if (index >= 0 && index <= this.getChildNodes().size()) {
+            node.setParentNode(this);
+            if (index == 0) {
+                if (this.getStart() > node.getStart()) {
+                    node.shiftFullSpanWindowTo(this.getStart());
+                }
+                this.childNodes.add(node);
+            } else {
+                node.shiftFullSpanWindowTo(this.getChildNodes().get(index - 1).getFullEnd());
+            }
+
+            if (index < this.getChildNodes().size()) {
+                this.updateSpanWindow(index, node.getRawString().length(), this.childNodes);
+            }
+            this.childNodes.add(index, node);
+            this.updateSpanWindow(0, node.getRawString().length(), this.trialingTrivia);
+            return;
+        }
+        throw new IllegalArgumentException("Index out of range");
     }
 
     public boolean hasChildToken() {
         return this.childTokens.size() != 0;
     }
 
-    public void addChildToken(SyntaxToken child) {
-        int index = this.findSyntaxUnitInsertIndex(child.getFullStart(), child.getFullEnd(), this.childTokens);
-        if (index != -1) {
-            this.addChildToken(child, index);
-            return;
-        }
-        throw new IllegalArgumentException("New SyntaxToken's position is not suitable for the existing nodes.");
-    }
-
-    public List<SyntaxToken> getChildTokens() {
-        return new ArrayList<>(this.childTokens);
+    @Override
+    public void addChildToken(SyntaxToken token, int index) {
+        super.addChildToken(token, index);
+        token.setParentNode(this);
+        this.updateSpanWindow(0, token.getRawString().length(), this.trialingTrivia);
     }
 
     public List<SyntaxToken> getDescendTokens() {
         ArrayList<SyntaxToken> result = new ArrayList<>(this.childTokens);
         this.getDescendNodes().forEach(node -> result.addAll(node.getChildTokens()));
         return result;
-    }
-
-    public void addChildToken(SyntaxToken child, int index) {
-        child.setParentNode(this);
-        this.childTokens.add(index, child);
-        this.setStart(child.getStart());
-        this.setFullStart(child.getFullStart());
-        this.setEnd(child.getEnd());
-        this.setFullEnd(child.getFullEnd());
-    }
-
-    private int findSyntaxUnitInsertIndex(int start, int end, List<? extends SyntaxUnit> container) {
-        if (container.size() == 0) {
-            return 0;
-        }
-        if (end < container.get(0).getFullStart()) {
-            return 0;
-        }
-        if (start >= container.get(container.size() - 1).getFullEnd()) {
-            return container.size();
-        }
-        for (int i = 0; i < container.size(); i++) {
-            if (i != container.size() - 1) {
-                if (start >= container.get(i).getFullEnd() && end <= container.get(i + 1).getFullStart()) {
-                    return i + 1;
-                }
-            }
-        }
-        return -1;
     }
 
     public List<SyntaxNodeOrToken> getDescendNodeOrTokens() {
@@ -181,40 +161,56 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         return new ArrayList<>(this.trialingTrivia);
     }
 
-    public void addLeadingTrivia(SyntaxTrivia trivia) {
-        int index = this.findSyntaxUnitInsertIndex(trivia.getFullStart(), trivia.getFullEnd(), this.leadingTrivia);
-        if (index != -1) {
-            this.addLeadingTrivia(trivia, index);
-            return;
-        }
-        throw new IllegalArgumentException("New SyntaxTrivia's position is not suitable for the existing nodes.");
-    }
-
     public void addLeadingTrivia(SyntaxTrivia trivia, int index) {
-        trivia.setParentNode(this);
-        this.leadingTrivia.add(index, trivia);
-        this.setStart(trivia.getFullEnd());
-        this.setFullStart(trivia.getFullStart());
-        this.setEnd(trivia.getFullEnd());
-        this.setFullEnd(trivia.getFullEnd());
-    }
+        if (index >= 0 && index <= this.getLeadingTrivia().size()) {
+            trivia.setParentNode(this);
+            if (index == 0) {
+                if (this.getStart() > trivia.getStart()) {
+                    trivia.shiftFullSpanWindowTo(this.getStart());
+                }
+                this.leadingTrivia.add(trivia);
+            } else {
+                trivia.shiftFullSpanWindowTo(this.getLeadingTrivia().get(index - 1).getFullEnd());
+            }
 
-    public void addTrialingTrivia(SyntaxTrivia trivia) {
-        int index = this.findSyntaxUnitInsertIndex(trivia.getFullStart(), trivia.getFullEnd(), this.trialingTrivia);
-        if (index != -1) {
-            this.addTrialingTrivia(trivia, index);
+            if (index < this.getLeadingTrivia().size()) {
+                this.updateSpanWindow(index, trivia.getRawString().length(), this.leadingTrivia);
+            }
+            this.leadingTrivia.add(index, trivia);
+            this.updateSpanWindow(0, trivia.getRawString().length(), this.childNodes);
+            this.updateSpanWindow(0, trivia.getRawString().length(), this.trialingTrivia);
             return;
         }
-        throw new IllegalArgumentException("New SyntaxTrivia's position is not suitable for the existing nodes.");
+        throw new IllegalArgumentException("Index out of range");
+    }
+
+    public void addLeadingTrivia(SyntaxTrivia trivia) {
+        this.addLeadingTrivia(trivia, this.getLeadingTrivia().size());
     }
 
     public void addTrialingTrivia(SyntaxTrivia trivia, int index) {
-        trivia.setParentNode(this);
-        this.trialingTrivia.add(index, trivia);
-        this.setStart(trivia.getFullEnd());
-        this.setFullStart(trivia.getFullStart());
-        this.setEnd(trivia.getFullEnd());
-        this.setFullEnd(trivia.getFullEnd());
+        if (index >= 0 && index <= this.getTrialingTrivia().size()) {
+            trivia.setParentNode(this);
+            if (index == 0) {
+                if (this.getStart() > trivia.getStart()) {
+                    trivia.shiftFullSpanWindowTo(this.getStart());
+                }
+                this.trialingTrivia.add(trivia);
+            } else {
+                trivia.shiftFullSpanWindowTo(this.getTrialingTrivia().get(index - 1).getFullEnd());
+            }
+
+            if (index < this.getTrialingTrivia().size()) {
+                this.updateSpanWindow(index, trivia.getRawString().length(), this.leadingTrivia);
+            }
+            this.trialingTrivia.add(index, trivia);
+            return;
+        }
+        throw new IllegalArgumentException("Index out of range");
+    }
+
+    public void addTrialingTrivia(SyntaxTrivia trivia) {
+        this.addTrialingTrivia(trivia, this.getTrialingTrivia().size());
     }
 
 

@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis;
+package project.southern_cross.code_analysis.core;
 
 /**
  * Project Southern Cross
@@ -9,6 +9,8 @@ package project.southern_cross.code_analysis;
 public class SyntaxToken extends SyntaxNodeOrToken {
 
     private final String rawString;
+
+    private SyntaxTrivia parentTrivia;
 
     public SyntaxToken(String rawString, int kind, boolean missing, boolean unexpected) {
         super(kind, missing, unexpected);
@@ -68,5 +70,9 @@ public class SyntaxToken extends SyntaxNodeOrToken {
     @Override
     public String toString() {
         return "SyntaxToken: " + this.getFullString();
+    }
+
+    public void setParentTrivia(SyntaxTrivia trivia) {
+        this.parentTrivia = trivia;
     }
 }

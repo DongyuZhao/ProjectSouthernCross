@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis.config;
+package project.southern_cross.code_analysis.core.config;
 
 import java.util.Set;
 

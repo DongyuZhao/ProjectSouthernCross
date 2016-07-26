@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis;
+package project.southern_cross.code_analysis.core;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -17,6 +17,10 @@ public class SyntaxUnit {
 
     private SyntaxSpan span;
     private SyntaxSpan fullSpan;
+    private int kind;
+    private boolean missing;
+    private boolean unexpected;
+    private boolean error;
 
     public SyntaxUnit() {
         this.parentNode = null;
@@ -78,35 +82,39 @@ public class SyntaxUnit {
         this.fullSpan = new SyntaxSpan(fullStart, fullEnd);
     }
 
-    protected void setParentNode(SyntaxNode parentNode) {
-        this.parentNode = parentNode;
-    }
-
     public SyntaxNode getParentNode() {
         return parentNode;
+    }
+
+    protected void setParentNode(SyntaxNode parentNode) {
+        this.parentNode = parentNode;
     }
 
     public int getStart() {
         return span.getStart();
     }
 
+    protected void setStart(int start) {
+        if (start <= this.getEnd()) {
+            if (start < this.getFullStart()) {
+                this.setFullStart(start);
+            }
+            this.span.setStart(start);
+        } else {
+            throw new IllegalArgumentException("The argument 'start' is greater than 'end'.");
+        }
+    }
+
     public int getEnd() {
         return span.getEnd();
     }
 
-    protected void setStart(int start) {
-        if (start < this.getStart()) {
-            this.span.setStart(start);
-            this.setFullStart(start);
-        }
-    }
-
     protected void setEnd(int end) {
         if (end >= this.getStart()) {
-            if (end >= this.getEnd()) {
-                this.span.setEnd(end);
+            if (end >= this.getFullEnd()) {
                 this.setFullEnd(end);
             }
+            this.span.setEnd(end);
         } else {
             throw new IllegalArgumentException("The argument 'end' is less than 'start'.");
         }
@@ -116,25 +124,38 @@ public class SyntaxUnit {
         return this.fullSpan.getStart();
     }
 
+    protected void setFullStart(int start) {
+        if (start < this.getEnd()) {
+            this.fullSpan.setStart(start);
+        } else {
+            throw new IllegalArgumentException("The argument 'start' is greater than 'end'.");
+        }
+    }
+
     public int getFullEnd() {
         return this.fullSpan.getEnd();
     }
 
-    protected void setFullStart(int start) {
-        if (start < this.getFullStart()) {
-            this.fullSpan.setStart(start);
-        }
-    }
-
     protected void setFullEnd(int end) {
-        if (end >= this.getFullStart()) {
-            if (end >= this.getFullEnd()) {
-                this.fullSpan.setEnd(end);
-            }
+        if (end >= this.getStart()) {
+            this.fullSpan.setEnd(end);
         } else {
             throw new IllegalArgumentException("The argument 'end' is less than 'start'.");
         }
     }
+
+    protected void shiftWindow(int offset) {
+        this.span.shiftWindow(offset);
+        this.fullSpan.shiftWindow(offset);
+    }
+
+    protected void shiftFullSpanWindowTo(int offset) {
+        this.shiftWindow(offset - this.getFullStart());
+    }
+
+//    protected void shiftSpanWindowTo(int offset) {
+//        this.shiftWindow(offset - this.getStart());
+//    }
 
     public List<SyntaxNode> getAncestorNode() {
         ArrayList<SyntaxNode> result = new ArrayList<>();
@@ -145,7 +166,6 @@ public class SyntaxUnit {
         }
         return result;
     }
-
 
     public String getRawString() {
         throw new NotImplementedException();
@@ -168,5 +188,45 @@ public class SyntaxUnit {
     @Override
     public String toString() {
         throw new NotImplementedException();
+    }
+
+    protected void setError(boolean missing, boolean unexpected) {
+        this.missing = missing;
+        this.unexpected = unexpected;
+        this.error = missing || unexpected;
+    }
+
+    public int getKind() {
+        return kind;
+    }
+
+    protected void setKind(int kind) {
+        this.kind = kind;
+    }
+
+    public boolean isMissing() {
+        return missing;
+    }
+
+    protected void setMissing(boolean missing) {
+        this.missing = missing;
+        this.setError(missing || this.error);
+    }
+
+    public boolean isUnexpected() {
+        return unexpected;
+    }
+
+    protected void setUnexpected(boolean unexpected) {
+        this.unexpected = unexpected;
+        this.setError(missing || this.error);
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    protected void setError(boolean error) {
+        this.error = error;
     }
 }
