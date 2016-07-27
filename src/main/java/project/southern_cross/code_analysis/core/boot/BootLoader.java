@@ -58,7 +58,7 @@ public class BootLoader {
         ClassFilter.only().topLevel().from(ClassIndex.getAnnotated(SyntaxFactsClass.class)).forEach(c -> {
             if (SyntaxFacts.class.isAssignableFrom(c)) {
                 try {
-                    syntaxFacts.put(c.getAnnotation(SyntaxFactsClass.class).language(), (SyntaxFacts) (c.newInstance()));
+                    syntaxFacts.put(c.getAnnotation(SyntaxFactsClass.class).language().toLowerCase(), (SyntaxFacts) (c.newInstance()));
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
@@ -70,7 +70,7 @@ public class BootLoader {
         ClassFilter.only().topLevel().from(ClassIndex.getAnnotated(SyntaxParserConfigClass.class)).forEach(c -> {
             if (SyntaxParserConfig.class.isAssignableFrom(c)) {
                 try {
-                    parserConfigs.put(c.getAnnotation(SyntaxParserConfigClass.class).language(), (SyntaxParserConfig) (c.newInstance()));
+                    parserConfigs.put(c.getAnnotation(SyntaxParserConfigClass.class).language().toLowerCase(), (SyntaxParserConfig) (c.newInstance()));
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
@@ -82,7 +82,7 @@ public class BootLoader {
         ClassFilter.only().topLevel().from(ClassIndex.getAnnotated(SyntaxTriviaConfigClass.class)).forEach(c -> {
             if (SyntaxTriviaConfig.class.isAssignableFrom(c)) {
                 try {
-                    triviaConfigs.put(c.getAnnotation(SyntaxTriviaConfigClass.class).language(), (SyntaxTriviaConfig) (c.newInstance()));
+                    triviaConfigs.put(c.getAnnotation(SyntaxTriviaConfigClass.class).language().toLowerCase(), (SyntaxTriviaConfig) (c.newInstance()));
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
@@ -94,7 +94,7 @@ public class BootLoader {
         ClassFilter.only().topLevel().from(ClassIndex.getAnnotated(SyntaxRuleClass.class)).forEach(c -> {
             if (SyntaxParseRule.class.isAssignableFrom(c)) {
                 try {
-                    String language = c.getAnnotation(SyntaxRuleClass.class).language();
+                    String language = c.getAnnotation(SyntaxRuleClass.class).language().toLowerCase();
                     if (!parseRules.containsKey(language)) {
                         parseRules.put(language, new HashMap<>());
                     }
@@ -114,7 +114,7 @@ public class BootLoader {
         ClassFilter.only().topLevel().from(ClassIndex.getAnnotated(TriviaRuleClass.class)).forEach(c -> {
             if (SyntaxTriviaRule.class.isAssignableFrom(c)) {
                 try {
-                    String language = c.getAnnotation(TriviaRuleClass.class).language();
+                    String language = c.getAnnotation(TriviaRuleClass.class).language().toLowerCase();
                     if (!triviaRules.containsKey(language)) {
                         triviaRules.put(language, new HashSet<>());
                     }

@@ -13,6 +13,8 @@ public interface SyntaxFacts {
 
     boolean isSyntaxNode(int rawKind);
 
+    boolean isSyntaxTrivia(int rawKind);
+
     boolean isKeyword(String rawString);
 
     boolean isKeyword(int rawKind);
