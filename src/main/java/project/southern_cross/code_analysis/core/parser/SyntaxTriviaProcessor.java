@@ -24,6 +24,10 @@ public class SyntaxTriviaProcessor {
     private SyntaxTriviaRule currentApplyingRule;
     private SyntaxTrivia currentSyntaxTrivia;
 
+    public SyntaxTriviaProcessor(String language) {
+        this.language = language;
+    }
+
     private SyntaxTriviaConfig getSyntaxTriviaConfig() {
         return BootLoader.getTriviaConfig(this.language);
     }
@@ -32,7 +36,7 @@ public class SyntaxTriviaProcessor {
         return this.getSyntaxTriviaConfig().getSyntaxTriviaRules();
     }
 
-    public List<SyntaxUnit> updateSyntaxTokenStream(List<SyntaxToken> tokenList) {
+    public List<? extends SyntaxUnit> updateSyntaxTokenStream(List<SyntaxToken> tokenList) {
         ArrayList<SyntaxUnit> result = new ArrayList<>();
         for (SyntaxToken token : tokenList) {
             if (currentApplyingRule == null) {
