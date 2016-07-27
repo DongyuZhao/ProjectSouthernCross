@@ -1,5 +1,6 @@
 package project.southern_cross.code_analysis.core.parser;
 
+import project.southern_cross.code_analysis.core.SyntaxKind;
 import project.southern_cross.code_analysis.core.SyntaxNode;
 import project.southern_cross.code_analysis.core.SyntaxToken;
 import project.southern_cross.code_analysis.core.boot.BootLoader;
@@ -59,12 +60,21 @@ public class SyntaxParser {
         tokenList.forEach(token -> {
             this.getAvailableRule().forEach(rule -> {
                 SyntaxParseResult result = rule.updateSyntaxTree(token, this.currentContextNode);
+                boolean error = true;
                 if (result.isModified()) {
                     this.currentContextNode = result.getCurrentContextNode();
                     this.currentState = result.getPostParserState();
+                    error = false;
+                }
+                if (error) {
+                    this.dealError();
                 }
             });
         });
         return root;
+    }
+
+    private void dealError() {
+        this.currentContextNode.addChildNode(new SyntaxNode(SyntaxKind.UN_DETERMINED_SYNTAX_NODE, true, true));
     }
 }
