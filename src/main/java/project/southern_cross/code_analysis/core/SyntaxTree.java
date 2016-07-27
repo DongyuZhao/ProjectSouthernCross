@@ -14,9 +14,8 @@ import java.util.List;
  * Created by Dy.Zhao on 2016/7/16.
  */
 public class SyntaxTree {
-    private SyntaxNode root;
 
-    protected static SyntaxTree parse(String source, String language) {
+    public static ParsedSyntaxTree parse(String source, String language) {
         Tokenizer tokenizer = new Tokenizer(BootLoader.getSyntaxFacts(language));
         List<SyntaxToken> tokenList = tokenizer.tokenize(source);
         SyntaxTriviaProcessor triviaProcessor = new SyntaxTriviaProcessor(language);
@@ -25,10 +24,8 @@ public class SyntaxTree {
 
         // TODO:: diagnose and determine the trivia's parent.
 
-        SyntaxTree tree = new SyntaxTree();
-
         SyntaxParser parser = SyntaxParser.createParser(language);
-        tree.root = parser.parse(source);
-        return tree;
+
+        return new ParsedSyntaxTree(parser.parse(source));
     }
 }
