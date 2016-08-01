@@ -692,3 +692,4 @@ EIFGENs
 
 # Visio autosave temporary files
 *.~vsdx
+*.log.lck
