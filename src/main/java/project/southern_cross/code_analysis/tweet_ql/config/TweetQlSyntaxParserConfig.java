@@ -25,7 +25,7 @@ public class TweetQlSyntaxParserConfig implements SyntaxParserConfig {
     }
 
     @Override
-    public List<SyntaxParseRule> getAvailableRules(int currentState) {
+    public List<SyntaxParseRule> getAvailableParseRules(int currentState) {
         return null;
     }
 }
