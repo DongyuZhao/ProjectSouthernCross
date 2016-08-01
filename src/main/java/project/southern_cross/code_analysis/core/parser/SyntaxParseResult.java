@@ -22,8 +22,8 @@ public class SyntaxParseResult<T extends SyntaxNode> {
         this.modified = false;
     }
 
-    public SyntaxParseResult(T currentContextNode, int postParserState) {
-        this.modified = true;
+    public SyntaxParseResult(T currentContextNode, int postParserState, boolean isModified) {
+        this.modified = isModified;
         this.currentContextNode = currentContextNode;
         this.postParserState = postParserState;
     }

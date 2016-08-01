@@ -6,6 +6,8 @@ import project.southern_cross.code_analysis.core.SyntaxToken;
 import project.southern_cross.code_analysis.core.annotation.SyntaxRuleClass;
 import project.southern_cross.code_analysis.core.config.SyntaxParseRule;
 import project.southern_cross.code_analysis.core.parser.SyntaxParseResult;
+import project.southern_cross.code_analysis.tweet_ql.TweetQlSyntaxKind;
+import project.southern_cross.code_analysis.tweet_ql.config.TweetQlSyntaxParserStates;
 import project.southern_cross.code_analysis.tweet_ql.syntax.CreateExpressionSyntax;
 
 /**
@@ -18,6 +20,12 @@ import project.southern_cross.code_analysis.tweet_ql.syntax.CreateExpressionSynt
 public class CreateExpressionRule implements SyntaxParseRule {
     @Override
     public SyntaxParseResult<CreateExpressionSyntax> updateSyntaxTree(SyntaxToken nextToken, SyntaxNode syntaxTreeAnchor) {
-        return null;
+        if (nextToken.getKind() == TweetQlSyntaxKind.CREATE_SYNTAX_TOKEN) {
+            CreateExpressionSyntax node = new CreateExpressionSyntax(false, false);
+            node.addChildToken(nextToken);
+            syntaxTreeAnchor.addChildNode(node);
+            return new SyntaxParseResult<>(node, TweetQlSyntaxParserStates.CREATE_EXPRESSION, true);
+        }
+        return new SyntaxParseResult<>(null, TweetQlSyntaxParserStates.NULL, false);
     }
 }

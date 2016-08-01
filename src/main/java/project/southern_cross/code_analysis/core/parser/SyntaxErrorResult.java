@@ -14,9 +14,10 @@ public class SyntaxErrorResult<T extends SyntaxNode> extends SyntaxParseResult<T
 
     private boolean needBackward;
 
-    public SyntaxErrorResult(T currentContextNode, int postParserState, boolean needBackward) {
-        super(currentContextNode, postParserState);
+    public SyntaxErrorResult(T currentContextNode, int postParserState, boolean modified, boolean needBackward, boolean dealt) {
+        super(currentContextNode, postParserState, modified);
         this.needBackward = needBackward;
+        this.dealt = dealt;
     }
 
     public boolean isDealt() {

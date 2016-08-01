@@ -15,17 +15,17 @@ import java.util.Set;
 public class TweetQlSyntaxFacts implements SyntaxFacts {
     @Override
     public boolean isSyntaxToken(int rawKind) {
-        return false;
+        return rawKind >= 0 && rawKind < 1000;
     }
 
     @Override
     public boolean isSyntaxNode(int rawKind) {
-        return false;
+        return rawKind >= 1000 && rawKind < 7000;
     }
 
     @Override
     public boolean isSyntaxTrivia(int rawKind) {
-        return false;
+        return rawKind >= 7000;
     }
 
     @Override
