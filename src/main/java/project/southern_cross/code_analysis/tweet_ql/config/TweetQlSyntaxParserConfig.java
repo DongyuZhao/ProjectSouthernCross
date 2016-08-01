@@ -1,6 +1,7 @@
 package project.southern_cross.code_analysis.tweet_ql.config;
 
 import project.southern_cross.code_analysis.core.annotation.SyntaxParserConfigClass;
+import project.southern_cross.code_analysis.core.config.SyntaxErrorRule;
 import project.southern_cross.code_analysis.core.config.SyntaxParseRule;
 import project.southern_cross.code_analysis.core.config.SyntaxParserConfig;
 
@@ -26,6 +27,11 @@ public class TweetQlSyntaxParserConfig implements SyntaxParserConfig {
 
     @Override
     public List<SyntaxParseRule> getAvailableParseRules(int currentState) {
+        return null;
+    }
+
+    @Override
+    public List<SyntaxErrorRule> getAvailableErrorRules(int currentState) {
         return null;
     }
 }
