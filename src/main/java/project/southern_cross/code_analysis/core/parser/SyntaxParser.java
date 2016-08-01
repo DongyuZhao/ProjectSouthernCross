@@ -85,6 +85,7 @@ public class SyntaxParser {
                 }
                 if (!dealt) {
                     this.currentContextNode.addChildToken(new SyntaxToken(token.getRawString(), token.getKind(), true, true));
+                    this.currentContextNode = root;
                     break;
                 }
             }
