@@ -1,5 +1,6 @@
 package project.southern_cross.code_analysis.core.parser;
 
+import project.southern_cross.code_analysis.core.SyntaxKind;
 import project.southern_cross.code_analysis.core.SyntaxNode;
 import project.southern_cross.code_analysis.core.SyntaxToken;
 import project.southern_cross.code_analysis.core.boot.BootLoader;
@@ -87,6 +88,9 @@ public class SyntaxParser {
                     break;
                 }
             }
+        }
+        if (!this.currentContextNode.equals(root)) {
+            root.addChildNode(new SyntaxNode(SyntaxKind.ERROR, true, true));
         }
         return root;
     }
