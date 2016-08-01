@@ -13,8 +13,4 @@ public interface SyntaxParserConfig {
     int getInitialState();
 
     List<Integer> getStates();
-
-    List<SyntaxParseRule> getAvailableParseRules(int currentState);
-
-    List<SyntaxErrorRule> getAvailableErrorRules(int currentState);
 }

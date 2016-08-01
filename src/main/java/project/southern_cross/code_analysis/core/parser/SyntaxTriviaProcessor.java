@@ -4,7 +4,6 @@ import project.southern_cross.code_analysis.core.SyntaxToken;
 import project.southern_cross.code_analysis.core.SyntaxTrivia;
 import project.southern_cross.code_analysis.core.SyntaxUnit;
 import project.southern_cross.code_analysis.core.boot.BootLoader;
-import project.southern_cross.code_analysis.core.config.SyntaxTriviaConfig;
 import project.southern_cross.code_analysis.core.config.SyntaxTriviaRule;
 
 import java.util.ArrayList;
@@ -28,12 +27,8 @@ public class SyntaxTriviaProcessor {
         this.language = language;
     }
 
-    private SyntaxTriviaConfig getSyntaxTriviaConfig() {
-        return BootLoader.getTriviaConfig(this.language);
-    }
-
     private Set<SyntaxTriviaRule> getSyntaxTriviaRules() {
-        return this.getSyntaxTriviaConfig().getSyntaxTriviaRules();
+        return BootLoader.getTriviaRules(this.language);
     }
 
     public List<? extends SyntaxUnit> updateSyntaxTokenStream(List<SyntaxToken> tokenList) {

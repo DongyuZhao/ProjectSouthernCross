@@ -21,7 +21,6 @@ public class BootLoader {
 
     private static HashMap<String, SyntaxParserConfig> parserConfigs = new HashMap<>();
     private static HashMap<String, SyntaxFacts> syntaxFacts = new HashMap<>();
-    private static HashMap<String, SyntaxTriviaConfig> triviaConfigs = new HashMap<>();
 
     private static HashMap<String, Map<Integer, Set<SyntaxParseRule>>> parseRules = new HashMap<>();
 
@@ -35,10 +34,6 @@ public class BootLoader {
 
     public static SyntaxFacts getSyntaxFacts(String language) {
         return syntaxFacts.get(language);
-    }
-
-    public static SyntaxTriviaConfig getTriviaConfig(String language) {
-        return triviaConfigs.get(language);
     }
 
     public static Map<Integer, Set<SyntaxParseRule>> getParseRules(String language) {
@@ -56,8 +51,8 @@ public class BootLoader {
     public static void load() {
         loadSyntaxFacts();
         loadSyntaxParserConfigs();
-        loadSyntaxTriviaConfigs();
         loadSyntaxRules();
+        loadErrorRules();
         loadTriviaRules();
     }
 
@@ -78,18 +73,6 @@ public class BootLoader {
             if (SyntaxParserConfig.class.isAssignableFrom(c)) {
                 try {
                     parserConfigs.put(c.getAnnotation(SyntaxParserConfigClass.class).language().toLowerCase(), (SyntaxParserConfig) (c.newInstance()));
-                } catch (InstantiationException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    private static void loadSyntaxTriviaConfigs() {
-        ClassFilter.only().topLevel().from(ClassIndex.getAnnotated(SyntaxTriviaConfigClass.class)).forEach(c -> {
-            if (SyntaxTriviaConfig.class.isAssignableFrom(c)) {
-                try {
-                    triviaConfigs.put(c.getAnnotation(SyntaxTriviaConfigClass.class).language().toLowerCase(), (SyntaxTriviaConfig) (c.newInstance()));
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }

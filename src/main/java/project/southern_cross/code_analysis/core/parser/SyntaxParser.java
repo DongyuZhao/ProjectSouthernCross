@@ -3,6 +3,7 @@ package project.southern_cross.code_analysis.core.parser;
 import project.southern_cross.code_analysis.core.SyntaxKind;
 import project.southern_cross.code_analysis.core.SyntaxNode;
 import project.southern_cross.code_analysis.core.SyntaxToken;
+import project.southern_cross.code_analysis.core.SyntaxUnit;
 import project.southern_cross.code_analysis.core.boot.BootLoader;
 import project.southern_cross.code_analysis.core.config.SyntaxErrorRule;
 import project.southern_cross.code_analysis.core.config.SyntaxParseRule;
@@ -10,6 +11,7 @@ import project.southern_cross.code_analysis.core.config.SyntaxParserConfig;
 import project.southern_cross.code_analysis.core.syntax.RootSyntax;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Project Southern Cross
@@ -49,21 +51,28 @@ public class SyntaxParser {
         return this.getSyntaxParserConfig().getInitialState();
     }
 
-    private List<SyntaxParseRule> getAvailableParseRule() {
-        return this.getSyntaxParserConfig().getAvailableParseRules(this.currentState);
+    private Set<SyntaxParseRule> getAvailableParseRule() {
+        return BootLoader.getParseRules(this.language).get(this.currentState);
     }
 
-    private List<SyntaxErrorRule> getAvailableErrorRule() {
-        return this.getSyntaxParserConfig().getAvailableErrorRules(this.currentState);
+    private Set<SyntaxErrorRule> getAvailableErrorRule() {
+        return BootLoader.getErrorRules(this.language).get(this.currentState);
     }
 
     public SyntaxNode parse(String source) {
         Tokenizer tokenizer = new Tokenizer(BootLoader.getSyntaxFacts(this.language));
         List<SyntaxToken> tokenList = tokenizer.tokenize(source);
+        SyntaxTriviaProcessor triviaProcessor = new SyntaxTriviaProcessor(language);
+
+        List<? extends SyntaxUnit> updateTokenList = triviaProcessor.updateSyntaxTokenStream(tokenList);
         RootSyntax root = new RootSyntax(0, 0, false, false);
         this.currentContextNode = root;
-        for (int i = 0; i < tokenList.size(); i++) {
-            SyntaxToken token = tokenList.get(i);
+        for (int i = 0; i < updateTokenList.size(); i++) {
+            SyntaxUnit unit = updateTokenList.get(i);
+            SyntaxToken token = BootLoader.getSyntaxFacts(this.language).isSyntaxToken(unit.getKind()) ? (SyntaxToken) unit : null;
+            if (token == null) {
+                continue;
+            }
             boolean error = true;
             for (SyntaxParseRule parseRule : this.getAvailableParseRule()) {
                 error = this.tryUpdateSyntaxTree(token, parseRule);
@@ -121,16 +130,16 @@ public class SyntaxParser {
 
         private boolean needBackward;
 
-        public ErrorDealtResult(boolean dealt, boolean needBackward) {
+        ErrorDealtResult(boolean dealt, boolean needBackward) {
             this.dealt = dealt;
             this.needBackward = needBackward;
         }
 
-        public boolean isDealt() {
+        boolean isDealt() {
             return dealt;
         }
 
-        public boolean isNeedBackward() {
+        boolean isNeedBackward() {
             return needBackward;
         }
     }
