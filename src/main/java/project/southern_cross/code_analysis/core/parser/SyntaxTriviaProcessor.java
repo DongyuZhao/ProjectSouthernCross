@@ -6,10 +6,7 @@ import project.southern_cross.code_analysis.core.SyntaxUnit;
 import project.southern_cross.code_analysis.core.boot.BootLoader;
 import project.southern_cross.code_analysis.core.config.SyntaxTriviaRule;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Project Southern Cross
@@ -28,7 +25,11 @@ public class SyntaxTriviaProcessor {
     }
 
     private Set<SyntaxTriviaRule> getSyntaxTriviaRules() {
-        return BootLoader.getTriviaRules(this.language);
+        Optional<Set<SyntaxTriviaRule>> ruleSet = BootLoader.getTriviaRules(this.language);
+        if (ruleSet.isPresent()) {
+            return ruleSet.get();
+        }
+        return new HashSet<>();
     }
 
     public List<? extends SyntaxUnit> updateSyntaxTokenStream(List<SyntaxToken> tokenList) {

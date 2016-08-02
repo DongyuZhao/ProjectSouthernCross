@@ -129,11 +129,14 @@ public class BootLoader {
                     if (!parseRules.containsKey(language)) {
                         parseRules.put(language, new HashMap<>());
                     }
-                    int prerequisiteState = c.getAnnotation(SyntaxRuleClass.class).prerequisiteState();
-                    if (!parseRules.get(language).containsKey(prerequisiteState)) {
-                        parseRules.get(language).put(prerequisiteState, new HashSet<>());
+                    int[] prerequisiteStates = c.getAnnotation(SyntaxRuleClass.class).prerequisiteState();
+                    for (int prerequisiteState : prerequisiteStates) {
+                        if (!parseRules.get(language).containsKey(prerequisiteState)) {
+                            parseRules.get(language).put(prerequisiteState, new HashSet<>());
+                        }
+                        parseRules.get(language).get(prerequisiteState).add((SyntaxParseRule) (c.newInstance()));
+
                     }
-                    parseRules.get(language).get(prerequisiteState).add((SyntaxParseRule) (c.newInstance()));
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
@@ -149,11 +152,13 @@ public class BootLoader {
                     if (!errorRules.containsKey(language)) {
                         errorRules.put(language, new HashMap<>());
                     }
-                    int prerequisiteState = c.getAnnotation(SyntaxErrorRuleClass.class).prerequisiteState();
-                    if (!errorRules.get(language).containsKey(prerequisiteState)) {
-                        errorRules.get(language).put(prerequisiteState, new HashSet<>());
+                    int[] prerequisiteStates = c.getAnnotation(SyntaxErrorRuleClass.class).prerequisiteState();
+                    for (int prerequisiteState : prerequisiteStates) {
+                        if (!errorRules.get(language).containsKey(prerequisiteState)) {
+                            errorRules.get(language).put(prerequisiteState, new HashSet<>());
+                        }
+                        errorRules.get(language).get(prerequisiteState).add((SyntaxErrorRule) (c.newInstance()));
                     }
-                    errorRules.get(language).get(prerequisiteState).add((SyntaxErrorRule) (c.newInstance()));
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
