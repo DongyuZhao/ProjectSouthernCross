@@ -20,5 +20,5 @@ import java.lang.annotation.Target;
 public @interface SyntaxErrorRuleClass {
     String language() default "all";
 
-    int[] prerequisiteState() default {SyntaxKind.ROOT};
+    int[] prerequisiteStates() default {SyntaxKind.ROOT};
 }

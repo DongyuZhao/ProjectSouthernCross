@@ -1,6 +1,7 @@
 package project.southern_cross.code_analysis.core.annotation;
 
 import org.atteo.classindex.IndexAnnotated;
+import project.southern_cross.code_analysis.core.SyntaxKind;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,6 +17,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @IndexAnnotated
-public @interface TriviaRuleClass {
+public @interface SyntaxParseRuleClass {
     String language() default "all";
+
+    int[] prerequisiteStates() default {SyntaxKind.ROOT};
 }

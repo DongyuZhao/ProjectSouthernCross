@@ -2,7 +2,7 @@ package project.southern_cross.code_analysis.tweet_ql.syntax.rules.CreateExpress
 
 import project.southern_cross.code_analysis.core.SyntaxNode;
 import project.southern_cross.code_analysis.core.SyntaxToken;
-import project.southern_cross.code_analysis.core.annotation.SyntaxRuleClass;
+import project.southern_cross.code_analysis.core.annotation.SyntaxParseRuleClass;
 import project.southern_cross.code_analysis.core.config.SyntaxParseRule;
 import project.southern_cross.code_analysis.core.parser.SyntaxParseResult;
 import project.southern_cross.code_analysis.tweet_ql.TweetQlSyntaxKind;
@@ -15,9 +15,9 @@ import project.southern_cross.code_analysis.tweet_ql.syntax.CreateExpressionSynt
  * <p>
  * Created by Dy.Zhao on 2016/7/27.
  */
-@SyntaxRuleClass(
+@SyntaxParseRuleClass(
         language = "tweet_ql",
-        prerequisiteState = {
+        prerequisiteStates = {
                 TweetQlSyntaxParserStates.ROOT
         }
 )

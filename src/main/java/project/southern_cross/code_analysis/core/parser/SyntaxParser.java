@@ -1,10 +1,15 @@
 package project.southern_cross.code_analysis.core.parser;
 
+import org.atteo.classindex.ClassFilter;
+import org.atteo.classindex.ClassIndex;
 import project.southern_cross.code_analysis.core.SyntaxKind;
 import project.southern_cross.code_analysis.core.SyntaxNode;
 import project.southern_cross.code_analysis.core.SyntaxToken;
 import project.southern_cross.code_analysis.core.SyntaxUnit;
-import project.southern_cross.code_analysis.core.boot.BootLoader;
+import project.southern_cross.code_analysis.core.annotation.SyntaxErrorRuleClass;
+import project.southern_cross.code_analysis.core.annotation.SyntaxFactsClass;
+import project.southern_cross.code_analysis.core.annotation.SyntaxParseRuleClass;
+import project.southern_cross.code_analysis.core.annotation.SyntaxParserConfigClass;
 import project.southern_cross.code_analysis.core.config.SyntaxErrorRule;
 import project.southern_cross.code_analysis.core.config.SyntaxFacts;
 import project.southern_cross.code_analysis.core.config.SyntaxParseRule;
@@ -29,6 +34,13 @@ public class SyntaxParser {
 
     private SyntaxNode currentContextNode;
 
+    private SyntaxParserConfig syntaxParserConfig;
+
+    private SyntaxFacts syntaxFacts;
+
+    private Map<Integer, Set<SyntaxParseRule>> syntaxParseRules = new HashMap<>();
+
+    private Map<Integer, Set<SyntaxErrorRule>> syntaxErrorRules = new HashMap<>();
 
     private SyntaxParser(String language) throws UnsupportedLanguageException {
         if (language != null) {
@@ -36,6 +48,10 @@ public class SyntaxParser {
         } else {
             this.language = "";
         }
+        this.loadSyntaxFacts();
+        this.loadSyntaxParserConfig();
+        this.loadSyntaxParseRule();
+        this.loadSyntaxErrorRule();
         this.currentState = this.getInitState();
     }
 
@@ -43,43 +59,81 @@ public class SyntaxParser {
         if (language == null) {
             throw new IllegalArgumentException("Parameter 'language' is null.");
         }
-        SyntaxParser result = new SyntaxParser(language);
-        if (BootLoader.isReady()) {
-            return result;
-        } else {
-            if (BootLoader.isLoading()) {
-                long startTimeStamp = (new Date()).getTime();
-                while (!BootLoader.isReady()) {
-                    if ((new Date()).getTime() - startTimeStamp > 10000) {
-                        throw new TimeoutException("Loading cannot finish in");
+        return new SyntaxParser(language);
+    }
+
+    private void loadSyntaxParserConfig() {
+        ClassFilter.only().topLevel().from(ClassIndex.getAnnotated(SyntaxParserConfigClass.class)).forEach(c -> {
+            if (SyntaxParserConfig.class.isAssignableFrom(c)) {
+                if (c.getAnnotation(SyntaxParserConfigClass.class).language().toLowerCase().equals(this.language)) {
+                    try {
+                        this.syntaxParserConfig = (SyntaxParserConfig) (c.newInstance());
+                    } catch (InstantiationException | IllegalAccessException e) {
+                        e.printStackTrace();
                     }
                 }
-                return result;
-            } else {
-                if (!BootLoader.isReady()) {
-                    BootLoader.load();
-                }
-                return result;
             }
-        }
+        });
     }
 
-    private SyntaxParserConfig getSyntaxParserConfig() throws UnsupportedLanguageException {
-        Optional<SyntaxParserConfig> config = BootLoader.getParserConfig(this.language);
-        if (config.isPresent()) {
-            return config.get();
-        } else {
-            throw new UnsupportedLanguageException("The parser cannot support this language");
-        }
+    private void loadSyntaxFacts() {
+        ClassFilter.only().topLevel().from(ClassIndex.getAnnotated(SyntaxFactsClass.class)).forEach(c -> {
+            if (SyntaxFacts.class.isAssignableFrom(c)) {
+                if (c.getAnnotation(SyntaxFactsClass.class).language().toLowerCase().equals(this.language)) {
+                    try {
+                        this.syntaxFacts = (SyntaxFacts) (c.newInstance());
+                    } catch (InstantiationException | IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
-    private SyntaxFacts getSyntaxFacts() throws UnsupportedLanguageException {
-        Optional<SyntaxFacts> facts = BootLoader.getSyntaxFacts(this.language);
-        if (facts.isPresent()) {
-            return facts.get();
-        } else {
-            throw new UnsupportedLanguageException("The parser cannot support this language");
-        }
+    private void loadSyntaxParseRule() {
+        ClassFilter.only().topLevel().from(ClassIndex.getAnnotated(SyntaxParseRuleClass.class)).forEach(c -> {
+            if (SyntaxParseRule.class.isAssignableFrom(c)) {
+                if (c.getAnnotation(SyntaxParseRuleClass.class).language().toLowerCase().equals(this.language)) {
+                    try {
+                        for (int prerequisiteState : c.getAnnotation(SyntaxParseRuleClass.class).prerequisiteStates()) {
+                            if (!this.syntaxParseRules.keySet().contains(prerequisiteState)) {
+                                this.syntaxParseRules.put(prerequisiteState, new HashSet<>());
+                            }
+                            this.syntaxParseRules.get(prerequisiteState).add((SyntaxParseRule) (c.newInstance()));
+                        }
+                    } catch (InstantiationException | IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    private void loadSyntaxErrorRule() {
+        ClassFilter.only().topLevel().from(ClassIndex.getAnnotated(SyntaxErrorRuleClass.class)).forEach(c -> {
+            if (SyntaxErrorRule.class.isAssignableFrom(c)) {
+                if (c.getAnnotation(SyntaxErrorRuleClass.class).language().toLowerCase().equals(this.language)) {
+                    try {
+                        for (int prerequisiteState : c.getAnnotation(SyntaxErrorRuleClass.class).prerequisiteStates()) {
+                            if (!this.syntaxErrorRules.keySet().contains(prerequisiteState)) {
+                                this.syntaxErrorRules.put(prerequisiteState, new HashSet<>());
+                            }
+                            this.syntaxErrorRules.get(prerequisiteState).add((SyntaxErrorRule) (c.newInstance()));
+                        }
+                    } catch (InstantiationException | IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    private SyntaxParserConfig getSyntaxParserConfig() {
+        return this.syntaxParserConfig;
+    }
+
+    private SyntaxFacts getSyntaxFacts() {
+        return this.syntaxFacts;
     }
 
     private List<Integer> getParserStates() throws UnsupportedLanguageException {
@@ -91,27 +145,15 @@ public class SyntaxParser {
     }
 
     private Set<SyntaxParseRule> getAvailableParseRule() throws UnsupportedLanguageException {
-        Optional<Map<Integer, Set<SyntaxParseRule>>> ruleMap = BootLoader.getParseRules(this.language);
-        if (ruleMap.isPresent()) {
-            Map<Integer, Set<SyntaxParseRule>> ruleSet = ruleMap.get();
-            if (ruleSet.keySet().contains(this.currentState)) {
-                return ruleSet.get(this.currentState);
-            }
-        } else {
-            throw new UnsupportedLanguageException("The parser cannot support this language");
+        if (this.syntaxParseRules.keySet().contains(this.currentState)) {
+            return this.syntaxParseRules.get(this.currentState);
         }
         return new HashSet<>();
     }
 
     private Set<SyntaxErrorRule> getAvailableErrorRule() throws UnsupportedLanguageException {
-        Optional<Map<Integer, Set<SyntaxErrorRule>>> ruleMap = BootLoader.getErrorRules(this.language);
-        if (ruleMap.isPresent()) {
-            Map<Integer, Set<SyntaxErrorRule>> ruleSet = ruleMap.get();
-            if (ruleSet.keySet().contains(this.currentState)) {
-                return ruleSet.get(this.currentState);
-            }
-        } else {
-            throw new UnsupportedLanguageException("The parser cannot support this language");
+        if (this.syntaxErrorRules.keySet().contains(this.currentState)) {
+            return this.syntaxErrorRules.get(this.currentState);
         }
         return new HashSet<>();
     }

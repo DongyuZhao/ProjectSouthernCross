@@ -1,9 +1,11 @@
 package project.southern_cross.code_analysis.core.parser;
 
+import org.atteo.classindex.ClassFilter;
+import org.atteo.classindex.ClassIndex;
 import project.southern_cross.code_analysis.core.SyntaxToken;
 import project.southern_cross.code_analysis.core.SyntaxTrivia;
 import project.southern_cross.code_analysis.core.SyntaxUnit;
-import project.southern_cross.code_analysis.core.boot.BootLoader;
+import project.southern_cross.code_analysis.core.annotation.SyntaxTriviaRuleClass;
 import project.southern_cross.code_analysis.core.config.SyntaxTriviaRule;
 
 import java.util.*;
@@ -17,19 +19,34 @@ import java.util.*;
 public class SyntaxTriviaProcessor {
 
     private String language;
+
     private SyntaxTriviaRule currentApplyingRule;
+
     private SyntaxTrivia currentSyntaxTrivia;
+
+    private Set<SyntaxTriviaRule> syntaxTriviaRules = new HashSet<>();
 
     public SyntaxTriviaProcessor(String language) {
         this.language = language;
+        this.loadSyntaxTriviaRules();
+    }
+
+    private void loadSyntaxTriviaRules() {
+        ClassFilter.only().topLevel().from(ClassIndex.getAnnotated(SyntaxTriviaRuleClass.class)).forEach(c -> {
+            if (SyntaxTriviaRule.class.isAssignableFrom(c)) {
+                if (c.getAnnotation(SyntaxTriviaRuleClass.class).language().toLowerCase().equals(this.language)) {
+                    try {
+                        this.syntaxTriviaRules.add((SyntaxTriviaRule) (c.newInstance()));
+                    } catch (InstantiationException | IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private Set<SyntaxTriviaRule> getSyntaxTriviaRules() {
-        Optional<Set<SyntaxTriviaRule>> ruleSet = BootLoader.getTriviaRules(this.language);
-        if (ruleSet.isPresent()) {
-            return ruleSet.get();
-        }
-        return new HashSet<>();
+        return this.syntaxTriviaRules;
     }
 
     public List<? extends SyntaxUnit> updateSyntaxTokenStream(List<SyntaxToken> tokenList) {
