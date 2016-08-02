@@ -11,4 +11,6 @@ import project.southern_cross.code_analysis.core.SyntaxKind;
 public class TweetQlSyntaxKind extends SyntaxKind {
     public final static int CREATE_SYNTAX_TOKEN = 1;
     public final static int CREATE_SYNTAX_NODE = 1003;
+    public final static int FROM_SYNTAX_TOKEN = 2;
+    public final static int FROM_SYNTAX_NODE = 1004;
 }
