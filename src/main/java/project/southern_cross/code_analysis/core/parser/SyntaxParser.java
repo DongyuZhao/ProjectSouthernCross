@@ -6,12 +6,14 @@ import project.southern_cross.code_analysis.core.SyntaxToken;
 import project.southern_cross.code_analysis.core.SyntaxUnit;
 import project.southern_cross.code_analysis.core.boot.BootLoader;
 import project.southern_cross.code_analysis.core.config.SyntaxErrorRule;
+import project.southern_cross.code_analysis.core.config.SyntaxFacts;
 import project.southern_cross.code_analysis.core.config.SyntaxParseRule;
 import project.southern_cross.code_analysis.core.config.SyntaxParserConfig;
+import project.southern_cross.code_analysis.core.exceptions.UnsupportedLanguageException;
 import project.southern_cross.code_analysis.core.syntax.RootSyntax;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Project Southern Cross
@@ -27,40 +29,95 @@ public class SyntaxParser {
 
     private SyntaxNode currentContextNode;
 
-    private SyntaxParser(String language) {
-        this.language = language;
+
+    private SyntaxParser(String language) throws UnsupportedLanguageException {
+        if (language != null) {
+            this.language = language;
+        } else {
+            this.language = "";
+        }
         this.currentState = this.getInitState();
     }
 
-    public static SyntaxParser createParser(String language) {
+    public static SyntaxParser createParser(String language) throws TimeoutException, UnsupportedLanguageException {
         if (language == null) {
             throw new IllegalArgumentException("Parameter 'language' is null.");
         }
-        return new SyntaxParser(language);
+        SyntaxParser result = new SyntaxParser(language);
+        if (BootLoader.isReady()) {
+            return result;
+        } else {
+            if (BootLoader.isLoading()) {
+                long startTimeStamp = (new Date()).getTime();
+                while (!BootLoader.isReady()) {
+                    if ((new Date()).getTime() - startTimeStamp > 10000) {
+                        throw new TimeoutException("Loading cannot finish in");
+                    }
+                }
+                return result;
+            } else {
+                if (!BootLoader.isReady()) {
+                    BootLoader.load();
+                }
+                return result;
+            }
+        }
     }
 
-    private SyntaxParserConfig getSyntaxParserConfig() {
-        return BootLoader.getParserConfig(this.language);
+    private SyntaxParserConfig getSyntaxParserConfig() throws UnsupportedLanguageException {
+        Optional<SyntaxParserConfig> config = BootLoader.getParserConfig(this.language);
+        if (config.isPresent()) {
+            return config.get();
+        } else {
+            throw new UnsupportedLanguageException("The parser cannot support this language");
+        }
     }
 
-    private List<Integer> getParserStates() {
+    private SyntaxFacts getSyntaxFacts() throws UnsupportedLanguageException {
+        Optional<SyntaxFacts> facts = BootLoader.getSyntaxFacts(this.language);
+        if (facts.isPresent()) {
+            return facts.get();
+        } else {
+            throw new UnsupportedLanguageException("The parser cannot support this language");
+        }
+    }
+
+    private List<Integer> getParserStates() throws UnsupportedLanguageException {
         return this.getSyntaxParserConfig().getStates();
     }
 
-    private int getInitState() {
+    private int getInitState() throws UnsupportedLanguageException {
         return this.getSyntaxParserConfig().getInitialState();
     }
 
-    private Set<SyntaxParseRule> getAvailableParseRule() {
-        return BootLoader.getParseRules(this.language).get(this.currentState);
+    private Set<SyntaxParseRule> getAvailableParseRule() throws UnsupportedLanguageException {
+        Optional<Map<Integer, Set<SyntaxParseRule>>> ruleMap = BootLoader.getParseRules(this.language);
+        if (ruleMap.isPresent()) {
+            Map<Integer, Set<SyntaxParseRule>> ruleSet = ruleMap.get();
+            if (ruleSet.keySet().contains(this.currentState)) {
+                return ruleSet.get(this.currentState);
+            }
+        } else {
+            throw new UnsupportedLanguageException("The parser cannot support this language");
+        }
+        return new HashSet<>();
     }
 
-    private Set<SyntaxErrorRule> getAvailableErrorRule() {
-        return BootLoader.getErrorRules(this.language).get(this.currentState);
+    private Set<SyntaxErrorRule> getAvailableErrorRule() throws UnsupportedLanguageException {
+        Optional<Map<Integer, Set<SyntaxErrorRule>>> ruleMap = BootLoader.getErrorRules(this.language);
+        if (ruleMap.isPresent()) {
+            Map<Integer, Set<SyntaxErrorRule>> ruleSet = ruleMap.get();
+            if (ruleSet.keySet().contains(this.currentState)) {
+                return ruleSet.get(this.currentState);
+            }
+        } else {
+            throw new UnsupportedLanguageException("The parser cannot support this language");
+        }
+        return new HashSet<>();
     }
 
-    public SyntaxNode parse(String source) {
-        Tokenizer tokenizer = new Tokenizer(BootLoader.getSyntaxFacts(this.language));
+    public SyntaxNode parse(String source) throws UnsupportedLanguageException {
+        Tokenizer tokenizer = new Tokenizer(this.getSyntaxFacts());
         List<SyntaxToken> tokenList = tokenizer.tokenize(source);
         SyntaxTriviaProcessor triviaProcessor = new SyntaxTriviaProcessor(language);
 
@@ -69,7 +126,7 @@ public class SyntaxParser {
         this.currentContextNode = root;
         for (int i = 0; i < updateTokenList.size(); i++) {
             SyntaxUnit unit = updateTokenList.get(i);
-            SyntaxToken token = BootLoader.getSyntaxFacts(this.language).isSyntaxToken(unit.getKind()) ? (SyntaxToken) unit : null;
+            SyntaxToken token = this.getSyntaxFacts().isSyntaxToken(unit.getKind()) ? (SyntaxToken) unit : null;
             if (token == null) {
                 continue;
             }

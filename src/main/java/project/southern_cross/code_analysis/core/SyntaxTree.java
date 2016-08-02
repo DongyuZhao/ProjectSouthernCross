@@ -1,11 +1,9 @@
 package project.southern_cross.code_analysis.core;
 
-import project.southern_cross.code_analysis.core.boot.BootLoader;
+import project.southern_cross.code_analysis.core.exceptions.UnsupportedLanguageException;
 import project.southern_cross.code_analysis.core.parser.SyntaxParser;
-import project.southern_cross.code_analysis.core.parser.SyntaxTriviaProcessor;
-import project.southern_cross.code_analysis.core.parser.Tokenizer;
 
-import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Project Southern Cross
@@ -15,17 +13,16 @@ import java.util.List;
  */
 public class SyntaxTree {
 
-    public static ParsedSyntaxTree parse(String source, String language) {
-        Tokenizer tokenizer = new Tokenizer(BootLoader.getSyntaxFacts(language));
-        List<SyntaxToken> tokenList = tokenizer.tokenize(source);
-        SyntaxTriviaProcessor triviaProcessor = new SyntaxTriviaProcessor(language);
-
-        List<? extends SyntaxUnit> updateTokenList = triviaProcessor.updateSyntaxTokenStream(tokenList);
-
-        // TODO:: diagnose and determine the trivia's parent.
-
-        SyntaxParser parser = SyntaxParser.createParser(language);
-
-        return new ParsedSyntaxTree(parser.parse(source));
+    public static ParsedSyntaxTree parse(String source, String language) throws TimeoutException, UnsupportedLanguageException {
+        try {
+            SyntaxParser parser = SyntaxParser.createParser(language);
+            if (parser != null) {
+                return new ParsedSyntaxTree(parser.parse(source));
+            }
+        } catch (TimeoutException | UnsupportedLanguageException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return null;
     }
 }

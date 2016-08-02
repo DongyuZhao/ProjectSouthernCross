@@ -6,10 +6,7 @@ import org.atteo.classindex.ClassIndex;
 import project.southern_cross.code_analysis.core.annotation.*;
 import project.southern_cross.code_analysis.core.config.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Project Southern Cross
@@ -18,8 +15,12 @@ import java.util.Set;
  * Created by Dy.Zhao on 2016/7/26.
  */
 public class BootLoader {
+    private static boolean ready;
+
+    private static boolean loading;
 
     private static HashMap<String, SyntaxParserConfig> parserConfigs = new HashMap<>();
+
     private static HashMap<String, SyntaxFacts> syntaxFacts = new HashMap<>();
 
     private static HashMap<String, Map<Integer, Set<SyntaxParseRule>>> parseRules = new HashMap<>();
@@ -28,32 +29,72 @@ public class BootLoader {
 
     private static HashMap<String, Set<SyntaxTriviaRule>> triviaRules = new HashMap<>();
 
-    public static SyntaxParserConfig getParserConfig(String language) {
-        return parserConfigs.get(language);
+    public static Optional<SyntaxParserConfig> getParserConfig(String language) {
+        if (ready) {
+            if (parserConfigs.keySet().contains(language)) {
+                return Optional.ofNullable(parserConfigs.get(language));
+            }
+        }
+        return Optional.empty();
     }
 
-    public static SyntaxFacts getSyntaxFacts(String language) {
-        return syntaxFacts.get(language);
+    public static Optional<SyntaxFacts> getSyntaxFacts(String language) {
+        if (ready) {
+            if (syntaxFacts.keySet().contains(language)) {
+                return Optional.ofNullable(syntaxFacts.get(language));
+            }
+        }
+        return Optional.empty();
     }
 
-    public static Map<Integer, Set<SyntaxParseRule>> getParseRules(String language) {
-        return parseRules.get(language);
+    public static Optional<Map<Integer, Set<SyntaxParseRule>>> getParseRules(String language) {
+        if (ready) {
+            if (parseRules.keySet().contains(language)) {
+                return Optional.ofNullable(parseRules.get(language));
+            }
+        }
+        return Optional.empty();
     }
 
-    public static Map<Integer, Set<SyntaxErrorRule>> getErrorRules(String language) {
-        return errorRules.get(language);
+    public static Optional<Map<Integer, Set<SyntaxErrorRule>>> getErrorRules(String language) {
+        if (ready) {
+            if (errorRules.keySet().contains(language)) {
+
+                return Optional.of(errorRules.get(language));
+            }
+        }
+        return Optional.empty();
     }
 
-    public static Set<SyntaxTriviaRule> getTriviaRules(String language) {
-        return triviaRules.get(language);
+    public static Optional<Set<SyntaxTriviaRule>> getTriviaRules(String language) {
+        if (ready) {
+            if (triviaRules.keySet().contains(language)) {
+                return Optional.ofNullable(triviaRules.get(language));
+            }
+        }
+        return Optional.empty();
     }
 
-    public static void load() {
-        loadSyntaxFacts();
-        loadSyntaxParserConfigs();
-        loadSyntaxRules();
-        loadErrorRules();
-        loadTriviaRules();
+    public static boolean isReady() {
+        return ready;
+    }
+
+    public static boolean isLoading() {
+        return loading;
+    }
+
+    public static synchronized void load() {
+        if (!loading) {
+            loading = true;
+            ready = false;
+            loadSyntaxFacts();
+            loadSyntaxParserConfigs();
+            loadSyntaxRules();
+            loadErrorRules();
+            loadTriviaRules();
+            loading = false;
+            ready = true;
+        }
     }
 
     private static void loadSyntaxFacts() {
