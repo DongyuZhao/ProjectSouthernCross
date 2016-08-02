@@ -10,4 +10,6 @@ public class TweetQlSyntaxParserStates {
     public static final int NULL = -1;
     public static final int ROOT = 0;
     public static final int CREATE_EXPRESSION = 1;
+    public static final int OBJECT_DECLARE_IN_CREATE = 2;
+    public static final int COMMA_AFTER_OBJECT_IN_CREATE = 3;
 }
