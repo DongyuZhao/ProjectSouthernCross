@@ -11,8 +11,10 @@ import java.util.Set;
  * <p>
  * Created by Dy.Zhao on 2016/7/27.
  */
-@SyntaxFactsClass(language = "tweet_ql")
+@SyntaxFactsClass(language = TweetQlSyntaxFacts.LANGUAGE)
 public class TweetQlSyntaxFacts implements SyntaxFacts {
+    public static final String LANGUAGE = "tweet_ql";
+
     @Override
     public boolean isSyntaxToken(int rawKind) {
         return rawKind >= 0 && rawKind < 1000;

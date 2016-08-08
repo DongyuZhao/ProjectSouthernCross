@@ -8,6 +8,7 @@ package project.southern_cross.code_analysis.core;
  */
 public class SyntaxKind {
     public final static int UN_DETERMINED_SYNTAX_TOKEN = 0;
+    public final static int SPECIAL_SYNTAX_TOKEN = 500;
     public final static int UN_DETERMINED_SYNTAX_NODE = 1000;
     public final static int ROOT = 1001;
     public final static int RESERVED_KEYWORD_SYNTAX_NODE = 1002;

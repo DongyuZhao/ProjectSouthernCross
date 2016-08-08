@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis.tweet_ql.syntax.rules.CreateExpression;
+package project.southern_cross.code_analysis.tweet_ql.syntax.rules.create_expression;
 
 import project.southern_cross.code_analysis.core.SyntaxNode;
 import project.southern_cross.code_analysis.core.SyntaxToken;

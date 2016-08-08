@@ -15,6 +15,7 @@ import project.southern_cross.code_analysis.core.config.SyntaxFacts;
 import project.southern_cross.code_analysis.core.config.SyntaxParseRule;
 import project.southern_cross.code_analysis.core.config.SyntaxParserConfig;
 import project.southern_cross.code_analysis.core.exceptions.UnsupportedLanguageException;
+import project.southern_cross.code_analysis.core.parser.built_in.SyntaxParserStates;
 import project.southern_cross.code_analysis.core.syntax.RootSyntax;
 
 import java.util.*;
@@ -52,7 +53,7 @@ public class SyntaxParser {
         this.loadSyntaxParserConfig();
         this.loadSyntaxParseRule();
         this.loadSyntaxErrorRule();
-        this.currentState = this.getInitState();
+        //this.currentState = this.getInitStateInNode();
     }
 
     public static SyntaxParser createParser(String language) throws TimeoutException, UnsupportedLanguageException {
@@ -140,8 +141,8 @@ public class SyntaxParser {
         return this.getSyntaxParserConfig().getStates();
     }
 
-    private int getInitState() throws UnsupportedLanguageException {
-        return this.getSyntaxParserConfig().getInitialState();
+    private int getInitStateInNode(SyntaxNode node) throws UnsupportedLanguageException {
+        return this.getSyntaxParserConfig().getInitialStateInNode(node);
     }
 
     private Set<SyntaxParseRule> getAvailableParseRule() throws UnsupportedLanguageException {
@@ -165,6 +166,7 @@ public class SyntaxParser {
 
         List<? extends SyntaxUnit> updateTokenList = triviaProcessor.updateSyntaxTokenStream(tokenList);
         RootSyntax root = new RootSyntax(0, 0, false, false);
+        this.currentState = this.getInitStateInNode(root);
         this.currentContextNode = root;
         for (int i = 0; i < updateTokenList.size(); i++) {
             SyntaxUnit unit = updateTokenList.get(i);
@@ -209,7 +211,15 @@ public class SyntaxParser {
         boolean error = true;
         if (result.isModified()) {
             this.currentContextNode = result.getCurrentContextNode();
-            this.currentState = result.getPostParserState();
+            if (result.getPostParserState() == SyntaxParserStates.EXPRESSION_TERMINATED) {
+                try {
+                    this.currentState = this.getInitStateInNode(this.currentContextNode);
+                } catch (UnsupportedLanguageException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                this.currentState = result.getPostParserState();
+            }
             error = false;
         }
         return error;

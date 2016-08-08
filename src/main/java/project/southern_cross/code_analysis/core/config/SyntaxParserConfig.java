@@ -1,5 +1,7 @@
 package project.southern_cross.code_analysis.core.config;
 
+import project.southern_cross.code_analysis.core.SyntaxNode;
+
 import java.util.List;
 
 /**
@@ -10,7 +12,7 @@ import java.util.List;
  */
 public interface SyntaxParserConfig {
 
-    int getInitialState();
+    int getInitialStateInNode(SyntaxNode node);
 
     List<Integer> getStates();
 }

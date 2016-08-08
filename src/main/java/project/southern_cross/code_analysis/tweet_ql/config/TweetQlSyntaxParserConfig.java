@@ -1,5 +1,6 @@
 package project.southern_cross.code_analysis.tweet_ql.config;
 
+import project.southern_cross.code_analysis.core.SyntaxNode;
 import project.southern_cross.code_analysis.core.annotation.SyntaxParserConfigClass;
 import project.southern_cross.code_analysis.core.config.SyntaxParserConfig;
 
@@ -11,10 +12,10 @@ import java.util.List;
  * <p>
  * Created by Dy.Zhao on 2016/7/27.
  */
-@SyntaxParserConfigClass(language = "tweet_ql")
+@SyntaxParserConfigClass(language = TweetQlSyntaxFacts.LANGUAGE)
 public class TweetQlSyntaxParserConfig implements SyntaxParserConfig {
     @Override
-    public int getInitialState() {
+    public int getInitialStateInNode(SyntaxNode node) {
         return 0;
     }
 
