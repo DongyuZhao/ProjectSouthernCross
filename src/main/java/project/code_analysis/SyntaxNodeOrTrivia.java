@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis.core;
+package project.code_analysis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,44 +13,44 @@ public class SyntaxNodeOrTrivia extends SyntaxNodeOrToken {
 
     protected ArrayList<SyntaxToken> childTokens = new ArrayList<>();
 
-    public SyntaxNodeOrTrivia(int kind, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrTrivia(SyntaxKind kind, boolean missing, boolean unexpected) {
         super(kind, missing, unexpected);
     }
 
-    public SyntaxNodeOrTrivia(int kind, int start, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, boolean missing, boolean unexpected) {
         super(kind, start, missing, unexpected);
     }
 
-    public SyntaxNodeOrTrivia(int kind, int start, int end, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, boolean missing, boolean unexpected) {
         super(kind, start, end, missing, unexpected);
     }
 
-    public SyntaxNodeOrTrivia(int kind, int start, int end, int fullEnd, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected) {
         super(kind, start, end, fullEnd, missing, unexpected);
     }
 
-    public SyntaxNodeOrTrivia(int kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
         super(kind, start, end, fullStart, fullEnd, missing, unexpected);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxNode parent, int kind, boolean missing, boolean unexpected) {
-        super(parent, kind, missing, unexpected);
+    public SyntaxNodeOrTrivia(SyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
+        super(kind, missing, unexpected, parent);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxNode parent, int kind, int start, boolean missing, boolean unexpected) {
-        super(parent, kind, start, missing, unexpected);
+    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
+        super(kind, start, missing, unexpected, parent);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxNode parent, int kind, int start, int end, boolean missing, boolean unexpected) {
-        super(parent, kind, start, end, missing, unexpected);
+    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
+        super(kind, start, end, missing, unexpected, parent);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxNode parent, int kind, int start, int end, int fullEnd, boolean missing, boolean unexpected) {
-        super(parent, kind, start, end, fullEnd, missing, unexpected);
+    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
+        super(kind, start, end, fullEnd, missing, unexpected, parent);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxNode parent, int kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
-        super(parent, kind, start, end, fullStart, fullEnd, missing, unexpected);
+    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
+        super(kind, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
 
     public List<SyntaxToken> getChildTokens() {

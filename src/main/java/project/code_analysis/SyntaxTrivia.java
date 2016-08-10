@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis.core;
+package project.code_analysis;
 
 import java.util.ArrayList;
 
@@ -12,42 +12,42 @@ public class SyntaxTrivia extends SyntaxNodeOrTrivia {
     private ArrayList<SyntaxToken> childTokens = new ArrayList<>();
 
     public SyntaxTrivia() {
-        super(SyntaxKind.SYNTAX_TRIVIA, false, false);
+        super(AbstractSyntaxKind.SYNTAX_TRIVIA, false, false);
     }
 
     public SyntaxTrivia(int start) {
-        super(SyntaxKind.SYNTAX_TRIVIA, start, false, false);
+        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, false, false);
     }
 
     public SyntaxTrivia(int start, int end) {
-        super(SyntaxKind.SYNTAX_TRIVIA, start, end, false, false);
+        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, false, false);
     }
 
     public SyntaxTrivia(int start, int end, int fullEnd) {
-        super(SyntaxKind.SYNTAX_TRIVIA, start, end, fullEnd, false, false);
+        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, fullEnd, false, false);
     }
 
     public SyntaxTrivia(int start, int end, int fullStart, int fullEnd) {
-        super(SyntaxKind.SYNTAX_TRIVIA, start, end, fullStart, fullEnd, false, false);
+        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, fullStart, fullEnd, false, false);
     }
 
     public SyntaxTrivia(SyntaxNode parent) {
-        super(parent, SyntaxKind.SYNTAX_TRIVIA, false, false);
+        super(AbstractSyntaxKind.SYNTAX_TRIVIA, false, false, parent);
     }
 
     public SyntaxTrivia(SyntaxNode parent, int start) {
-        super(parent, SyntaxKind.SYNTAX_TRIVIA, start, false, false);
+        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, false, false, parent);
     }
 
     public SyntaxTrivia(SyntaxNode parent, int start, int end) {
-        super(parent, SyntaxKind.SYNTAX_TRIVIA, start, end, false, false);
+        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, false, false, parent);
     }
 
     public SyntaxTrivia(SyntaxNode parent, int start, int end, int fullEnd) {
-        super(parent, SyntaxKind.SYNTAX_TRIVIA, start, end, fullEnd, false, false);
+        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, fullEnd, false, false, parent);
     }
 
     public SyntaxTrivia(SyntaxNode parent, int start, int end, int fullStart, int fullEnd) {
-        super(parent, SyntaxKind.SYNTAX_TRIVIA, start, end, fullStart, fullEnd, false, false);
+        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, fullStart, fullEnd, false, false, parent);
     }
 }

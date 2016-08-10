@@ -1,4 +1,4 @@
-package project.southern_cross.code_analysis.core;
+package project.code_analysis;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -17,7 +17,7 @@ public class SyntaxUnit {
 
     private SyntaxSpan span;
     private SyntaxSpan fullSpan;
-    private int kind;
+    private SyntaxKind kind;
     private boolean missing;
     private boolean unexpected;
     private boolean error;
@@ -58,25 +58,25 @@ public class SyntaxUnit {
         this.fullSpan = new SyntaxSpan(-1, -1);
     }
 
-    public SyntaxUnit(SyntaxNode parentNode, int start) {
+    public SyntaxUnit(int start, SyntaxNode parentNode) {
         this.parentNode = parentNode;
         this.span = new SyntaxSpan(start, start);
         this.fullSpan = new SyntaxSpan(start, start);
     }
 
-    public SyntaxUnit(SyntaxNode parentNode, int start, int end) {
+    public SyntaxUnit(int start, int end, SyntaxNode parentNode) {
         this.parentNode = parentNode;
         this.span = new SyntaxSpan(start, end);
         this.fullSpan = new SyntaxSpan(start, end);
     }
 
-    public SyntaxUnit(SyntaxNode parentNode, int start, int end, int fullEnd) {
+    public SyntaxUnit(int start, int end, int fullEnd, SyntaxNode parentNode) {
         this.parentNode = parentNode;
         this.span = new SyntaxSpan(start, end);
         this.fullSpan = new SyntaxSpan(start, fullEnd);
     }
 
-    public SyntaxUnit(SyntaxNode parentNode, int start, int end, int fullStart, int fullEnd) {
+    public SyntaxUnit(int start, int end, int fullStart, int fullEnd, SyntaxNode parentNode) {
         this.parentNode = parentNode;
         this.span = new SyntaxSpan(start, end);
         this.fullSpan = new SyntaxSpan(fullStart, fullEnd);
@@ -196,11 +196,11 @@ public class SyntaxUnit {
         this.error = missing || unexpected;
     }
 
-    public int getKind() {
+    public SyntaxKind getKind() {
         return kind;
     }
 
-    protected void setKind(int kind) {
+    protected void setKind(SyntaxKind kind) {
         this.kind = kind;
     }
 
