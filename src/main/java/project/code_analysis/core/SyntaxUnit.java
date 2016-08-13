@@ -1,4 +1,4 @@
-package project.code_analysis;
+package project.code_analysis.core;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -17,7 +17,7 @@ public class SyntaxUnit {
 
     private SyntaxSpan span;
     private SyntaxSpan fullSpan;
-    private SyntaxKind kind;
+    private ISyntaxKind kind;
     private boolean missing;
     private boolean unexpected;
     private boolean error;
@@ -86,7 +86,7 @@ public class SyntaxUnit {
         return parentNode;
     }
 
-    protected void setParentNode(SyntaxNode parentNode) {
+    public void setParentNode(SyntaxNode parentNode) {
         this.parentNode = parentNode;
     }
 
@@ -94,7 +94,7 @@ public class SyntaxUnit {
         return span.getStart();
     }
 
-    protected void setStart(int start) {
+    public void setStart(int start) {
         if (start <= this.getEnd()) {
             if (start < this.getFullStart()) {
                 this.setFullStart(start);
@@ -109,7 +109,7 @@ public class SyntaxUnit {
         return span.getEnd();
     }
 
-    protected void setEnd(int end) {
+    public void setEnd(int end) {
         if (end >= this.getStart()) {
             if (end >= this.getFullEnd()) {
                 this.setFullEnd(end);
@@ -124,7 +124,7 @@ public class SyntaxUnit {
         return this.fullSpan.getStart();
     }
 
-    protected void setFullStart(int start) {
+    public void setFullStart(int start) {
         if (start < this.getEnd()) {
             this.fullSpan.setStart(start);
         } else {
@@ -136,7 +136,7 @@ public class SyntaxUnit {
         return this.fullSpan.getEnd();
     }
 
-    protected void setFullEnd(int end) {
+    public void setFullEnd(int end) {
         if (end >= this.getStart()) {
             this.fullSpan.setEnd(end);
         } else {
@@ -144,16 +144,16 @@ public class SyntaxUnit {
         }
     }
 
-    protected void shiftWindow(int offset) {
+    public void shiftWindow(int offset) {
         this.span.shiftWindow(offset);
         this.fullSpan.shiftWindow(offset);
     }
 
-    protected void shiftFullSpanWindowTo(int offset) {
+    public void shiftFullSpanWindowTo(int offset) {
         this.shiftWindow(offset - this.getFullStart());
     }
 
-//    protected void shiftSpanWindowTo(int offset) {
+//    public void shiftSpanWindowTo(int offset) {
 //        this.shiftWindow(offset - this.getStart());
 //    }
 
@@ -190,17 +190,17 @@ public class SyntaxUnit {
         throw new NotImplementedException();
     }
 
-    protected void setError(boolean missing, boolean unexpected) {
+    public void setError(boolean missing, boolean unexpected) {
         this.missing = missing;
         this.unexpected = unexpected;
         this.error = missing || unexpected;
     }
 
-    public SyntaxKind getKind() {
+    public ISyntaxKind getKind() {
         return kind;
     }
 
-    protected void setKind(SyntaxKind kind) {
+    public void setKind(ISyntaxKind kind) {
         this.kind = kind;
     }
 
@@ -208,7 +208,7 @@ public class SyntaxUnit {
         return missing;
     }
 
-    protected void setMissing(boolean missing) {
+    public void setMissing(boolean missing) {
         this.missing = missing;
         this.setError(missing || this.error);
     }
@@ -217,7 +217,7 @@ public class SyntaxUnit {
         return unexpected;
     }
 
-    protected void setUnexpected(boolean unexpected) {
+    public void setUnexpected(boolean unexpected) {
         this.unexpected = unexpected;
         this.setError(missing || this.error);
     }
@@ -226,7 +226,23 @@ public class SyntaxUnit {
         return error;
     }
 
-    protected void setError(boolean error) {
+    public void setError(boolean error) {
+        if (!error) {
+            this.unexpected = false;
+            this.missing = false;
+        }
         this.error = error;
+    }
+
+    public boolean isSyntaxNode() {
+        return false;
+    }
+
+    public boolean isSyntaxToken() {
+        return false;
+    }
+
+    public boolean isSyntaxTrivia() {
+        return false;
     }
 }

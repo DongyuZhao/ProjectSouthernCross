@@ -1,4 +1,4 @@
-package project.code_analysis;
+package project.code_analysis.core;
 
 import java.util.ArrayList;
 
@@ -49,5 +49,10 @@ public class SyntaxTrivia extends SyntaxNodeOrTrivia {
 
     public SyntaxTrivia(SyntaxNode parent, int start, int end, int fullStart, int fullEnd) {
         super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, fullStart, fullEnd, false, false, parent);
+    }
+
+    @Override
+    public boolean isSyntaxTrivia() {
+        return true;
     }
 }

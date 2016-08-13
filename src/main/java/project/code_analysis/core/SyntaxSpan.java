@@ -1,4 +1,4 @@
-package project.code_analysis;
+package project.code_analysis.core;
 
 /**
  * Project Southern Cross

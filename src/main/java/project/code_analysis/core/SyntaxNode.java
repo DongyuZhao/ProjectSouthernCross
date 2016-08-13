@@ -1,4 +1,4 @@
-package project.code_analysis;
+package project.code_analysis.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,45 +16,53 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
     private ArrayList<SyntaxTrivia> leadingTrivia = new ArrayList<>();
     private ArrayList<SyntaxTrivia> trialingTrivia = new ArrayList<>();
 
+    public SyntaxNode(ISyntaxKind kind) {
+        super(kind);
+    }
 
-    public SyntaxNode(SyntaxKind kind, boolean missing, boolean unexpected) {
+    public SyntaxNode(ISyntaxKind kind, boolean missing, boolean unexpected) {
         super(kind, missing, unexpected);
     }
 
-    public SyntaxNode(SyntaxKind kind, int start, boolean missing, boolean unexpected) {
+    public SyntaxNode(ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
         super(kind, start, missing, unexpected);
     }
 
-    public SyntaxNode(SyntaxKind kind, int start, int end, boolean missing, boolean unexpected) {
+    public SyntaxNode(ISyntaxKind kind, int start, int end, boolean missing, boolean unexpected) {
         super(kind, start, end, missing, unexpected);
     }
 
-    public SyntaxNode(SyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected) {
+    public SyntaxNode(ISyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected) {
         super(kind, start, end, fullEnd, missing, unexpected);
     }
 
-    public SyntaxNode(SyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
+    public SyntaxNode(ISyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
         super(kind, start, end, fullStart, fullEnd, missing, unexpected);
     }
 
-    public SyntaxNode(SyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxNode(ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, missing, unexpected, parent);
     }
 
-    public SyntaxNode(SyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxNode(ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, missing, unexpected, parent);
     }
 
-    public SyntaxNode(SyntaxKind kind, int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxNode(ISyntaxKind kind, int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, end, missing, unexpected, parent);
     }
 
-    public SyntaxNode(SyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxNode(ISyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, end, fullEnd, missing, unexpected, parent);
     }
 
-    public SyntaxNode(SyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxNode(ISyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, end, fullStart, fullEnd, missing, unexpected, parent);
+    }
+
+    @Override
+    public boolean isSyntaxNode() {
+        return true;
     }
 
     public boolean hasChildNode() {
@@ -70,11 +78,14 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
 //        throw new IllegalArgumentException("New SyntaxNode's position is not suitable for the existing nodes.");
 //    }
 
-    public List<SyntaxNode> getChildNodes() {
-        return new ArrayList<>(this.childNodes);
+    public List<? extends SyntaxNode> getDescendNodesAndSelf() {
+        ArrayList<SyntaxNode> result = new ArrayList<>();
+        result.add(this);
+        result.addAll(this.getDescendNodes());
+        return result;
     }
 
-    public List<SyntaxNode> getDescendNodes() {
+    public List<? extends SyntaxNode> getDescendNodes() {
         ArrayList<SyntaxNode> result = new ArrayList<>(this.childNodes);
         for (int i = 0; i < result.size(); i++) {
             result.addAll(result.get(i).getChildNodes());
@@ -82,14 +93,11 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
         return result;
     }
 
-    public List<SyntaxNode> getDescendNodesAndSelf() {
-        ArrayList<SyntaxNode> result = new ArrayList<>();
-        result.add(this);
-        result.addAll(this.getDescendNodes());
-        return result;
+    public List<? extends SyntaxNode> getChildNodes() {
+        return new ArrayList<>(this.childNodes);
     }
 
-    public List<SyntaxNode> getAncestorNodeAndSelf() {
+    public List<? extends SyntaxNode> getAncestorNodeAndSelf() {
         ArrayList<SyntaxNode> result = new ArrayList<>();
         result.add(this);
         result.addAll(this.getAncestorNode());

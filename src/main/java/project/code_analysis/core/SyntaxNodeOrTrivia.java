@@ -1,4 +1,4 @@
-package project.code_analysis;
+package project.code_analysis.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,43 +13,47 @@ public class SyntaxNodeOrTrivia extends SyntaxNodeOrToken {
 
     protected ArrayList<SyntaxToken> childTokens = new ArrayList<>();
 
-    public SyntaxNodeOrTrivia(SyntaxKind kind, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrTrivia(ISyntaxKind kind) {
+        super(kind);
+    }
+
+    public SyntaxNodeOrTrivia(ISyntaxKind kind, boolean missing, boolean unexpected) {
         super(kind, missing, unexpected);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrTrivia(ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
         super(kind, start, missing, unexpected);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrTrivia(ISyntaxKind kind, int start, int end, boolean missing, boolean unexpected) {
         super(kind, start, end, missing, unexpected);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrTrivia(ISyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected) {
         super(kind, start, end, fullEnd, missing, unexpected);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrTrivia(ISyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
         super(kind, start, end, fullStart, fullEnd, missing, unexpected);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxNodeOrTrivia(ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, missing, unexpected, parent);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxNodeOrTrivia(ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, missing, unexpected, parent);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxNodeOrTrivia(ISyntaxKind kind, int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, end, missing, unexpected, parent);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxNodeOrTrivia(ISyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, end, fullEnd, missing, unexpected, parent);
     }
 
-    public SyntaxNodeOrTrivia(SyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxNodeOrTrivia(ISyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
 
@@ -115,13 +119,13 @@ public class SyntaxNodeOrTrivia extends SyntaxNodeOrToken {
     }
 
     @Override
-    protected void shiftWindow(int offset) {
+    public void shiftWindow(int offset) {
         this.getChildTokens().forEach(token -> token.shiftWindow(offset));
         super.shiftWindow(offset);
     }
 
     @Override
-    protected void shiftFullSpanWindowTo(int offset) {
+    public void shiftFullSpanWindowTo(int offset) {
         this.getChildTokens().forEach(token -> token.shiftFullSpanWindowTo(offset));
         super.shiftFullSpanWindowTo(offset);
     }

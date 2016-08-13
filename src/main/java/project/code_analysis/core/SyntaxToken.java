@@ -1,4 +1,4 @@
-package project.code_analysis;
+package project.code_analysis.core;
 
 /**
  * Project Southern Cross
@@ -12,54 +12,64 @@ public class SyntaxToken extends SyntaxNodeOrToken {
 
     private SyntaxTrivia parentTrivia;
 
-    public SyntaxToken(String rawString, SyntaxKind kind, boolean missing, boolean unexpected) {
+    public SyntaxToken(String rawString, ISyntaxKind kind) {
+        super(kind);
+        this.rawString = rawString;
+    }
+
+    public SyntaxToken(String rawString, ISyntaxKind kind, boolean missing, boolean unexpected) {
         super(kind, missing, unexpected);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String rawString, SyntaxKind kind, int start, boolean missing, boolean unexpected) {
+    public SyntaxToken(String rawString, ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
         super(kind, start, missing, unexpected);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String rawString, SyntaxKind kind, int start, int end, boolean missing, boolean unexpected) {
+    public SyntaxToken(String rawString, ISyntaxKind kind, int start, int end, boolean missing, boolean unexpected) {
         super(kind, start, end, missing, unexpected);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String rawString, SyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected) {
+    public SyntaxToken(String rawString, ISyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected) {
         super(kind, start, end, fullEnd, missing, unexpected);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String rawString, SyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
+    public SyntaxToken(String rawString, ISyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
         super(kind, start, end, fullStart, fullEnd, missing, unexpected);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String rawString, SyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxToken(String rawString, ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, missing, unexpected, parent);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String rawString, SyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxToken(String rawString, ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, missing, unexpected, parent);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String rawString, SyntaxKind kind, int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxToken(String rawString, ISyntaxKind kind, int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, end, missing, unexpected, parent);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String rawString, SyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxToken(String rawString, ISyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, end, fullEnd, missing, unexpected, parent);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String rawString, SyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxToken(String rawString, ISyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(kind, start, end, fullStart, fullEnd, missing, unexpected, parent);
         this.rawString = rawString;
+    }
+
+    @Override
+    public boolean isSyntaxToken() {
+        return true;
     }
 
     @Override
