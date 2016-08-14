@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
 import project.code_analysis.core.SyntaxNode;
-import project.code_analysis.tweet_ql.TweetQlSyntaxKind;
+import project.code_analysis.tweet_ql.TweetQlSyntaxNodeKind;
 
 /**
  * ProjectSouthernCross
@@ -10,46 +10,46 @@ import project.code_analysis.tweet_ql.TweetQlSyntaxKind;
  */
 public class CompileUnitNode extends SyntaxNode {
     public CompileUnitNode() {
-        super(TweetQlSyntaxKind.COMPILE_UNIT_NODE);
+        super(TweetQlSyntaxNodeKind.COMPILE_UNIT_NODE);
     }
 
     public CompileUnitNode(boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxKind.COMPILE_UNIT_NODE, missing, unexpected);
+        super(TweetQlSyntaxNodeKind.COMPILE_UNIT_NODE, missing, unexpected);
     }
 
     public CompileUnitNode(int start, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxKind.COMPILE_UNIT_NODE, start, missing, unexpected);
+        super(TweetQlSyntaxNodeKind.COMPILE_UNIT_NODE, start, missing, unexpected);
     }
 
     public CompileUnitNode(int start, int end, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxKind.COMPILE_UNIT_NODE, start, end, missing, unexpected);
+        super(TweetQlSyntaxNodeKind.COMPILE_UNIT_NODE, start, end, missing, unexpected);
     }
 
     public CompileUnitNode(int start, int end, int fullEnd, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxKind.COMPILE_UNIT_NODE, start, end, fullEnd, missing, unexpected);
+        super(TweetQlSyntaxNodeKind.COMPILE_UNIT_NODE, start, end, fullEnd, missing, unexpected);
     }
 
     public CompileUnitNode(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxKind.COMPILE_UNIT_NODE, start, end, fullStart, fullEnd, missing, unexpected);
+        super(TweetQlSyntaxNodeKind.COMPILE_UNIT_NODE, start, end, fullStart, fullEnd, missing, unexpected);
     }
 
     public CompileUnitNode(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxKind.COMPILE_UNIT_NODE, missing, unexpected, parent);
+        super(TweetQlSyntaxNodeKind.COMPILE_UNIT_NODE, missing, unexpected, parent);
     }
 
     public CompileUnitNode(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxKind.COMPILE_UNIT_NODE, start, missing, unexpected, parent);
+        super(TweetQlSyntaxNodeKind.COMPILE_UNIT_NODE, start, missing, unexpected, parent);
     }
 
     public CompileUnitNode(int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxKind.COMPILE_UNIT_NODE, start, end, missing, unexpected, parent);
+        super(TweetQlSyntaxNodeKind.COMPILE_UNIT_NODE, start, end, missing, unexpected, parent);
     }
 
     public CompileUnitNode(int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxKind.COMPILE_UNIT_NODE, start, end, fullEnd, missing, unexpected, parent);
+        super(TweetQlSyntaxNodeKind.COMPILE_UNIT_NODE, start, end, fullEnd, missing, unexpected, parent);
     }
 
     public CompileUnitNode(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxKind.COMPILE_UNIT_NODE, start, end, fullStart, fullEnd, missing, unexpected, parent);
+        super(TweetQlSyntaxNodeKind.COMPILE_UNIT_NODE, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
 }

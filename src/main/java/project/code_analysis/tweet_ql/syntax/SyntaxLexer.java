@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax;
 
 import project.code_analysis.core.SyntaxToken;
-import project.code_analysis.tweet_ql.TweetQlSyntaxKind;
+import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
 import project.code_analysis.tweet_ql.syntax.tokens.*;
 
 import java.util.ArrayList;
@@ -33,20 +33,20 @@ public class SyntaxLexer {
         AFTER_SECOND_IDENTIFIER_IN_BINARY,
         AFTER_UNIVERSE_IN_SELECT,
         AFTER_UNIVERSE_IN_FROM,
-        AFTER_NOT,
+        AFTER_UNARY_OPERATOR,
         AFTER_OPEN_PARENTHESES,
         AFTER_CLOSE_PARENTHESES,
     }
 
     private LexerStates currentState = LexerStates.IDLE;
     private Stack<LexerStates> scopeLexStack = new Stack<>();
-    private TweetQlSyntaxFacts syntaxFacts = new TweetQlSyntaxFacts();
+    private TweetQlSyntaxFacts syntaxFacts = TweetQlSyntaxFacts.getInstance();
 
     public List<? extends SyntaxToken> transformTokens(List<SyntaxToken> originTokenList) {
         ArrayList<SyntaxToken> result = new ArrayList<>();
         if (originTokenList != null) {
             originTokenList.forEach(t -> {
-                switch ((TweetQlSyntaxKind) t.getKind()) {
+                switch ((TweetQlSyntaxTokenKind) t.getKind()) {
                     case CREATE_KEYWORD_TOKEN:
                         result.add(new CreateKeywordToken());
                         break;
@@ -165,12 +165,22 @@ public class SyntaxLexer {
         ArrayList<SyntaxToken> result = new ArrayList<>();
         for (int i = 0; i < originTokenList.size(); i++) {
             SyntaxToken token = originTokenList.get(i);
-            if (token.getKind() == TweetQlSyntaxKind.CRLF_TOKEN || token.getKind() == TweetQlSyntaxKind.LF_TOKEN) {
+            if (token.getKind() == TweetQlSyntaxTokenKind.CRLF_TOKEN || token.getKind() == TweetQlSyntaxTokenKind.LF_TOKEN) {
+                continue;
+            }
+
+            if (token.getKind() == TweetQlSyntaxTokenKind.CLOSE_PARENTHESES_TOKEN) {
+                if (this.scopeLexStack.size() == 0) {
+                    token.setError(false, true);
+                } else {
+                    this.currentState = this.scopeLexStack.pop();
+                }
+                result.add(token);
                 continue;
             }
 
             if (this.currentState == LexerStates.IDLE) {
-                switch ((TweetQlSyntaxKind) token.getKind()) {
+                switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                     case CREATE_KEYWORD_TOKEN:
                         this.currentState = LexerStates.AFTER_CREATE;
                         break;
@@ -185,13 +195,13 @@ public class SyntaxLexer {
             }
 
             if (this.currentState == LexerStates.AFTER_CREATE || this.currentState == LexerStates.AFTER_COMMA_IN_CREATE) {
-                switch ((TweetQlSyntaxKind) token.getKind()) {
+                switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                     case IDENTIFIER_TOKEN:
                         this.currentState = LexerStates.AFTER_IDENTIFIER_IN_CREATE;
                         break;
                     default:
                         if (originTokenList.size() > i + 1) {
-                            if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxKind.IDENTIFIER_TOKEN) {
+                            if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN) {
                                 token.setError(false, true);
                             } else {
                                 result.add(new IdentifierToken("", true, false));
@@ -208,7 +218,7 @@ public class SyntaxLexer {
             }
 
             if (this.currentState == LexerStates.AFTER_SELECT || this.currentState == LexerStates.AFTER_COMMA_IN_SELECT) {
-                switch ((TweetQlSyntaxKind) token.getKind()) {
+                switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                     case IDENTIFIER_TOKEN:
                         this.currentState = LexerStates.AFTER_IDENTIFIER_IN_SELECT;
                         break;
@@ -217,7 +227,7 @@ public class SyntaxLexer {
                         break;
                     default:
                         if (originTokenList.size() > i + 1) {
-                            if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxKind.IDENTIFIER_TOKEN) {
+                            if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN) {
                                 token.setError(false, true);
                             } else {
                                 result.add(new IdentifierToken("", true, false));
@@ -236,7 +246,7 @@ public class SyntaxLexer {
             if (this.currentState == LexerStates.AFTER_IDENTIFIER_IN_CREATE
                     || this.currentState == LexerStates.AFTER_IDENTIFIER_IN_SELECT
                     || this.currentState == LexerStates.AFTER_UNIVERSE_IN_SELECT) {
-                switch ((TweetQlSyntaxKind) token.getKind()) {
+                switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                     case COMMA_TOKEN:
                         if (this.currentState == LexerStates.AFTER_UNIVERSE_IN_SELECT) {
                             token.setError(false, true);
@@ -252,8 +262,8 @@ public class SyntaxLexer {
                         break;
                     default:
                         if (originTokenList.size() > i + 1) {
-                            if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxKind.COMMA_TOKEN ||
-                                    originTokenList.get(i + 1).getKind() == TweetQlSyntaxKind.FROM_KEYWORD_TOKEN) {
+                            if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxTokenKind.COMMA_TOKEN ||
+                                    originTokenList.get(i + 1).getKind() == TweetQlSyntaxTokenKind.FROM_KEYWORD_TOKEN) {
                                 token.setError(false, true);
                             } else {
                                 result.add(new FromKeywordToken(true, false));
@@ -269,7 +279,7 @@ public class SyntaxLexer {
             }
 
             if (this.currentState == LexerStates.AFTER_FROM) {
-                switch ((TweetQlSyntaxKind) token.getKind()) {
+                switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                     case IDENTIFIER_TOKEN:
                         this.currentState = LexerStates.AFTER_IDENTIFIER_IN_FROM;
                         break;
@@ -278,7 +288,7 @@ public class SyntaxLexer {
                         break;
                     default:
                         if (originTokenList.size() > i + 1) {
-                            if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxKind.IDENTIFIER_TOKEN) {
+                            if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN) {
                                 token.setError(false, true);
                             } else {
                                 result.add(new IdentifierToken("", true, false));
@@ -294,7 +304,7 @@ public class SyntaxLexer {
             }
 
             if (this.currentState == LexerStates.AFTER_IDENTIFIER_IN_FROM) {
-                switch ((TweetQlSyntaxKind) token.getKind()) {
+                switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                     case WHERE_KEYWORD_TOKEN:
                         this.currentState = LexerStates.IN_SCOPE;
                         break;
@@ -303,8 +313,8 @@ public class SyntaxLexer {
                         break;
                     default:
                         if (originTokenList.size() > i + 1) {
-                            if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxKind.WHERE_KEYWORD_TOKEN ||
-                                    originTokenList.get(i + 1).getKind() == TweetQlSyntaxKind.SEMICOLON_TOKEN) {
+                            if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxTokenKind.WHERE_KEYWORD_TOKEN ||
+                                    originTokenList.get(i + 1).getKind() == TweetQlSyntaxTokenKind.SEMICOLON_TOKEN) {
                                 token.setError(false, true);
                             } else {
                                 result.add(new SemicolonToken(true, false));
@@ -320,7 +330,7 @@ public class SyntaxLexer {
             }
 
             if (this.currentState == LexerStates.AFTER_UNIVERSE_IN_FROM) {
-                switch ((TweetQlSyntaxKind) token.getKind()) {
+                switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                     case SEMICOLON_TOKEN:
                         this.currentState = LexerStates.IDLE;
                         break;
@@ -332,18 +342,28 @@ public class SyntaxLexer {
             }
 
             if (this.currentState == LexerStates.IN_SCOPE) {
-                switch ((TweetQlSyntaxKind) token.getKind()) {
-                    case OPEN_PARENTHESES_TOKEN:
-                        this.scopeLexStack.push(LexerStates.AFTER_FIRST_IDENTIFIER_IN_BINARY);
-                        break;
-                    case IDENTIFIER_TOKEN:
-                        this.currentState = LexerStates.AFTER_FIRST_IDENTIFIER_IN_BINARY;
-                        break;
-                    case NOT_KEYWORD_TOKEN:
-                        this.currentState = LexerStates.AFTER_NOT;
-                        break;
-                    default:
-                        token.setError(false, true);
+                if (token.getKind() == TweetQlSyntaxTokenKind.OPEN_PARENTHESES_TOKEN) {
+                    this.scopeLexStack.push(LexerStates.AFTER_FIRST_IDENTIFIER_IN_BINARY);
+
+                } else if (token.getKind() == TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN) {
+                    this.currentState = LexerStates.AFTER_FIRST_IDENTIFIER_IN_BINARY;
+
+                } else if (this.syntaxFacts.isUnaryOperator(token.getKind())) {
+                    this.currentState = LexerStates.IN_SCOPE;
+                    this.scopeLexStack.push(LexerStates.AFTER_FIRST_IDENTIFIER_IN_BINARY);
+                    result.add(token);
+                    if (originTokenList.size() > i + 1) {
+                        if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxTokenKind.OPEN_PARENTHESES_TOKEN) {
+                            result.add(originTokenList.get(i + 1));
+                            i = i + 1;
+                            continue;
+                        } else {
+                            result.add(new OpenParenthesesToken(true, false));
+                            continue;
+                        }
+                    }
+                } else {
+                    token.setError(false, true);
                 }
                 result.add(token);
                 continue;
@@ -360,27 +380,41 @@ public class SyntaxLexer {
             }
 
             if (this.currentState == LexerStates.AFTER_OPERATOR_IN_BINARY) {
-                switch ((TweetQlSyntaxKind)token.getKind()) {
-                    case IDENTIFIER_TOKEN:
-                        this.currentState = LexerStates.AFTER_SECOND_IDENTIFIER_IN_BINARY;
-                        break;
-                    case OPEN_PARENTHESES_TOKEN:
-                        this.currentState = LexerStates.IN_SCOPE;
-                        this.scopeLexStack.push(LexerStates.AFTER_SECOND_IDENTIFIER_IN_BINARY);
-                        break;
-                    default:
-                        token.setError(false, true);
+                if (token.getKind() == TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN ||
+                        token.getKind() == TweetQlSyntaxTokenKind.DIGIT_TOKEN) {
+                    this.currentState = LexerStates.AFTER_SECOND_IDENTIFIER_IN_BINARY;
+
+                } else if (token.getKind() == TweetQlSyntaxTokenKind.OPEN_PARENTHESES_TOKEN) {
+                    this.currentState = LexerStates.IN_SCOPE;
+                    this.scopeLexStack.push(LexerStates.AFTER_SECOND_IDENTIFIER_IN_BINARY);
+                } else if (this.syntaxFacts.isUnaryOperator(token.getKind())) {
+                    this.currentState = LexerStates.IN_SCOPE;
+                    this.scopeLexStack.push(LexerStates.AFTER_SECOND_IDENTIFIER_IN_BINARY);
+                    result.add(token);
+                    if (originTokenList.size() > i + 1) {
+                        if (originTokenList.get(i + 1).getKind() == TweetQlSyntaxTokenKind.OPEN_PARENTHESES_TOKEN) {
+                            result.add(originTokenList.get(i + 1));
+                            i = i + 1;
+                            continue;
+                        } else {
+                            result.add(new OpenParenthesesToken(true, false));
+                            continue;
+                        }
+                    }
+                } else {
+                    token.setError(false, true);
                 }
                 result.add(token);
                 continue;
             }
 
             if (this.currentState == LexerStates.AFTER_SECOND_IDENTIFIER_IN_BINARY) {
-                if (token.getKind() == TweetQlSyntaxKind.CLOSE_PARENTHESES_TOKEN) {
-                    this.currentState = this.scopeLexStack.pop();
-                } else if (syntaxFacts.isBinaryOperator(token.getKind())) {
+                if (syntaxFacts.isBinaryOperator(token.getKind())) {
                     this.currentState = LexerStates.IN_SCOPE;
-                } else if (token.getKind() == TweetQlSyntaxKind.SEMICOLON_TOKEN) {
+                } else if (token.getKind() == TweetQlSyntaxTokenKind.SEMICOLON_TOKEN) {
+                    if (this.scopeLexStack.size() != 0) {
+                        this.scopeLexStack.forEach(t -> result.add(new CloseParenthesesToken(true, false)));
+                    }
                     this.currentState = LexerStates.IDLE;
                 } else {
                     token.setError(false, true);
@@ -390,6 +424,12 @@ public class SyntaxLexer {
             }
 
             result.add(token);
+        }
+        if (this.scopeLexStack.size() != 0) {
+            this.scopeLexStack.forEach(t -> result.add(new CloseParenthesesToken(true, false)));
+        }
+        if (this.currentState != LexerStates.IDLE) {
+            result.add(new SemicolonToken(true, false));
         }
         return result;
     }

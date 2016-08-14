@@ -2,7 +2,7 @@ package project.code_analysis.tweet_ql.syntax.tokens;
 
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.core.SyntaxToken;
-import project.code_analysis.tweet_ql.TweetQlSyntaxKind;
+import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
 
 /**
@@ -12,46 +12,46 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  */
 public class CreateKeywordToken extends SyntaxToken {
     public CreateKeywordToken() {
-        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxKind.CREATE_KEYWORD_TOKEN);
+        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN);
     }
 
     public CreateKeywordToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxKind.CREATE_KEYWORD_TOKEN, missing, unexpected);
+        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN, missing, unexpected);
     }
 
     public CreateKeywordToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxKind.CREATE_KEYWORD_TOKEN, start, missing, unexpected);
+        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
     public CreateKeywordToken(int start, int end, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxKind.CREATE_KEYWORD_TOKEN, start, end, missing, unexpected);
+        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN, start, end, missing, unexpected);
     }
 
     public CreateKeywordToken(int start, int end, int fullEnd, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxKind.CREATE_KEYWORD_TOKEN, start, end, fullEnd, missing, unexpected);
+        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN, start, end, fullEnd, missing, unexpected);
     }
 
     public CreateKeywordToken(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxKind.CREATE_KEYWORD_TOKEN, start, end, fullStart, fullEnd, missing, unexpected);
+        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN, start, end, fullStart, fullEnd, missing, unexpected);
     }
 
     public CreateKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxKind.CREATE_KEYWORD_TOKEN, missing, unexpected, parent);
+        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN, missing, unexpected, parent);
     }
 
     public CreateKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxKind.CREATE_KEYWORD_TOKEN, start, missing, unexpected, parent);
+        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN, start, missing, unexpected, parent);
     }
 
     public CreateKeywordToken(int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxKind.CREATE_KEYWORD_TOKEN, start, end, missing, unexpected, parent);
+        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN, start, end, missing, unexpected, parent);
     }
 
     public CreateKeywordToken(int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxKind.CREATE_KEYWORD_TOKEN, start, end, fullEnd, missing, unexpected, parent);
+        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN, start, end, fullEnd, missing, unexpected, parent);
     }
 
     public CreateKeywordToken(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxKind.CREATE_KEYWORD_TOKEN, start, end, fullStart, fullEnd, missing, unexpected, parent);
+        super(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
 }

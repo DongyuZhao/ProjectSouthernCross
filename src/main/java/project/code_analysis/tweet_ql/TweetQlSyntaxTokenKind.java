@@ -7,7 +7,7 @@ import project.code_analysis.core.ISyntaxKind;
  * <p>
  * Created by Dy.Zhao on 2016/8/11.
  */
-public enum TweetQlSyntaxKind implements ISyntaxKind {
+public enum TweetQlSyntaxTokenKind implements ISyntaxKind {
     //region SyntaxTokenKind
     CREATE_KEYWORD_TOKEN,
     SELECT_KEYWORD_TOKEN,
@@ -55,11 +55,5 @@ public enum TweetQlSyntaxKind implements ISyntaxKind {
     IDENTIFIER_TOKEN,
     //endregion
 
-    COMPILE_UNIT_NODE,
-    CREATE_EXPRESSION_NODE,
-    USER_DEFINED_TYPE_NODE,
-    STREAM_LIST_NODE,
-    STREAM_FILTER_EXPRESSION_NODE,
-    UNARY_EXPRESSION,
-    BINARY_EXPRESSION,
+
 }

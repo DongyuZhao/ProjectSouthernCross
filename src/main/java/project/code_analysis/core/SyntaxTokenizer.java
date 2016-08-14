@@ -1,8 +1,5 @@
 package project.code_analysis.core;
 
-import project.code_analysis.core.ISyntaxFacts;
-import project.code_analysis.core.SyntaxToken;
-
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -32,10 +29,6 @@ public class SyntaxTokenizer {
 
     private Set<String> getChangeLineSymbols() {
         return this.getSyntaxFacts().getChangeLineSymbols();
-    }
-
-    private Set<Character> getPostDigitLabelList() {
-        return this.getSyntaxFacts().getPostDigitLabelList();
     }
 
     private boolean isSpecialSymbol(char c) {
@@ -83,114 +76,97 @@ public class SyntaxTokenizer {
         this.currentState = newState;
     }
 
+    private enum TokenizerState {
+        LEADING_SPACE,
+        TRIALING_SPACE,
+        TEXT,
+        DIGIT,
+        SPECIAL_SYMBOL
+    }
+
     public ArrayList<SyntaxToken> tokenize(String source) {
         char[] charArray = source.toCharArray();
         for (int i = 0; i < charArray.length; i++) {
             this.currentPosition = i;
             char c = charArray[i];
 
-
+            if (this.isInState(TokenizerState.LEADING_SPACE)) {
+                if (Character.isWhitespace(c)) {
+                    continue;
+                }
+                else if (Character.isAlphabetic(c) || c == '_') {
+                    this.changeState(TokenizerState.TEXT);
+                    this.currentSession.appendCharacter(c);
+                } else if (c == '-') {
+                    if (charArray.length > i + 1 && Character.isDigit(charArray[i + 1])) {
+                        this.changeState(TokenizerState.DIGIT);
+                    } else {
+                        this.changeState(TokenizerState.SPECIAL_SYMBOL);
+                    }
+                    this.currentSession.appendCharacter(c);
+                } else if (Character.isDigit(c)) {
+                    this.changeState(TokenizerState.DIGIT);
+                    this.currentSession.appendCharacter(c);
+                } else {
+                    this.changeState(TokenizerState.SPECIAL_SYMBOL);
+                    this.currentSession.appendCharacter(c);
+                }
+                continue;
+            }
 
             if (this.isInState(TokenizerState.DIGIT)) {
-                // Support 12l, 24f and close the modify
-                if (this.getPostDigitLabelList().contains(c)) {
-                    this.currentSession.appendCharacter(c);
+                if (Character.isWhitespace(c)) {
                     this.changeState(TokenizerState.TRIALING_SPACE);
-                    continue;
                 }
-                // Support 12.1
-                if (c == '.') {
+                else if ((this.currentSession.getRawString() + c).equals("0x")
+                        || (this.currentSession.getRawString() + c).equals("-0x")) {
                     this.currentSession.appendCharacter(c);
-                    this.changeState(TokenizerState.FLOAT);
                 } else {
-                    // If it is not 12f and 12.1, submit
-                    this.submitSession();
-                    i -= 1;
+                    if (this.syntaxFacts.isDigit((this.currentSession.getRawString() + c))) {
+                        this.currentSession.appendCharacter(c);
+                    } else {
+                        this.submitSession();
+                        i = i - 1;
+                    }
                 }
                 continue;
             }
 
-            if (Character.isAlphabetic(c) || c == '_') {
-                if (this.isInState(TokenizerState.LEADING_SPACE)) {
-                    // start from leading
-                    this.changeState(TokenizerState.TEXT);
+            if (this.isInState(TokenizerState.TEXT)) {
+                if (Character.isWhitespace(c)) {
+                    this.changeState(TokenizerState.TRIALING_SPACE);
                 }
-                if (this.isInState(TokenizerState.TEXT)) {
-                    // append to existing session
+                else if (c == '_' || Character.isAlphabetic(c) || Character.isDigit(c)) {
                     this.currentSession.appendCharacter(c);
-                    continue;
-                }
-                if (this.isInState(TokenizerState.TRIALING_SPACE) || this.isInState(TokenizerState.SPECIAL_SYMBOL)) {
-                    // start a new session
+                } else {
                     this.submitSession();
-                    i -= 1;
-                    continue;
+                    i = i - 1;
                 }
-            }
-
-            if (Character.isDigit(c)) {
-                if (this.isInState(TokenizerState.LEADING_SPACE)) {
-                    // start from leading
-                    this.changeState(TokenizerState.DIGIT);
-                }
-                if (this.isInState(TokenizerState.TEXT) || this.isInState(TokenizerState.DIGIT) || this.isInState(TokenizerState.FLOAT)) {
-                    // support abc2, 1234, 123.45
-                    this.currentSession.appendCharacter(c);
-                    continue;
-                }
-                if (this.isInState(TokenizerState.TRIALING_SPACE) || this.isInState(TokenizerState.SPECIAL_SYMBOL)) {
-                    // start new session
-                    this.submitSession();
-                    i -= 1;
-                    continue;
-                }
-            }
-
-            if (Character.isWhitespace(c)) {
-                if (this.isInState(TokenizerState.LEADING_SPACE)) {
-                    // continue leading
-                    this.currentSession.appendLeadingSpace();
-                    continue;
-                }
-                if (this.isInState(TokenizerState.TRIALING_SPACE)) {
-                    // continue trialing
-                    this.currentSession.appendTrialingSpace();
-                    continue;
-                }
-                if (this.getChangeLineSymbols().contains(this.currentSession.getRawString())) {
-                    // if current session is change line symbol, submit the session without trialing
-                    this.submitSession();
-                    i -= 1;
-                    continue;
-                }
-                // other wise, change to trialing space
-                this.changeState(TokenizerState.TRIALING_SPACE);
-                i -= 1;
-                continue;
-            }
-
-            if (this.isInState(TokenizerState.TRIALING_SPACE)) {
-                // trialing meeting something, submit the current session
-                this.submitSession();
-                i -= 1;
-                continue;
-            }
-
-            if (this.isInState(TokenizerState.LEADING_SPACE)) {
-                // leading meet something, switch to special symbol
-                this.currentSession.appendCharacter(c);
-                this.changeState(TokenizerState.SPECIAL_SYMBOL);
                 continue;
             }
 
             if (this.isInState(TokenizerState.SPECIAL_SYMBOL)) {
-                if (this.isPartialSpecialToken(this.currentSession.getRawString() + c)) {
-                    // if we can match a longer symbol, we match it. which means => will not be split to = >
+                if (Character.isWhitespace(c)) {
+                    if (this.syntaxFacts.isChangeLineSymbol(this.currentSession.getRawString())) {
+                        this.submitSession();
+                    } else {
+                        this.changeState(TokenizerState.TRIALING_SPACE);
+                    }
+                }
+                if (this.syntaxFacts.isSpecialSymbol(this.currentSession.getRawString() + c)) {
                     this.currentSession.appendCharacter(c);
                 } else {
-                    // other wise, submit the current one. === will be split as == =.
                     this.submitSession();
-                    i -= 1;
+                    i = i - 1;
+                }
+                continue;
+            }
+
+            if (this.isInState(TokenizerState.TRIALING_SPACE)) {
+                if (Character.isWhitespace(c)) {
+                    continue;
+                } else {
+                    this.submitSession();
                 }
                 continue;
             }
@@ -200,15 +176,6 @@ public class SyntaxTokenizer {
             this.submitSession();
         }
         return this.tokenList;
-    }
-
-    private enum TokenizerState {
-        LEADING_SPACE,
-        TRIALING_SPACE,
-        TEXT,
-        DIGIT,
-        FLOAT,
-        SPECIAL_SYMBOL
     }
 
     private class TokenizerSession {

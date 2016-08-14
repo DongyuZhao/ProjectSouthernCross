@@ -21,7 +21,7 @@ public interface ISyntaxFacts {
     default boolean isDigit(String rawString) {
         return
                 rawString != null &&
-                        (rawString.matches("^([+-]?\\d+\\.\\d+[df]?)$") ||
+                        (rawString.matches("^([+-]?\\d+\\.\\d?[df]?)$") ||
                                 rawString.matches("^([+-]?\\d+[dfo]?)$") ||
                                 rawString.matches("^([+-]?0x[\\da-f]+)$"))
                 ;
@@ -35,12 +35,18 @@ public interface ISyntaxFacts {
 
     boolean isPredefinedType(ISyntaxKind rawKind);
 
+    boolean isSpecialSymbol(String rawString);
+
+    boolean isSpecialSymbol(ISyntaxKind rawKind);
+
+    boolean isChangeLineSymbol(String rawString);
+
+    boolean isChangeLineSymbol(ISyntaxKind rawKind);
+
     ISyntaxKind getSyntaxKind(String rawString);
 
     Set<String> getSpecialSymbolList();
 
     Set<String> getChangeLineSymbols();
-
-    Set<Character> getPostDigitLabelList();
 
 }
