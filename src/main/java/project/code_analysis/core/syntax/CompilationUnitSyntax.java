@@ -9,6 +9,10 @@ import project.code_analysis.core.SyntaxNode;
  * Created by Dy.Zhao on 2016/8/11.
  */
 public class CompilationUnitSyntax extends SyntaxNode {
+    public CompilationUnitSyntax() {
+        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX);
+    }
+
     public CompilationUnitSyntax(boolean missing, boolean unexpected) {
         super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, missing, unexpected);
     }
