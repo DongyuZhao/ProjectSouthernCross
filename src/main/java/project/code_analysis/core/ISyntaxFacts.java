@@ -43,6 +43,12 @@ public interface ISyntaxFacts {
 
     boolean isChangeLineSymbol(ISyntaxKind rawKind);
 
+    default boolean isValidIdentifier(String rawString) {
+        return
+                rawString != null &&
+                        (rawString.matches("^[_A-Za-z]+\\w?$"));
+    }
+
     ISyntaxKind getSyntaxKind(String rawString);
 
     Set<String> getSpecialSymbolList();

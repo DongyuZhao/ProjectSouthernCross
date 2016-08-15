@@ -92,6 +92,7 @@ public class SyntaxTokenizer {
 
             if (this.isInState(TokenizerState.LEADING_SPACE)) {
                 if (Character.isWhitespace(c)) {
+                    this.currentSession.appendLeadingSpace();
                     continue;
                 }
                 else if (Character.isAlphabetic(c) || c == '_') {
@@ -117,6 +118,7 @@ public class SyntaxTokenizer {
             if (this.isInState(TokenizerState.DIGIT)) {
                 if (Character.isWhitespace(c)) {
                     this.changeState(TokenizerState.TRIALING_SPACE);
+                    i = i - 1;
                 }
                 else if ((this.currentSession.getRawString() + c).equals("0x")
                         || (this.currentSession.getRawString() + c).equals("-0x")) {
@@ -135,6 +137,7 @@ public class SyntaxTokenizer {
             if (this.isInState(TokenizerState.TEXT)) {
                 if (Character.isWhitespace(c)) {
                     this.changeState(TokenizerState.TRIALING_SPACE);
+                    i = i - 1;
                 }
                 else if (c == '_' || Character.isAlphabetic(c) || Character.isDigit(c)) {
                     this.currentSession.appendCharacter(c);
@@ -148,9 +151,10 @@ public class SyntaxTokenizer {
             if (this.isInState(TokenizerState.SPECIAL_SYMBOL)) {
                 if (Character.isWhitespace(c)) {
                     if (this.syntaxFacts.isChangeLineSymbol(this.currentSession.getRawString())) {
-                        this.submitSession();
+                        i = i - 1;
                     } else {
                         this.changeState(TokenizerState.TRIALING_SPACE);
+                        i = i - 1;
                     }
                 }
                 if (this.syntaxFacts.isSpecialSymbol(this.currentSession.getRawString() + c)) {
@@ -164,9 +168,11 @@ public class SyntaxTokenizer {
 
             if (this.isInState(TokenizerState.TRIALING_SPACE)) {
                 if (Character.isWhitespace(c)) {
+                    this.currentSession.appendTrialingSpace();
                     continue;
                 } else {
                     this.submitSession();
+                    i = i - 1;
                 }
                 continue;
             }
