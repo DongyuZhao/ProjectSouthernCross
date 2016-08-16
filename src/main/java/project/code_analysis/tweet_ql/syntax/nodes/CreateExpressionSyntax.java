@@ -60,27 +60,23 @@ public class CreateExpressionSyntax extends SyntaxNode {
     //endregion
 
     public List<UserDefinedTypeSyntax> getTargetList() {
-        if (this.hasChildNode() && this.getChildNodes().get(0).getKind() == TweetQlSyntaxNodeKind.STREAM_LIST_NODE) {
-            return this.extractStreamList((StreamListSyntax) this.getChildNodes().get(0));
+        ArrayList<UserDefinedTypeSyntax> result = new ArrayList<>();
+        if (this.hasChildNode() && this.getChildNodes().size() == 2) {
+            this.getChildNodes().get(0).getChildNodes().stream().filter(
+                    n -> n.getKind() == TweetQlSyntaxNodeKind.USER_DEFINED_TYPE_NODE).forEach(
+                    n -> result.add((UserDefinedTypeSyntax) n)
+            );
         }
-        return new ArrayList<>();
+        return result;
     }
 
     public List<UserDefinedTypeSyntax> getSourceList() {
-        if (this.getChildNodes().size() > 1 && this.getChildNodes().get(1).getKind() == TweetQlSyntaxNodeKind.STREAM_LIST_NODE) {
-            return this.extractStreamList((StreamListSyntax) this.getChildNodes().get(1));
-        }
-        return new ArrayList<>();
-    }
-
-    private List<UserDefinedTypeSyntax> extractStreamList(StreamListSyntax streamList) {
         ArrayList<UserDefinedTypeSyntax> result = new ArrayList<>();
-        if (streamList != null) {
-            streamList.getChildNodes().forEach(n -> {
-                if (n.getKind() == TweetQlSyntaxNodeKind.USER_DEFINED_TYPE_NODE) {
-                    result.add((UserDefinedTypeSyntax)n);
-                }
-            });
+        if (this.hasChildNode() && this.getChildNodes().size() == 2) {
+            this.getChildNodes().get(1).getChildNodes().stream().filter(
+                    n -> n.getKind() == TweetQlSyntaxNodeKind.USER_DEFINED_TYPE_NODE).forEach(
+                    n -> result.add((UserDefinedTypeSyntax) n)
+            );
         }
         return result;
     }

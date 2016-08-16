@@ -3,6 +3,7 @@ package project.code_analysis.tweet_ql.syntax;
 import org.junit.Assert;
 import org.junit.Test;
 import project.code_analysis.core.AbstractSyntaxKind;
+import project.code_analysis.core.ISyntaxParser;
 import project.code_analysis.core.syntax.CompilationUnitSyntax;
 
 /**
@@ -11,7 +12,7 @@ import project.code_analysis.core.syntax.CompilationUnitSyntax;
 public class SyntaxParserTest {
     @Test
     public void parse() throws Exception {
-        SyntaxParser parser = new SyntaxParser();
+        ISyntaxParser parser = SyntaxParser.create();
         CompilationUnitSyntax root = parser.parse("SELECT a, b, c FROM s WHERE t = \"u\";");
         Assert.assertEquals(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, root.getKind());
     }

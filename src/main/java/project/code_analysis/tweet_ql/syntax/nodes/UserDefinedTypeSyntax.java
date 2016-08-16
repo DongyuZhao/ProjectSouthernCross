@@ -81,6 +81,13 @@ public class UserDefinedTypeSyntax extends SyntaxNode {
         return null;
     }
 
+    public StreamFilterExpressionSyntax getStreamFilter() {
+        if (this.hasChildNode() && this.getChildNodes().get(0).getKind() == TweetQlSyntaxNodeKind.STREAM_FILTER_EXPRESSION_NODE) {
+            return (StreamFilterExpressionSyntax) this.getChildNodes().get(0);
+        }
+        return new StreamFilterExpressionSyntax();
+    }
+
     @Override
     public String getRawString() {
         return this.childTokens.get(0).getRawString();

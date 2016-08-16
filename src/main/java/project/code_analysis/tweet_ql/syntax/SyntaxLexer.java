@@ -19,6 +19,13 @@ public class SyntaxLexer {
     private Stack<LexerStates> scopeLexStack = new Stack<>();
     private TweetQlSyntaxFacts syntaxFacts = TweetQlSyntaxFacts.getInstance();
 
+    private SyntaxLexer() {
+    }
+
+    public static SyntaxLexer create() {
+        return new SyntaxLexer();
+    }
+
     public List<? extends SyntaxToken> transformTokens(List<SyntaxToken> originTokenList) {
         ArrayList<SyntaxToken> result = new ArrayList<>();
         if (originTokenList != null) {

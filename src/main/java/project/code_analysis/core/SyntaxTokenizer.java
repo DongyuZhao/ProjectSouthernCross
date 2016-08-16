@@ -15,8 +15,12 @@ public class SyntaxTokenizer {
     private int currentPosition = 0;
     private ArrayList<SyntaxToken> tokenList = new ArrayList<>();
 
-    public SyntaxTokenizer(ISyntaxFacts syntaxFacts) {
+    private SyntaxTokenizer(ISyntaxFacts syntaxFacts) {
         this.syntaxFacts = syntaxFacts;
+    }
+
+    public static SyntaxTokenizer create(ISyntaxFacts syntaxFacts) {
+        return new SyntaxTokenizer(syntaxFacts);
     }
 
     private Set<String> getChangeLineSymbols() {

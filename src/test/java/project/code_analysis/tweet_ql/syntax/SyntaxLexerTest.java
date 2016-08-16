@@ -10,8 +10,8 @@ import project.code_analysis.core.SyntaxTokenizer;
 public class SyntaxLexerTest {
     @Test
     public void transformTokens() throws Exception {
-        SyntaxTokenizer tokenizer = new SyntaxTokenizer(TweetQlSyntaxFacts.getInstance());
-        SyntaxLexer lexer = new SyntaxLexer();
+        SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
+        SyntaxLexer lexer = SyntaxLexer.create();
         Assert.assertEquals(13, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM s WHERE t = u;"))).size());
     }
 
