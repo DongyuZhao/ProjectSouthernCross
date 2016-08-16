@@ -53,6 +53,8 @@ public enum TweetQlSyntaxTokenKind implements ISyntaxKind {
     DIGIT_TOKEN,
 
     IDENTIFIER_TOKEN,
+    LITERAL_STRING_TOKEN,
+
     //endregion
 
 

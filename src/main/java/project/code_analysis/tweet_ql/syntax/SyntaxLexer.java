@@ -1,11 +1,9 @@
 package project.code_analysis.tweet_ql.syntax;
 
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 import project.code_analysis.core.SyntaxToken;
 import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
 import project.code_analysis.tweet_ql.syntax.tokens.*;
-import sun.corba.Bridge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,6 +127,9 @@ public class SyntaxLexer {
                         result.add(new LFToken());
                         break;
                     default:
+                        if (this.syntaxFacts.isLiteralString(t.getRawString())) {
+                            result.add(new LiteralStringToken(t.getRawString()));
+                        }
                         if (this.syntaxFacts.isValidIdentifier(t.getRawString())) {
                             result.add(new IdentifierToken(t.getRawString()));
                         } else {
@@ -139,30 +140,6 @@ public class SyntaxLexer {
             });
         }
         return result;
-    }
-
-    private enum LexerStates {
-        IDLE,
-        AFTER_CREATE,
-        AFTER_IDENTIFIER_IN_CREATE,
-        AFTER_COMMA_IN_CREATE,
-
-        AFTER_SELECT,
-        AFTER_IDENTIFIER_IN_SELECT,
-        AFTER_COMMA_IN_SELECT,
-
-        AFTER_FROM,
-        AFTER_IDENTIFIER_IN_FROM,
-
-        IN_SCOPE,
-        AFTER_FIRST_IDENTIFIER_IN_BINARY,
-        AFTER_OPERATOR_IN_BINARY,
-        AFTER_SECOND_IDENTIFIER_IN_BINARY,
-        AFTER_UNIVERSE_IN_SELECT,
-        AFTER_UNIVERSE_IN_FROM,
-        AFTER_UNARY_OPERATOR,
-        AFTER_OPEN_PARENTHESES,
-        AFTER_CLOSE_PARENTHESES,
     }
 
     public List<? extends SyntaxToken> lex(List<? extends SyntaxToken> originTokenList) {
@@ -264,11 +241,84 @@ public class SyntaxLexer {
                             this.currentState = LexerStates.IDLE;
                             result.add(token);
                             break;
+                        default:
+                            token.setError(false, true);
+                            result.add(token);
+                            break;
+                    }
+                    continue;
+                case IN_SCOPE:
+                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                        case IDENTIFIER_TOKEN:
+                            this.currentState = LexerStates.AFTER_FIRST_IDENTIFIER_IN_BINARY;
+                            result.add(token);
+                            break;
+                        default:
+                            token.setError(false, true);
+                            result.add(token);
+                            break;
+                    }
+                    continue;
+                case AFTER_FIRST_IDENTIFIER_IN_BINARY:
+                    if (this.syntaxFacts.isBinaryOperator(token.getRawString())) {
+                        this.currentState = LexerStates.AFTER_OPERATOR_IN_BINARY;
+                        result.add(token);
+                    } else {
+                        token.setError(false, true);
+                        result.add(token);
+                    }
+                    continue;
+                case AFTER_OPERATOR_IN_BINARY:
+                    if (this.syntaxFacts.isLiteralString(token.getRawString()) || this.syntaxFacts.isDigit(token.getRawString())) {
+                        this.currentState = LexerStates.AFTER_SECOND_IDENTIFIER_IN_BINARY;
+                        result.add(token);
+                    } else {
+                        token.setError(false, true);
+                        result.add(token);
+                    }
+                    continue;
+                case AFTER_SECOND_IDENTIFIER_IN_BINARY:
+                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                        case SEMICOLON_TOKEN:
+                            this.currentState = LexerStates.IDLE;
+                            result.add(token);
+                            break;
+                        default:
+                            token.setError(false, true);
+                            result.add(token);
+                            break;
                     }
                     continue;
                 default:
+                    token.setError(false, true);
+                    result.add(token);
+                    continue;
             }
         }
         return result;
+    }
+
+    private enum LexerStates {
+        IDLE,
+        AFTER_CREATE,
+        AFTER_IDENTIFIER_IN_CREATE,
+        AFTER_COMMA_IN_CREATE,
+
+        AFTER_SELECT,
+        AFTER_IDENTIFIER_IN_SELECT,
+        AFTER_COMMA_IN_SELECT,
+
+        AFTER_FROM,
+        AFTER_IDENTIFIER_IN_FROM,
+
+        IN_SCOPE,
+        AFTER_FIRST_IDENTIFIER_IN_BINARY,
+        AFTER_OPERATOR_IN_BINARY,
+        AFTER_SECOND_IDENTIFIER_IN_BINARY,
+        AFTER_UNIVERSE_IN_SELECT,
+        AFTER_UNIVERSE_IN_FROM,
+        AFTER_UNARY_OPERATOR,
+        AFTER_OPEN_PARENTHESES,
+        AFTER_CLOSE_PARENTHESES,
     }
 }

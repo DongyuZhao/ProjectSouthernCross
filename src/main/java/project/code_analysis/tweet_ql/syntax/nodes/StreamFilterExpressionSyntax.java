@@ -52,4 +52,25 @@ public class StreamFilterExpressionSyntax extends SyntaxNode {
     public StreamFilterExpressionSyntax( int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(TweetQlSyntaxNodeKind.STREAM_FILTER_EXPRESSION_NODE, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
+
+    public String getAttributeName() {
+        if (this.hasChildToken()) {
+            return this.childTokens.get(0).getRawString();
+        }
+        return "";
+    }
+
+    public String getExpectedValue() {
+        if (this.hasChildToken() && this.childTokens.size() == 2) {
+            return this.childTokens.get(2).getRawString();
+        }
+        return "";
+    }
+
+    public String getOperator() {
+        if (this.hasChildToken() && this.childTokens.size() == 2) {
+            return this.childTokens.get(1).getRawString();
+        }
+        return "";
+    }
 }

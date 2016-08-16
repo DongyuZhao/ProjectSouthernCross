@@ -49,6 +49,11 @@ public interface ISyntaxFacts {
                         (rawString.matches("^[_A-Za-z]+\\w?$"));
     }
 
+    default boolean isLiteralString(String rawString) {
+        return
+                rawString != null && (rawString.equals("") || rawString.matches("^\"\\w+\"$"));
+    }
+
     ISyntaxKind getSyntaxKind(String rawString);
 
     Set<String> getSpecialSymbolList();

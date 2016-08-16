@@ -19,16 +19,12 @@ public class SyntaxTokenizer {
         this.syntaxFacts = syntaxFacts;
     }
 
-    public ISyntaxFacts getSyntaxFacts() {
-        return this.syntaxFacts;
-    }
-
-    private Set<String> getSpecialSymbolList() {
-        return this.getSyntaxFacts().getSpecialSymbolList();
-    }
-
     private Set<String> getChangeLineSymbols() {
         return this.getSyntaxFacts().getChangeLineSymbols();
+    }
+
+    public ISyntaxFacts getSyntaxFacts() {
+        return this.syntaxFacts;
     }
 
     private boolean isSpecialSymbol(char c) {
@@ -37,6 +33,10 @@ public class SyntaxTokenizer {
 
     private boolean isSpecialSymbol(String s) {
         return this.getSpecialSymbolList().contains(s);
+    }
+
+    private Set<String> getSpecialSymbolList() {
+        return this.getSyntaxFacts().getSpecialSymbolList();
     }
 
     private boolean isPartialSpecialToken(char c) {
@@ -54,8 +54,110 @@ public class SyntaxTokenizer {
         return false;
     }
 
-    private boolean isInState(TokenizerState state) {
-        return this.currentState == state;
+    public ArrayList<SyntaxToken> tokenize(String source) {
+        char[] charArray = source.toCharArray();
+        for (int i = 0; i < charArray.length; i++) {
+            this.currentPosition = i;
+            char c = charArray[i];
+
+            switch (this.currentState) {
+                case LEADING_SPACE:
+                    if (Character.isWhitespace(c)) {
+                        this.currentSession.appendLeadingSpace();
+                        continue;
+                    } else if (Character.isAlphabetic(c) || c == '_') {
+                        this.changeState(TokenizerState.TEXT);
+                        this.currentSession.appendCharacter(c);
+                    } else if (c == '-') {
+                        if (charArray.length > i + 1 && Character.isDigit(charArray[i + 1])) {
+                            this.changeState(TokenizerState.DIGIT);
+                        } else {
+                            this.changeState(TokenizerState.SPECIAL_SYMBOL);
+                        }
+                        this.currentSession.appendCharacter(c);
+                    } else if (Character.isDigit(c)) {
+                        this.changeState(TokenizerState.DIGIT);
+                        this.currentSession.appendCharacter(c);
+                    } else if (c == '"') {
+                        this.changeState(TokenizerState.STRING);
+                        this.currentSession.appendCharacter(c);
+                    } else {
+                        this.changeState(TokenizerState.SPECIAL_SYMBOL);
+                        this.currentSession.appendCharacter(c);
+                    }
+                    continue;
+                case DIGIT:
+                    if (Character.isWhitespace(c)) {
+                        this.changeState(TokenizerState.TRIALING_SPACE);
+                        i = i - 1;
+                    } else if ((this.currentSession.getRawString() + c).equals("0x")
+                            || (this.currentSession.getRawString() + c).equals("-0x")) {
+                        this.currentSession.appendCharacter(c);
+                    } else {
+                        if (this.syntaxFacts.isDigit((this.currentSession.getRawString() + c))) {
+                            this.currentSession.appendCharacter(c);
+                        } else {
+                            this.submitSession();
+                            i = i - 1;
+                        }
+                    }
+                    continue;
+                case TEXT:
+                    if (Character.isWhitespace(c)) {
+                        this.changeState(TokenizerState.TRIALING_SPACE);
+                        i = i - 1;
+                    } else if (c == '_' || Character.isAlphabetic(c) || Character.isDigit(c)) {
+                        this.currentSession.appendCharacter(c);
+                    } else {
+                        this.submitSession();
+                        i = i - 1;
+                    }
+                    continue;
+                case SPECIAL_SYMBOL:
+                    if (Character.isWhitespace(c)) {
+                        if (this.syntaxFacts.isChangeLineSymbol(this.currentSession.getRawString())) {
+                            i = i - 1;
+                        } else {
+                            this.changeState(TokenizerState.TRIALING_SPACE);
+                            i = i - 1;
+                        }
+                    }
+                    if (this.syntaxFacts.isSpecialSymbol(this.currentSession.getRawString() + c)) {
+                        this.currentSession.appendCharacter(c);
+                    } else {
+                        this.submitSession();
+                        i = i - 1;
+                    }
+                    continue;
+                case TRIALING_SPACE:
+                    if (Character.isWhitespace(c)) {
+                        this.currentSession.appendTrialingSpace();
+                        continue;
+                    } else {
+                        this.submitSession();
+                        i = i - 1;
+                    }
+                    continue;
+                case STRING:
+                    if (c == '"') {
+                        this.currentState = TokenizerState.TRIALING_SPACE;
+                    }
+                    this.currentSession.appendCharacter(c);
+                    continue;
+                default:
+
+                    break;
+            }
+        }
+        if (!this.currentSession.getRawString().equals("")) {
+            // if we meet the end of the string, we check if there is un-submitted token.
+            this.submitSession();
+        }
+        return this.tokenList;
+    }
+
+    private void changeState(TokenizerState newState) {
+        this.currentState = newState;
     }
 
     private void submitSession() {
@@ -72,116 +174,13 @@ public class SyntaxTokenizer {
         }
     }
 
-    private void changeState(TokenizerState newState) {
-        this.currentState = newState;
-    }
-
     private enum TokenizerState {
         LEADING_SPACE,
         TRIALING_SPACE,
         TEXT,
         DIGIT,
-        SPECIAL_SYMBOL
-    }
-
-    public ArrayList<SyntaxToken> tokenize(String source) {
-        char[] charArray = source.toCharArray();
-        for (int i = 0; i < charArray.length; i++) {
-            this.currentPosition = i;
-            char c = charArray[i];
-
-            if (this.isInState(TokenizerState.LEADING_SPACE)) {
-                if (Character.isWhitespace(c)) {
-                    this.currentSession.appendLeadingSpace();
-                    continue;
-                }
-                else if (Character.isAlphabetic(c) || c == '_') {
-                    this.changeState(TokenizerState.TEXT);
-                    this.currentSession.appendCharacter(c);
-                } else if (c == '-') {
-                    if (charArray.length > i + 1 && Character.isDigit(charArray[i + 1])) {
-                        this.changeState(TokenizerState.DIGIT);
-                    } else {
-                        this.changeState(TokenizerState.SPECIAL_SYMBOL);
-                    }
-                    this.currentSession.appendCharacter(c);
-                } else if (Character.isDigit(c)) {
-                    this.changeState(TokenizerState.DIGIT);
-                    this.currentSession.appendCharacter(c);
-                } else {
-                    this.changeState(TokenizerState.SPECIAL_SYMBOL);
-                    this.currentSession.appendCharacter(c);
-                }
-                continue;
-            }
-
-            if (this.isInState(TokenizerState.DIGIT)) {
-                if (Character.isWhitespace(c)) {
-                    this.changeState(TokenizerState.TRIALING_SPACE);
-                    i = i - 1;
-                }
-                else if ((this.currentSession.getRawString() + c).equals("0x")
-                        || (this.currentSession.getRawString() + c).equals("-0x")) {
-                    this.currentSession.appendCharacter(c);
-                } else {
-                    if (this.syntaxFacts.isDigit((this.currentSession.getRawString() + c))) {
-                        this.currentSession.appendCharacter(c);
-                    } else {
-                        this.submitSession();
-                        i = i - 1;
-                    }
-                }
-                continue;
-            }
-
-            if (this.isInState(TokenizerState.TEXT)) {
-                if (Character.isWhitespace(c)) {
-                    this.changeState(TokenizerState.TRIALING_SPACE);
-                    i = i - 1;
-                }
-                else if (c == '_' || Character.isAlphabetic(c) || Character.isDigit(c)) {
-                    this.currentSession.appendCharacter(c);
-                } else {
-                    this.submitSession();
-                    i = i - 1;
-                }
-                continue;
-            }
-
-            if (this.isInState(TokenizerState.SPECIAL_SYMBOL)) {
-                if (Character.isWhitespace(c)) {
-                    if (this.syntaxFacts.isChangeLineSymbol(this.currentSession.getRawString())) {
-                        i = i - 1;
-                    } else {
-                        this.changeState(TokenizerState.TRIALING_SPACE);
-                        i = i - 1;
-                    }
-                }
-                if (this.syntaxFacts.isSpecialSymbol(this.currentSession.getRawString() + c)) {
-                    this.currentSession.appendCharacter(c);
-                } else {
-                    this.submitSession();
-                    i = i - 1;
-                }
-                continue;
-            }
-
-            if (this.isInState(TokenizerState.TRIALING_SPACE)) {
-                if (Character.isWhitespace(c)) {
-                    this.currentSession.appendTrialingSpace();
-                    continue;
-                } else {
-                    this.submitSession();
-                    i = i - 1;
-                }
-                continue;
-            }
-        }
-        if (!this.currentSession.getRawString().equals("")) {
-            // if we meet the end of the string, we check if there is un-submitted token.
-            this.submitSession();
-        }
-        return this.tokenList;
+        SPECIAL_SYMBOL,
+        STRING,
     }
 
     private class TokenizerSession {
@@ -226,6 +225,10 @@ public class SyntaxTokenizer {
             this.fullEnd += 1;
         }
 
+        SyntaxToken getToken() {
+            return new SyntaxToken(this.getRawString(), getSyntaxFacts().getSyntaxKind(this.getRawString()), this.getStart(), this.getEnd(), this.getFullStart(), this.getFullEnd(), false, false);
+        }
+
         String getRawString() {
             return this.stringBuilder.toString();
         }
@@ -244,10 +247,6 @@ public class SyntaxTokenizer {
 
         int getFullEnd() {
             return fullEnd;
-        }
-
-        SyntaxToken getToken() {
-            return new SyntaxToken(this.getRawString(), getSyntaxFacts().getSyntaxKind(this.getRawString()), this.getStart(), this.getEnd(), this.getFullStart(), this.getFullEnd(), false, false);
         }
 
         void clear(int start, int fullStart) {
