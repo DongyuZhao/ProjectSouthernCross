@@ -57,10 +57,6 @@ public class SyntaxNodeOrTrivia extends SyntaxNodeOrToken {
         super(kind, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
 
-    public List<SyntaxToken> getChildTokens() {
-        return this.childTokens;
-    }
-
     public void addChildToken(SyntaxToken token) {
         this.addChildToken(token, this.childTokens.size());
     }
@@ -71,7 +67,6 @@ public class SyntaxNodeOrTrivia extends SyntaxNodeOrToken {
                 if (this.getStart() > token.getStart()) {
                     token.shiftFullSpanWindowTo(this.getStart());
                 }
-                this.childTokens.add(token);
             } else {
                 token.shiftFullSpanWindowTo(this.childTokens.get(index - 1).getFullEnd());
             }
@@ -85,7 +80,14 @@ public class SyntaxNodeOrTrivia extends SyntaxNodeOrToken {
         throw new IllegalArgumentException("Index out of range");
     }
 
+    public List<SyntaxToken> getChildTokens() {
+        return this.childTokens;
+    }
+
     protected void updateSpanWindow(int index, int length, List<? extends SyntaxUnit> container) {
+        if (container.size() == 0) {
+            return;
+        }
         if (length < 0) {
             throw new IllegalArgumentException("length should be greater than 0");
         }
@@ -130,7 +132,14 @@ public class SyntaxNodeOrTrivia extends SyntaxNodeOrToken {
         super.shiftFullSpanWindowTo(offset);
     }
 
-//    @Override
+    @Override
+    public String getRawString() {
+        StringBuilder builder = new StringBuilder();
+        this.childTokens.forEach(t -> builder.append(t.getRawString()));
+        return builder.toString();
+    }
+
+    //    @Override
 //    protected void shiftSpanWindowTo(int offset) {
 //        this.getChildTokens().forEach(token -> token.shiftSpanWindowTo(offset));
 //        super.shiftSpanWindowTo(offset);

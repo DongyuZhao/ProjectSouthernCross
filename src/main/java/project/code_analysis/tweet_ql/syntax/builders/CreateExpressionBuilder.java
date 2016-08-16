@@ -35,55 +35,61 @@ public class CreateExpressionBuilder {
                         case CREATE_KEYWORD_TOKEN:
                             this.currentState = ParseStates.AFTER_CREATE;
                             this.root.addChildToken(token);
-                            return;
+                            break;
                         default:
-                            return;
+                            break;
                     }
+                    break;
                 case AFTER_CREATE:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                             this.currentState = ParseStates.AFTER_IDENTIFIER;
                             this.targetListBuilder.append(token);
-                            return;
+                            break;
                         default:
-                            return;
+                            break;
                     }
+                    break;
                 case AFTER_IDENTIFIER:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case COMMA_TOKEN:
                             this.currentState = ParseStates.AFTER_COMMA;
                             this.targetListBuilder.append(token);
-                            return;
+                            break;
                         case FROM_KEYWORD_TOKEN:
                             this.currentState = ParseStates.AFTER_FROM;
                             this.root.addChildNode(this.targetListBuilder.build());
                             this.sourceListBuilder.clear();
                             this.sourceListBuilder.append(token);
-                            return;
+                            break;
                         default:
-                            return;
+                            break;
                     }
+                    break;
                 case AFTER_COMMA:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                             this.currentState = ParseStates.AFTER_IDENTIFIER;
                             this.targetListBuilder.append(token);
-                            return;
+                            break;
                         default:
-                            return;
+                            break;
                     }
+                    break;
                 case AFTER_FROM:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case SEMICOLON_TOKEN:
                             this.currentState = ParseStates.ROOT;
                             this.sourceListBuilder.append(token);
                             this.root.addChildNode(this.sourceListBuilder.build());
-                            return;
+                            break;
                         default:
-                            return;
+                            this.sourceListBuilder.append(token);
+                            break;
                     }
+                    break;
                 default:
-                    return;
+                    break;
             }
         });
         return this.root;

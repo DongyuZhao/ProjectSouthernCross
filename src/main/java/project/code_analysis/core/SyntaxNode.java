@@ -60,13 +60,15 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
         super(kind, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
 
-    @Override
-    public boolean isSyntaxNode() {
-        return true;
-    }
-
     public boolean hasChildNode() {
         return this.childNodes.size() != 0;
+    }
+
+    public List<? extends SyntaxNode> getDescendNodesAndSelf() {
+        ArrayList<SyntaxNode> result = new ArrayList<>();
+        result.add(this);
+        result.addAll(this.getDescendNodes());
+        return result;
     }
 
 //    public void addChildNode(SyntaxNode child) {
@@ -77,13 +79,6 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
 //        }
 //        throw new IllegalArgumentException("New SyntaxNode's position is not suitable for the existing nodes.");
 //    }
-
-    public List<? extends SyntaxNode> getDescendNodesAndSelf() {
-        ArrayList<SyntaxNode> result = new ArrayList<>();
-        result.add(this);
-        result.addAll(this.getDescendNodes());
-        return result;
-    }
 
     public List<? extends SyntaxNode> getDescendNodes() {
         ArrayList<SyntaxNode> result = new ArrayList<>(this.childNodes);
@@ -115,7 +110,6 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
                 if (this.getStart() > node.getStart()) {
                     node.shiftFullSpanWindowTo(this.getStart());
                 }
-                this.childNodes.add(node);
             } else {
                 node.shiftFullSpanWindowTo(this.getChildNodes().get(index - 1).getFullEnd());
             }
@@ -141,9 +135,10 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
         this.updateSpanWindow(0, token.getRawString().length(), this.trialingTrivia);
     }
 
-    public List<SyntaxToken> getDescendTokens() {
-        ArrayList<SyntaxToken> result = new ArrayList<>(this.childTokens);
-        this.getDescendNodes().forEach(node -> result.addAll(node.getChildTokens()));
+    public List<SyntaxNodeOrToken> getDescendNodeOrTokensAndSelf() {
+        ArrayList<SyntaxNodeOrToken> result = new ArrayList<>();
+        result.add(this);
+        result.addAll(this.getDescendNodeOrTokens());
         return result;
     }
 
@@ -154,19 +149,14 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
         return result;
     }
 
-    public List<SyntaxNodeOrToken> getDescendNodeOrTokensAndSelf() {
-        ArrayList<SyntaxNodeOrToken> result = new ArrayList<>();
-        result.add(this);
-        result.addAll(this.getDescendNodeOrTokens());
+    public List<SyntaxToken> getDescendTokens() {
+        ArrayList<SyntaxToken> result = new ArrayList<>(this.childTokens);
+        this.getDescendNodes().forEach(node -> result.addAll(node.getChildTokens()));
         return result;
     }
 
-    public List<SyntaxTrivia> getLeadingTrivia() {
-        return new ArrayList<>(this.leadingTrivia);
-    }
-
-    public List<SyntaxTrivia> getTrialingTrivia() {
-        return new ArrayList<>(this.trialingTrivia);
+    public void addLeadingTrivia(SyntaxTrivia trivia) {
+        this.addLeadingTrivia(trivia, this.getLeadingTrivia().size());
     }
 
     public void addLeadingTrivia(SyntaxTrivia trivia, int index) {
@@ -192,8 +182,12 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
         throw new IllegalArgumentException("Index out of range");
     }
 
-    public void addLeadingTrivia(SyntaxTrivia trivia) {
-        this.addLeadingTrivia(trivia, this.getLeadingTrivia().size());
+    public List<SyntaxTrivia> getLeadingTrivia() {
+        return new ArrayList<>(this.leadingTrivia);
+    }
+
+    public void addTrialingTrivia(SyntaxTrivia trivia) {
+        this.addTrialingTrivia(trivia, this.getTrialingTrivia().size());
     }
 
     public void addTrialingTrivia(SyntaxTrivia trivia, int index) {
@@ -217,25 +211,8 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
         throw new IllegalArgumentException("Index out of range");
     }
 
-    public void addTrialingTrivia(SyntaxTrivia trivia) {
-        this.addTrialingTrivia(trivia, this.getTrialingTrivia().size());
-    }
-
-
-    @Override
-    public String toString() {
-        if (this.hasChildNode()) {
-            StringBuilder stringBuilder = new StringBuilder();
-            this.getChildNodes().forEach(node -> stringBuilder.append(node.getFullString()));
-            return "SyntaxNode: '" + stringBuilder.toString() + "';";
-        }
-        else {
-            StringBuilder stringBuilder = new StringBuilder();
-            // this.getLeadingTrivia().stream().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
-            this.getChildTokens().forEach(token -> stringBuilder.append(token.getFullString()));
-            // this.getTrialingTrivia().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
-            return "SyntaxNode: '" + stringBuilder.toString() + "';";
-        }
+    public List<SyntaxTrivia> getTrialingTrivia() {
+        return new ArrayList<>(this.trialingTrivia);
     }
 
     @Override
@@ -258,5 +235,25 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
             builder.append(' ');
         }
         return builder.toString();
+    }
+
+    @Override
+    public String toString() {
+        if (this.hasChildNode()) {
+            StringBuilder stringBuilder = new StringBuilder();
+            this.getChildNodes().forEach(node -> stringBuilder.append(node.getFullString()));
+            return "SyntaxNode: '" + stringBuilder.toString() + "';";
+        } else {
+            StringBuilder stringBuilder = new StringBuilder();
+            // this.getLeadingTrivia().stream().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
+            this.getChildTokens().forEach(token -> stringBuilder.append(token.getFullString()));
+            // this.getTrialingTrivia().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
+            return "SyntaxNode: '" + stringBuilder.toString() + "';";
+        }
+    }
+
+    @Override
+    public boolean isSyntaxNode() {
+        return true;
     }
 }

@@ -33,38 +33,45 @@ public class StreamFilterExpressionBuilder {
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case WHERE_KEYWORD_TOKEN:
                             this.currentState = ParseStates.AFTER_WHERE;
-                            return;
+                            break;
                         default:
-                            return;
+                            break;
                     }
+                    break;
                 case AFTER_WHERE:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                             this.currentState = ParseStates.AFTER_FIRST_IN_BINARY;
                             this.root.addChildToken(token);
-                            return;
+                            break;
                         default:
-                            return;
+                            break;
                     }
+                    break;
                 case AFTER_FIRST_IN_BINARY:
                     if (TweetQlSyntaxFacts.getInstance().isBinaryOperator(token.getRawString())) {
                         this.currentState = ParseStates.AFTER_OPERATOR_IN_BINARY;
                         this.root.addChildToken(token);
-                        return;
                     }
+                    break;
                 case AFTER_OPERATOR_IN_BINARY:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                             this.currentState = ParseStates.AFTER_SECOND_IN_BINARY;
                             this.root.addChildToken(token);
-                            return;
+                            break;
                         default:
-                            return;
+                            if (TweetQlSyntaxFacts.getInstance().isLiteralString(token.getRawString()) || TweetQlSyntaxFacts.getInstance().isDigit(token.getRawString())) {
+                                this.root.addChildToken(token);
+                                this.currentState = ParseStates.AFTER_SECOND_IN_BINARY;
+                            }
+                            break;
                     }
+                    break;
                 case AFTER_SECOND_IN_BINARY:
-                    return;
+                    break;
                 default:
-                    return;
+                    break;
             }
         });
         return this.root;

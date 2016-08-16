@@ -42,8 +42,9 @@ public class CompileUnitBuilder {
                             this.selectExpressionBuilder.append(token);
                             break;
                         default:
-                            return;
+                            break;
                     }
+                    break;
                 case IN_CREATE_EXPRESSION:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case SEMICOLON_TOKEN:
@@ -69,8 +70,7 @@ public class CompileUnitBuilder {
                     }
                     break;
                 default:
-                    return;
-
+                    break;
             }
         });
         return this.root;

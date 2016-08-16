@@ -73,4 +73,11 @@ public class StreamFilterExpressionSyntax extends SyntaxNode {
         }
         return "";
     }
+
+    @Override
+    public String getRawString() {
+        StringBuilder builder = new StringBuilder();
+        this.childTokens.forEach(t -> builder.append(t.getRawString()));
+        return builder.toString();
+    }
 }

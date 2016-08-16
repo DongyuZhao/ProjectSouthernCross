@@ -34,22 +34,24 @@ public class UserDefinedTypeBuilder {
                         case IDENTIFIER_TOKEN:
                             this.currentState = ParseStates.AFTER_IDENTIFIER;
                             this.root.addChildToken(token);
-                            return;
+                            break;
                         default:
-                            return;
+                            break;
                     }
+                    break;
                 case AFTER_IDENTIFIER:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case WHERE_KEYWORD_TOKEN:
                             this.currentState = ParseStates.AFTER_WHERE;
                             this.filterBuilder.append(token);
-                            return;
+                            break;
                         default:
-                            return;
+                            break;
                     }
+                    break;
                 case AFTER_WHERE:
                     this.filterBuilder.append(token);
-                    return;
+                    break;
 
             }
         });

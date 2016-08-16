@@ -15,14 +15,13 @@ import java.util.List;
  */
 public class SyntaxParser {
     public CompilationUnitSyntax parse(String source) {
-
         List<? extends SyntaxToken> tokenList = preProcessing(source);
         if (tokenList.stream().filter(SyntaxUnit::isError).count() == 0) {
             CompileUnitBuilder builder = new CompileUnitBuilder();
-
+            tokenList.forEach(builder::append);
             return builder.build();
         }
-        return null;
+        return new CompilationUnitSyntax();
     }
 
     private List<? extends SyntaxToken> preProcessing(String source) {

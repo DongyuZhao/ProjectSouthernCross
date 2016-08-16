@@ -56,6 +56,7 @@ public class SyntaxTokenizer {
 
     public ArrayList<SyntaxToken> tokenize(String source) {
         char[] charArray = source.toCharArray();
+        this.currentSession = new TokenizerSession(0, 0);
         for (int i = 0; i < charArray.length; i++) {
             this.currentPosition = i;
             char c = charArray[i];
@@ -116,13 +117,13 @@ public class SyntaxTokenizer {
                 case SPECIAL_SYMBOL:
                     if (Character.isWhitespace(c)) {
                         if (this.syntaxFacts.isChangeLineSymbol(this.currentSession.getRawString())) {
+                            this.submitSession();
                             i = i - 1;
                         } else {
                             this.changeState(TokenizerState.TRIALING_SPACE);
                             i = i - 1;
                         }
-                    }
-                    if (this.syntaxFacts.isSpecialSymbol(this.currentSession.getRawString() + c)) {
+                    } else if (this.syntaxFacts.isSpecialSymbol(this.currentSession.getRawString() + c)) {
                         this.currentSession.appendCharacter(c);
                     } else {
                         this.submitSession();

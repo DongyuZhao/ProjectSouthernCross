@@ -1,6 +1,5 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
-import project.code_analysis.core.ISyntaxKind;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
 
@@ -52,5 +51,10 @@ public class SelectExpressionSyntax extends SyntaxNode {
 
     public SelectExpressionSyntax(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, end, fullStart, fullEnd, missing, unexpected, parent);
+    }
+
+    @Override
+    public String getRawString() {
+        return "SELECT";
     }
 }

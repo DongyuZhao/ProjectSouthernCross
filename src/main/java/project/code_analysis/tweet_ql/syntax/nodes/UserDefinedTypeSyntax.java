@@ -13,6 +13,8 @@ import project.code_analysis.tweet_ql.syntax.tokens.IdentifierToken;
  * Created by Dy.Zhao on 2016/8/11.
  */
 public class UserDefinedTypeSyntax extends SyntaxNode {
+    private SymbolInfo symbolInfo;
+
     public UserDefinedTypeSyntax() {
         super(TweetQlSyntaxNodeKind.USER_DEFINED_TYPE_NODE);
         this.symbolInfo = PredefinedTypeBinder.getStreamBindInfo();
@@ -68,8 +70,6 @@ public class UserDefinedTypeSyntax extends SyntaxNode {
         this.symbolInfo = PredefinedTypeBinder.getStreamBindInfo();
     }
 
-    private SymbolInfo symbolInfo;
-
     public SymbolInfo getSymbolInfo() {
         return symbolInfo;
     }
@@ -79,5 +79,10 @@ public class UserDefinedTypeSyntax extends SyntaxNode {
             return (IdentifierToken) this.getChildTokens().get(0);
         }
         return null;
+    }
+
+    @Override
+    public String getRawString() {
+        return this.childTokens.get(0).getRawString();
     }
 }

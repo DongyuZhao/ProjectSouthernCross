@@ -37,19 +37,21 @@ public class AttributeListBuilder {
                             this.streamBuilderList.add(new UserDefinedTypeBuilder());
                             this.currentBuilderPointer += 1;
                             this.streamBuilderList.get(this.currentBuilderPointer).append(token);
-                            return;
+                            break;
                         default:
-                            return;
+                            break;
                     }
+                    break;
                 case AFTER_IDENTIFIER:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case COMMA_TOKEN:
                             this.currentState = ParseStates.AFTER_COMMA;
-                            return;
+                            break;
                         default:
                             this.streamBuilderList.get(this.currentBuilderPointer).append(token);
-                            return;
+                            break;
                     }
+                    break;
                 case AFTER_COMMA:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
@@ -57,12 +59,13 @@ public class AttributeListBuilder {
                             this.streamBuilderList.add(new UserDefinedTypeBuilder());
                             this.currentBuilderPointer += 1;
                             this.streamBuilderList.get(this.currentBuilderPointer).append(token);
-                            return;
+                            break;
                         default:
-                            return;
+                            break;
                     }
+                    break;
                 default:
-                    return;
+                    break;
             }
         });
         this.streamBuilderList.forEach(builder -> this.root.addChildNode(builder.build()));
