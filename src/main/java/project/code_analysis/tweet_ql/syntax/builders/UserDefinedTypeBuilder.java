@@ -26,13 +26,14 @@ public class UserDefinedTypeBuilder {
     }
 
     public UserDefinedTypeSyntax build() {
-        this.root = new UserDefinedTypeSyntax();
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
+                        case STAR_TOKEN:
                             this.currentState = ParseStates.AFTER_IDENTIFIER;
+                            this.root = new UserDefinedTypeSyntax(token.getRawString());
                             this.root.addChildToken(token);
                             break;
                         default:
