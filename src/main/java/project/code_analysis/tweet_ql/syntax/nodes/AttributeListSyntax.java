@@ -1,6 +1,5 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
-import project.code_analysis.core.ISyntaxKind;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlSyntaxNodeKind;
 
@@ -9,7 +8,7 @@ import project.code_analysis.tweet_ql.TweetQlSyntaxNodeKind;
  * <p>
  * Created by Dy.Zhao on 2016/8/15.
  */
-public class AttributeListSyntax extends SyntaxNode {
+public class AttributeListSyntax extends UserDefinedTypeListSyntax {
     public AttributeListSyntax() {
         super(TweetQlSyntaxNodeKind.ATTRIBUTE_LIST_NODE);
     }

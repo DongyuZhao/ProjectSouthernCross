@@ -52,4 +52,11 @@ public class CompilationUnitSyntax extends SyntaxNode {
     public CompilationUnitSyntax(SyntaxNode parent, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
         super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
+
+    @Override
+    public String getRawString() {
+        StringBuilder builder = new StringBuilder();
+        this.getChildNodes().forEach(n -> builder.append(n.getRawString()));
+        return builder.toString();
+    }
 }

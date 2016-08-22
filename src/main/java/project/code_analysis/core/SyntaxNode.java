@@ -217,39 +217,12 @@ public class SyntaxNode extends SyntaxNodeOrTrivia {
 
     @Override
     public String getFullString() {
-        StringBuilder builder = new StringBuilder();
-        int startCount = this.getStart() - this.getFullStart();
-        for (int i = 0; i < startCount; i++) {
-            builder.append(' ');
-        }
-        if (this.hasChildNode()) {
-            this.getChildNodes().forEach(node -> builder.append(node.getFullString()));
-        }
-        else {
-            this.getLeadingTrivia().forEach(trivia -> builder.append(trivia.getFullString()));
-            this.getChildTokens().forEach(token -> builder.append(token.getFullString()));
-            this.getTrialingTrivia().forEach(trivia -> builder.append(trivia.getFullString()));
-        }
-        int endCount = this.getFullEnd() - this.getEnd();
-        for (int i = 0; i < endCount; i++) {
-            builder.append(' ');
-        }
-        return builder.toString();
+        return this.getRawString();
     }
 
     @Override
     public String toString() {
-        if (this.hasChildNode()) {
-            StringBuilder stringBuilder = new StringBuilder();
-            this.getChildNodes().forEach(node -> stringBuilder.append(node.getFullString()));
-            return "SyntaxNode: '" + stringBuilder.toString() + "';";
-        } else {
-            StringBuilder stringBuilder = new StringBuilder();
-            // this.getLeadingTrivia().stream().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
-            this.getChildTokens().forEach(token -> stringBuilder.append(token.getFullString()));
-            // this.getTrialingTrivia().forEach(trivia -> stringBuilder.append(trivia.getFullString()));
-            return "SyntaxNode: '" + stringBuilder.toString() + "';";
-        }
+        return this.getFullString();
     }
 
     @Override

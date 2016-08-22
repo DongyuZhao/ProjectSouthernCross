@@ -1,8 +1,9 @@
-package project.code_analysis.tweet_ql.syntax;
+package project.code_analysis.tweet_ql.syntax.lexers;
 
 import project.code_analysis.core.SyntaxToken;
 import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
+import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
 import project.code_analysis.tweet_ql.syntax.tokens.*;
 
 import java.util.ArrayList;
@@ -153,11 +154,10 @@ public class SyntaxLexer {
 
     public List<? extends SyntaxToken> lex(List<? extends SyntaxToken> originTokenList) {
         ArrayList<SyntaxToken> result = new ArrayList<>();
-        for (int i = 0; i < originTokenList.size(); i++) {
-            SyntaxToken token = originTokenList.get(i);
+        for (SyntaxToken token : originTokenList) {
             switch (this.currentState) {
                 case IDLE:
-                    switch ((TweetQlSyntaxTokenKind)token.getKind()) {
+                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case CREATE_KEYWORD_TOKEN:
                             this.currentState = LexerStates.AFTER_CREATE;
                             result.add(token);
@@ -173,35 +173,19 @@ public class SyntaxLexer {
                     }
                     continue;
                 case AFTER_CREATE:
-                    switch ((TweetQlSyntaxTokenKind)token.getKind()) {
-                        case IDENTIFIER_TOKEN:
-                            this.currentState = LexerStates.AFTER_IDENTIFIER_IN_CREATE;
-                            result.add(token);
-                            break;
-                        default:
-                            token.setError(false, true);
-                            result.add(token);
-                            break;
-                    }
+                    processIdentifierInCreate(result, token);
                     continue;
                 case AFTER_COMMA_IN_CREATE:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-                        case IDENTIFIER_TOKEN:
-                        case STAR_TOKEN:
-                            this.currentState = LexerStates.AFTER_IDENTIFIER_IN_CREATE;
-                            result.add(token);
-                            break;
-                        default:
-                            token.setError(false, true);
-                            result.add(token);
-                            break;
-                    }
+                    processIdentifierInCreate(result, token);
                     continue;
                 case AFTER_SELECT:
-                    switch ((TweetQlSyntaxTokenKind)token.getKind()) {
+                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
-                        case STAR_TOKEN:
                             this.currentState = LexerStates.AFTER_IDENTIFIER_IN_SELECT;
+                            result.add(token);
+                            break;
+                        case STAR_TOKEN:
+                            this.currentState = LexerStates.AFTER_STAR_IN_SELECT;
                             result.add(token);
                             break;
                         default:
@@ -211,7 +195,7 @@ public class SyntaxLexer {
                     }
                     continue;
                 case AFTER_IDENTIFIER_IN_CREATE:
-                    switch ((TweetQlSyntaxTokenKind)token.getKind()) {
+                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case COMMA_TOKEN:
                             this.currentState = LexerStates.AFTER_COMMA_IN_CREATE;
                             result.add(token);
@@ -227,11 +211,23 @@ public class SyntaxLexer {
                     }
                     continue;
                 case AFTER_IDENTIFIER_IN_SELECT:
-                    switch ((TweetQlSyntaxTokenKind)token.getKind()) {
+                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case COMMA_TOKEN:
                             this.currentState = LexerStates.AFTER_COMMA_IN_SELECT;
                             result.add(token);
                             break;
+                        case FROM_KEYWORD_TOKEN:
+                            this.currentState = LexerStates.AFTER_FROM;
+                            result.add(token);
+                            break;
+                        default:
+                            token.setError(false, true);
+                            result.add(token);
+                            break;
+                    }
+                    continue;
+                case AFTER_STAR_IN_SELECT:
+                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case FROM_KEYWORD_TOKEN:
                             this.currentState = LexerStates.AFTER_FROM;
                             result.add(token);
@@ -255,7 +251,7 @@ public class SyntaxLexer {
                     }
                     continue;
                 case AFTER_FROM:
-                    switch ((TweetQlSyntaxTokenKind)token.getKind()) {
+                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                         case STAR_TOKEN:
                             this.currentState = LexerStates.AFTER_IDENTIFIER_IN_FROM;
@@ -268,7 +264,7 @@ public class SyntaxLexer {
                     }
                     continue;
                 case AFTER_IDENTIFIER_IN_FROM:
-                    switch ((TweetQlSyntaxTokenKind)token.getKind()) {
+                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case WHERE_KEYWORD_TOKEN:
                             this.currentState = LexerStates.IN_SCOPE;
                             result.add(token);
@@ -319,6 +315,10 @@ public class SyntaxLexer {
                             this.currentState = LexerStates.IDLE;
                             result.add(token);
                             break;
+                        case COMMA_TOKEN:
+                            this.currentState = LexerStates.AFTER_FROM;
+                            result.add(token);
+                            break;
                         default:
                             token.setError(false, true);
                             result.add(token);
@@ -344,6 +344,19 @@ public class SyntaxLexer {
         return result;
     }
 
+    private void processIdentifierInCreate(ArrayList<SyntaxToken> result, SyntaxToken token) {
+        switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+            case IDENTIFIER_TOKEN:
+                this.currentState = LexerStates.AFTER_IDENTIFIER_IN_CREATE;
+                result.add(token);
+                break;
+            default:
+                token.setError(false, true);
+                result.add(token);
+                break;
+        }
+    }
+
     private enum LexerStates {
         IDLE,
         AFTER_CREATE,
@@ -366,5 +379,6 @@ public class SyntaxLexer {
         AFTER_UNARY_OPERATOR,
         AFTER_OPEN_PARENTHESES,
         AFTER_CLOSE_PARENTHESES,
+        AFTER_STAR_IN_SELECT
     }
 }

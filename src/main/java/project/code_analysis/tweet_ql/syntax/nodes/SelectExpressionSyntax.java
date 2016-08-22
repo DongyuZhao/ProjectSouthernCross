@@ -55,22 +55,22 @@ public class SelectExpressionSyntax extends SyntaxNode {
 
     @Override
     public String getRawString() {
-        return "SELECT";
-    }
-
-    public StreamListSyntax getSourceList() {
-        if (this.hasChildNode() && this.getChildNodes().size() >= 2) {
-            if (this.getChildNodes().get(1).getKind() == TweetQlSyntaxNodeKind.STREAM_LIST_NODE) {
-                return (StreamListSyntax) this.getChildNodes().get(1);
-            }
-        }
-        return null;
+        return "SELECT " + this.getAttributeList().getRawString() + " FROM " + this.getSourceList().getRawString() + ";";
     }
 
     public AttributeListSyntax getAttributeList() {
         if (this.hasChildNode() && this.getChildNodes().size() >= 1) {
             if (this.getChildNodes().get(0).getKind() == TweetQlSyntaxNodeKind.ATTRIBUTE_LIST_NODE) {
                 return (AttributeListSyntax) this.getChildNodes().get(0);
+            }
+        }
+        return null;
+    }
+
+    public StreamListSyntax getSourceList() {
+        if (this.hasChildNode() && this.getChildNodes().size() >= 2) {
+            if (this.getChildNodes().get(1).getKind() == TweetQlSyntaxNodeKind.STREAM_LIST_NODE) {
+                return (StreamListSyntax) this.getChildNodes().get(1);
             }
         }
         return null;

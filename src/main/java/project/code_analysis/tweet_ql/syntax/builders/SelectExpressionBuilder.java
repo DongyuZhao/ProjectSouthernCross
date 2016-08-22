@@ -46,6 +46,22 @@ public class SelectExpressionBuilder {
                             this.currentState = ParseStates.AFTER_IDENTIFIER;
                             this.attributeListBuilder.append(token);
                             break;
+                        case STAR_TOKEN:
+                            this.currentState = ParseStates.AFTER_STAR;
+                            this.attributeListBuilder.append(token);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case AFTER_STAR:
+                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                        case FROM_KEYWORD_TOKEN:
+                            this.currentState = ParseStates.AFTER_FROM;
+                            this.root.addChildNode(this.attributeListBuilder.build());
+                            this.sourceListBuilder.clear();
+                            this.sourceListBuilder.append(token);
+                            break;
                         default:
                             break;
                     }
@@ -99,6 +115,7 @@ public class SelectExpressionBuilder {
         ROOT,
         AFTER_SELECT,
         AFTER_IDENTIFIER,
+        AFTER_STAR,
         AFTER_COMMA,
         AFTER_FROM,
     }

@@ -3,6 +3,7 @@ package project.code_analysis.tweet_ql.syntax;
 import org.junit.Assert;
 import org.junit.Test;
 import project.code_analysis.core.SyntaxTokenizer;
+import project.code_analysis.tweet_ql.syntax.lexers.SyntaxLexer;
 
 /**
  * Created by Dy.Zhao on 2016/8/16.

@@ -3,9 +3,6 @@ package project.code_analysis.tweet_ql.syntax.nodes;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlSyntaxNodeKind;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * ProjectSouthernCross
  * <p>
@@ -59,25 +56,26 @@ public class CreateExpressionSyntax extends SyntaxNode {
     }
     //endregion
 
-    public List<UserDefinedTypeSyntax> getTargetList() {
-        ArrayList<UserDefinedTypeSyntax> result = new ArrayList<>();
-        if (this.hasChildNode() && this.getChildNodes().size() == 2) {
-            this.getChildNodes().get(0).getChildNodes().stream().filter(
-                    n -> n.getKind() == TweetQlSyntaxNodeKind.USER_DEFINED_TYPE_NODE).forEach(
-                    n -> result.add((UserDefinedTypeSyntax) n)
-            );
-        }
-        return result;
+    @Override
+    public String getRawString() {
+        return "SELECT " + this.getTargetList().getRawString() + " FROM " + this.getSourceList().getRawString() + ";";
     }
 
-    public List<UserDefinedTypeSyntax> getSourceList() {
-        ArrayList<UserDefinedTypeSyntax> result = new ArrayList<>();
-        if (this.hasChildNode() && this.getChildNodes().size() == 2) {
-            this.getChildNodes().get(1).getChildNodes().stream().filter(
-                    n -> n.getKind() == TweetQlSyntaxNodeKind.USER_DEFINED_TYPE_NODE).forEach(
-                    n -> result.add((UserDefinedTypeSyntax) n)
-            );
+    public StreamListSyntax getTargetList() {
+        if (this.hasChildNode() && this.getChildNodes().size() >= 2) {
+            if (this.getChildNodes().get(1).getKind() == TweetQlSyntaxNodeKind.STREAM_LIST_NODE) {
+                return (StreamListSyntax) this.getChildNodes().get(1);
+            }
         }
-        return result;
+        return null;
+    }
+
+    public StreamListSyntax getSourceList() {
+        if (this.hasChildNode() && this.getChildNodes().size() >= 1) {
+            if (this.getChildNodes().get(0).getKind() == TweetQlSyntaxNodeKind.STREAM_LIST_NODE) {
+                return (StreamListSyntax) this.getChildNodes().get(0);
+            }
+        }
+        return null;
     }
 }
