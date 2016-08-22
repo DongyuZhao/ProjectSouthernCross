@@ -10,6 +10,7 @@ import project.code_analysis.core.ISyntaxKind;
 public enum  TweetQlSyntaxNodeKind implements ISyntaxKind {
     COMPILE_UNIT_NODE,
     CREATE_EXPRESSION_NODE,
+    SELECT_EXPRESSION_NODE,
     USER_DEFINED_TYPE_NODE,
     STREAM_LIST_NODE,
     ATTRIBUTE_LIST_NODE,

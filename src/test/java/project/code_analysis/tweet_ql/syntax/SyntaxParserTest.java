@@ -13,7 +13,7 @@ public class SyntaxParserTest {
     @Test
     public void parse() throws Exception {
         ISyntaxParser parser = SyntaxParser.create();
-        CompilationUnitSyntax root = parser.parse("SELECT a, b, c FROM s WHERE t = \"u\";");
+        CompilationUnitSyntax root = parser.parse("SELECT a, b, c FROM * WHERE t = \"u\";");
         Assert.assertEquals(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, root.getKind());
     }
 

@@ -7,7 +7,7 @@ import project.code_analysis.tweet_ql.syntax.SyntaxParser;
  * Created by Dy.Zhao on 2016/8/16.
  */
 public class TweetQlSyntaxTree extends SyntaxTree {
-    public TweetQlSyntaxTree(String source) {
+    public TweetQlSyntaxTree() {
         super(SyntaxParser.create());
     }
 }

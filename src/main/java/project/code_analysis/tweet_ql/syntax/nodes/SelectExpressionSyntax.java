@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
 import project.code_analysis.core.SyntaxNode;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlSyntaxNodeKind;
 
 /**
  * ProjectSouthernCross
@@ -10,51 +10,69 @@ import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
  */
 public class SelectExpressionSyntax extends SyntaxNode {
     public SelectExpressionSyntax() {
-        super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN);
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE);
     }
 
     public SelectExpressionSyntax(boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, missing, unexpected);
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, missing, unexpected);
     }
 
     public SelectExpressionSyntax(int start, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, missing, unexpected);
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, missing, unexpected);
     }
 
     public SelectExpressionSyntax(int start, int end, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, end, missing, unexpected);
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, missing, unexpected);
     }
 
     public SelectExpressionSyntax(int start, int end, int fullEnd, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, end, fullEnd, missing, unexpected);
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, fullEnd, missing, unexpected);
     }
 
     public SelectExpressionSyntax(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, end, fullStart, fullEnd, missing, unexpected);
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, fullStart, fullEnd, missing, unexpected);
     }
 
     public SelectExpressionSyntax(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, missing, unexpected, parent);
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, missing, unexpected, parent);
     }
 
     public SelectExpressionSyntax(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, missing, unexpected, parent);
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, missing, unexpected, parent);
     }
 
     public SelectExpressionSyntax(int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, end, missing, unexpected, parent);
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, missing, unexpected, parent);
     }
 
     public SelectExpressionSyntax(int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, end, fullEnd, missing, unexpected, parent);
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, fullEnd, missing, unexpected, parent);
     }
 
     public SelectExpressionSyntax(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, end, fullStart, fullEnd, missing, unexpected, parent);
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
 
     @Override
     public String getRawString() {
         return "SELECT";
+    }
+
+    public StreamListSyntax getSourceList() {
+        if (this.hasChildNode() && this.getChildNodes().size() >= 2) {
+            if (this.getChildNodes().get(1).getKind() == TweetQlSyntaxNodeKind.STREAM_LIST_NODE) {
+                return (StreamListSyntax) this.getChildNodes().get(1);
+            }
+        }
+        return null;
+    }
+
+    public AttributeListSyntax getAttributeList() {
+        if (this.hasChildNode() && this.getChildNodes().size() >= 1) {
+            if (this.getChildNodes().get(0).getKind() == TweetQlSyntaxNodeKind.ATTRIBUTE_LIST_NODE) {
+                return (AttributeListSyntax) this.getChildNodes().get(0);
+            }
+        }
+        return null;
     }
 }

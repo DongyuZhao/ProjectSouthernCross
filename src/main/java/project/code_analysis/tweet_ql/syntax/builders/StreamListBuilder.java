@@ -33,6 +33,7 @@ public class StreamListBuilder {
                 case ROOT:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
+                        case STAR_TOKEN:
                             this.currentState = ParseStates.AFTER_IDENTIFIER;
                             this.streamBuilderList.add(new UserDefinedTypeBuilder());
                             this.currentBuilderPointer += 1;
@@ -55,6 +56,7 @@ public class StreamListBuilder {
                 case AFTER_COMMA:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
+                        case STAR_TOKEN:
                             this.currentState = ParseStates.AFTER_IDENTIFIER;
                             this.streamBuilderList.add(new UserDefinedTypeBuilder());
                             this.currentBuilderPointer += 1;

@@ -133,6 +133,9 @@ public class SyntaxLexer {
                     case TweetQlTokenString.LF:
                         result.add(new LFToken());
                         break;
+                    case TweetQlTokenString.STAR:
+                        result.add(new StarToken());
+                        break;
                     default:
                         if (this.syntaxFacts.isLiteralString(t.getRawString())) {
                             result.add(new LiteralStringToken(t.getRawString()));
@@ -184,6 +187,7 @@ public class SyntaxLexer {
                 case AFTER_COMMA_IN_CREATE:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
+                        case STAR_TOKEN:
                             this.currentState = LexerStates.AFTER_IDENTIFIER_IN_CREATE;
                             result.add(token);
                             break;
@@ -196,6 +200,7 @@ public class SyntaxLexer {
                 case AFTER_SELECT:
                     switch ((TweetQlSyntaxTokenKind)token.getKind()) {
                         case IDENTIFIER_TOKEN:
+                        case STAR_TOKEN:
                             this.currentState = LexerStates.AFTER_IDENTIFIER_IN_SELECT;
                             result.add(token);
                             break;
@@ -252,6 +257,7 @@ public class SyntaxLexer {
                 case AFTER_FROM:
                     switch ((TweetQlSyntaxTokenKind)token.getKind()) {
                         case IDENTIFIER_TOKEN:
+                        case STAR_TOKEN:
                             this.currentState = LexerStates.AFTER_IDENTIFIER_IN_FROM;
                             result.add(token);
                             break;
