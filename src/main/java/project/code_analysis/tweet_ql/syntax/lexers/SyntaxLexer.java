@@ -273,6 +273,10 @@ public class SyntaxLexer {
                             this.currentState = LexerStates.IDLE;
                             result.add(token);
                             break;
+                        case COMMA_TOKEN:
+                            this.currentState = LexerStates.AFTER_FROM;
+                            result.add(token);
+                            break;
                         default:
                             token.setError(false, true);
                             result.add(token);
