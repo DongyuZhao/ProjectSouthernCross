@@ -11,7 +11,7 @@ import java.util.List;
  * <p>
  * Created by Dy.Zhao on 2016/8/12.
  */
-public class StreamListSyntax extends SyntaxNode {
+public class StreamListSyntax extends UserDefinedTypeListSyntax {
     public StreamListSyntax() {
         super(TweetQlSyntaxNodeKind.STREAM_LIST_NODE);
     }
@@ -67,6 +67,11 @@ public class StreamListSyntax extends SyntaxNode {
             });
         }
         return result;
+    }
+
+    @Override
+    public String getRawString() {
+        return super.getRawString();
     }
 }
 

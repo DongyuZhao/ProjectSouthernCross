@@ -93,6 +93,11 @@ public class UserDefinedTypeSyntax extends SyntaxNode {
         return null;
     }
 
+    @Override
+    public String getRawString() {
+        return this.getVariableName() + this.getStreamFilter().getRawString();
+    }
+
     public String getVariableName() {
         return this.variableName;
     }
@@ -102,10 +107,5 @@ public class UserDefinedTypeSyntax extends SyntaxNode {
             return (StreamFilterExpressionSyntax) this.getChildNodes().get(0);
         }
         return new StreamFilterExpressionSyntax();
-    }
-
-    @Override
-    public String getRawString() {
-        return this.childTokens.get(0).getRawString();
     }
 }

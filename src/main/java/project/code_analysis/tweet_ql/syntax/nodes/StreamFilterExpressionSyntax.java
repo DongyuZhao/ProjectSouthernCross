@@ -53,13 +53,6 @@ public class StreamFilterExpressionSyntax extends SyntaxNode {
         super(TweetQlSyntaxNodeKind.STREAM_FILTER_EXPRESSION_NODE, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
 
-    public String getAttributeName() {
-        if (this.hasChildToken()) {
-            return this.childTokens.get(0).getRawString();
-        }
-        return "";
-    }
-
     public String getExpectedValue() {
         if (this.hasChildToken() && this.childTokens.size() == 2) {
             return this.childTokens.get(2).getRawString();
@@ -76,8 +69,25 @@ public class StreamFilterExpressionSyntax extends SyntaxNode {
 
     @Override
     public String getRawString() {
-        StringBuilder builder = new StringBuilder();
-        this.childTokens.forEach(t -> builder.append(t.getRawString()));
-        return builder.toString();
+        if (!this.getAttributeName().equals("")) {
+            StringBuilder builder = new StringBuilder();
+            builder.append(" WHERE ");
+            this.childTokens.forEach(t -> {
+                builder.append(t.getRawString());
+                builder.append(" ");
+            });
+            if (builder.charAt(builder.length() - 1) == ' ') {
+                builder.delete(builder.length() - 1, builder.length());
+            }
+            return builder.toString();
+        }
+        return "";
+    }
+
+    public String getAttributeName() {
+        if (this.hasChildToken()) {
+            return this.childTokens.get(0).getRawString();
+        }
+        return "";
     }
 }
