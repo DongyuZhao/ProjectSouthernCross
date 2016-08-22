@@ -32,17 +32,7 @@ public class UserDefinedTypeListBuilder {
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-                        case IDENTIFIER_TOKEN:
-                        case STAR_TOKEN:
-                            this.currentState = ParseStates.AFTER_IDENTIFIER;
-                            this.streamBuilderList.add(new UserDefinedTypeBuilder());
-                            this.currentBuilderPointer += 1;
-                            this.streamBuilderList.get(this.currentBuilderPointer).append(token);
-                            break;
-                        default:
-                            break;
-                    }
+                    processIdentifiers(token);
                     break;
                 case AFTER_IDENTIFIER:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
@@ -55,17 +45,7 @@ public class UserDefinedTypeListBuilder {
                     }
                     break;
                 case AFTER_COMMA:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-                        case IDENTIFIER_TOKEN:
-                        case STAR_TOKEN:
-                            this.currentState = ParseStates.AFTER_IDENTIFIER;
-                            this.streamBuilderList.add(new UserDefinedTypeBuilder());
-                            this.currentBuilderPointer += 1;
-                            this.streamBuilderList.get(this.currentBuilderPointer).append(token);
-                            break;
-                        default:
-                            break;
-                    }
+                    processIdentifiers(token);
                     break;
                 default:
                     break;
@@ -73,6 +53,20 @@ public class UserDefinedTypeListBuilder {
         });
         this.streamBuilderList.forEach(builder -> this.root.addChildNode(builder.build()));
         return this.root;
+    }
+
+    private void processIdentifiers(SyntaxToken token) {
+        switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+            case IDENTIFIER_TOKEN:
+            case STAR_TOKEN:
+                this.currentState = ParseStates.AFTER_IDENTIFIER;
+                this.streamBuilderList.add(new UserDefinedTypeBuilder());
+                this.currentBuilderPointer += 1;
+                this.streamBuilderList.get(this.currentBuilderPointer).append(token);
+                break;
+            default:
+                break;
+        }
     }
 
     private enum ParseStates {
