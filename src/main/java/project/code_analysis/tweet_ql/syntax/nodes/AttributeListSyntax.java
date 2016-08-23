@@ -56,7 +56,7 @@ public class AttributeListSyntax extends UserDefinedTypeListSyntax {
         super(TweetQlSyntaxNodeKind.ATTRIBUTE_LIST_NODE, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
 
-    public List<UserDefinedTypeSyntax> getAttributs() {
+    public List<UserDefinedTypeSyntax> getAttributes() {
         ArrayList<UserDefinedTypeSyntax> result = new ArrayList<>();
         if (this.hasChildNode()) {
             this.getChildNodes().forEach(u -> {
