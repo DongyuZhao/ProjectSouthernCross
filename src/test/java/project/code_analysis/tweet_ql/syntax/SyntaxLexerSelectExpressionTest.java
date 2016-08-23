@@ -14,70 +14,70 @@ public class SyntaxLexerSelectExpressionTest {
     public void lexForSingleAttributeTest() throws Exception {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
         SyntaxLexer lexer = SyntaxLexer.create();
-        Assert.assertEquals(0, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT a FROM * WHERE t = \"u\";"))).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a FROM * WHERE t = \"u\";"))).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForStarAttributeTest() throws Exception {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
         SyntaxLexer lexer = SyntaxLexer.create();
-        Assert.assertEquals(0, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT * FROM * WHERE t = \"u\";"))).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT * FROM * WHERE t = \"u\";"))).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForMixedAttributeTest() throws Exception {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
         SyntaxLexer lexer = SyntaxLexer.create();
-        Assert.assertNotEquals(0, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT *, a FROM * WHERE t = \"u\";"))).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertNotEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT *, a FROM * WHERE t = \"u\";"))).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForMultiAttributeTest() throws Exception {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
         SyntaxLexer lexer = SyntaxLexer.create();
-        Assert.assertEquals(0, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM s WHERE t = \"u\";"))).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM s WHERE t = \"u\";"))).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForFromStarTest() throws Exception {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
         SyntaxLexer lexer = SyntaxLexer.create();
-        Assert.assertEquals(0, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM * WHERE t = \"u\";"))).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM * WHERE t = \"u\";"))).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForFromMultiSourceTest() throws Exception {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
         SyntaxLexer lexer = SyntaxLexer.create();
-        Assert.assertEquals(0, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM s WHERE t = \"u\", x WHERE p = \"v\";"))).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM s WHERE t = \"u\", x WHERE p = \"v\";"))).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForFromMixedSourceTest() throws Exception {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
         SyntaxLexer lexer = SyntaxLexer.create();
-        Assert.assertEquals(0, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM * WHERE t = \"u\", x WHERE p = \"v\";"))).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM * WHERE t = \"u\", x WHERE p = \"v\";"))).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForFromNoWhereTest() throws Exception {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
         SyntaxLexer lexer = SyntaxLexer.create();
-        Assert.assertEquals(0, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM *;"))).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM *;"))).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForFromMultiNoWhereTest() throws Exception {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
         SyntaxLexer lexer = SyntaxLexer.create();
-        Assert.assertEquals(0, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM t, x;"))).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM t, x;"))).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForFromMixedNoWhereTest() throws Exception {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
         SyntaxLexer lexer = SyntaxLexer.create();
-        Assert.assertEquals(0, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM *, x WHERE p = \"v\";"))).stream().filter(SyntaxUnit::isError).count());
-        Assert.assertEquals(0, lexer.lex(lexer.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM * WHERE p = \"v\", x;"))).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM *, x WHERE p = \"v\";"))).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM * WHERE p = \"v\", x;"))).stream().filter(SyntaxUnit::isError).count());
     }
 }

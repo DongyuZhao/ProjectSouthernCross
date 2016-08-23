@@ -1,30 +1,18 @@
 package project.code_analysis.tweet_ql.syntax.builders;
 
-import project.code_analysis.core.SyntaxToken;
+import project.code_analysis.core.syntax.AbstractSyntaxNodeBuilder;
 import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
 import project.code_analysis.tweet_ql.syntax.nodes.SelectExpressionSyntax;
-
-import java.util.ArrayList;
 
 /**
  * ProjectSouthernCross
  * <p>
  * SELECTd by Dy.Zhao on 2016/8/15.
  */
-public class SelectExpressionBuilder {
-    private SelectExpressionSyntax root;
-    private ArrayList<SyntaxToken> tokenList = new ArrayList<>();
+public class SelectExpressionBuilder extends AbstractSyntaxNodeBuilder<SelectExpressionSyntax> {
     private AttributeListBuilder attributeListBuilder = new AttributeListBuilder();
     private StreamListBuilder sourceListBuilder = new StreamListBuilder();
     private ParseStates currentState = ParseStates.ROOT;
-
-    public void append(SyntaxToken token) {
-        this.tokenList.add(token);
-    }
-
-    public void clear() {
-        this.tokenList.clear();
-    }
 
     public SelectExpressionSyntax build() {
         this.root = new SelectExpressionSyntax();

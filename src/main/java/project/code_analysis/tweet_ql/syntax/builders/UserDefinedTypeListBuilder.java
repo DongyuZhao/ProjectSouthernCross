@@ -1,6 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.builders;
 
 import project.code_analysis.core.SyntaxToken;
+import project.code_analysis.core.syntax.AbstractSyntaxNodeBuilder;
 import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
 import project.code_analysis.tweet_ql.syntax.nodes.UserDefinedTypeListSyntax;
 
@@ -9,26 +10,16 @@ import java.util.ArrayList;
 /**
  * Created by Dy.Zhao on 2016/8/23.
  */
-public class UserDefinedTypeListBuilder {
-    private UserDefinedTypeListSyntax root;
-    private ArrayList<SyntaxToken> tokenList = new ArrayList<>();
+public class UserDefinedTypeListBuilder<T extends UserDefinedTypeListSyntax> extends AbstractSyntaxNodeBuilder<T> {
     private ArrayList<UserDefinedTypeBuilder> streamBuilderList = new ArrayList<>();
     private int currentBuilderPointer = -1;
     private ParseStates currentState = ParseStates.ROOT;
 
-    public UserDefinedTypeListBuilder(UserDefinedTypeListSyntax root) {
+    UserDefinedTypeListBuilder(T root) {
         this.root = root;
     }
 
-    public void append(SyntaxToken token) {
-        this.tokenList.add(token);
-    }
-
-    public void clear() {
-        this.tokenList.clear();
-    }
-
-    public UserDefinedTypeListSyntax build() {
+    public T build() {
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:

@@ -15,12 +15,12 @@ import java.util.List;
  * <p>
  * Created by Dy.Zhao on 2016/8/14.
  */
-public class SyntaxParser implements ISyntaxParser {
-    private SyntaxParser() {
+public class TweetQlSyntaxParser implements ISyntaxParser {
+    private TweetQlSyntaxParser() {
     }
 
-    public static SyntaxParser create() {
-        return new SyntaxParser();
+    public static TweetQlSyntaxParser create() {
+        return new TweetQlSyntaxParser();
     }
 
     @Override
@@ -37,6 +37,6 @@ public class SyntaxParser implements ISyntaxParser {
     private List<? extends SyntaxToken> preProcessing(String source) {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
         SyntaxLexer lexer = SyntaxLexer.create();
-        return lexer.lex(lexer.transformTokens(tokenizer.tokenize(source)));
+        return lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize(source)));
     }
 }

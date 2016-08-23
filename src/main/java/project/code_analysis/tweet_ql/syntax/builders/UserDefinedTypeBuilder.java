@@ -1,29 +1,17 @@
 package project.code_analysis.tweet_ql.syntax.builders;
 
-import project.code_analysis.core.SyntaxToken;
+import project.code_analysis.core.syntax.AbstractSyntaxNodeBuilder;
 import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
 import project.code_analysis.tweet_ql.syntax.nodes.UserDefinedTypeSyntax;
-
-import java.util.ArrayList;
 
 /**
  * ProjectSouthernCross
  * <p>
  * Created by Dy.Zhao on 2016/8/14.
  */
-public class UserDefinedTypeBuilder {
-    private UserDefinedTypeSyntax root;
-    private ArrayList<SyntaxToken> tokenList = new ArrayList<>();
+public class UserDefinedTypeBuilder extends AbstractSyntaxNodeBuilder<UserDefinedTypeSyntax> {
     private StreamFilterExpressionBuilder filterBuilder = new StreamFilterExpressionBuilder();
     private ParseStates currentState = ParseStates.ROOT;
-
-    public void append(SyntaxToken token) {
-        this.tokenList.add(token);
-    }
-
-    public void clear() {
-        this.tokenList.clear();
-    }
 
     public UserDefinedTypeSyntax build() {
         this.tokenList.forEach(token -> {

@@ -1,32 +1,21 @@
 package project.code_analysis.tweet_ql.syntax.builders;
 
-import project.code_analysis.core.SyntaxToken;
+import project.code_analysis.core.syntax.AbstractSyntaxNodeBuilder;
 import project.code_analysis.core.syntax.CompilationUnitSyntax;
 import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
-
-import java.util.ArrayList;
 
 /**
  * ProjectSouthernCross
  * <p>
  * Created by Dy.Zhao on 2016/8/13.
  */
-public class CompileUnitBuilder {
-    private CompilationUnitSyntax root = new CompilationUnitSyntax();
-    private ArrayList<SyntaxToken> tokenList = new ArrayList<>();
+public class CompileUnitBuilder extends AbstractSyntaxNodeBuilder<CompilationUnitSyntax> {
     private BuildStates currentState = BuildStates.ROOT;
     private CreateExpressionBuilder createExpressionBuilder = new CreateExpressionBuilder();
     private SelectExpressionBuilder selectExpressionBuilder = new SelectExpressionBuilder();
 
-    public void append(SyntaxToken token) {
-        this.tokenList.add(token);
-    }
-
-    public void clear() {
-        this.tokenList.clear();
-    }
-
     public CompilationUnitSyntax build() {
+        this.root = new CompilationUnitSyntax();
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:
