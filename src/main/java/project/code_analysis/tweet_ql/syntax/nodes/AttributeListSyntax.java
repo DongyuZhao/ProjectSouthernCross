@@ -3,6 +3,9 @@ package project.code_analysis.tweet_ql.syntax.nodes;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlSyntaxNodeKind;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * ProjectSouthernCross
  * <p>
@@ -51,5 +54,17 @@ public class AttributeListSyntax extends UserDefinedTypeListSyntax {
 
     public AttributeListSyntax( int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(TweetQlSyntaxNodeKind.ATTRIBUTE_LIST_NODE, start, end, fullStart, fullEnd, missing, unexpected, parent);
+    }
+
+    public List<UserDefinedTypeSyntax> getAttributs() {
+        ArrayList<UserDefinedTypeSyntax> result = new ArrayList<>();
+        if (this.hasChildNode()) {
+            this.getChildNodes().forEach(u -> {
+                if (u.getKind() == TweetQlSyntaxNodeKind.USER_DEFINED_TYPE_NODE) {
+                    result.add((UserDefinedTypeSyntax) u);
+                }
+            });
+        }
+        return result;
     }
 }
