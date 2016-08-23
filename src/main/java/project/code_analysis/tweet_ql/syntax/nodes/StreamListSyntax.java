@@ -57,7 +57,7 @@ public class StreamListSyntax extends UserDefinedTypeListSyntax {
     }
 
 
-    public List<UserDefinedTypeSyntax> getSource() {
+    public List<UserDefinedTypeSyntax> getStreams() {
         ArrayList<UserDefinedTypeSyntax> result = new ArrayList<>();
         if (this.hasChildNode()) {
             this.getChildNodes().forEach(u -> {
@@ -67,11 +67,6 @@ public class StreamListSyntax extends UserDefinedTypeListSyntax {
             });
         }
         return result;
-    }
-
-    @Override
-    public String getRawString() {
-        return super.getRawString();
     }
 }
 

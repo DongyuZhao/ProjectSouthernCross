@@ -173,10 +173,17 @@ public class SyntaxLexer {
                     }
                     continue;
                 case AFTER_CREATE:
-                    processIdentifierInCreate(result, token);
-                    continue;
                 case AFTER_COMMA_IN_CREATE:
-                    processIdentifierInCreate(result, token);
+                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                        case IDENTIFIER_TOKEN:
+                            this.currentState = LexerStates.AFTER_IDENTIFIER_IN_CREATE;
+                            result.add(token);
+                            break;
+                        default:
+                            token.setError(false, true);
+                            result.add(token);
+                            break;
+                    }
                     continue;
                 case AFTER_SELECT:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
@@ -346,19 +353,6 @@ public class SyntaxLexer {
             }
         }
         return result;
-    }
-
-    private void processIdentifierInCreate(ArrayList<SyntaxToken> result, SyntaxToken token) {
-        switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-            case IDENTIFIER_TOKEN:
-                this.currentState = LexerStates.AFTER_IDENTIFIER_IN_CREATE;
-                result.add(token);
-                break;
-            default:
-                token.setError(false, true);
-                result.add(token);
-                break;
-        }
     }
 
     private enum LexerStates {
