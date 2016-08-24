@@ -6,7 +6,7 @@ import project.code_analysis.core.SyntaxTokenizer;
 import project.code_analysis.core.SyntaxUnit;
 import project.code_analysis.core.syntax.CompilationUnitSyntax;
 import project.code_analysis.tweet_ql.syntax.builders.CompileUnitBuilder;
-import project.code_analysis.tweet_ql.syntax.lexers.SyntaxLexer;
+import project.code_analysis.tweet_ql.syntax.lexers.TweetQlSyntaxLexer;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class TweetQlSyntaxParser implements ISyntaxParser {
 
     private List<? extends SyntaxToken> preProcessing(String source) {
         SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
-        SyntaxLexer lexer = SyntaxLexer.create();
+        TweetQlSyntaxLexer lexer = TweetQlSyntaxLexer.create();
         return lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize(source)));
     }
 }

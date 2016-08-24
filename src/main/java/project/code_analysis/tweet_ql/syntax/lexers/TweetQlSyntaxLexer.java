@@ -13,16 +13,16 @@ import java.util.Stack;
  * <p>
  * Created by Dy.Zhao on 2016/8/13.
  */
-public class SyntaxLexer {
+public class TweetQlSyntaxLexer {
     private LexerStates currentState = LexerStates.IDLE;
     private Stack<LexerStates> scopeLexStack = new Stack<>();
     private TweetQlSyntaxFacts syntaxFacts = TweetQlSyntaxFacts.getInstance();
 
-    private SyntaxLexer() {
+    private TweetQlSyntaxLexer() {
     }
 
-    public static SyntaxLexer create() {
-        return new SyntaxLexer();
+    public static TweetQlSyntaxLexer create() {
+        return new TweetQlSyntaxLexer();
     }
 
     public List<? extends SyntaxToken> lex(List<? extends SyntaxToken> originTokenList) {
@@ -146,7 +146,7 @@ public class SyntaxLexer {
                 case AFTER_IDENTIFIER_IN_FROM:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case WHERE_KEYWORD_TOKEN:
-                            this.currentState = LexerStates.IN_SCOPE;
+                            this.currentState = LexerStates.AFTER_WHERE;
                             result.add(token);
                             break;
                         case SEMICOLON_TOKEN:
@@ -163,7 +163,7 @@ public class SyntaxLexer {
                             break;
                     }
                     continue;
-                case IN_SCOPE:
+                case AFTER_WHERE:
                     switch ((TweetQlSyntaxTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                             this.currentState = LexerStates.AFTER_FIRST_IDENTIFIER_IN_BINARY;
@@ -241,7 +241,7 @@ public class SyntaxLexer {
         AFTER_FROM,
         AFTER_IDENTIFIER_IN_FROM,
 
-        IN_SCOPE,
+        AFTER_WHERE,
         AFTER_FIRST_IDENTIFIER_IN_BINARY,
         AFTER_OPERATOR_IN_BINARY,
         AFTER_SECOND_IDENTIFIER_IN_BINARY,
