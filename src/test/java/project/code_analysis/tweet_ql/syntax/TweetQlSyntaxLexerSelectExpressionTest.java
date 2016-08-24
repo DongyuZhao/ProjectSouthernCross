@@ -80,4 +80,11 @@ public class TweetQlSyntaxLexerSelectExpressionTest {
         Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM *, x WHERE p = \"v\";"))).stream().filter(SyntaxUnit::isError).count());
         Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM * WHERE p = \"v\", x;"))).stream().filter(SyntaxUnit::isError).count());
     }
+
+    @Test
+    public void lexForWhereSimpleCombinationTest() throws Exception {
+        SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
+        TweetQlSyntaxLexer lexer = TweetQlSyntaxLexer.create();
+        Assert.assertEquals(0, lexer.lex(TweetQlSyntaxTokenFactory.transformTokens(tokenizer.tokenize("SELECT a, b, c FROM * WHERE p = \"v\" AND t = 123, x;"))).stream().filter(SyntaxUnit::isError).count());
+    }
 }

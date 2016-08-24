@@ -17,17 +17,11 @@ import java.util.Set;
  */
 public class TweetQlSyntaxFacts implements ISyntaxFacts {
     private static TweetQlSyntaxFacts ourInstance = new TweetQlSyntaxFacts();
-
-    public static TweetQlSyntaxFacts getInstance() {
-        return ourInstance;
-    }
-
     private HashMap<String, TweetQlSyntaxTokenKind> keywordKindMap = new HashMap<>();
     private HashMap<String, TweetQlSyntaxTokenKind> specialSymbolKindMap = new HashMap<>();
     private HashMap<String, TweetQlSyntaxTokenKind> unaryOperatorKindMap = new HashMap<>();
     private HashMap<String, TweetQlSyntaxTokenKind> binaryOperatorKindMap = new HashMap<>();
     private HashMap<String, TweetQlSyntaxTokenKind> changeLineOperatorKindMap = new HashMap<>();
-
     private TweetQlSyntaxFacts() {
         this.keywordKindMap.put(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN);
         this.keywordKindMap.put(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN);
@@ -75,12 +69,18 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
         this.binaryOperatorKindMap.put(TweetQlTokenString.LESS, TweetQlSyntaxTokenKind.LESS_TOKEN);
         this.binaryOperatorKindMap.put(TweetQlTokenString.BIGGER_EQUAL, TweetQlSyntaxTokenKind.BIGGER_EQUAL_TOKEN);
         this.binaryOperatorKindMap.put(TweetQlTokenString.LESS_EQUAL, TweetQlSyntaxTokenKind.LESS_EQUAL_TOKEN);
+        this.binaryOperatorKindMap.put(TweetQlTokenString.AND_KEYWORD, TweetQlSyntaxTokenKind.AND_KEYWORD_TOKEN);
+        this.binaryOperatorKindMap.put(TweetQlTokenString.OR_KEYWORD, TweetQlSyntaxTokenKind.OR_KEYWORD_TOKEN);
 
         this.unaryOperatorKindMap.put(TweetQlTokenString.NOT_KEYWORD, TweetQlSyntaxTokenKind.NOT_KEYWORD_TOKEN);
 
         this.changeLineOperatorKindMap.put(TweetQlTokenString.CRLF, TweetQlSyntaxTokenKind.CRLF_TOKEN);
         this.changeLineOperatorKindMap.put(TweetQlTokenString.LF, TweetQlSyntaxTokenKind.LF_TOKEN);
 
+    }
+
+    public static TweetQlSyntaxFacts getInstance() {
+        return ourInstance;
     }
 
     @Override
@@ -133,16 +133,8 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
         return this.isUnaryOperator(rawString) || this.isBinaryOperator(rawString);
     }
 
-    public boolean isUnaryOperator(ISyntaxKind rawKind) {
-        return this.unaryOperatorKindMap.values().contains(rawKind);
-    }
-
     public boolean isUnaryOperator(String rawString) {
         return this.unaryOperatorKindMap.keySet().contains(rawString);
-    }
-
-    public boolean isBinaryOperator(ISyntaxKind rawKind) {
-        return this.binaryOperatorKindMap.values().contains(rawKind);
     }
 
     public boolean isBinaryOperator(String rawString) {
@@ -199,5 +191,13 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
     @Override
     public Set<String> getChangeLineSymbols() {
         return this.changeLineOperatorKindMap.keySet();
+    }
+
+    public boolean isUnaryOperator(ISyntaxKind rawKind) {
+        return this.unaryOperatorKindMap.values().contains(rawKind);
+    }
+
+    public boolean isBinaryOperator(ISyntaxKind rawKind) {
+        return this.binaryOperatorKindMap.values().contains(rawKind);
     }
 }

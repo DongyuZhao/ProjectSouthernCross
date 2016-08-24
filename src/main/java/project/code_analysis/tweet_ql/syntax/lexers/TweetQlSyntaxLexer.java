@@ -194,25 +194,20 @@ public class TweetQlSyntaxLexer {
                     }
                     continue;
                 case AFTER_SECOND_IDENTIFIER_IN_BINARY:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-                        case SEMICOLON_TOKEN:
-                            this.currentState = LexerStates.IDLE;
-                            result.add(token);
-                            break;
-                        case COMMA_TOKEN:
-                            this.currentState = LexerStates.AFTER_FROM;
-                            result.add(token);
-                            break;
-                        default:
-                            token.setError(false, true);
-                            result.add(token);
-                            break;
+                    if (token.getKind() == TweetQlSyntaxTokenKind.SEMICOLON_TOKEN) {
+                        this.currentState = LexerStates.IDLE;
+                        result.add(token);
+                    } else if (token.getKind() == TweetQlSyntaxTokenKind.COMMA_TOKEN) {
+                        this.currentState = LexerStates.AFTER_FROM;
+                        result.add(token);
+                    } else if (this.syntaxFacts.isBinaryOperator(token.getRawString())) {
+                        this.currentState = LexerStates.AFTER_WHERE;
+                        result.add(token);
+                    } else {
+                        token.setError(false, true);
+                        result.add(token);
                     }
                     continue;
-                case AFTER_UNIVERSE_IN_SELECT:
-                    break;
-                case AFTER_UNIVERSE_IN_FROM:
-                    break;
                 case AFTER_UNARY_OPERATOR:
                     break;
                 case AFTER_OPEN_PARENTHESES:
@@ -245,11 +240,10 @@ public class TweetQlSyntaxLexer {
         AFTER_FIRST_IDENTIFIER_IN_BINARY,
         AFTER_OPERATOR_IN_BINARY,
         AFTER_SECOND_IDENTIFIER_IN_BINARY,
-        AFTER_UNIVERSE_IN_SELECT,
-        AFTER_UNIVERSE_IN_FROM,
         AFTER_UNARY_OPERATOR,
         AFTER_OPEN_PARENTHESES,
         AFTER_CLOSE_PARENTHESES,
         AFTER_STAR_IN_SELECT
     }
+
 }
