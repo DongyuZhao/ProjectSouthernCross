@@ -9,54 +9,24 @@ import project.code_analysis.core.SyntaxNode;
  * Created by Dy.Zhao on 2016/8/11.
  */
 public class CompilationUnitSyntax extends SyntaxNode {
-    public CompilationUnitSyntax() {
-        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX);
+
+    public CompilationUnitSyntax(String language) {
+        super(language, AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX);
     }
 
-    public CompilationUnitSyntax(boolean missing, boolean unexpected) {
-        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, missing, unexpected);
+    public CompilationUnitSyntax(String language, boolean missing, boolean unexpected) {
+        super(language, AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, missing, unexpected);
     }
 
-    public CompilationUnitSyntax(int start, boolean missing, boolean unexpected) {
-        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, start, missing, unexpected);
+    public CompilationUnitSyntax(String language, int start, boolean missing, boolean unexpected) {
+        super(language, AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, start, missing, unexpected);
     }
 
-    public CompilationUnitSyntax(int start, int end, boolean missing, boolean unexpected) {
-        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, start, end, missing, unexpected);
+    public CompilationUnitSyntax(String language, boolean missing, boolean unexpected, SyntaxNode parent) {
+        super(language, AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, missing, unexpected, parent);
     }
 
-    public CompilationUnitSyntax(int start, int end, int fullEnd, boolean missing, boolean unexpected) {
-        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, start, end, fullEnd, missing, unexpected);
-    }
-
-    public CompilationUnitSyntax(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
-        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, start, end, fullStart, fullEnd, missing, unexpected);
-    }
-
-    public CompilationUnitSyntax(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, missing, unexpected, parent);
-    }
-
-    public CompilationUnitSyntax(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, start, missing, unexpected, parent);
-    }
-
-    public CompilationUnitSyntax(SyntaxNode parent, int start, int end, boolean missing, boolean unexpected) {
-        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, start, end, missing, unexpected, parent);
-    }
-
-    public CompilationUnitSyntax(SyntaxNode parent, int start, int end, int fullEnd, boolean missing, boolean unexpected) {
-        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, start, end, fullEnd, missing, unexpected, parent);
-    }
-
-    public CompilationUnitSyntax(SyntaxNode parent, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
-        super(AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, start, end, fullStart, fullEnd, missing, unexpected, parent);
-    }
-
-    @Override
-    public String getRawString() {
-        StringBuilder builder = new StringBuilder();
-        this.getChildNodes().forEach(n -> builder.append(n.getRawString()));
-        return builder.toString();
+    public CompilationUnitSyntax(String language, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
+        super(language, AbstractSyntaxKind.COMPILATION_UNIT_SYNTAX, start, missing, unexpected, parent);
     }
 }

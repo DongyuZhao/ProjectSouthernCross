@@ -60,4 +60,6 @@ public interface ISyntaxFacts {
 
     Set<String> getChangeLineSymbols();
 
+    String getLanguage();
+
 }

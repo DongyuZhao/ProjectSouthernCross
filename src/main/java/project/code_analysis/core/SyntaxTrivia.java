@@ -1,58 +1,29 @@
 package project.code_analysis.core;
 
-import java.util.ArrayList;
-
 /**
- * Project Southern Cross
- * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
+ * This is a open source project provided as-is without any
+ * garentee.
  *
- * Created by Dy.Zhao on 2016/7/11.
+ * Created by Dy.Zhao on 2016/8/25.
  */
-public class SyntaxTrivia extends SyntaxNodeOrTrivia {
-    private ArrayList<SyntaxToken> childTokens = new ArrayList<>();
-
-    public SyntaxTrivia() {
-        super(AbstractSyntaxKind.SYNTAX_TRIVIA, false, false);
+public class SyntaxTrivia extends SyntaxNode {
+    public SyntaxTrivia(String language, ISyntaxKind kind) {
+        super(language, kind);
     }
 
-    public SyntaxTrivia(int start) {
-        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, false, false);
+    public SyntaxTrivia(String language, ISyntaxKind kind, boolean missing, boolean unexpected) {
+        super(language, kind, missing, unexpected);
     }
 
-    public SyntaxTrivia(int start, int end) {
-        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, false, false);
+    public SyntaxTrivia(String language, ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
+        super(language, kind, start, missing, unexpected);
     }
 
-    public SyntaxTrivia(int start, int end, int fullEnd) {
-        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, fullEnd, false, false);
+    public SyntaxTrivia(String language, ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
+        super(language, kind, missing, unexpected, parent);
     }
 
-    public SyntaxTrivia(int start, int end, int fullStart, int fullEnd) {
-        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, fullStart, fullEnd, false, false);
-    }
-
-    public SyntaxTrivia(SyntaxNode parent) {
-        super(AbstractSyntaxKind.SYNTAX_TRIVIA, false, false, parent);
-    }
-
-    public SyntaxTrivia(SyntaxNode parent, int start) {
-        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, false, false, parent);
-    }
-
-    public SyntaxTrivia(SyntaxNode parent, int start, int end) {
-        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, false, false, parent);
-    }
-
-    public SyntaxTrivia(SyntaxNode parent, int start, int end, int fullEnd) {
-        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, fullEnd, false, false, parent);
-    }
-
-    public SyntaxTrivia(SyntaxNode parent, int start, int end, int fullStart, int fullEnd) {
-        super(AbstractSyntaxKind.SYNTAX_TRIVIA, start, end, fullStart, fullEnd, false, false, parent);
-    }
-
-    @Override
-    public boolean isSyntaxTrivia() {
-        return true;
+    public SyntaxTrivia(String language, ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
+        super(language, kind, start, missing, unexpected, parent);
     }
 }

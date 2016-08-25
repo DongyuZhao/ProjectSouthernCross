@@ -31,7 +31,7 @@ public class TweetQlSyntaxParser implements ISyntaxParser {
             tokenList.forEach(builder::append);
             return builder.build();
         }
-        return new CompilationUnitSyntax();
+        return new CompilationUnitSyntax(TweetQlSyntaxFacts.getInstance().getLanguage());
     }
 
     private List<? extends SyntaxToken> preProcessing(String source) {

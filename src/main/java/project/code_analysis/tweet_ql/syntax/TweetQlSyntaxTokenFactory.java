@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This is a open source project provided as-is without any
+ * guarantee.
+ *
  * Created by Dy.Zhao on 2016/8/23.
  */
 public class TweetQlSyntaxTokenFactory {
@@ -129,7 +132,7 @@ public class TweetQlSyntaxTokenFactory {
                         } else if (syntaxFacts.isValidIdentifier(t.getRawString())) {
                             result.add(new IdentifierToken(t.getRawString()));
                         } else {
-                            result.add(new SyntaxToken(t.getRawString(), t.getKind()));
+                            result.add(new TweetQlSyntaxToken(t.getRawString(), t.getKind()));
                         }
                         break;
                 }

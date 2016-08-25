@@ -8,7 +8,7 @@ import project.code_analysis.tweet_ql.TweetQlSyntaxNodeKind;
  * <p>
  * Created by Dy.Zhao on 2016/8/11.
  */
-public class CreateExpressionSyntax extends SyntaxNode {
+public class CreateExpressionSyntax extends TweetQlSyntaxNode {
 
     //region constructor
     public CreateExpressionSyntax() {
@@ -23,36 +23,12 @@ public class CreateExpressionSyntax extends SyntaxNode {
         super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, start, missing, unexpected);
     }
 
-    public CreateExpressionSyntax(int start, int end, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, start, end, missing, unexpected);
-    }
-
-    public CreateExpressionSyntax(int start, int end, int fullEnd, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, start, end, fullEnd, missing, unexpected);
-    }
-
-    public CreateExpressionSyntax(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, start, end, fullStart, fullEnd, missing, unexpected);
-    }
-
     public CreateExpressionSyntax(boolean missing, boolean unexpected, SyntaxNode parent) {
         super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, missing, unexpected, parent);
     }
 
     public CreateExpressionSyntax(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, start, missing, unexpected, parent);
-    }
-
-    public CreateExpressionSyntax(int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, start, end, missing, unexpected, parent);
-    }
-
-    public CreateExpressionSyntax(int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, start, end, fullEnd, missing, unexpected, parent);
-    }
-
-    public CreateExpressionSyntax(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
     //endregion
 

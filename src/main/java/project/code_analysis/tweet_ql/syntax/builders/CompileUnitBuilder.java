@@ -3,6 +3,7 @@ package project.code_analysis.tweet_ql.syntax.builders;
 import project.code_analysis.core.syntax.AbstractSyntaxNodeBuilder;
 import project.code_analysis.core.syntax.CompilationUnitSyntax;
 import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
 
 /**
  * ProjectSouthernCross
@@ -15,7 +16,7 @@ public class CompileUnitBuilder extends AbstractSyntaxNodeBuilder<CompilationUni
     private SelectExpressionBuilder selectExpressionBuilder = new SelectExpressionBuilder();
 
     public CompilationUnitSyntax build() {
-        this.root = new CompilationUnitSyntax();
+        this.root = new CompilationUnitSyntax(TweetQlSyntaxFacts.getInstance().getLanguage());
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:

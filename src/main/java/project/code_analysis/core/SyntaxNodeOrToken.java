@@ -1,75 +1,98 @@
 package project.code_analysis.core;
 
+import java.util.ArrayList;
+
 /**
  * Project Southern Cross
  * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
  * <p>
  * Created by Dy.Zhao on 2016/7/11.
  */
-public class SyntaxNodeOrToken extends SyntaxUnit {
-    public SyntaxNodeOrToken(ISyntaxKind kind) {
-        super();
+public abstract class SyntaxNodeOrToken extends SyntaxUnit {
+    private ArrayList<SyntaxTrivia> leadingTrivia = new ArrayList<>();
+    private ArrayList<SyntaxTrivia> trialingTrivia = new ArrayList<>();
+
+    public SyntaxNodeOrToken(String language, ISyntaxKind kind) {
+        super(language);
         this.setKind(kind);
         this.setError(false, false);
     }
 
-    public SyntaxNodeOrToken(ISyntaxKind kind, boolean missing, boolean unexpected) {
-        super();
+    public SyntaxNodeOrToken(String language, ISyntaxKind kind, boolean missing, boolean unexpected) {
+        super(language);
         this.setKind(kind);
         setError(missing, unexpected);
     }
 
-    public SyntaxNodeOrToken(ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
-        super(start);
+    public SyntaxNodeOrToken(String language, ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
+        super(language, start);
         this.setKind(kind);
         setError(missing, unexpected);
     }
 
-    public SyntaxNodeOrToken(ISyntaxKind kind, int start, int end, boolean missing, boolean unexpected) {
-        super(start, end);
+    public SyntaxNodeOrToken(String language, ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
+        super(language, parent);
         this.setKind(kind);
         setError(missing, unexpected);
     }
 
-    public SyntaxNodeOrToken(ISyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected) {
-        super(start, end, fullEnd);
+    public SyntaxNodeOrToken(String language, ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
+        super(language, start, parent);
         this.setKind(kind);
         setError(missing, unexpected);
     }
 
-    public SyntaxNodeOrToken(ISyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
-        super(start, end, fullStart, fullEnd);
-        this.setKind(kind);
-        setError(missing, unexpected);
+    public void addLeadingTrivia(SyntaxTrivia trivia) {
+        trivia.shiftWindowTo(this.getStart());
+        this.leadingTrivia.add(trivia);
     }
 
-    public SyntaxNodeOrToken(ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(parent);
-        this.setKind(kind);
-        setError(missing, unexpected);
+    public void addTrialingTrivia(SyntaxTrivia trivia) {
+        trivia.shiftWindowTo(this.getFullSpan().getEnd());
+        this.trialingTrivia.add(trivia);
     }
 
-    public SyntaxNodeOrToken(ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(start, parent);
-        this.setKind(kind);
-        setError(missing, unexpected);
+    @Override
+    public int getLeadingTriviaLength() {
+        int result = 0;
+        for (SyntaxTrivia syntaxTrivia : this.leadingTrivia) {
+            result += syntaxTrivia.getFullLength();
+        }
+        return result;
     }
 
-    public SyntaxNodeOrToken(ISyntaxKind kind, int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(start, end, parent);
-        this.setKind(kind);
-        setError(missing, unexpected);
+    @Override
+    public int getTrialingTriviaLength() {
+        int result = 0;
+        for (SyntaxTrivia syntaxTrivia : this.trialingTrivia) {
+            result += syntaxTrivia.getFullLength();
+        }
+        return result;
     }
 
-    public SyntaxNodeOrToken(ISyntaxKind kind, int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(start, end, fullEnd, parent);
-        this.setKind(kind);
-        setError(missing, unexpected);
+    @Override
+    public void shiftWindow(int offset) {
+        this.leadingTrivia.forEach(t -> t.shiftWindow(offset));
+        this.trialingTrivia.forEach(t -> t.shiftWindow(offset));
+        super.shiftWindow(offset);
     }
 
-    public SyntaxNodeOrToken(ISyntaxKind kind, int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(start, end, fullStart, fullEnd, parent);
-        this.setKind(kind);
-        setError(missing, unexpected);
+    @Override
+    public String getFullString() {
+        return this.getLeadingTriviaString() +
+                this.getRawString() +
+                this.getTrialingTriviaString();
+    }
+
+    public String getLeadingTriviaString() {
+        StringBuilder builder = new StringBuilder();
+        this.leadingTrivia.forEach(t -> builder.append(t.getFullString()));
+        return builder.toString();
+    }
+
+    public String getTrialingTriviaString() {
+        StringBuilder builder = new StringBuilder();
+        this.trialingTrivia.forEach(t -> builder.append(t.getFullString()));
+        return builder.toString();
     }
 }

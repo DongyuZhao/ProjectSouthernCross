@@ -8,7 +8,7 @@ import project.code_analysis.tweet_ql.TweetQlSyntaxNodeKind;
  * <p>
  * Created by Dy.Zhao on 2016/8/15.
  */
-public class SelectExpressionSyntax extends SyntaxNode {
+public class SelectExpressionSyntax extends TweetQlSyntaxNode {
     public SelectExpressionSyntax() {
         super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE);
     }
@@ -21,36 +21,12 @@ public class SelectExpressionSyntax extends SyntaxNode {
         super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, missing, unexpected);
     }
 
-    public SelectExpressionSyntax(int start, int end, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, missing, unexpected);
-    }
-
-    public SelectExpressionSyntax(int start, int end, int fullEnd, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, fullEnd, missing, unexpected);
-    }
-
-    public SelectExpressionSyntax(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, fullStart, fullEnd, missing, unexpected);
-    }
-
     public SelectExpressionSyntax(boolean missing, boolean unexpected, SyntaxNode parent) {
         super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, missing, unexpected, parent);
     }
 
     public SelectExpressionSyntax(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
         super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, missing, unexpected, parent);
-    }
-
-    public SelectExpressionSyntax(int start, int end, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, missing, unexpected, parent);
-    }
-
-    public SelectExpressionSyntax(int start, int end, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, fullEnd, missing, unexpected, parent);
-    }
-
-    public SelectExpressionSyntax(int start, int end, int fullStart, int fullEnd, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, end, fullStart, fullEnd, missing, unexpected, parent);
     }
 
     @Override

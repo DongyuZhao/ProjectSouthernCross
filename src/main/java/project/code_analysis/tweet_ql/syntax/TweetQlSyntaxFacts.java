@@ -193,6 +193,11 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
         return this.changeLineOperatorKindMap.keySet();
     }
 
+    @Override
+    public String getLanguage() {
+        return "TweetQL";
+    }
+
     public boolean isUnaryOperator(ISyntaxKind rawKind) {
         return this.unaryOperatorKindMap.values().contains(rawKind);
     }

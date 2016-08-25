@@ -231,7 +231,7 @@ public class SyntaxTokenizer {
         }
 
         SyntaxToken getToken() {
-            return new SyntaxToken(this.getRawString(), getSyntaxFacts().getSyntaxKind(this.getRawString()), this.getStart(), this.getEnd(), this.getFullStart(), this.getFullEnd(), false, false);
+            return new SyntaxToken(getSyntaxFacts().getLanguage(), this.getRawString(), getSyntaxFacts().getSyntaxKind(this.getRawString()), this.getStart(), false, false);
         }
 
         String getRawString() {

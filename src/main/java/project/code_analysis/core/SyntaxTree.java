@@ -23,7 +23,7 @@ public abstract class SyntaxTree {
 
     public CompilationUnitSyntax getRoot() {
         if (this.root == null) {
-            return new CompilationUnitSyntax();
+            return new CompilationUnitSyntax("");
         } else {
             return this.root;
         }
