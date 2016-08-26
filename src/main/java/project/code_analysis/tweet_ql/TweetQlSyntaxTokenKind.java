@@ -55,6 +55,10 @@ public enum TweetQlSyntaxTokenKind implements ISyntaxKind {
     IDENTIFIER_TOKEN,
     LITERAL_STRING_TOKEN,
 
+    LINE_COMMENTS_TRIGGER_TOKEN,
+    BLOCK_COMMENTS_TRIGGER_TOKEN,
+    BLOCK_COMMENTS_TERMINATOR_TOKEN,
+
     //endregion
 
 

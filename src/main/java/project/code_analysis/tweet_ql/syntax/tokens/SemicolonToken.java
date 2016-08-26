@@ -22,11 +22,11 @@ public class SemicolonToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.SEMICOLON, TweetQlSyntaxTokenKind.SEMICOLON_TOKEN, start, missing, unexpected);
     }
 
-    public SemicolonToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.SEMICOLON, TweetQlSyntaxTokenKind.SEMICOLON_TOKEN, missing, unexpected, parent);
+    public SemicolonToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.SEMICOLON, TweetQlSyntaxTokenKind.SEMICOLON_TOKEN, parent, missing, unexpected);
     }
 
-    public SemicolonToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.SEMICOLON, TweetQlSyntaxTokenKind.SEMICOLON_TOKEN, start, missing, unexpected, parent);
+    public SemicolonToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.SEMICOLON, TweetQlSyntaxTokenKind.SEMICOLON_TOKEN, parent, start, missing, unexpected);
     }
 }

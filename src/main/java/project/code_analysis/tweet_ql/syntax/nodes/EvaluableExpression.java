@@ -26,12 +26,12 @@ public class EvaluableExpression extends TweetQlSyntaxNode {
         super(kind, start, missing, unexpected);
     }
 
-    public EvaluableExpression(ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(kind, missing, unexpected, parent);
+    public EvaluableExpression(ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(kind, parent, missing, unexpected);
     }
 
-    public EvaluableExpression(ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(kind, start, missing, unexpected, parent);
+    public EvaluableExpression(ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(kind, parent, start, missing, unexpected);
     }
 
     public SymbolInfo getReturnValueSymbolInfo() {

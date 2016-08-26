@@ -22,11 +22,11 @@ public class SelectKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public SelectKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, missing, unexpected, parent);
+    public SelectKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public SelectKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public SelectKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

@@ -4,7 +4,7 @@ import project.code_analysis.core.ISyntaxParser;
 import project.code_analysis.core.SyntaxToken;
 import project.code_analysis.core.SyntaxTokenizer;
 import project.code_analysis.core.SyntaxUnit;
-import project.code_analysis.core.syntax.CompilationUnitSyntax;
+import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
 import project.code_analysis.tweet_ql.syntax.builders.CompileUnitBuilder;
 import project.code_analysis.tweet_ql.syntax.lexers.TweetQlSyntaxLexer;
 

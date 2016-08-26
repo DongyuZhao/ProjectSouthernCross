@@ -1,6 +1,6 @@
 package project.code_analysis.core;
 
-import project.code_analysis.core.syntax.CompilationUnitSyntax;
+import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
 
 /**
  * This is a open source project provided as-is without any

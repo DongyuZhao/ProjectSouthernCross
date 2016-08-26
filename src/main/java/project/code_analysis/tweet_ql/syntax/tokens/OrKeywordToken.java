@@ -22,11 +22,11 @@ public class OrKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.OR_KEYWORD, TweetQlSyntaxTokenKind.OR_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public OrKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.OR_KEYWORD, TweetQlSyntaxTokenKind.OR_KEYWORD_TOKEN, missing, unexpected, parent);
+    public OrKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.OR_KEYWORD, TweetQlSyntaxTokenKind.OR_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public OrKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.OR_KEYWORD, TweetQlSyntaxTokenKind.OR_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public OrKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.OR_KEYWORD, TweetQlSyntaxTokenKind.OR_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

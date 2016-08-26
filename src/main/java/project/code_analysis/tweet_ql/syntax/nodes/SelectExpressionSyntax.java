@@ -21,12 +21,12 @@ public class SelectExpressionSyntax extends TweetQlSyntaxNode {
         super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, missing, unexpected);
     }
 
-    public SelectExpressionSyntax(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, missing, unexpected, parent);
+    public SelectExpressionSyntax(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, parent, missing, unexpected);
     }
 
-    public SelectExpressionSyntax(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, start, missing, unexpected, parent);
+    public SelectExpressionSyntax(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxNodeKind.SELECT_EXPRESSION_NODE, parent, start, missing, unexpected);
     }
 
     @Override

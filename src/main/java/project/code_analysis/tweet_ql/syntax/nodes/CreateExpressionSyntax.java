@@ -23,19 +23,14 @@ public class CreateExpressionSyntax extends TweetQlSyntaxNode {
         super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, start, missing, unexpected);
     }
 
-    public CreateExpressionSyntax(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, missing, unexpected, parent);
+    public CreateExpressionSyntax(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, parent, missing, unexpected);
     }
 
-    public CreateExpressionSyntax(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, start, missing, unexpected, parent);
+    public CreateExpressionSyntax(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxNodeKind.CREATE_EXPRESSION_NODE, parent, start, missing, unexpected);
     }
     //endregion
-
-    @Override
-    public String getRawString() {
-        return "SELECT " + this.getTargetList().getRawString() + " FROM " + this.getSourceList().getRawString() + ";";
-    }
 
     public StreamListSyntax getTargetList() {
         if (this.hasChildNode() && this.getChildNodes().size() >= 2) {

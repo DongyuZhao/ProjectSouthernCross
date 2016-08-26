@@ -22,24 +22,11 @@ public class VariableListSyntax extends TweetQlSyntaxNode {
         super(kind, start, missing, unexpected);
     }
 
-    public VariableListSyntax(ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(kind, missing, unexpected, parent);
+    public VariableListSyntax(ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(kind, parent, missing, unexpected);
     }
 
-    public VariableListSyntax(ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(kind, start, missing, unexpected, parent);
-    }
-
-    @Override
-    public String getRawString() {
-        StringBuilder builder = new StringBuilder();
-        this.getChildNodes().forEach(n -> {
-            builder.append(n.getRawString());
-            builder.append(", ");
-        });
-        if (builder.length() != 0) {
-            builder.delete(builder.length() - 2, builder.length());
-        }
-        return builder.toString();
+    public VariableListSyntax(ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(kind, parent, start, missing, unexpected);
     }
 }

@@ -22,11 +22,11 @@ public class AndKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.AND_KEYWORD, TweetQlSyntaxTokenKind.AND_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public AndKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.AND_KEYWORD, TweetQlSyntaxTokenKind.AND_KEYWORD_TOKEN, missing, unexpected, parent);
+    public AndKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.AND_KEYWORD, TweetQlSyntaxTokenKind.AND_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public AndKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.AND_KEYWORD, TweetQlSyntaxTokenKind.AND_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public AndKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.AND_KEYWORD, TweetQlSyntaxTokenKind.AND_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

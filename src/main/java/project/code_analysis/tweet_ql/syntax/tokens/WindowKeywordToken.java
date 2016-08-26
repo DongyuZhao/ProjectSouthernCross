@@ -22,11 +22,11 @@ public class WindowKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.WINDOW_KEYWORD, TweetQlSyntaxTokenKind.WINDOW_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public WindowKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.WINDOW_KEYWORD, TweetQlSyntaxTokenKind.WINDOW_KEYWORD_TOKEN, missing, unexpected, parent);
+    public WindowKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.WINDOW_KEYWORD, TweetQlSyntaxTokenKind.WINDOW_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public WindowKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.WINDOW_KEYWORD, TweetQlSyntaxTokenKind.WINDOW_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public WindowKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.WINDOW_KEYWORD, TweetQlSyntaxTokenKind.WINDOW_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

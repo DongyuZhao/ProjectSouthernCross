@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class SyntaxUnit {
 
-    private SyntaxNode parent;
+    private SyntaxNode parentNode;
 
     private int offset = 0;
     private String language;
@@ -23,36 +23,36 @@ public abstract class SyntaxUnit {
     private boolean error;
 
     public SyntaxUnit(String language) {
-        this.parent = null;
+        this.parentNode = null;
         this.language = language;
     }
 
     public SyntaxUnit(String language, int offset) {
-        this.parent = null;
+        this.parentNode = null;
         this.language = language;
     }
 
-    public SyntaxUnit(String language, SyntaxNode parent) {
-        this.parent = parent;
+    public SyntaxUnit(String language, SyntaxNode parentNode) {
+        this.parentNode = parentNode;
         this.language = language;
     }
 
-    public SyntaxUnit(String language, int offset, SyntaxNode parent) {
-        this.parent = parent;
+    public SyntaxUnit(String language, SyntaxNode parentNode, int offset) {
+        this.parentNode = parentNode;
         this.language = language;
     }
 
-    public SyntaxNode getParent() {
-        return parent;
+    public SyntaxNode getParentNode() {
+        return parentNode;
     }
 
-    public void setParent(SyntaxNode parent) {
-        this.parent = parent;
+    public void setParentNode(SyntaxNode parentNode) {
+        this.parentNode = parentNode;
     }
 
     public List<SyntaxNode> getAncestorNode() {
         ArrayList<SyntaxNode> result = new ArrayList<>();
-        SyntaxNode node = this.getParent();
+        SyntaxNode node = this.getParentNode();
         if (node != null) {
             result.add(node);
             result.addAll(node.getAncestorNode());

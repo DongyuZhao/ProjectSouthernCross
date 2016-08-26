@@ -22,11 +22,11 @@ public class LikeKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.LIKE_KEYWORD, TweetQlSyntaxTokenKind.LIKE_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public LikeKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.LIKE_KEYWORD, TweetQlSyntaxTokenKind.LIKE_KEYWORD_TOKEN, missing, unexpected, parent);
+    public LikeKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.LIKE_KEYWORD, TweetQlSyntaxTokenKind.LIKE_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public LikeKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.LIKE_KEYWORD, TweetQlSyntaxTokenKind.LIKE_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public LikeKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.LIKE_KEYWORD, TweetQlSyntaxTokenKind.LIKE_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

@@ -23,11 +23,11 @@ public class TweetQlSyntaxNode extends SyntaxNode {
         super(TweetQlTokenString.AND_KEYWORD, kind, start, missing, unexpected);
     }
 
-    public TweetQlSyntaxNode(ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.AND_KEYWORD, kind, missing, unexpected, parent);
+    public TweetQlSyntaxNode(ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.AND_KEYWORD, kind, parent, missing, unexpected);
     }
 
-    public TweetQlSyntaxNode(ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.AND_KEYWORD, kind, start, missing, unexpected, parent);
+    public TweetQlSyntaxNode(ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.AND_KEYWORD, kind, parent, start, missing, unexpected);
     }
 }

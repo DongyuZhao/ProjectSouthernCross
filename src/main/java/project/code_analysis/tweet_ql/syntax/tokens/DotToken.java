@@ -22,11 +22,11 @@ public class DotToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.DOT, TweetQlSyntaxTokenKind.DOT_TOKEN, start, missing, unexpected);
     }
 
-    public DotToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.DOT, TweetQlSyntaxTokenKind.DOT_TOKEN, missing, unexpected, parent);
+    public DotToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.DOT, TweetQlSyntaxTokenKind.DOT_TOKEN, parent, missing, unexpected);
     }
 
-    public DotToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.DOT, TweetQlSyntaxTokenKind.DOT_TOKEN, start, missing, unexpected, parent);
+    public DotToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.DOT, TweetQlSyntaxTokenKind.DOT_TOKEN, parent, start, missing, unexpected);
     }
 }

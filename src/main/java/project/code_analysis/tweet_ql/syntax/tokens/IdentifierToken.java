@@ -21,11 +21,11 @@ public class IdentifierToken extends TweetQlSyntaxToken {
         super(rawString, TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN, start, missing, unexpected);
     }
 
-    public IdentifierToken(String rawString, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(rawString, TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN, missing, unexpected, parent);
+    public IdentifierToken(String rawString, SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(rawString, TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN, parent, missing, unexpected);
     }
 
-    public IdentifierToken(String rawString, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(rawString, TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN, start, missing, unexpected, parent);
+    public IdentifierToken(String rawString, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(rawString, TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN, parent, start, missing, unexpected);
     }
 }

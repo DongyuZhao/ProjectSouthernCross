@@ -24,12 +24,12 @@ public class StreamListSyntax extends VariableListSyntax {
         super(TweetQlSyntaxNodeKind.STREAM_LIST_NODE, start, missing, unexpected);
     }
 
-    public StreamListSyntax(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.STREAM_LIST_NODE, missing, unexpected, parent);
+    public StreamListSyntax(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxNodeKind.STREAM_LIST_NODE, parent, missing, unexpected);
     }
 
-    public StreamListSyntax(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.STREAM_LIST_NODE, start, missing, unexpected, parent);
+    public StreamListSyntax(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxNodeKind.STREAM_LIST_NODE, parent, start, missing, unexpected);
     }
 
 

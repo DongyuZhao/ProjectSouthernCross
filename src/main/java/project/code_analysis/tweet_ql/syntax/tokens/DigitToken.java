@@ -21,11 +21,11 @@ public class DigitToken extends TweetQlSyntaxToken {
         super(rawString, TweetQlSyntaxTokenKind.DIGIT_TOKEN, start, missing, unexpected);
     }
 
-    public DigitToken(String rawString, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(rawString, TweetQlSyntaxTokenKind.DIGIT_TOKEN, missing, unexpected, parent);
+    public DigitToken(SyntaxNode parent, String rawString, boolean missing, boolean unexpected) {
+        super(rawString, TweetQlSyntaxTokenKind.DIGIT_TOKEN, parent, missing, unexpected);
     }
 
-    public DigitToken(String rawString, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(rawString, TweetQlSyntaxTokenKind.DIGIT_TOKEN, start, missing, unexpected, parent);
+    public DigitToken(SyntaxNode parent, String rawString, int start, boolean missing, boolean unexpected) {
+        super(rawString, TweetQlSyntaxTokenKind.DIGIT_TOKEN, parent, start, missing, unexpected);
     }
 }

@@ -22,11 +22,11 @@ public class OpenBraceToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.OPEN_BRACE, TweetQlSyntaxTokenKind.OPEN_BRACE_TOKEN, start, missing, unexpected);
     }
 
-    public OpenBraceToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.OPEN_BRACE, TweetQlSyntaxTokenKind.OPEN_BRACE_TOKEN, missing, unexpected, parent);
+    public OpenBraceToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.OPEN_BRACE, TweetQlSyntaxTokenKind.OPEN_BRACE_TOKEN, parent, missing, unexpected);
     }
 
-    public OpenBraceToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.OPEN_BRACE, TweetQlSyntaxTokenKind.OPEN_BRACE_TOKEN, start, missing, unexpected, parent);
+    public OpenBraceToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.OPEN_BRACE, TweetQlSyntaxTokenKind.OPEN_BRACE_TOKEN, parent, start, missing, unexpected);
     }
 }

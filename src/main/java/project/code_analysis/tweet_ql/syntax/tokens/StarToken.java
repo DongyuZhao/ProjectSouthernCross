@@ -22,11 +22,11 @@ public class StarToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.STAR, TweetQlSyntaxTokenKind.STAR_TOKEN, start, missing, unexpected);
     }
 
-    public StarToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.STAR, TweetQlSyntaxTokenKind.STAR_TOKEN, missing, unexpected, parent);
+    public StarToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.STAR, TweetQlSyntaxTokenKind.STAR_TOKEN, parent, missing, unexpected);
     }
 
-    public StarToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.STAR, TweetQlSyntaxTokenKind.STAR_TOKEN, start, missing, unexpected, parent);
+    public StarToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.STAR, TweetQlSyntaxTokenKind.STAR_TOKEN, parent, start, missing, unexpected);
     }
 }

@@ -22,11 +22,11 @@ public class AscendKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.ASCEND_KEYWORD, TweetQlSyntaxTokenKind.ASCEND_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public AscendKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.ASCEND_KEYWORD, TweetQlSyntaxTokenKind.ASCEND_KEYWORD_TOKEN, missing, unexpected, parent);
+    public AscendKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.ASCEND_KEYWORD, TweetQlSyntaxTokenKind.ASCEND_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public AscendKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.ASCEND_KEYWORD, TweetQlSyntaxTokenKind.ASCEND_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public AscendKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.ASCEND_KEYWORD, TweetQlSyntaxTokenKind.ASCEND_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

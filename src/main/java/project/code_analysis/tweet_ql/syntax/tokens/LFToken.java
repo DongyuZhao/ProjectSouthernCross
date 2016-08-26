@@ -22,11 +22,11 @@ public class LFToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.LF, TweetQlSyntaxTokenKind.LF_TOKEN, start, missing, unexpected);
     }
 
-    public LFToken( boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.LF, TweetQlSyntaxTokenKind.LF_TOKEN, missing, unexpected, parent);
+    public LFToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.LF, TweetQlSyntaxTokenKind.LF_TOKEN, parent, missing, unexpected);
     }
 
-    public LFToken( int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.LF, TweetQlSyntaxTokenKind.LF_TOKEN, start, missing, unexpected, parent);
+    public LFToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.LF, TweetQlSyntaxTokenKind.LF_TOKEN, parent, start, missing, unexpected);
     }
 }

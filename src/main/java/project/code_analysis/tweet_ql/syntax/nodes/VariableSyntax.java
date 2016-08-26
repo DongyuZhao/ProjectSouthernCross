@@ -28,26 +28,21 @@ public class VariableSyntax extends EvaluableExpression {
         this.variableName = variableName;
     }
 
-    public VariableSyntax(String typeName, String variableName, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.USER_DEFINED_TYPE_NODE, missing, unexpected, parent);
+    public VariableSyntax(String typeName, String variableName, SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxNodeKind.USER_DEFINED_TYPE_NODE, parent, missing, unexpected);
         this.variableName = variableName;
     }
 
-    public VariableSyntax(String typeName, String variableName, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.USER_DEFINED_TYPE_NODE, start, missing, unexpected, parent);
+    public VariableSyntax(String typeName, String variableName, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxNodeKind.USER_DEFINED_TYPE_NODE, parent, start, missing, unexpected);
         this.variableName = variableName;
     }
 
     public IdentifierToken getIdentifier() {
-        if (this.hasChildNode() && this.getChildTokens().get(0).getKind() == TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN) {
+        if (this.hasChildNode() && (this.getChildTokens().get(0).getKind() == TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN || this.getChildTokens().get(0).getKind() == TweetQlSyntaxTokenKind.STAR_TOKEN)) {
             return (IdentifierToken) this.getChildTokens().get(0);
         }
         return null;
-    }
-
-    @Override
-    public String getRawString() {
-        return this.getVariableName() + this.getStreamFilter().getRawString();
     }
 
     public String getVariableName() {

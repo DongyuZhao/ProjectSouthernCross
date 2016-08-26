@@ -22,11 +22,11 @@ public class EqualToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.EQUAL, TweetQlSyntaxTokenKind.EQUAL_TOKEN, start, missing, unexpected);
     }
 
-    public EqualToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.EQUAL, TweetQlSyntaxTokenKind.EQUAL_TOKEN, missing, unexpected, parent);
+    public EqualToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.EQUAL, TweetQlSyntaxTokenKind.EQUAL_TOKEN, parent, missing, unexpected);
     }
 
-    public EqualToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.EQUAL, TweetQlSyntaxTokenKind.EQUAL_TOKEN, start, missing, unexpected, parent);
+    public EqualToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.EQUAL, TweetQlSyntaxTokenKind.EQUAL_TOKEN, parent, start, missing, unexpected);
     }
 }

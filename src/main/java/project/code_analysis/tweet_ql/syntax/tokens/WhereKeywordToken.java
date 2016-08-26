@@ -22,11 +22,11 @@ public class WhereKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.WHERE_KEYWORD, TweetQlSyntaxTokenKind.WHERE_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public WhereKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlSyntaxTokenKind.WHERE_KEYWORD_TOKEN, missing, unexpected, parent);
+    public WhereKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlSyntaxTokenKind.WHERE_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public WhereKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlSyntaxTokenKind.WHERE_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public WhereKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlSyntaxTokenKind.WHERE_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

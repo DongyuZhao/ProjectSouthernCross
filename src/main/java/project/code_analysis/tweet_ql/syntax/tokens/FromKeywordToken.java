@@ -22,11 +22,11 @@ public class FromKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.FROM_KEYWORD, TweetQlSyntaxTokenKind.FROM_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public FromKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.FROM_KEYWORD, TweetQlSyntaxTokenKind.FROM_KEYWORD_TOKEN, missing, unexpected, parent);
+    public FromKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.FROM_KEYWORD, TweetQlSyntaxTokenKind.FROM_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public FromKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.FROM_KEYWORD, TweetQlSyntaxTokenKind.FROM_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public FromKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.FROM_KEYWORD, TweetQlSyntaxTokenKind.FROM_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

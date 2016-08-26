@@ -22,11 +22,11 @@ public class SkipKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.SKIP_KEYWORD, TweetQlSyntaxTokenKind.SKIP_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public SkipKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.SKIP_KEYWORD, TweetQlSyntaxTokenKind.SKIP_KEYWORD_TOKEN, missing, unexpected, parent);
+    public SkipKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.SKIP_KEYWORD, TweetQlSyntaxTokenKind.SKIP_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public SkipKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.SKIP_KEYWORD, TweetQlSyntaxTokenKind.SKIP_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public SkipKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.SKIP_KEYWORD, TweetQlSyntaxTokenKind.SKIP_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

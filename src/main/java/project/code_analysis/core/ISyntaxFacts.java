@@ -43,6 +43,18 @@ public interface ISyntaxFacts {
 
     boolean isChangeLineSymbol(ISyntaxKind rawKind);
 
+    boolean isLineCommentsTrigger(String rawString);
+
+    boolean isLineCommentsTrigger(ISyntaxKind rawKind);
+
+    boolean isBlockCommentsTrigger(String rawString);
+
+    boolean isBlockCommentsTrigger(ISyntaxKind rawKind);
+
+    boolean isBlockCommentsTerminator(String rawString);
+
+    boolean isBlockCommentsTerminator(ISyntaxKind rawKind);
+
     default boolean isValidIdentifier(String rawString) {
         return
                 rawString != null &&

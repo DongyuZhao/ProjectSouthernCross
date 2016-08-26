@@ -24,12 +24,12 @@ public class AttributeListSyntax extends VariableListSyntax {
         super(TweetQlSyntaxNodeKind.ATTRIBUTE_LIST_NODE, start, missing, unexpected);
     }
 
-    public AttributeListSyntax( boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.ATTRIBUTE_LIST_NODE, missing, unexpected, parent);
+    public AttributeListSyntax(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxNodeKind.ATTRIBUTE_LIST_NODE, parent, missing, unexpected);
     }
 
-    public AttributeListSyntax( int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxNodeKind.ATTRIBUTE_LIST_NODE, start, missing, unexpected, parent);
+    public AttributeListSyntax(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxNodeKind.ATTRIBUTE_LIST_NODE, parent, start, missing, unexpected);
     }
 
     public List<VariableSyntax> getAttributes() {

@@ -23,11 +23,11 @@ public class LiteralStringToken extends TweetQlSyntaxToken {
         super(rawString, TweetQlSyntaxTokenKind.LITERAL_STRING_TOKEN, start, missing, unexpected);
     }
 
-    public LiteralStringToken(String rawString, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(rawString, TweetQlSyntaxTokenKind.LITERAL_STRING_TOKEN, missing, unexpected, parent);
+    public LiteralStringToken(String rawString, SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(rawString, TweetQlSyntaxTokenKind.LITERAL_STRING_TOKEN, parent, missing, unexpected);
     }
 
-    public LiteralStringToken(String rawString, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(rawString, TweetQlSyntaxTokenKind.LITERAL_STRING_TOKEN, start, missing, unexpected, parent);
+    public LiteralStringToken(String rawString, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(rawString, TweetQlSyntaxTokenKind.LITERAL_STRING_TOKEN, parent, start, missing, unexpected);
     }
 }

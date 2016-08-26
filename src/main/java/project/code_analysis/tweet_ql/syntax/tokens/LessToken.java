@@ -22,11 +22,11 @@ public class LessToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.LESS, TweetQlSyntaxTokenKind.LESS_TOKEN, start, missing, unexpected);
     }
 
-    public LessToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.LESS, TweetQlSyntaxTokenKind.LESS_TOKEN, missing, unexpected, parent);
+    public LessToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.LESS, TweetQlSyntaxTokenKind.LESS_TOKEN, parent, missing, unexpected);
     }
 
-    public LessToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.LESS, TweetQlSyntaxTokenKind.LESS_TOKEN, start, missing, unexpected, parent);
+    public LessToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.LESS, TweetQlSyntaxTokenKind.LESS_TOKEN, parent, start, missing, unexpected);
     }
 }

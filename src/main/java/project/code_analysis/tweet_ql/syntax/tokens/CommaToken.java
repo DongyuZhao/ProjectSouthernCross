@@ -22,11 +22,11 @@ public class CommaToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.COMMA, TweetQlSyntaxTokenKind.COMMA_TOKEN, start, missing, unexpected);
     }
 
-    public CommaToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.COMMA, TweetQlSyntaxTokenKind.COMMA_TOKEN, missing, unexpected, parent);
+    public CommaToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.COMMA, TweetQlSyntaxTokenKind.COMMA_TOKEN, parent, missing, unexpected);
     }
 
-    public CommaToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.COMMA, TweetQlSyntaxTokenKind.COMMA_TOKEN, start, missing, unexpected, parent);
+    public CommaToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.COMMA, TweetQlSyntaxTokenKind.COMMA_TOKEN, parent, start, missing, unexpected);
     }
 }

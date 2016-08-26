@@ -17,11 +17,11 @@ import java.util.Set;
  */
 public class TweetQlSyntaxFacts implements ISyntaxFacts {
     private static TweetQlSyntaxFacts ourInstance = new TweetQlSyntaxFacts();
-    private HashMap<String, TweetQlSyntaxTokenKind> keywordKindMap = new HashMap<>();
-    private HashMap<String, TweetQlSyntaxTokenKind> specialSymbolKindMap = new HashMap<>();
-    private HashMap<String, TweetQlSyntaxTokenKind> unaryOperatorKindMap = new HashMap<>();
-    private HashMap<String, TweetQlSyntaxTokenKind> binaryOperatorKindMap = new HashMap<>();
-    private HashMap<String, TweetQlSyntaxTokenKind> changeLineOperatorKindMap = new HashMap<>();
+    private HashMap<String, ISyntaxKind> keywordKindMap = new HashMap<>();
+    private HashMap<String, ISyntaxKind> specialSymbolKindMap = new HashMap<>();
+    private HashMap<String, ISyntaxKind> unaryOperatorKindMap = new HashMap<>();
+    private HashMap<String, ISyntaxKind> binaryOperatorKindMap = new HashMap<>();
+    private HashMap<String, ISyntaxKind> changeLineOperatorKindMap = new HashMap<>();
     private TweetQlSyntaxFacts() {
         this.keywordKindMap.put(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN);
         this.keywordKindMap.put(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN);
@@ -169,6 +169,36 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
     @Override
     public boolean isChangeLineSymbol(ISyntaxKind rawKind) {
         return this.changeLineOperatorKindMap.values().contains(rawKind);
+    }
+
+    @Override
+    public boolean isLineCommentsTrigger(String rawString) {
+        return false;
+    }
+
+    @Override
+    public boolean isLineCommentsTrigger(ISyntaxKind rawKind) {
+        return false;
+    }
+
+    @Override
+    public boolean isBlockCommentsTrigger(String rawString) {
+        return false;
+    }
+
+    @Override
+    public boolean isBlockCommentsTrigger(ISyntaxKind rawKind) {
+        return false;
+    }
+
+    @Override
+    public boolean isBlockCommentsTerminator(String rawString) {
+        return false;
+    }
+
+    @Override
+    public boolean isBlockCommentsTerminator(ISyntaxKind rawKind) {
+        return false;
     }
 
     @Override

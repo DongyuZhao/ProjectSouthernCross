@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.builders;
 
-import project.code_analysis.core.syntax.AbstractSyntaxNodeBuilder;
-import project.code_analysis.core.syntax.CompilationUnitSyntax;
+import project.code_analysis.core.syntax.builders.AbstractSyntaxNodeBuilder;
+import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
 import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
 import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
 

@@ -26,12 +26,12 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         super(language, kind, start, missing, unexpected);
     }
 
-    public SyntaxNode(String language, ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(language, kind, missing, unexpected, parent);
+    public SyntaxNode(String language, ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(language, kind, parent, missing, unexpected);
     }
 
-    public SyntaxNode(String language, ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(language, kind, start, missing, unexpected, parent);
+    public SyntaxNode(String language, ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(language, kind, parent, start, missing, unexpected);
     }
 
     public boolean hasChildNode() {
@@ -43,11 +43,13 @@ public class SyntaxNode extends SyntaxNodeOrToken {
     }
 
     public void addChildToken(SyntaxToken token) {
+        token.setParentNode(this);
         token.shiftWindowTo(this.getSpan().getEnd());
         this.children.add(token);
     }
 
     public void addChildNode(SyntaxNode node) {
+        node.setParentNode(this);
         node.shiftWindowTo(this.getSpan().getEnd());
         this.children.add(node);
     }

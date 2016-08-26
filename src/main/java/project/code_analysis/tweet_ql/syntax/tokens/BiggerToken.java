@@ -22,11 +22,11 @@ public class BiggerToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.BIGGER, TweetQlSyntaxTokenKind.BIGGER_TOKEN, start, missing, unexpected);
     }
 
-    public BiggerToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.BIGGER, TweetQlSyntaxTokenKind.BIGGER_TOKEN, missing, unexpected, parent);
+    public BiggerToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.BIGGER, TweetQlSyntaxTokenKind.BIGGER_TOKEN, parent, missing, unexpected);
     }
 
-    public BiggerToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.BIGGER, TweetQlSyntaxTokenKind.BIGGER_TOKEN, start, missing, unexpected, parent);
+    public BiggerToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.BIGGER, TweetQlSyntaxTokenKind.BIGGER_TOKEN, parent, start, missing, unexpected);
     }
 }

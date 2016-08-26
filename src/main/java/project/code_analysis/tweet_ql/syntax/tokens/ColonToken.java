@@ -22,11 +22,11 @@ public class ColonToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.COLON, TweetQlSyntaxTokenKind.COLON_TOKEN, start, missing, unexpected);
     }
 
-    public ColonToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.COLON, TweetQlSyntaxTokenKind.COLON_TOKEN, missing, unexpected, parent);
+    public ColonToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.COLON, TweetQlSyntaxTokenKind.COLON_TOKEN, parent, missing, unexpected);
     }
 
-    public ColonToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.COLON, TweetQlSyntaxTokenKind.COLON_TOKEN, start, missing, unexpected, parent);
+    public ColonToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.COLON, TweetQlSyntaxTokenKind.COLON_TOKEN, parent, start, missing, unexpected);
     }
 }

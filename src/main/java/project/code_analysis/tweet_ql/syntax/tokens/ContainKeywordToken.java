@@ -22,11 +22,11 @@ public class ContainKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.CONTAIN_KEYWORD, TweetQlSyntaxTokenKind.CONTAIN_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public ContainKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.CONTAIN_KEYWORD, TweetQlSyntaxTokenKind.CONTAIN_KEYWORD_TOKEN, missing, unexpected, parent);
+    public ContainKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.CONTAIN_KEYWORD, TweetQlSyntaxTokenKind.CONTAIN_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public ContainKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.CONTAIN_KEYWORD, TweetQlSyntaxTokenKind.CONTAIN_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public ContainKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.CONTAIN_KEYWORD, TweetQlSyntaxTokenKind.CONTAIN_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

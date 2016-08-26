@@ -1,6 +1,6 @@
 package project.code_analysis.core;
 
-import project.code_analysis.core.syntax.CompilationUnitSyntax;
+import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
 
 /**
  * Project Southern Cross

@@ -22,11 +22,11 @@ public class DescendKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlSyntaxTokenKind.DESCEND_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public DescendKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlSyntaxTokenKind.DESCEND_KEYWORD_TOKEN, missing, unexpected, parent);
+    public DescendKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlSyntaxTokenKind.DESCEND_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public DescendKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlSyntaxTokenKind.DESCEND_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public DescendKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlSyntaxTokenKind.DESCEND_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

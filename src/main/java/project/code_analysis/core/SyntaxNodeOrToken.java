@@ -30,24 +30,26 @@ public abstract class SyntaxNodeOrToken extends SyntaxUnit {
         setError(missing, unexpected);
     }
 
-    public SyntaxNodeOrToken(String language, ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
+    public SyntaxNodeOrToken(String language, ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
         super(language, parent);
         this.setKind(kind);
         setError(missing, unexpected);
     }
 
-    public SyntaxNodeOrToken(String language, ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(language, start, parent);
+    public SyntaxNodeOrToken(String language, ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(language, parent, start);
         this.setKind(kind);
         setError(missing, unexpected);
     }
 
     public void addLeadingTrivia(SyntaxTrivia trivia) {
+        trivia.setParent(this);
         trivia.shiftWindowTo(this.getStart());
         this.leadingTrivia.add(trivia);
     }
 
     public void addTrialingTrivia(SyntaxTrivia trivia) {
+        trivia.setParent(this);
         trivia.shiftWindowTo(this.getFullSpan().getEnd());
         this.trialingTrivia.add(trivia);
     }

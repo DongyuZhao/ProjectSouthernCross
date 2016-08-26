@@ -166,7 +166,7 @@ public class SyntaxTokenizer {
     }
 
     private void submitSession() {
-        this.tokenList.add(this.currentSession.getToken());
+        this.tokenList.add(this.currentSession.toSyntaxToken());
         this.createNewSession();
         this.changeState(TokenizerState.LEADING_SPACE);
     }
@@ -230,7 +230,7 @@ public class SyntaxTokenizer {
             this.fullEnd += 1;
         }
 
-        SyntaxToken getToken() {
+        SyntaxToken toSyntaxToken() {
             return new SyntaxToken(getSyntaxFacts().getLanguage(), this.getRawString(), getSyntaxFacts().getSyntaxKind(this.getRawString()), this.getStart(), false, false);
         }
 

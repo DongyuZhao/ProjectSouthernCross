@@ -22,11 +22,11 @@ public class OrderKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.ORDER_KEYWORD, TweetQlSyntaxTokenKind.ORDER_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public OrderKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlSyntaxTokenKind.ORDER_KEYWORD_TOKEN, missing, unexpected, parent);
+    public OrderKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlSyntaxTokenKind.ORDER_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public OrderKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlSyntaxTokenKind.ORDER_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public OrderKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlSyntaxTokenKind.ORDER_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

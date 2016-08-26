@@ -22,11 +22,11 @@ public class CloseParenthesesToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlSyntaxTokenKind.CLOSE_PARENTHESES_TOKEN, start, missing, unexpected);
     }
 
-    public CloseParenthesesToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlSyntaxTokenKind.CLOSE_PARENTHESES_TOKEN, missing, unexpected, parent);
+    public CloseParenthesesToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlSyntaxTokenKind.CLOSE_PARENTHESES_TOKEN, parent, missing, unexpected);
     }
 
-    public CloseParenthesesToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlSyntaxTokenKind.CLOSE_PARENTHESES_TOKEN, start, missing, unexpected, parent);
+    public CloseParenthesesToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlSyntaxTokenKind.CLOSE_PARENTHESES_TOKEN, parent, start, missing, unexpected);
     }
 }

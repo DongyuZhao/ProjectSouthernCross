@@ -22,11 +22,11 @@ public class BetweenKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.BETWEEN_KEYWORD, TweetQlSyntaxTokenKind.BETWEEN_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public BetweenKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.BETWEEN_KEYWORD, TweetQlSyntaxTokenKind.BETWEEN_KEYWORD_TOKEN, missing, unexpected, parent);
+    public BetweenKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.BETWEEN_KEYWORD, TweetQlSyntaxTokenKind.BETWEEN_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public BetweenKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.BETWEEN_KEYWORD, TweetQlSyntaxTokenKind.BETWEEN_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public BetweenKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.BETWEEN_KEYWORD, TweetQlSyntaxTokenKind.BETWEEN_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

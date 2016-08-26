@@ -24,11 +24,11 @@ public class TweetQlSyntaxToken extends SyntaxToken {
         super(TweetQlSyntaxFacts.getInstance().getLanguage(), rawString, kind, start, missing, unexpected);
     }
 
-    public TweetQlSyntaxToken(String rawString, ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxFacts.getInstance().getLanguage(), rawString, kind, missing, unexpected, parent);
+    public TweetQlSyntaxToken(String rawString, ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxFacts.getInstance().getLanguage(), rawString, kind, parent, missing, unexpected);
     }
 
-    public TweetQlSyntaxToken(String rawString, ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlSyntaxFacts.getInstance().getLanguage(), rawString, kind, start, missing, unexpected, parent);
+    public TweetQlSyntaxToken(String rawString, ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlSyntaxFacts.getInstance().getLanguage(), rawString, kind, parent, start, missing, unexpected);
     }
 }

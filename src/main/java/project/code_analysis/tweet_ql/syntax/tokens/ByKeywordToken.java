@@ -22,11 +22,11 @@ public class ByKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.BY_KEYWORD, TweetQlSyntaxTokenKind.BY_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public ByKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.BY_KEYWORD, TweetQlSyntaxTokenKind.BY_KEYWORD_TOKEN, missing, unexpected, parent);
+    public ByKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.BY_KEYWORD, TweetQlSyntaxTokenKind.BY_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public ByKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.BY_KEYWORD, TweetQlSyntaxTokenKind.BY_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public ByKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.BY_KEYWORD, TweetQlSyntaxTokenKind.BY_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }

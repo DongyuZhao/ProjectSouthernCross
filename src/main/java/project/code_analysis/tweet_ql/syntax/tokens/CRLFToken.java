@@ -22,11 +22,11 @@ public class CRLFToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.CRLF, TweetQlSyntaxTokenKind.CRLF_TOKEN, start, missing, unexpected);
     }
 
-    public CRLFToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.CRLF, TweetQlSyntaxTokenKind.CRLF_TOKEN, missing, unexpected, parent);
+    public CRLFToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.CRLF, TweetQlSyntaxTokenKind.CRLF_TOKEN, parent, missing, unexpected);
     }
 
-    public CRLFToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.CRLF, TweetQlSyntaxTokenKind.CRLF_TOKEN, start, missing, unexpected, parent);
+    public CRLFToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.CRLF, TweetQlSyntaxTokenKind.CRLF_TOKEN, parent, start, missing, unexpected);
     }
 }

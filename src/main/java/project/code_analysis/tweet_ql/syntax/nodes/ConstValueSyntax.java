@@ -22,11 +22,11 @@ public class ConstValueSyntax extends EvaluableExpression {
         super(kind, start, missing, unexpected);
     }
 
-    public ConstValueSyntax(ISyntaxKind kind, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(kind, missing, unexpected, parent);
+    public ConstValueSyntax(ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(kind, parent, missing, unexpected);
     }
 
-    public ConstValueSyntax(ISyntaxKind kind, int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(kind, start, missing, unexpected, parent);
+    public ConstValueSyntax(ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(kind, parent, start, missing, unexpected);
     }
 }

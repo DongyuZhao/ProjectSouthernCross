@@ -22,11 +22,11 @@ public class NotKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.NOT_KEYWORD, TweetQlSyntaxTokenKind.NOT_KEYWORD_TOKEN, start, missing, unexpected);
     }
 
-    public NotKeywordToken(boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.NOT_KEYWORD, TweetQlSyntaxTokenKind.NOT_KEYWORD_TOKEN, missing, unexpected, parent);
+    public NotKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.NOT_KEYWORD, TweetQlSyntaxTokenKind.NOT_KEYWORD_TOKEN, parent, missing, unexpected);
     }
 
-    public NotKeywordToken(int start, boolean missing, boolean unexpected, SyntaxNode parent) {
-        super(TweetQlTokenString.NOT_KEYWORD, TweetQlSyntaxTokenKind.NOT_KEYWORD_TOKEN, start, missing, unexpected, parent);
+    public NotKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+        super(TweetQlTokenString.NOT_KEYWORD, TweetQlSyntaxTokenKind.NOT_KEYWORD_TOKEN, parent, start, missing, unexpected);
     }
 }
