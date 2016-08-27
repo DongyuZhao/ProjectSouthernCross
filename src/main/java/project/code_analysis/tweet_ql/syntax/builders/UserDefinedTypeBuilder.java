@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.builders;
 
 import project.code_analysis.core.syntax.builders.AbstractSyntaxNodeBuilder;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.syntax.nodes.VariableSyntax;
 
 /**
@@ -17,7 +17,7 @@ public class UserDefinedTypeBuilder extends AbstractSyntaxNodeBuilder<VariableSy
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                         case STAR_TOKEN:
                             this.currentState = ParseStates.AFTER_IDENTIFIER;
@@ -29,8 +29,9 @@ public class UserDefinedTypeBuilder extends AbstractSyntaxNodeBuilder<VariableSy
                     }
                     break;
                 case AFTER_IDENTIFIER:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-                        case WHERE_KEYWORD_TOKEN:
+                    switch ((TweetQlTokenKind) token.getKind()) {
+                        case WHERE_KEYWORD:
+                            this.root.addChildToken(token);
                             this.currentState = ParseStates.AFTER_WHERE;
                             this.filterBuilder.append(token);
                             break;

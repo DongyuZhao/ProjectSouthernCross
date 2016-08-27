@@ -2,8 +2,7 @@ package project.code_analysis;
 
 import org.junit.Assert;
 import org.junit.Test;
-import project.code_analysis.core.SyntaxTokenizer;
-import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
+import project.code_analysis.tweet_ql.syntax.TweetQlTokenizer;
 
 /**
  * Project Southern Cross
@@ -14,7 +13,7 @@ import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
 public class TokenizerTest {
     @Test
     public void tokenize() throws Exception {
-        SyntaxTokenizer tokenizer = SyntaxTokenizer.create(TweetQlSyntaxFacts.getInstance());
+        TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
         Assert.assertEquals(13, tokenizer.tokenize("SELECT a, b, c FROM s WHERE t = u;").size());
     }
 

@@ -1,6 +1,7 @@
 package project.code_analysis.core;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -58,7 +59,7 @@ public class SyntaxTokenizer {
         return false;
     }
 
-    public ArrayList<SyntaxToken> tokenize(String source) {
+    public List<SyntaxToken> tokenize(String source) {
         char[] charArray = source.toCharArray();
         this.currentSession = new TokenizerSession(0, 0);
         for (int i = 0; i < charArray.length; i++) {

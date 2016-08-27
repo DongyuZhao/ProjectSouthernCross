@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
 import project.code_analysis.core.SyntaxNode;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
 
 /**
@@ -11,22 +11,22 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  */
 public class SelectKeywordToken extends TweetQlSyntaxToken {
     public SelectKeywordToken() {
-        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN);
+        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlTokenKind.SELECT_KEYWORD);
     }
 
     public SelectKeywordToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, missing, unexpected);
+        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlTokenKind.SELECT_KEYWORD, missing, unexpected);
     }
 
     public SelectKeywordToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, start, missing, unexpected);
+        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlTokenKind.SELECT_KEYWORD, start, missing, unexpected);
     }
 
     public SelectKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, parent, missing, unexpected);
+        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlTokenKind.SELECT_KEYWORD, parent, missing, unexpected);
     }
 
     public SelectKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN, parent, start, missing, unexpected);
+        super(TweetQlTokenString.SELECT_KEYWORD, TweetQlTokenKind.SELECT_KEYWORD, parent, start, missing, unexpected);
     }
 }

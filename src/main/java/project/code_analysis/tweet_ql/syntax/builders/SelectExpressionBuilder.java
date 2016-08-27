@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.builders;
 
 import project.code_analysis.core.syntax.builders.AbstractSyntaxNodeBuilder;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.syntax.nodes.SelectExpressionSyntax;
 
 /**
@@ -19,8 +19,8 @@ public class SelectExpressionBuilder extends AbstractSyntaxNodeBuilder<SelectExp
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-                        case SELECT_KEYWORD_TOKEN:
+                    switch ((TweetQlTokenKind) token.getKind()) {
+                        case SELECT_KEYWORD:
                             this.currentState = ParseStates.AFTER_SELECT;
                             this.root.addChildToken(token);
                             break;
@@ -29,7 +29,7 @@ public class SelectExpressionBuilder extends AbstractSyntaxNodeBuilder<SelectExp
                     }
                     break;
                 case AFTER_SELECT:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                             this.currentState = ParseStates.AFTER_IDENTIFIER;
                             this.attributeListBuilder.append(token);
@@ -43,35 +43,35 @@ public class SelectExpressionBuilder extends AbstractSyntaxNodeBuilder<SelectExp
                     }
                     break;
                 case AFTER_STAR:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-                        case FROM_KEYWORD_TOKEN:
+                    switch ((TweetQlTokenKind) token.getKind()) {
+                        case FROM_KEYWORD:
                             this.currentState = ParseStates.AFTER_FROM;
                             this.root.addChildNode(this.attributeListBuilder.build());
                             this.sourceListBuilder.clear();
-                            this.sourceListBuilder.append(token);
+                            this.root.addChildToken(token);
                             break;
                         default:
                             break;
                     }
                     break;
                 case AFTER_IDENTIFIER:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case COMMA_TOKEN:
                             this.currentState = ParseStates.AFTER_COMMA;
                             this.attributeListBuilder.append(token);
                             break;
-                        case FROM_KEYWORD_TOKEN:
+                        case FROM_KEYWORD:
                             this.currentState = ParseStates.AFTER_FROM;
                             this.root.addChildNode(this.attributeListBuilder.build());
                             this.sourceListBuilder.clear();
-                            this.sourceListBuilder.append(token);
+                            this.root.addChildToken(token);
                             break;
                         default:
                             break;
                     }
                     break;
                 case AFTER_COMMA:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                             this.currentState = ParseStates.AFTER_IDENTIFIER;
                             this.attributeListBuilder.append(token);
@@ -81,11 +81,12 @@ public class SelectExpressionBuilder extends AbstractSyntaxNodeBuilder<SelectExp
                     }
                     break;
                 case AFTER_FROM:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case SEMICOLON_TOKEN:
                             this.currentState = ParseStates.ROOT;
-                            this.sourceListBuilder.append(token);
+                            //this.sourceListBuilder.append(token);
                             this.root.addChildNode(this.sourceListBuilder.build());
+                            this.root.addChildToken(token);
                             break;
                         default:
                             this.sourceListBuilder.append(token);

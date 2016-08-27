@@ -1,6 +1,7 @@
 package project.code_analysis.core;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Project Southern Cross
@@ -96,5 +97,13 @@ public abstract class SyntaxNodeOrToken extends SyntaxUnit {
         StringBuilder builder = new StringBuilder();
         this.trialingTrivia.forEach(t -> builder.append(t.getFullString()));
         return builder.toString();
+    }
+
+    public List<SyntaxTrivia> getLeadingTrivia() {
+        return leadingTrivia;
+    }
+
+    public List<SyntaxTrivia> getTrialingTrivia() {
+        return trialingTrivia;
     }
 }

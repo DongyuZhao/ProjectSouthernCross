@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.lexers;
 
 import project.code_analysis.core.SyntaxToken;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
 
 import java.util.ArrayList;
@@ -30,12 +30,12 @@ public class TweetQlSyntaxLexer {
         for (SyntaxToken token : originTokenList) {
             switch (this.currentState) {
                 case IDLE:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-                        case CREATE_KEYWORD_TOKEN:
+                    switch ((TweetQlTokenKind) token.getKind()) {
+                        case CREATE_KEYWORD:
                             this.currentState = LexerStates.AFTER_CREATE;
                             result.add(token);
                             break;
-                        case SELECT_KEYWORD_TOKEN:
+                        case SELECT_KEYWORD:
                             this.currentState = LexerStates.AFTER_SELECT;
                             result.add(token);
                             break;
@@ -47,7 +47,7 @@ public class TweetQlSyntaxLexer {
                     continue;
                 case AFTER_CREATE:
                 case AFTER_COMMA_IN_CREATE:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                             this.currentState = LexerStates.AFTER_IDENTIFIER_IN_CREATE;
                             result.add(token);
@@ -59,7 +59,7 @@ public class TweetQlSyntaxLexer {
                     }
                     continue;
                 case AFTER_SELECT:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                             this.currentState = LexerStates.AFTER_IDENTIFIER_IN_SELECT;
                             result.add(token);
@@ -75,12 +75,12 @@ public class TweetQlSyntaxLexer {
                     }
                     continue;
                 case AFTER_IDENTIFIER_IN_CREATE:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case COMMA_TOKEN:
                             this.currentState = LexerStates.AFTER_COMMA_IN_CREATE;
                             result.add(token);
                             break;
-                        case FROM_KEYWORD_TOKEN:
+                        case FROM_KEYWORD:
                             this.currentState = LexerStates.AFTER_FROM;
                             result.add(token);
                             break;
@@ -91,12 +91,12 @@ public class TweetQlSyntaxLexer {
                     }
                     continue;
                 case AFTER_IDENTIFIER_IN_SELECT:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case COMMA_TOKEN:
                             this.currentState = LexerStates.AFTER_COMMA_IN_SELECT;
                             result.add(token);
                             break;
-                        case FROM_KEYWORD_TOKEN:
+                        case FROM_KEYWORD:
                             this.currentState = LexerStates.AFTER_FROM;
                             result.add(token);
                             break;
@@ -107,8 +107,8 @@ public class TweetQlSyntaxLexer {
                     }
                     continue;
                 case AFTER_STAR_IN_SELECT:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-                        case FROM_KEYWORD_TOKEN:
+                    switch ((TweetQlTokenKind) token.getKind()) {
+                        case FROM_KEYWORD:
                             this.currentState = LexerStates.AFTER_FROM;
                             result.add(token);
                             break;
@@ -119,7 +119,7 @@ public class TweetQlSyntaxLexer {
                     }
                     continue;
                 case AFTER_COMMA_IN_SELECT:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                             this.currentState = LexerStates.AFTER_IDENTIFIER_IN_SELECT;
                             result.add(token);
@@ -131,7 +131,7 @@ public class TweetQlSyntaxLexer {
                     }
                     continue;
                 case AFTER_FROM:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                         case STAR_TOKEN:
                             this.currentState = LexerStates.AFTER_IDENTIFIER_IN_FROM;
@@ -144,8 +144,8 @@ public class TweetQlSyntaxLexer {
                     }
                     continue;
                 case AFTER_IDENTIFIER_IN_FROM:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-                        case WHERE_KEYWORD_TOKEN:
+                    switch ((TweetQlTokenKind) token.getKind()) {
+                        case WHERE_KEYWORD:
                             this.currentState = LexerStates.AFTER_WHERE;
                             result.add(token);
                             break;
@@ -164,7 +164,7 @@ public class TweetQlSyntaxLexer {
                     }
                     continue;
                 case AFTER_WHERE:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case IDENTIFIER_TOKEN:
                             this.currentState = LexerStates.AFTER_FIRST_IDENTIFIER_IN_BINARY;
                             result.add(token);
@@ -194,10 +194,10 @@ public class TweetQlSyntaxLexer {
                     }
                     continue;
                 case AFTER_SECOND_IDENTIFIER_IN_BINARY:
-                    if (token.getKind() == TweetQlSyntaxTokenKind.SEMICOLON_TOKEN) {
+                    if (token.getKind() == TweetQlTokenKind.SEMICOLON_TOKEN) {
                         this.currentState = LexerStates.IDLE;
                         result.add(token);
-                    } else if (token.getKind() == TweetQlSyntaxTokenKind.COMMA_TOKEN) {
+                    } else if (token.getKind() == TweetQlTokenKind.COMMA_TOKEN) {
                         this.currentState = LexerStates.AFTER_FROM;
                         result.add(token);
                     } else if (this.syntaxFacts.isBinaryOperator(token.getRawString())) {

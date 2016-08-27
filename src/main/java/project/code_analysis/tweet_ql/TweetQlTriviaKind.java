@@ -7,5 +7,9 @@ import project.code_analysis.core.ISyntaxKind;
  * <p>
  * Created by Dy.Zhao on 2016/8/14.
  */
-public enum TweetQlSyntaxTriviaKind implements ISyntaxKind {
+public enum TweetQlTriviaKind implements ISyntaxKind {
+    WHITE_SPACE,
+    CHANGE_LINE,
+    LINE_COMMENTS,
+    BLOCK_COMMENTS,
 }

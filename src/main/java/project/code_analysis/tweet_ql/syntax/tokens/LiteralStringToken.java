@@ -2,7 +2,7 @@ package project.code_analysis.tweet_ql.syntax.tokens;
 
 
 import project.code_analysis.core.SyntaxNode;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 
 /**
  * This is a open source project provided as-is without any
@@ -12,22 +12,22 @@ import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
  */
 public class LiteralStringToken extends TweetQlSyntaxToken {
     public LiteralStringToken(String rawString) {
-        super(rawString, TweetQlSyntaxTokenKind.LITERAL_STRING_TOKEN);
+        super(rawString, TweetQlTokenKind.LITERAL_STRING_TOKEN);
     }
 
     public LiteralStringToken(String rawString, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlSyntaxTokenKind.LITERAL_STRING_TOKEN, missing, unexpected);
+        super(rawString, TweetQlTokenKind.LITERAL_STRING_TOKEN, missing, unexpected);
     }
 
     public LiteralStringToken(String rawString, int start, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlSyntaxTokenKind.LITERAL_STRING_TOKEN, start, missing, unexpected);
+        super(rawString, TweetQlTokenKind.LITERAL_STRING_TOKEN, start, missing, unexpected);
     }
 
     public LiteralStringToken(String rawString, SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlSyntaxTokenKind.LITERAL_STRING_TOKEN, parent, missing, unexpected);
+        super(rawString, TweetQlTokenKind.LITERAL_STRING_TOKEN, parent, missing, unexpected);
     }
 
     public LiteralStringToken(String rawString, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlSyntaxTokenKind.LITERAL_STRING_TOKEN, parent, start, missing, unexpected);
+        super(rawString, TweetQlTokenKind.LITERAL_STRING_TOKEN, parent, start, missing, unexpected);
     }
 }

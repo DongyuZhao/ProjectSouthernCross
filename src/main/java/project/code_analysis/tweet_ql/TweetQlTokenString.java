@@ -49,5 +49,5 @@ public class TweetQlTokenString {
 
     public static final String DOUBLE_SLASH = "//";
     public static final String SLASH_STAR = "/*";
-    public static final String STAR_SLASH = "/*";
+    public static final String STAR_SLASH = "*/";
 }

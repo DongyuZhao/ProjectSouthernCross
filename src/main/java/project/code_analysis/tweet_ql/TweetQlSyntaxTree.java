@@ -1,13 +1,23 @@
 package project.code_analysis.tweet_ql;
 
+import project.code_analysis.core.ISyntaxParser;
 import project.code_analysis.core.SyntaxTree;
 import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxParser;
 
 /**
- * Created by Dy.Zhao on 2016/8/16.
+ * This is a open source project provided as-is without any
+ * guarantee.
+ * <p>
+ * Created by Dy.Zhao on 2016/8/28.
  */
 public class TweetQlSyntaxTree extends SyntaxTree {
-    public TweetQlSyntaxTree() {
-        super(TweetQlSyntaxParser.create());
+    protected TweetQlSyntaxTree(ISyntaxParser parser) {
+        super(parser);
+    }
+
+    public static TweetQlSyntaxTree parseText(String text) {
+        TweetQlSyntaxTree tree = new TweetQlSyntaxTree(TweetQlSyntaxParser.create());
+        tree.parse(text);
+        return tree;
     }
 }

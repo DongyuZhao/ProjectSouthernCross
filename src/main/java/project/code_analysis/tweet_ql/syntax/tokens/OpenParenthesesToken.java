@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
 import project.code_analysis.core.SyntaxNode;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
 
 /**
@@ -11,22 +11,22 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  */
 public class OpenParenthesesToken extends TweetQlSyntaxToken {
     public OpenParenthesesToken() {
-        super(TweetQlTokenString.OPEN_PARENTHESES, TweetQlSyntaxTokenKind.OPEN_PARENTHESES_TOKEN);
+        super(TweetQlTokenString.OPEN_PARENTHESES, TweetQlTokenKind.OPEN_PARENTHESES);
     }
 
     public OpenParenthesesToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.OPEN_PARENTHESES, TweetQlSyntaxTokenKind.OPEN_PARENTHESES_TOKEN, missing, unexpected);
+        super(TweetQlTokenString.OPEN_PARENTHESES, TweetQlTokenKind.OPEN_PARENTHESES, missing, unexpected);
     }
 
     public OpenParenthesesToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.OPEN_PARENTHESES, TweetQlSyntaxTokenKind.OPEN_PARENTHESES_TOKEN, start, missing, unexpected);
+        super(TweetQlTokenString.OPEN_PARENTHESES, TweetQlTokenKind.OPEN_PARENTHESES, start, missing, unexpected);
     }
 
     public OpenParenthesesToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.OPEN_PARENTHESES, TweetQlSyntaxTokenKind.OPEN_PARENTHESES_TOKEN, parent, missing, unexpected);
+        super(TweetQlTokenString.OPEN_PARENTHESES, TweetQlTokenKind.OPEN_PARENTHESES, parent, missing, unexpected);
     }
 
     public OpenParenthesesToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.OPEN_PARENTHESES, TweetQlSyntaxTokenKind.OPEN_PARENTHESES_TOKEN, parent, start, missing, unexpected);
+        super(TweetQlTokenString.OPEN_PARENTHESES, TweetQlTokenKind.OPEN_PARENTHESES, parent, start, missing, unexpected);
     }
 }

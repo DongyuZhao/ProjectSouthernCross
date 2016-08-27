@@ -58,7 +58,7 @@ public interface ISyntaxFacts {
     default boolean isValidIdentifier(String rawString) {
         return
                 rawString != null &&
-                        (rawString.matches("^[_A-Za-z]+\\w?$"));
+                        (rawString.matches("^[_A-Za-z]+\\w*$"));
     }
 
     default boolean isLiteralString(String rawString) {

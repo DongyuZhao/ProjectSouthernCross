@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
 import project.code_analysis.core.SyntaxNode;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
 
 /**
@@ -11,22 +11,22 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  */
 public class DescendKeywordToken extends TweetQlSyntaxToken {
     public DescendKeywordToken() {
-        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlSyntaxTokenKind.DESCEND_KEYWORD_TOKEN);
+        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlTokenKind.DESCEND_KEYWORD);
     }
 
     public DescendKeywordToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlSyntaxTokenKind.DESCEND_KEYWORD_TOKEN, missing, unexpected);
+        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlTokenKind.DESCEND_KEYWORD, missing, unexpected);
     }
 
     public DescendKeywordToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlSyntaxTokenKind.DESCEND_KEYWORD_TOKEN, start, missing, unexpected);
+        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlTokenKind.DESCEND_KEYWORD, start, missing, unexpected);
     }
 
     public DescendKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlSyntaxTokenKind.DESCEND_KEYWORD_TOKEN, parent, missing, unexpected);
+        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlTokenKind.DESCEND_KEYWORD, parent, missing, unexpected);
     }
 
     public DescendKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlSyntaxTokenKind.DESCEND_KEYWORD_TOKEN, parent, start, missing, unexpected);
+        super(TweetQlTokenString.DESCEND_KEYWORD, TweetQlTokenKind.DESCEND_KEYWORD, parent, start, missing, unexpected);
     }
 }

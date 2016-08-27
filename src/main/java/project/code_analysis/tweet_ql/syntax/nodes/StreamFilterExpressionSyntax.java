@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
 import project.code_analysis.core.SyntaxNode;
-import project.code_analysis.tweet_ql.TweetQlSyntaxNodeKind;
+import project.code_analysis.tweet_ql.TweetQlNodeKind;
 
 /**
  * ProjectSouthernCross
@@ -10,23 +10,23 @@ import project.code_analysis.tweet_ql.TweetQlSyntaxNodeKind;
  */
 public class StreamFilterExpressionSyntax extends TweetQlSyntaxNode {
     public StreamFilterExpressionSyntax() {
-        super(TweetQlSyntaxNodeKind.STREAM_FILTER_EXPRESSION_NODE);
+        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION);
     }
 
     public StreamFilterExpressionSyntax( boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxNodeKind.STREAM_FILTER_EXPRESSION_NODE, missing, unexpected);
+        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, missing, unexpected);
     }
 
     public StreamFilterExpressionSyntax( int start, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxNodeKind.STREAM_FILTER_EXPRESSION_NODE, start, missing, unexpected);
+        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, start, missing, unexpected);
     }
 
     public StreamFilterExpressionSyntax(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxNodeKind.STREAM_FILTER_EXPRESSION_NODE, parent, missing, unexpected);
+        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, parent, missing, unexpected);
     }
 
     public StreamFilterExpressionSyntax(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlSyntaxNodeKind.STREAM_FILTER_EXPRESSION_NODE, parent, start, missing, unexpected);
+        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, parent, start, missing, unexpected);
     }
 
     public String getExpectedValue() {

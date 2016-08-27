@@ -2,10 +2,10 @@ package project.code_analysis.tweet_ql.syntax;
 
 import project.code_analysis.core.ISyntaxFacts;
 import project.code_analysis.core.ISyntaxKind;
-import project.code_analysis.tweet_ql.TweetQlSyntaxNodeKind;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTriviaKind;
+import project.code_analysis.tweet_ql.TweetQlNodeKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
+import project.code_analysis.tweet_ql.TweetQlTriviaKind;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -22,61 +22,73 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
     private HashMap<String, ISyntaxKind> unaryOperatorKindMap = new HashMap<>();
     private HashMap<String, ISyntaxKind> binaryOperatorKindMap = new HashMap<>();
     private HashMap<String, ISyntaxKind> changeLineOperatorKindMap = new HashMap<>();
+    private HashMap<String, ISyntaxKind> lineCommentsTriggerKindMap = new HashMap<>();
+    private HashMap<String, ISyntaxKind> blockCommentsTriggerKindMap = new HashMap<>();
+    private HashMap<String, ISyntaxKind> blockCommentsTerminatorKindMap = new HashMap<>();
+
     private TweetQlSyntaxFacts() {
-        this.keywordKindMap.put(TweetQlTokenString.CREATE_KEYWORD, TweetQlSyntaxTokenKind.CREATE_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.SELECT_KEYWORD, TweetQlSyntaxTokenKind.SELECT_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.FROM_KEYWORD, TweetQlSyntaxTokenKind.FROM_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.WHERE_KEYWORD, TweetQlSyntaxTokenKind.WHERE_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.CONTAIN_KEYWORD, TweetQlSyntaxTokenKind.CONTAIN_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.LIKE_KEYWORD, TweetQlSyntaxTokenKind.LIKE_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.AND_KEYWORD, TweetQlSyntaxTokenKind.AND_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.OR_KEYWORD, TweetQlSyntaxTokenKind.OR_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.NOT_KEYWORD, TweetQlSyntaxTokenKind.NOT_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.SKIP_KEYWORD, TweetQlSyntaxTokenKind.SKIP_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.WINDOW_KEYWORD, TweetQlSyntaxTokenKind.WINDOW_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.AS_KEYWORD, TweetQlSyntaxTokenKind.AS_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.BETWEEN_KEYWORD, TweetQlSyntaxTokenKind.BETWEEN_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.ORDER_KEYWORD, TweetQlSyntaxTokenKind.ORDER_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.BY_KEYWORD, TweetQlSyntaxTokenKind.BY_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.ASCEND_KEYWORD, TweetQlSyntaxTokenKind.ASCEND_KEYWORD_TOKEN);
-        this.keywordKindMap.put(TweetQlTokenString.DESCEND_KEYWORD, TweetQlSyntaxTokenKind.DESCEND_KEYWORD_TOKEN);
+        this.keywordKindMap.put(TweetQlTokenString.CREATE_KEYWORD, TweetQlTokenKind.CREATE_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.SELECT_KEYWORD, TweetQlTokenKind.SELECT_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.FROM_KEYWORD, TweetQlTokenKind.FROM_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.WHERE_KEYWORD, TweetQlTokenKind.WHERE_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.CONTAIN_KEYWORD, TweetQlTokenKind.CONTAIN_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.LIKE_KEYWORD, TweetQlTokenKind.LIKE_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.AND_KEYWORD, TweetQlTokenKind.AND_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.NOT_KEYWORD, TweetQlTokenKind.NOT_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.SKIP_KEYWORD, TweetQlTokenKind.SKIP_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.WINDOW_KEYWORD, TweetQlTokenKind.WINDOW_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.AS_KEYWORD, TweetQlTokenKind.AS_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.BETWEEN_KEYWORD, TweetQlTokenKind.BETWEEN_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.ORDER_KEYWORD, TweetQlTokenKind.ORDER_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.BY_KEYWORD, TweetQlTokenKind.BY_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.ASCEND_KEYWORD, TweetQlTokenKind.ASCEND_KEYWORD);
+        this.keywordKindMap.put(TweetQlTokenString.DESCEND_KEYWORD, TweetQlTokenKind.DESCEND_KEYWORD);
 
-        this.specialSymbolKindMap.put(TweetQlTokenString.OPEN_PARENTHESES, TweetQlSyntaxTokenKind.OPEN_PARENTHESES_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlSyntaxTokenKind.CLOSE_PARENTHESES_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.OPEN_BRACKET, TweetQlSyntaxTokenKind.OPEN_BRACKET_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.CLOSE_BRACKET, TweetQlSyntaxTokenKind.CLOSE_BRACKET_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.OPEN_BRACE, TweetQlSyntaxTokenKind.OPEN_BRACE_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.CLOSE_BRACE, TweetQlSyntaxTokenKind.CLOSE_BRACE_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.OPEN_PARENTHESES, TweetQlTokenKind.OPEN_PARENTHESES);
+        this.specialSymbolKindMap.put(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlTokenKind.CLOSE_PARENTHESES);
+        this.specialSymbolKindMap.put(TweetQlTokenString.OPEN_BRACKET, TweetQlTokenKind.OPEN_BRACKET);
+        this.specialSymbolKindMap.put(TweetQlTokenString.CLOSE_BRACKET, TweetQlTokenKind.CLOSE_BRACKET);
+        this.specialSymbolKindMap.put(TweetQlTokenString.OPEN_BRACE, TweetQlTokenKind.OPEN_BRACE);
+        this.specialSymbolKindMap.put(TweetQlTokenString.CLOSE_BRACE, TweetQlTokenKind.CLOSE_BRACE);
 
-        this.specialSymbolKindMap.put(TweetQlTokenString.COMMA, TweetQlSyntaxTokenKind.COMMA_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.DOT, TweetQlSyntaxTokenKind.DOT_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.COLON, TweetQlSyntaxTokenKind.COLON_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.SEMICOLON, TweetQlSyntaxTokenKind.SEMICOLON_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.COMMA, TweetQlTokenKind.COMMA_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.DOT, TweetQlTokenKind.DOT_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.COLON, TweetQlTokenKind.COLON_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN);
 
-        this.specialSymbolKindMap.put(TweetQlTokenString.EQUAL, TweetQlSyntaxTokenKind.EQUAL_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.BIGGER, TweetQlSyntaxTokenKind.BIGGER_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.LESS, TweetQlSyntaxTokenKind.LESS_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.BIGGER_EQUAL, TweetQlSyntaxTokenKind.BIGGER_EQUAL_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.LESS_EQUAL, TweetQlSyntaxTokenKind.LESS_EQUAL_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.BIGGER, TweetQlTokenKind.BIGGER_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.LESS, TweetQlTokenKind.LESS_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.BIGGER_EQUAL, TweetQlTokenKind.BIGGER_EQUAL_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN);
 
-        this.specialSymbolKindMap.put(TweetQlTokenString.STAR, TweetQlSyntaxTokenKind.STAR_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN);
 
-        this.specialSymbolKindMap.put(TweetQlTokenString.CRLF, TweetQlSyntaxTokenKind.CRLF_TOKEN);
-        this.specialSymbolKindMap.put(TweetQlTokenString.LF, TweetQlSyntaxTokenKind.LF_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.CRLF, TweetQlTokenKind.CRLF_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.LF, TweetQlTokenKind.LF_TOKEN);
 
-        this.binaryOperatorKindMap.put(TweetQlTokenString.EQUAL, TweetQlSyntaxTokenKind.EQUAL_TOKEN);
-        this.binaryOperatorKindMap.put(TweetQlTokenString.BIGGER, TweetQlSyntaxTokenKind.BIGGER_TOKEN);
-        this.binaryOperatorKindMap.put(TweetQlTokenString.LESS, TweetQlSyntaxTokenKind.LESS_TOKEN);
-        this.binaryOperatorKindMap.put(TweetQlTokenString.BIGGER_EQUAL, TweetQlSyntaxTokenKind.BIGGER_EQUAL_TOKEN);
-        this.binaryOperatorKindMap.put(TweetQlTokenString.LESS_EQUAL, TweetQlSyntaxTokenKind.LESS_EQUAL_TOKEN);
-        this.binaryOperatorKindMap.put(TweetQlTokenString.AND_KEYWORD, TweetQlSyntaxTokenKind.AND_KEYWORD_TOKEN);
-        this.binaryOperatorKindMap.put(TweetQlTokenString.OR_KEYWORD, TweetQlSyntaxTokenKind.OR_KEYWORD_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.DOUBLE_SLASH, TweetQlTokenKind.DOUBLE_SLASH_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.SLASH_STAR, TweetQlTokenKind.SLASH_STAR_TOKEN);
+        this.specialSymbolKindMap.put(TweetQlTokenString.STAR_SLASH, TweetQlTokenKind.STAR_SLASH_TOKEN);
 
-        this.unaryOperatorKindMap.put(TweetQlTokenString.NOT_KEYWORD, TweetQlSyntaxTokenKind.NOT_KEYWORD_TOKEN);
+        this.binaryOperatorKindMap.put(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN);
+        this.binaryOperatorKindMap.put(TweetQlTokenString.BIGGER, TweetQlTokenKind.BIGGER_TOKEN);
+        this.binaryOperatorKindMap.put(TweetQlTokenString.LESS, TweetQlTokenKind.LESS_TOKEN);
+        this.binaryOperatorKindMap.put(TweetQlTokenString.BIGGER_EQUAL, TweetQlTokenKind.BIGGER_EQUAL_TOKEN);
+        this.binaryOperatorKindMap.put(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN);
+        this.binaryOperatorKindMap.put(TweetQlTokenString.AND_KEYWORD, TweetQlTokenKind.AND_KEYWORD);
+        this.binaryOperatorKindMap.put(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD);
 
-        this.changeLineOperatorKindMap.put(TweetQlTokenString.CRLF, TweetQlSyntaxTokenKind.CRLF_TOKEN);
-        this.changeLineOperatorKindMap.put(TweetQlTokenString.LF, TweetQlSyntaxTokenKind.LF_TOKEN);
+        this.unaryOperatorKindMap.put(TweetQlTokenString.NOT_KEYWORD, TweetQlTokenKind.NOT_KEYWORD);
 
+        this.changeLineOperatorKindMap.put(TweetQlTokenString.CRLF, TweetQlTokenKind.CRLF_TOKEN);
+        this.changeLineOperatorKindMap.put(TweetQlTokenString.LF, TweetQlTokenKind.LF_TOKEN);
+
+        this.lineCommentsTriggerKindMap.put(TweetQlTokenString.DOUBLE_SLASH, TweetQlTokenKind.DOUBLE_SLASH_TOKEN);
+
+        this.blockCommentsTriggerKindMap.put(TweetQlTokenString.SLASH_STAR, TweetQlTokenKind.SLASH_STAR_TOKEN);
+        this.blockCommentsTerminatorKindMap.put(TweetQlTokenString.STAR_SLASH, TweetQlTokenKind.STAR_SLASH_TOKEN);
     }
 
     public static TweetQlSyntaxFacts getInstance() {
@@ -85,7 +97,7 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
 
     @Override
     public boolean isSyntaxToken(ISyntaxKind rawKind) {
-        for (TweetQlSyntaxTokenKind kind : TweetQlSyntaxTokenKind.values()) {
+        for (TweetQlTokenKind kind : TweetQlTokenKind.values()) {
             if (rawKind == kind) {
                 return true;
             }
@@ -95,7 +107,7 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
 
     @Override
     public boolean isSyntaxNode(ISyntaxKind rawKind) {
-        for (TweetQlSyntaxNodeKind kind : TweetQlSyntaxNodeKind.values()) {
+        for (TweetQlNodeKind kind : TweetQlNodeKind.values()) {
             if (rawKind == kind) {
                 return true;
             }
@@ -105,7 +117,7 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
 
     @Override
     public boolean isSyntaxTrivia(ISyntaxKind rawKind) {
-        for (TweetQlSyntaxTriviaKind kind : TweetQlSyntaxTriviaKind.values()) {
+        for (TweetQlTriviaKind kind : TweetQlTriviaKind.values()) {
             if (rawKind == kind) {
                 return true;
             }
@@ -158,7 +170,7 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
 
     @Override
     public boolean isSpecialSymbol(ISyntaxKind rawKind) {
-        return false;
+        return this.specialSymbolKindMap.values().contains(rawKind);
     }
 
     @Override
@@ -173,32 +185,32 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
 
     @Override
     public boolean isLineCommentsTrigger(String rawString) {
-        return false;
+        return this.lineCommentsTriggerKindMap.keySet().contains(rawString);
     }
 
     @Override
     public boolean isLineCommentsTrigger(ISyntaxKind rawKind) {
-        return false;
+        return this.lineCommentsTriggerKindMap.values().contains(rawKind);
     }
 
     @Override
     public boolean isBlockCommentsTrigger(String rawString) {
-        return false;
+        return this.blockCommentsTriggerKindMap.keySet().contains(rawString);
     }
 
     @Override
     public boolean isBlockCommentsTrigger(ISyntaxKind rawKind) {
-        return false;
+        return this.blockCommentsTriggerKindMap.values().contains(rawKind);
     }
 
     @Override
     public boolean isBlockCommentsTerminator(String rawString) {
-        return false;
+        return this.blockCommentsTerminatorKindMap.keySet().contains(rawString);
     }
 
     @Override
     public boolean isBlockCommentsTerminator(ISyntaxKind rawKind) {
-        return false;
+        return this.blockCommentsTerminatorKindMap.values().contains(rawKind);
     }
 
     @Override
@@ -208,9 +220,9 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
         } else if (this.isSpecialSymbol(rawString)) {
             return this.specialSymbolKindMap.get(rawString);
         } if (this.isDigit(rawString)) {
-            return TweetQlSyntaxTokenKind.DIGIT_TOKEN;
+            return TweetQlTokenKind.DIGIT_TOKEN;
         }
-        return TweetQlSyntaxTokenKind.IDENTIFIER_TOKEN;
+        return TweetQlTokenKind.IDENTIFIER_TOKEN;
     }
 
     @Override

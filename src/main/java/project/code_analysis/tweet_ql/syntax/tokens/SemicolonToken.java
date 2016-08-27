@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
 import project.code_analysis.core.SyntaxNode;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
 
 /**
@@ -11,22 +11,22 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  */
 public class SemicolonToken extends TweetQlSyntaxToken {
     public SemicolonToken() {
-        super(TweetQlTokenString.SEMICOLON, TweetQlSyntaxTokenKind.SEMICOLON_TOKEN);
+        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN);
     }
 
     public SemicolonToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SEMICOLON, TweetQlSyntaxTokenKind.SEMICOLON_TOKEN, missing, unexpected);
+        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, missing, unexpected);
     }
 
     public SemicolonToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SEMICOLON, TweetQlSyntaxTokenKind.SEMICOLON_TOKEN, start, missing, unexpected);
+        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, start, missing, unexpected);
     }
 
     public SemicolonToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SEMICOLON, TweetQlSyntaxTokenKind.SEMICOLON_TOKEN, parent, missing, unexpected);
+        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, parent, missing, unexpected);
     }
 
     public SemicolonToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SEMICOLON, TweetQlSyntaxTokenKind.SEMICOLON_TOKEN, parent, start, missing, unexpected);
+        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, parent, start, missing, unexpected);
     }
 }

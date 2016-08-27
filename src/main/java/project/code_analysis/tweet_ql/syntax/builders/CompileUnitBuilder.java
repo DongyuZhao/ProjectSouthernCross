@@ -2,7 +2,7 @@ package project.code_analysis.tweet_ql.syntax.builders;
 
 import project.code_analysis.core.syntax.builders.AbstractSyntaxNodeBuilder;
 import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
 
 /**
@@ -20,13 +20,13 @@ public class CompileUnitBuilder extends AbstractSyntaxNodeBuilder<CompilationUni
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-                        case CREATE_KEYWORD_TOKEN:
+                    switch ((TweetQlTokenKind) token.getKind()) {
+                        case CREATE_KEYWORD:
                             this.currentState = BuildStates.IN_CREATE_EXPRESSION;
                             this.createExpressionBuilder.clear();
                             this.createExpressionBuilder.append(token);
                             break;
-                        case SELECT_KEYWORD_TOKEN:
+                        case SELECT_KEYWORD:
                             this.currentState = BuildStates.IN_SELECT_EXPRESSION;
                             this.selectExpressionBuilder.clear();
                             this.selectExpressionBuilder.append(token);
@@ -36,7 +36,7 @@ public class CompileUnitBuilder extends AbstractSyntaxNodeBuilder<CompilationUni
                     }
                     break;
                 case IN_CREATE_EXPRESSION:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case SEMICOLON_TOKEN:
                             this.selectExpressionBuilder.append(token);
                             this.currentState = BuildStates.ROOT;
@@ -48,7 +48,7 @@ public class CompileUnitBuilder extends AbstractSyntaxNodeBuilder<CompilationUni
                     }
                     break;
                 case IN_SELECT_EXPRESSION:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case SEMICOLON_TOKEN:
                             this.selectExpressionBuilder.append(token);
                             this.currentState = BuildStates.ROOT;

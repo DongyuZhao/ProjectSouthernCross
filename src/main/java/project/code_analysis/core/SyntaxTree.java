@@ -16,7 +16,7 @@ public abstract class SyntaxTree {
         this.parser = parser;
     }
 
-    public SyntaxTree parseText(String sourceCode) {
+    protected SyntaxTree parse(String sourceCode) {
         this.root = this.parser.parse(sourceCode);
         return this;
     }

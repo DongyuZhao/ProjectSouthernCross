@@ -12,7 +12,6 @@ public enum AbstractSyntaxKind implements ISyntaxKind {
     CHANGE_LINE_TOKEN,
     COMMENTS_TEXT_TOKEN,
 
-
     SYNTAX_TRIVIA,
     WHITE_SPACE_TRIVIA,
     CHANGE_LINE_TRIVIA,

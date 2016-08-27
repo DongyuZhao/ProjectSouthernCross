@@ -1,11 +1,8 @@
 package project.code_analysis.tweet_ql.syntax.builders;
 
-import project.code_analysis.core.SyntaxToken;
 import project.code_analysis.core.syntax.builders.AbstractSyntaxNodeBuilder;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.syntax.nodes.VariableListSyntax;
-
-import java.util.ArrayList;
 
 /**
  * This is a open source project provided as-is without any
@@ -14,8 +11,7 @@ import java.util.ArrayList;
  * Created by Dy.Zhao on 2016/8/23.
  */
 public class UserDefinedTypeListBuilder<T extends VariableListSyntax> extends AbstractSyntaxNodeBuilder<T> {
-    private ArrayList<UserDefinedTypeBuilder> streamBuilderList = new ArrayList<>();
-    private int currentBuilderPointer = -1;
+    private UserDefinedTypeBuilder streamBuilder = new UserDefinedTypeBuilder();
     private ParseStates currentState = ParseStates.ROOT;
 
     UserDefinedTypeListBuilder(T root) {
@@ -26,42 +22,47 @@ public class UserDefinedTypeListBuilder<T extends VariableListSyntax> extends Ab
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:
-                    processIdentifiers(token);
+                    this.streamBuilder.append(token);
+                    this.currentState = ParseStates.AFTER_IDENTIFIER;
                     break;
                 case AFTER_IDENTIFIER:
-                    switch ((TweetQlSyntaxTokenKind) token.getKind()) {
+                    switch ((TweetQlTokenKind) token.getKind()) {
                         case COMMA_TOKEN:
+                            this.root.addChildNode(this.streamBuilder.build());
+                            this.root.addChildToken(token);
+                            this.streamBuilder = new UserDefinedTypeBuilder();
                             this.currentState = ParseStates.AFTER_COMMA;
                             break;
                         default:
-                            this.streamBuilderList.get(this.currentBuilderPointer).append(token);
+                            this.streamBuilder.append(token);
                             break;
                     }
                     break;
                 case AFTER_COMMA:
-                    processIdentifiers(token);
+                    this.streamBuilder.append(token);
+                    this.currentState = ParseStates.AFTER_IDENTIFIER;
                     break;
                 default:
                     break;
             }
         });
-        this.streamBuilderList.forEach(builder -> this.root.addChildNode(builder.build()));
+        this.root.addChildNode(this.streamBuilder.build());
         return this.root;
     }
-
-    private void processIdentifiers(SyntaxToken token) {
-        switch ((TweetQlSyntaxTokenKind) token.getKind()) {
-            case IDENTIFIER_TOKEN:
-            case STAR_TOKEN:
-                this.currentState = ParseStates.AFTER_IDENTIFIER;
-                this.streamBuilderList.add(new UserDefinedTypeBuilder());
-                this.currentBuilderPointer += 1;
-                this.streamBuilderList.get(this.currentBuilderPointer).append(token);
-                break;
-            default:
-                break;
-        }
-    }
+//
+//    private void processIdentifiers(SyntaxToken token) {
+//        switch ((TweetQlTokenKind) token.getKind()) {
+//            case IDENTIFIER_TOKEN:
+//            case STAR_TOKEN:
+//                this.currentState = ParseStates.AFTER_IDENTIFIER;
+//                this.streamBuilderList.add(new UserDefinedTypeBuilder());
+//                this.currentBuilderPointer += 1;
+//                this.streamBuilderList.get(this.currentBuilderPointer).append(token);
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     private enum ParseStates {
         ROOT,

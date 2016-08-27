@@ -1,7 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
 import project.code_analysis.core.SyntaxNode;
-import project.code_analysis.tweet_ql.TweetQlSyntaxTokenKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
 
 /**
@@ -11,22 +11,22 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  */
 public class DotToken extends TweetQlSyntaxToken {
     public DotToken() {
-        super(TweetQlTokenString.DOT, TweetQlSyntaxTokenKind.DOT_TOKEN);
+        super(TweetQlTokenString.DOT, TweetQlTokenKind.DOT_TOKEN);
     }
 
     public DotToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.DOT, TweetQlSyntaxTokenKind.DOT_TOKEN, missing, unexpected);
+        super(TweetQlTokenString.DOT, TweetQlTokenKind.DOT_TOKEN, missing, unexpected);
     }
 
     public DotToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.DOT, TweetQlSyntaxTokenKind.DOT_TOKEN, start, missing, unexpected);
+        super(TweetQlTokenString.DOT, TweetQlTokenKind.DOT_TOKEN, start, missing, unexpected);
     }
 
     public DotToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.DOT, TweetQlSyntaxTokenKind.DOT_TOKEN, parent, missing, unexpected);
+        super(TweetQlTokenString.DOT, TweetQlTokenKind.DOT_TOKEN, parent, missing, unexpected);
     }
 
     public DotToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.DOT, TweetQlSyntaxTokenKind.DOT_TOKEN, parent, start, missing, unexpected);
+        super(TweetQlTokenString.DOT, TweetQlTokenKind.DOT_TOKEN, parent, start, missing, unexpected);
     }
 }
