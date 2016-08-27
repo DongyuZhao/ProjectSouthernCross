@@ -1,7 +1,5 @@
 package project.code_analysis.core;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +60,7 @@ public abstract class SyntaxUnit {
 
     @Override
     public String toString() {
-        throw new NotImplementedException();
+        return "SyntaxUnit";
     }
 
     public void setError(boolean missing, boolean unexpected) {
