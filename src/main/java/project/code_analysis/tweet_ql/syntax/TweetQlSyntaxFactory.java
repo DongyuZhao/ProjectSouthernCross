@@ -46,7 +46,7 @@ public class TweetQlSyntaxFactory implements ISyntaxFactory {
             case TweetQlTokenString.AND_KEYWORD:
                 return (new AndKeywordToken());
             case TweetQlTokenString.OR_KEYWORD:
-                return (new OrderKeywordToken());
+                return (new OrKeywordToken());
             case TweetQlTokenString.NOT_KEYWORD:
                 return (new NotKeywordToken());
             case TweetQlTokenString.SKIP_KEYWORD:
@@ -111,13 +111,16 @@ public class TweetQlSyntaxFactory implements ISyntaxFactory {
                 if (rawString.matches("^\\s+$")) {
                     return new WhiteSpaceToken(rawString);
                 } else if (TweetQlSyntaxFacts.getInstance().isLiteralString(rawString)) {
-                    return (new LiteralStringToken(rawString));
+                    return new LiteralStringToken(rawString);
                 } else if (TweetQlSyntaxFacts.getInstance().isValidIdentifier(rawString)) {
-                    return (new IdentifierToken(rawString));
+                    return new IdentifierToken(rawString);
+                } else if (TweetQlSyntaxFacts.getInstance().isDigit(rawString)) {
+                    return new DigitToken(rawString);
                 } else {
-                    return (new TweetQlSyntaxToken(rawString, TweetQlTokenKind.UNDETERMINED_TOKEN));
+                    return new TweetQlSyntaxToken(rawString, TweetQlTokenKind.UNDETERMINED_TOKEN);
                 }
         }
+
     }
 
     @Override
