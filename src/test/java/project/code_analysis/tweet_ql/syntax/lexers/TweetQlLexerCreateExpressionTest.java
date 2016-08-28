@@ -37,64 +37,125 @@ public class TweetQlLexerCreateExpressionTest {
     public void lexForMultiAttributeTest() throws Exception {
         TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
         TweetQlLexer lexer = TweetQlLexer.create();
-        Assert.assertNotEquals(0, lexer.lex(tokenizer.tokenize("CREATE a, b FROM * WHERE t = \"u\", b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertNotEquals(0, lexer.lex(tokenizer.tokenize("CREATE a, b FROM * WHERE t = \"u\";")).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForWhereSimpleCombinationTest() throws Exception {
         TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
         TweetQlLexer lexer = TweetQlLexer.create();
-        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE p = \"v\" AND t = 123, b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE p = \"v\" AND t = 123;")).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForFromMixedParenthesesSecondNoWhereTest() throws Exception {
         TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
         TweetQlLexer lexer = TweetQlLexer.create();
-        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE NOT (p = \"v\"), b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE NOT (p = \"v\");")).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForWhereSimpleParenthesesCombinationTest() throws Exception {
         TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
         TweetQlLexer lexer = TweetQlLexer.create();
-        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND t = 123, b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND t = 123;")).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForWhereMultiParenthesesCombinationTest() throws Exception {
         TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
         TweetQlLexer lexer = TweetQlLexer.create();
-        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND (t = 123), b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND (t = 123);")).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForWhereComplexParenthesesCombinationTest() throws Exception {
         TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
         TweetQlLexer lexer = TweetQlLexer.create();
-        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND (t = 123 OR a = 798), b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND (t = 123 OR a = 798);")).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForWhereComplexParenthesesCombinationTest2() throws Exception {
         TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
         TweetQlLexer lexer = TweetQlLexer.create();
-        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND NOT (t = 123 OR (a = 798)), b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND NOT (t = 123 OR (a = 798));")).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForWhereErrorParenthesesCombinationTest() throws Exception {
         TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
         TweetQlLexer lexer = TweetQlLexer.create();
-        Assert.assertNotEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND (t = 123 OR a = 798, b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertNotEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND (t = 123 OR a = 798;")).stream().filter(SyntaxUnit::isError).count());
     }
 
     @Test
     public void lexForWhereErrorParenthesesCombinationTest2() throws Exception {
         TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
         TweetQlLexer lexer = TweetQlLexer.create();
-        Assert.assertNotEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\" AND (t = 123 OR a = 798, b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+        Assert.assertNotEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\" AND (t = 123 OR a = 798;")).stream().filter(SyntaxUnit::isError).count());
     }
 
+    @Test
+    public void lexForMultiAttributeTest2() throws Exception {
+        TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
+        TweetQlLexer lexer = TweetQlLexer.create();
+        Assert.assertNotEquals(0, lexer.lex(tokenizer.tokenize("CREATE a, b FROM * WHERE t = \"u\", b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+    }
 
+    @Test
+    public void lexForWhereSimpleCombinationTest2() throws Exception {
+        TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
+        TweetQlLexer lexer = TweetQlLexer.create();
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE p = \"v\" AND t = 123, b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+    }
+
+    @Test
+    public void lexForFromMixedParenthesesSecondNoWhereTest2() throws Exception {
+        TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
+        TweetQlLexer lexer = TweetQlLexer.create();
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE NOT (p = \"v\"), b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+    }
+
+    @Test
+    public void lexForWhereSimpleParenthesesCombinationTest2() throws Exception {
+        TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
+        TweetQlLexer lexer = TweetQlLexer.create();
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND t = 123, b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+    }
+
+    @Test
+    public void lexForWhereMultiParenthesesCombinationTest2() throws Exception {
+        TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
+        TweetQlLexer lexer = TweetQlLexer.create();
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND (t = 123), b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+    }
+
+    @Test
+    public void lexForWhereComplexParenthesesCombinationTest3() throws Exception {
+        TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
+        TweetQlLexer lexer = TweetQlLexer.create();
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND (t = 123 OR a = 798), b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+    }
+
+    @Test
+    public void lexForWhereComplexParenthesesCombinationTest4() throws Exception {
+        TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
+        TweetQlLexer lexer = TweetQlLexer.create();
+        Assert.assertEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND NOT (t = 123 OR (a = 798)), b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+    }
+
+    @Test
+    public void lexForWhereErrorParenthesesCombinationTest3() throws Exception {
+        TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
+        TweetQlLexer lexer = TweetQlLexer.create();
+        Assert.assertNotEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\") AND (t = 123 OR a = 798, b FROM x WHERE p = \"v\";")).stream().filter(SyntaxUnit::isError).count());
+    }
+
+    @Test
+    public void lexForWhereErrorParenthesesCombinationTest4() throws Exception {
+        TweetQlTokenizer tokenizer = TweetQlTokenizer.create();
+        TweetQlLexer lexer = TweetQlLexer.create();
+        Assert.assertNotEquals(0, lexer.lex(tokenizer.tokenize("CREATE a FROM * WHERE (p = \"v\" AND (t = 123 OR a = 798;")).stream().filter(SyntaxUnit::isError).count());
+    }
 }
