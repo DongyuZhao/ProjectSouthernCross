@@ -12,7 +12,7 @@
 
     <name>Project Southern Cross</name>
     <description>A source code parser framework with a bundled TweetQL parser.</description>
-    <url>https://github.com/DongyuZhao/ProjectSouthernCross</url>
+    <url>https://github.com/DongyuZhao/project-southern-cross</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -28,9 +28,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git:/github.com/DongyuZhao/ProjectSouthernCross.git</connection>
-        <developerConnection>scm:git:ssh:/github.com/DongyuZhao/ProjectSouthernCross.git</developerConnection>
-        <url>https://github.com/DongyuZhao/ProjectSouthernCross/tree/master</url>
+        <connection>scm:git:git:/github.com/DongyuZhao/project-southern-cross.git</connection>
+        <developerConnection>scm:git:ssh:/github.com/DongyuZhao/project-southern-cross.git</developerConnection>
+        <url>https://github.com/DongyuZhao/project-southern-cross/tree/master</url>
     </scm>
 
     <properties>
