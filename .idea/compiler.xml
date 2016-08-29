@@ -22,10 +22,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="project-southern-cross" />
         <module name="ProjectSouthernCross" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="project-southern-cross" target="1.8" />
       <module name="ProjectSouthernCross" target="1.8" />
     </bytecodeTargetLevel>
   </component>
