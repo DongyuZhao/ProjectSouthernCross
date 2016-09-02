@@ -16,31 +16,31 @@ public abstract class SyntaxNodeOrToken extends SyntaxUnit {
     public SyntaxNodeOrToken(String language, ISyntaxKind kind) {
         super(language);
         this.setKind(kind);
-        this.setError(false, false);
+        this.setError(SyntaxError.getNoError());
     }
 
-    public SyntaxNodeOrToken(String language, ISyntaxKind kind, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrToken(String language, ISyntaxKind kind, SyntaxError error) {
         super(language);
         this.setKind(kind);
-        setError(missing, unexpected);
+        setError(error);
     }
 
-    public SyntaxNodeOrToken(String language, ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrToken(String language, ISyntaxKind kind, int start, SyntaxError error) {
         super(language, start);
         this.setKind(kind);
-        setError(missing, unexpected);
+        setError(error);
     }
 
-    public SyntaxNodeOrToken(String language, ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrToken(String language, ISyntaxKind kind, SyntaxNode parent, SyntaxError error) {
         super(language, parent);
         this.setKind(kind);
-        setError(missing, unexpected);
+        setError(error);
     }
 
-    public SyntaxNodeOrToken(String language, ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
+    public SyntaxNodeOrToken(String language, ISyntaxKind kind, SyntaxNode parent, int start, SyntaxError error) {
         super(language, parent, start);
         this.setKind(kind);
-        setError(missing, unexpected);
+        setError(error);
     }
 
     public void addLeadingTrivia(SyntaxTrivia trivia) {

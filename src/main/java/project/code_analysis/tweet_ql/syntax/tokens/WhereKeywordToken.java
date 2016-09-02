@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class WhereKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.WHERE_KEYWORD, TweetQlTokenKind.WHERE_KEYWORD);
     }
 
-    public WhereKeywordToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlTokenKind.WHERE_KEYWORD, missing, unexpected);
+    public WhereKeywordToken(SyntaxError error) {
+        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlTokenKind.WHERE_KEYWORD, error);
     }
 
-    public WhereKeywordToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlTokenKind.WHERE_KEYWORD, start, missing, unexpected);
+    public WhereKeywordToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlTokenKind.WHERE_KEYWORD, start, error);
     }
 
-    public WhereKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlTokenKind.WHERE_KEYWORD, parent, missing, unexpected);
+    public WhereKeywordToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlTokenKind.WHERE_KEYWORD, parent, error);
     }
 
-    public WhereKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlTokenKind.WHERE_KEYWORD, parent, start, missing, unexpected);
+    public WhereKeywordToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.WHERE_KEYWORD, TweetQlTokenKind.WHERE_KEYWORD, parent, start, error);
     }
 }

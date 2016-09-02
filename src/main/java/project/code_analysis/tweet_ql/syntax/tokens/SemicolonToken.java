@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class SemicolonToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN);
     }
 
-    public SemicolonToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, missing, unexpected);
+    public SemicolonToken(SyntaxError error) {
+        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, error);
     }
 
-    public SemicolonToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, start, missing, unexpected);
+    public SemicolonToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, start, error);
     }
 
-    public SemicolonToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, parent, missing, unexpected);
+    public SemicolonToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, parent, error);
     }
 
-    public SemicolonToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, parent, start, missing, unexpected);
+    public SemicolonToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.SEMICOLON, TweetQlTokenKind.SEMICOLON_TOKEN, parent, start, error);
     }
 }

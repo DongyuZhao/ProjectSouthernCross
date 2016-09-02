@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
 
@@ -13,20 +14,20 @@ public class SelectExpressionSyntax extends TweetQlSyntaxNode {
         super(TweetQlNodeKind.SELECT_EXPRESSION);
     }
 
-    public SelectExpressionSyntax(boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.SELECT_EXPRESSION, missing, unexpected);
+    public SelectExpressionSyntax(SyntaxError error) {
+        super(TweetQlNodeKind.SELECT_EXPRESSION, error);
     }
 
-    public SelectExpressionSyntax(int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.SELECT_EXPRESSION, start, missing, unexpected);
+    public SelectExpressionSyntax(int start, SyntaxError error) {
+        super(TweetQlNodeKind.SELECT_EXPRESSION, start, error);
     }
 
-    public SelectExpressionSyntax(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.SELECT_EXPRESSION, parent, missing, unexpected);
+    public SelectExpressionSyntax(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlNodeKind.SELECT_EXPRESSION, parent, error);
     }
 
-    public SelectExpressionSyntax(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.SELECT_EXPRESSION, parent, start, missing, unexpected);
+    public SelectExpressionSyntax(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlNodeKind.SELECT_EXPRESSION, parent, start, error);
     }
 
     public AttributeListSyntax getAttributeList() {

@@ -18,20 +18,20 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         super(language, kind);
     }
 
-    public SyntaxNode(String language, ISyntaxKind kind, boolean missing, boolean unexpected) {
-        super(language, kind, missing, unexpected);
+    public SyntaxNode(String language, ISyntaxKind kind, SyntaxError error) {
+        super(language, kind, error);
     }
 
-    public SyntaxNode(String language, ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
-        super(language, kind, start, missing, unexpected);
+    public SyntaxNode(String language, ISyntaxKind kind, int start, SyntaxError error) {
+        super(language, kind, start, error);
     }
 
-    public SyntaxNode(String language, ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(language, kind, parent, missing, unexpected);
+    public SyntaxNode(String language, ISyntaxKind kind, SyntaxNode parent, SyntaxError error) {
+        super(language, kind, parent, error);
     }
 
-    public SyntaxNode(String language, ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(language, kind, parent, start, missing, unexpected);
+    public SyntaxNode(String language, ISyntaxKind kind, SyntaxNode parent, int start, SyntaxError error) {
+        super(language, kind, parent, start, error);
     }
 
     public boolean hasChildNode() {

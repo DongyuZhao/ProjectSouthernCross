@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class OrKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD);
     }
 
-    public OrKeywordToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD, missing, unexpected);
+    public OrKeywordToken(SyntaxError error) {
+        super(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD, error);
     }
 
-    public OrKeywordToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD, start, missing, unexpected);
+    public OrKeywordToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD, start, error);
     }
 
-    public OrKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD, parent, missing, unexpected);
+    public OrKeywordToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD, parent, error);
     }
 
-    public OrKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD, parent, start, missing, unexpected);
+    public OrKeywordToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD, parent, start, error);
     }
 }

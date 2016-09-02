@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class LessEqualToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN);
     }
 
-    public LessEqualToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN, missing, unexpected);
+    public LessEqualToken(SyntaxError error) {
+        super(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN, error);
     }
 
-    public LessEqualToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN, start, missing, unexpected);
+    public LessEqualToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN, start, error);
     }
 
-    public LessEqualToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN, parent, missing, unexpected);
+    public LessEqualToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN, parent, error);
     }
 
-    public LessEqualToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN, parent, start, missing, unexpected);
+    public LessEqualToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN, parent, start, error);
     }
 }

@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class EqualToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN);
     }
 
-    public EqualToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN, missing, unexpected);
+    public EqualToken(SyntaxError error) {
+        super(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN, error);
     }
 
-    public EqualToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN, start, missing, unexpected);
+    public EqualToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN, start, error);
     }
 
-    public EqualToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN, parent, missing, unexpected);
+    public EqualToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN, parent, error);
     }
 
-    public EqualToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN, parent, start, missing, unexpected);
+    public EqualToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN, parent, start, error);
     }
 }

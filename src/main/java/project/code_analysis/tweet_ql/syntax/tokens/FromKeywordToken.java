@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class FromKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.FROM_KEYWORD, TweetQlTokenKind.FROM_KEYWORD);
     }
 
-    public FromKeywordToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.FROM_KEYWORD, TweetQlTokenKind.FROM_KEYWORD, missing, unexpected);
+    public FromKeywordToken(SyntaxError error) {
+        super(TweetQlTokenString.FROM_KEYWORD, TweetQlTokenKind.FROM_KEYWORD, error);
     }
 
-    public FromKeywordToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.FROM_KEYWORD, TweetQlTokenKind.FROM_KEYWORD, start, missing, unexpected);
+    public FromKeywordToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.FROM_KEYWORD, TweetQlTokenKind.FROM_KEYWORD, start, error);
     }
 
-    public FromKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.FROM_KEYWORD, TweetQlTokenKind.FROM_KEYWORD, parent, missing, unexpected);
+    public FromKeywordToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.FROM_KEYWORD, TweetQlTokenKind.FROM_KEYWORD, parent, error);
     }
 
-    public FromKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.FROM_KEYWORD, TweetQlTokenKind.FROM_KEYWORD, parent, start, missing, unexpected);
+    public FromKeywordToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.FROM_KEYWORD, TweetQlTokenKind.FROM_KEYWORD, parent, start, error);
     }
 }

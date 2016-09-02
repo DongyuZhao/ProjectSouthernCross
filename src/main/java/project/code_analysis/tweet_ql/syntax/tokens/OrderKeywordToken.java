@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class OrderKeywordToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.ORDER_KEYWORD, TweetQlTokenKind.ORDER_KEYWORD);
     }
 
-    public OrderKeywordToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlTokenKind.ORDER_KEYWORD, missing, unexpected);
+    public OrderKeywordToken(SyntaxError error) {
+        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlTokenKind.ORDER_KEYWORD, error);
     }
 
-    public OrderKeywordToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlTokenKind.ORDER_KEYWORD, start, missing, unexpected);
+    public OrderKeywordToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlTokenKind.ORDER_KEYWORD, start, error);
     }
 
-    public OrderKeywordToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlTokenKind.ORDER_KEYWORD, parent, missing, unexpected);
+    public OrderKeywordToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlTokenKind.ORDER_KEYWORD, parent, error);
     }
 
-    public OrderKeywordToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlTokenKind.ORDER_KEYWORD, parent, start, missing, unexpected);
+    public OrderKeywordToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.ORDER_KEYWORD, TweetQlTokenKind.ORDER_KEYWORD, parent, start, error);
     }
 }

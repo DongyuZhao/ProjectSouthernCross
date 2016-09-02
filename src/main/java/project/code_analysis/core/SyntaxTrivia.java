@@ -12,16 +12,16 @@ public class SyntaxTrivia extends SyntaxNode {
         super(language, kind);
     }
 
-    public SyntaxTrivia(String language, ISyntaxKind kind, boolean missing, boolean unexpected) {
-        super(language, kind, missing, unexpected);
+    public SyntaxTrivia(String language, ISyntaxKind kind, SyntaxError error) {
+        super(language, kind, error);
     }
 
-    public SyntaxTrivia(String language, ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
-        super(language, kind, start, missing, unexpected);
+    public SyntaxTrivia(String language, ISyntaxKind kind, int start, SyntaxError error) {
+        super(language, kind, start, error);
     }
 
-    public SyntaxTrivia(String language, ISyntaxKind kind, SyntaxNodeOrToken parent, boolean missing, boolean unexpected) {
-        super(language, kind, missing, unexpected);
+    public SyntaxTrivia(String language, ISyntaxKind kind, SyntaxNodeOrToken parent, SyntaxError error) {
+        super(language, kind, error);
         if (parent.isSyntaxNode()) {
             this.setParentNode((SyntaxNode) parent);
         } else {
@@ -29,8 +29,8 @@ public class SyntaxTrivia extends SyntaxNode {
         }
     }
 
-    public SyntaxTrivia(String language, ISyntaxKind kind, SyntaxNodeOrToken parent, int start, boolean missing, boolean unexpected) {
-        super(language, kind, start, missing, unexpected);
+    public SyntaxTrivia(String language, ISyntaxKind kind, SyntaxNodeOrToken parent, int start, SyntaxError error) {
+        super(language, kind, start, error);
         if (parent.isSyntaxNode()) {
             this.setParentNode((SyntaxNode) parent);
         } else {

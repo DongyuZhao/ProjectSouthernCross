@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class StarToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN);
     }
 
-    public StarToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, missing, unexpected);
+    public StarToken(SyntaxError error) {
+        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, error);
     }
 
-    public StarToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, start, missing, unexpected);
+    public StarToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, start, error);
     }
 
-    public StarToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, parent, missing, unexpected);
+    public StarToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, parent, error);
     }
 
-    public StarToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, parent, start, missing, unexpected);
+    public StarToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, parent, start, error);
     }
 }

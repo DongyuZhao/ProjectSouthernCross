@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.trivias;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNodeOrToken;
 import project.code_analysis.tweet_ql.TweetQlTriviaKind;
 
@@ -14,19 +15,19 @@ public class WhiteSpaceTrivia extends TweetQlSyntaxTrivia {
         super(TweetQlTriviaKind.WHITE_SPACE);
     }
 
-    public WhiteSpaceTrivia(boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.WHITE_SPACE, missing, unexpected);
+    public WhiteSpaceTrivia(SyntaxError error) {
+        super(TweetQlTriviaKind.WHITE_SPACE, error);
     }
 
-    public WhiteSpaceTrivia(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.WHITE_SPACE, start, missing, unexpected);
+    public WhiteSpaceTrivia(int start, SyntaxError error) {
+        super(TweetQlTriviaKind.WHITE_SPACE, start, error);
     }
 
-    public WhiteSpaceTrivia(SyntaxNodeOrToken parent, boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.WHITE_SPACE, parent, missing, unexpected);
+    public WhiteSpaceTrivia(SyntaxNodeOrToken parent, SyntaxError error) {
+        super(TweetQlTriviaKind.WHITE_SPACE, parent, error);
     }
 
-    public WhiteSpaceTrivia(SyntaxNodeOrToken parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.WHITE_SPACE, parent, start, missing, unexpected);
+    public WhiteSpaceTrivia(SyntaxNodeOrToken parent, int start, SyntaxError error) {
+        super(TweetQlTriviaKind.WHITE_SPACE, parent, start, error);
     }
 }

@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.trivias;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNodeOrToken;
 import project.code_analysis.tweet_ql.TweetQlTriviaKind;
 
@@ -14,19 +15,19 @@ public class LineCommentsTrivia extends TweetQlSyntaxTrivia {
         super(TweetQlTriviaKind.LINE_COMMENTS);
     }
 
-    public LineCommentsTrivia(boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.LINE_COMMENTS, missing, unexpected);
+    public LineCommentsTrivia(SyntaxError error) {
+        super(TweetQlTriviaKind.LINE_COMMENTS, error);
     }
 
-    public LineCommentsTrivia(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.LINE_COMMENTS, start, missing, unexpected);
+    public LineCommentsTrivia(int start, SyntaxError error) {
+        super(TweetQlTriviaKind.LINE_COMMENTS, start, error);
     }
 
-    public LineCommentsTrivia(SyntaxNodeOrToken parent, boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.LINE_COMMENTS, parent, missing, unexpected);
+    public LineCommentsTrivia(SyntaxNodeOrToken parent, SyntaxError error) {
+        super(TweetQlTriviaKind.LINE_COMMENTS, parent, error);
     }
 
-    public LineCommentsTrivia(SyntaxNodeOrToken parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.LINE_COMMENTS, parent, start, missing, unexpected);
+    public LineCommentsTrivia(SyntaxNodeOrToken parent, int start, SyntaxError error) {
+        super(TweetQlTriviaKind.LINE_COMMENTS, parent, start, error);
     }
 }

@@ -17,4 +17,6 @@ public enum TweetQlNodeKind implements ISyntaxKind {
     STREAM_FILTER_EXPRESSION,
     UNARY_EXPRESSION,
     BINARY_EXPRESSION,
+
+    UNDETERMINED_NODE,
 }

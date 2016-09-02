@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
@@ -18,23 +19,23 @@ public class VariableSyntax extends EvaluableExpression {
         this.variableName = variableName;
     }
 
-    public VariableSyntax(String typeName, String variableName, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.USER_DEFINED_TYPE, missing, unexpected);
+    public VariableSyntax(String typeName, String variableName, SyntaxError error) {
+        super(TweetQlNodeKind.USER_DEFINED_TYPE, error);
         this.variableName = variableName;
     }
 
-    public VariableSyntax(String typeName, String variableName, int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.USER_DEFINED_TYPE, start, missing, unexpected);
+    public VariableSyntax(String typeName, String variableName, int start, SyntaxError error) {
+        super(TweetQlNodeKind.USER_DEFINED_TYPE, start, error);
         this.variableName = variableName;
     }
 
-    public VariableSyntax(String typeName, String variableName, SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.USER_DEFINED_TYPE, parent, missing, unexpected);
+    public VariableSyntax(String typeName, String variableName, SyntaxNode parent, SyntaxError error) {
+        super(TweetQlNodeKind.USER_DEFINED_TYPE, parent, error);
         this.variableName = variableName;
     }
 
-    public VariableSyntax(String typeName, String variableName, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.USER_DEFINED_TYPE, parent, start, missing, unexpected);
+    public VariableSyntax(String typeName, String variableName, SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlNodeKind.USER_DEFINED_TYPE, parent, start, error);
         this.variableName = variableName;
     }
 

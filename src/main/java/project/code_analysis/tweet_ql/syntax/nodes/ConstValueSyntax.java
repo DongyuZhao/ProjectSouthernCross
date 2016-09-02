@@ -1,6 +1,7 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
 import project.code_analysis.core.ISyntaxKind;
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 
 /**
@@ -14,19 +15,19 @@ public class ConstValueSyntax extends EvaluableExpression {
         super(kind);
     }
 
-    public ConstValueSyntax(ISyntaxKind kind, boolean missing, boolean unexpected) {
-        super(kind, missing, unexpected);
+    public ConstValueSyntax(ISyntaxKind kind, SyntaxError error) {
+        super(kind, error);
     }
 
-    public ConstValueSyntax(ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
-        super(kind, start, missing, unexpected);
+    public ConstValueSyntax(ISyntaxKind kind, int start, SyntaxError error) {
+        super(kind, start, error);
     }
 
-    public ConstValueSyntax(ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(kind, parent, missing, unexpected);
+    public ConstValueSyntax(ISyntaxKind kind, SyntaxNode parent, SyntaxError error) {
+        super(kind, parent, error);
     }
 
-    public ConstValueSyntax(ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(kind, parent, start, missing, unexpected);
+    public ConstValueSyntax(ISyntaxKind kind, SyntaxNode parent, int start, SyntaxError error) {
+        super(kind, parent, start, error);
     }
 }

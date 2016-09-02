@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
 
@@ -13,20 +14,20 @@ public class StreamFilterExpressionSyntax extends TweetQlSyntaxNode {
         super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION);
     }
 
-    public StreamFilterExpressionSyntax( boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, missing, unexpected);
+    public StreamFilterExpressionSyntax(SyntaxError error) {
+        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, error);
     }
 
-    public StreamFilterExpressionSyntax( int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, start, missing, unexpected);
+    public StreamFilterExpressionSyntax(int start, SyntaxError error) {
+        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, start, error);
     }
 
-    public StreamFilterExpressionSyntax(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, parent, missing, unexpected);
+    public StreamFilterExpressionSyntax(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, parent, error);
     }
 
-    public StreamFilterExpressionSyntax(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, parent, start, missing, unexpected);
+    public StreamFilterExpressionSyntax(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlNodeKind.STREAM_FILTER_EXPRESSION, parent, start, error);
     }
 
     public String getExpectedValue() {

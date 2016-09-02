@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class CloseParenthesesToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlTokenKind.CLOSE_PARENTHESES);
     }
 
-    public CloseParenthesesToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlTokenKind.CLOSE_PARENTHESES, missing, unexpected);
+    public CloseParenthesesToken(SyntaxError error) {
+        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlTokenKind.CLOSE_PARENTHESES, error);
     }
 
-    public CloseParenthesesToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlTokenKind.CLOSE_PARENTHESES, start, missing, unexpected);
+    public CloseParenthesesToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlTokenKind.CLOSE_PARENTHESES, start, error);
     }
 
-    public CloseParenthesesToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlTokenKind.CLOSE_PARENTHESES, parent, missing, unexpected);
+    public CloseParenthesesToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlTokenKind.CLOSE_PARENTHESES, parent, error);
     }
 
-    public CloseParenthesesToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlTokenKind.CLOSE_PARENTHESES, parent, start, missing, unexpected);
+    public CloseParenthesesToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.CLOSE_PARENTHESES, TweetQlTokenKind.CLOSE_PARENTHESES, parent, start, error);
     }
 }

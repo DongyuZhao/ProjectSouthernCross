@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
 
@@ -16,20 +17,20 @@ public class AttributeListSyntax extends VariableListSyntax {
         super(TweetQlNodeKind.ATTRIBUTE_LIST);
     }
 
-    public AttributeListSyntax( boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.ATTRIBUTE_LIST, missing, unexpected);
+    public AttributeListSyntax(SyntaxError error) {
+        super(TweetQlNodeKind.ATTRIBUTE_LIST, error);
     }
 
-    public AttributeListSyntax( int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.ATTRIBUTE_LIST, start, missing, unexpected);
+    public AttributeListSyntax(int start, SyntaxError error) {
+        super(TweetQlNodeKind.ATTRIBUTE_LIST, start, error);
     }
 
-    public AttributeListSyntax(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.ATTRIBUTE_LIST, parent, missing, unexpected);
+    public AttributeListSyntax(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlNodeKind.ATTRIBUTE_LIST, parent, error);
     }
 
-    public AttributeListSyntax(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.ATTRIBUTE_LIST, parent, start, missing, unexpected);
+    public AttributeListSyntax(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlNodeKind.ATTRIBUTE_LIST, parent, start, error);
     }
 
     public List<VariableSyntax> getAttributes() {

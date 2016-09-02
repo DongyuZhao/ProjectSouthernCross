@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
 
@@ -15,20 +16,20 @@ public class CreateExpressionSyntax extends TweetQlSyntaxNode {
         super(TweetQlNodeKind.CREATE_EXPRESSION);
     }
 
-    public CreateExpressionSyntax(boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.CREATE_EXPRESSION, missing, unexpected);
+    public CreateExpressionSyntax(SyntaxError error) {
+        super(TweetQlNodeKind.CREATE_EXPRESSION, error);
     }
 
-    public CreateExpressionSyntax(int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.CREATE_EXPRESSION, start, missing, unexpected);
+    public CreateExpressionSyntax(int start, SyntaxError error) {
+        super(TweetQlNodeKind.CREATE_EXPRESSION, start, error);
     }
 
-    public CreateExpressionSyntax(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.CREATE_EXPRESSION, parent, missing, unexpected);
+    public CreateExpressionSyntax(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlNodeKind.CREATE_EXPRESSION, parent, error);
     }
 
-    public CreateExpressionSyntax(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.CREATE_EXPRESSION, parent, start, missing, unexpected);
+    public CreateExpressionSyntax(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlNodeKind.CREATE_EXPRESSION, parent, start, error);
     }
     //endregion
 

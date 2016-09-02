@@ -15,29 +15,29 @@ public class SyntaxToken extends SyntaxNodeOrToken {
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String language, String rawString, ISyntaxKind kind, boolean missing, boolean unexpected) {
-        super(language, kind, missing, unexpected);
+    public SyntaxToken(String language, String rawString, ISyntaxKind kind, SyntaxError error) {
+        super(language, kind, error);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String language, String rawString, ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
-        super(language, kind, start, missing, unexpected);
+    public SyntaxToken(String language, String rawString, ISyntaxKind kind, int start, SyntaxError error) {
+        super(language, kind, start, error);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String language, String rawString, ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(language, kind, parent, missing, unexpected);
+    public SyntaxToken(String language, String rawString, ISyntaxKind kind, SyntaxNode parent, SyntaxError error) {
+        super(language, kind, parent, error);
         this.rawString = rawString;
     }
 
-    public SyntaxToken(String language, String rawString, ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(language, kind, parent, start, missing, unexpected);
+    public SyntaxToken(String language, String rawString, ISyntaxKind kind, SyntaxNode parent, int start, SyntaxError error) {
+        super(language, kind, parent, start, error);
         this.rawString = rawString;
     }
 
     @Override
     public String toString() {
-        return "SyntaxToken: " + this.getFullString();
+        return "SyntaxToken: " + this.getRawString();
     }
 
     @Override

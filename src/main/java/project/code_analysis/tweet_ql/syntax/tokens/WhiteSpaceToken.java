@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 
@@ -14,19 +15,19 @@ public class WhiteSpaceToken extends TweetQlSyntaxToken {
         super(rawString, TweetQlTokenKind.WHITE_SPACE_TOKEN);
     }
 
-    public WhiteSpaceToken(String rawString, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlTokenKind.WHITE_SPACE_TOKEN, missing, unexpected);
+    public WhiteSpaceToken(String rawString, SyntaxError error) {
+        super(rawString, TweetQlTokenKind.WHITE_SPACE_TOKEN, error);
     }
 
-    public WhiteSpaceToken(String rawString, int start, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlTokenKind.WHITE_SPACE_TOKEN, start, missing, unexpected);
+    public WhiteSpaceToken(String rawString, int start, SyntaxError error) {
+        super(rawString, TweetQlTokenKind.WHITE_SPACE_TOKEN, start, error);
     }
 
-    public WhiteSpaceToken(String rawString, SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlTokenKind.WHITE_SPACE_TOKEN, parent, missing, unexpected);
+    public WhiteSpaceToken(String rawString, SyntaxNode parent, SyntaxError error) {
+        super(rawString, TweetQlTokenKind.WHITE_SPACE_TOKEN, parent, error);
     }
 
-    public WhiteSpaceToken(String rawString, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlTokenKind.WHITE_SPACE_TOKEN, parent, start, missing, unexpected);
+    public WhiteSpaceToken(String rawString, SyntaxNode parent, int start, SyntaxError error) {
+        super(rawString, TweetQlTokenKind.WHITE_SPACE_TOKEN, parent, start, error);
     }
 }

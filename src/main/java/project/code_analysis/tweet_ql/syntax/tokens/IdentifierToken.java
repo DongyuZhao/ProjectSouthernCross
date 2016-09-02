@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 
@@ -13,19 +14,19 @@ public class IdentifierToken extends TweetQlSyntaxToken {
         super(rawString, TweetQlTokenKind.IDENTIFIER_TOKEN);
     }
 
-    public IdentifierToken(String rawString, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlTokenKind.IDENTIFIER_TOKEN, missing, unexpected);
+    public IdentifierToken(String rawString, SyntaxError error) {
+        super(rawString, TweetQlTokenKind.IDENTIFIER_TOKEN, error);
     }
 
-    public IdentifierToken(String rawString, int start, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlTokenKind.IDENTIFIER_TOKEN, start, missing, unexpected);
+    public IdentifierToken(String rawString, int start, SyntaxError error) {
+        super(rawString, TweetQlTokenKind.IDENTIFIER_TOKEN, start, error);
     }
 
-    public IdentifierToken(String rawString, SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlTokenKind.IDENTIFIER_TOKEN, parent, missing, unexpected);
+    public IdentifierToken(String rawString, SyntaxNode parent, SyntaxError error) {
+        super(rawString, TweetQlTokenKind.IDENTIFIER_TOKEN, parent, error);
     }
 
-    public IdentifierToken(String rawString, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(rawString, TweetQlTokenKind.IDENTIFIER_TOKEN, parent, start, missing, unexpected);
+    public IdentifierToken(String rawString, SyntaxNode parent, int start, SyntaxError error) {
+        super(rawString, TweetQlTokenKind.IDENTIFIER_TOKEN, parent, start, error);
     }
 }

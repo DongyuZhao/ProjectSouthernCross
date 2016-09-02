@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class CloseBracketToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.CLOSE_BRACKET, TweetQlTokenKind.CLOSE_BRACKET);
     }
 
-    public CloseBracketToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CLOSE_BRACKET, TweetQlTokenKind.CLOSE_BRACKET, missing, unexpected);
+    public CloseBracketToken(SyntaxError error) {
+        super(TweetQlTokenString.CLOSE_BRACKET, TweetQlTokenKind.CLOSE_BRACKET, error);
     }
 
-    public CloseBracketToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CLOSE_BRACKET, TweetQlTokenKind.CLOSE_BRACKET, start, missing, unexpected);
+    public CloseBracketToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.CLOSE_BRACKET, TweetQlTokenKind.CLOSE_BRACKET, start, error);
     }
 
-    public CloseBracketToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CLOSE_BRACKET, TweetQlTokenKind.CLOSE_BRACKET, parent, missing, unexpected);
+    public CloseBracketToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.CLOSE_BRACKET, TweetQlTokenKind.CLOSE_BRACKET, parent, error);
     }
 
-    public CloseBracketToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CLOSE_BRACKET, TweetQlTokenKind.CLOSE_BRACKET, parent, start, missing, unexpected);
+    public CloseBracketToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.CLOSE_BRACKET, TweetQlTokenKind.CLOSE_BRACKET, parent, start, error);
     }
 }

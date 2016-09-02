@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.trivias;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNodeOrToken;
 import project.code_analysis.tweet_ql.TweetQlTriviaKind;
 
@@ -14,19 +15,19 @@ public class ChangeLineTrivia extends TweetQlSyntaxTrivia {
         super(TweetQlTriviaKind.CHANGE_LINE);
     }
 
-    public ChangeLineTrivia(boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.CHANGE_LINE, missing, unexpected);
+    public ChangeLineTrivia(SyntaxError error) {
+        super(TweetQlTriviaKind.CHANGE_LINE, error);
     }
 
-    public ChangeLineTrivia(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.CHANGE_LINE, start, missing, unexpected);
+    public ChangeLineTrivia(int start, SyntaxError error) {
+        super(TweetQlTriviaKind.CHANGE_LINE, start, error);
     }
 
-    public ChangeLineTrivia(SyntaxNodeOrToken parent, boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.CHANGE_LINE, parent, missing, unexpected);
+    public ChangeLineTrivia(SyntaxNodeOrToken parent, SyntaxError error) {
+        super(TweetQlTriviaKind.CHANGE_LINE, parent, error);
     }
 
-    public ChangeLineTrivia(SyntaxNodeOrToken parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTriviaKind.CHANGE_LINE, parent, start, missing, unexpected);
+    public ChangeLineTrivia(SyntaxNodeOrToken parent, int start, SyntaxError error) {
+        super(TweetQlTriviaKind.CHANGE_LINE, parent, start, error);
     }
 }

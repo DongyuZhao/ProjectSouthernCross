@@ -16,9 +16,7 @@ public abstract class SyntaxUnit {
     private int offset = 0;
     private String language;
     private ISyntaxKind kind;
-    private boolean missing;
-    private boolean unexpected;
-    private boolean error;
+    private SyntaxError error;
 
     public SyntaxUnit(String language) {
         this.parentNode = null;
@@ -63,12 +61,6 @@ public abstract class SyntaxUnit {
         return "SyntaxUnit";
     }
 
-    public void setError(boolean missing, boolean unexpected) {
-        this.missing = missing;
-        this.unexpected = unexpected;
-        this.error = missing || unexpected;
-    }
-
     public ISyntaxKind getKind() {
         return kind;
     }
@@ -78,32 +70,26 @@ public abstract class SyntaxUnit {
     }
 
     public boolean isMissing() {
-        return missing;
+        return this.error.isMissing();
     }
 
     public void setMissing(boolean missing) {
-        this.missing = missing;
-        this.setError(missing || this.error);
+        this.error.setMissing(missing);
     }
 
     public boolean isUnexpected() {
-        return unexpected;
+        return this.error.isUnexpected();
     }
 
     public void setUnexpected(boolean unexpected) {
-        this.unexpected = unexpected;
-        this.setError(missing || this.error);
+        this.error.setUnexpected(unexpected);
     }
 
     public boolean isError() {
-        return error;
+        return this.error.isError();
     }
 
-    public void setError(boolean error) {
-        if (!error) {
-            this.unexpected = false;
-            this.missing = false;
-        }
+    public void setError(SyntaxError error) {
         this.error = error;
     }
 

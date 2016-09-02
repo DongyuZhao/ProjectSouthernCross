@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
 
@@ -16,20 +17,20 @@ public class StreamListSyntax extends VariableListSyntax {
         super(TweetQlNodeKind.STREAM_LIST);
     }
 
-    public StreamListSyntax(boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.STREAM_LIST, missing, unexpected);
+    public StreamListSyntax(SyntaxError error) {
+        super(TweetQlNodeKind.STREAM_LIST, error);
     }
 
-    public StreamListSyntax(int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.STREAM_LIST, start, missing, unexpected);
+    public StreamListSyntax(int start, SyntaxError error) {
+        super(TweetQlNodeKind.STREAM_LIST, start, error);
     }
 
-    public StreamListSyntax(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.STREAM_LIST, parent, missing, unexpected);
+    public StreamListSyntax(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlNodeKind.STREAM_LIST, parent, error);
     }
 
-    public StreamListSyntax(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlNodeKind.STREAM_LIST, parent, start, missing, unexpected);
+    public StreamListSyntax(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlNodeKind.STREAM_LIST, parent, start, error);
     }
 
 

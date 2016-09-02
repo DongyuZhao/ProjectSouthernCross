@@ -1,8 +1,9 @@
 package project.code_analysis.tweet_ql.syntax.nodes;
 
 import project.code_analysis.core.ISyntaxKind;
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
-import project.code_analysis.tweet_ql.TweetQlTokenString;
+import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
 
 /**
  * This is a open source project provided as-is without any
@@ -11,23 +12,24 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  * Created by Dy.Zhao on 2016/8/26.
  */
 public class TweetQlSyntaxNode extends SyntaxNode {
+
     public TweetQlSyntaxNode(ISyntaxKind kind) {
-        super(TweetQlTokenString.AND_KEYWORD, kind);
+        super(TweetQlSyntaxFacts.getInstance().getLanguage(), kind);
     }
 
-    public TweetQlSyntaxNode(ISyntaxKind kind, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.AND_KEYWORD, kind, missing, unexpected);
+    public TweetQlSyntaxNode(ISyntaxKind kind, SyntaxError error) {
+        super(TweetQlSyntaxFacts.getInstance().getLanguage(), kind, error);
     }
 
-    public TweetQlSyntaxNode(ISyntaxKind kind, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.AND_KEYWORD, kind, start, missing, unexpected);
+    public TweetQlSyntaxNode(ISyntaxKind kind, int start, SyntaxError error) {
+        super(TweetQlSyntaxFacts.getInstance().getLanguage(), kind, start, error);
     }
 
-    public TweetQlSyntaxNode(ISyntaxKind kind, SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.AND_KEYWORD, kind, parent, missing, unexpected);
+    public TweetQlSyntaxNode(ISyntaxKind kind, SyntaxNode parent, SyntaxError error) {
+        super(TweetQlSyntaxFacts.getInstance().getLanguage(), kind, parent, error);
     }
 
-    public TweetQlSyntaxNode(ISyntaxKind kind, SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.AND_KEYWORD, kind, parent, start, missing, unexpected);
+    public TweetQlSyntaxNode(ISyntaxKind kind, SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlSyntaxFacts.getInstance().getLanguage(), kind, parent, start, error);
     }
 }

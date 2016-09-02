@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class ColonToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.COLON, TweetQlTokenKind.COLON_TOKEN);
     }
 
-    public ColonToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.COLON, TweetQlTokenKind.COLON_TOKEN, missing, unexpected);
+    public ColonToken(SyntaxError error) {
+        super(TweetQlTokenString.COLON, TweetQlTokenKind.COLON_TOKEN, error);
     }
 
-    public ColonToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.COLON, TweetQlTokenKind.COLON_TOKEN, start, missing, unexpected);
+    public ColonToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.COLON, TweetQlTokenKind.COLON_TOKEN, start, error);
     }
 
-    public ColonToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.COLON, TweetQlTokenKind.COLON_TOKEN, parent, missing, unexpected);
+    public ColonToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.COLON, TweetQlTokenKind.COLON_TOKEN, parent, error);
     }
 
-    public ColonToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.COLON, TweetQlTokenKind.COLON_TOKEN, parent, start, missing, unexpected);
+    public ColonToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.COLON, TweetQlTokenKind.COLON_TOKEN, parent, start, error);
     }
 }

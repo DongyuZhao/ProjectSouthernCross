@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.lexers;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxToken;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
@@ -43,7 +44,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -56,7 +57,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -69,7 +70,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -85,7 +86,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -98,7 +99,7 @@ public class TweetQlLexer {
                             i--;
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -114,7 +115,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -131,7 +132,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -144,7 +145,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -156,7 +157,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -172,7 +173,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -185,7 +186,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -202,7 +203,7 @@ public class TweetQlLexer {
                             i--;
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -224,7 +225,7 @@ public class TweetQlLexer {
                                 this.enterScope(State.IN_UNARY_EXPRESSION);
                                 result.add(token);
                             } else {
-                                token.setError(false, true);
+                                token.setError(SyntaxError.getUnexpectedError(token));
                                 result.add(token);
                             }
                             break;
@@ -235,7 +236,7 @@ public class TweetQlLexer {
                         this.changeState(State.AFTER_BINARY_OPERATOR);
                         result.add(token);
                     } else {
-                        token.setError(false, true);
+                        token.setError(SyntaxError.getUnexpectedError(token));
                         result.add(token);
                     }
                     break;
@@ -252,7 +253,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -269,7 +270,7 @@ public class TweetQlLexer {
                                 this.changeState(State.IN_WHERE);
                                 result.add(token);
                             } else {
-                                token.setError(false, true);
+                                token.setError(SyntaxError.getUnexpectedError(token));
                                 result.add(token);
                             }
                             break;
@@ -280,7 +281,7 @@ public class TweetQlLexer {
                         this.changeState(State.AFTER_BINARY_OPERATOR_IN_SCOPE);
                         result.add(token);
                     } else {
-                        token.setError(false, true);
+                        token.setError(SyntaxError.getUnexpectedError(token));
                         result.add(token);
                     }
                     break;
@@ -297,7 +298,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -313,7 +314,7 @@ public class TweetQlLexer {
                                 this.changeState(State.IN_PARENTHESES_SCOPE);
                                 result.add(token);
                             } else {
-                                token.setError(false, true);
+                                token.setError(SyntaxError.getUnexpectedError(token));
                                 result.add(token);
                             }
                             break;
@@ -327,7 +328,7 @@ public class TweetQlLexer {
                             result.add(token);
                             break;
                         default:
-                            token.setError(false, true);
+                            token.setError(SyntaxError.getUnexpectedError(token));
                             result.add(token);
                             break;
                     }
@@ -353,7 +354,7 @@ public class TweetQlLexer {
                                 this.enterScope(State.IN_UNARY_EXPRESSION);
                                 result.add(token);
                             } else {
-                                token.setError(false, true);
+                                token.setError(SyntaxError.getUnexpectedError(token));
                                 result.add(token);
                             }
                             break;
@@ -362,7 +363,7 @@ public class TweetQlLexer {
             }
         }
         if (this.currentState != State.IDLE) {
-            result.add(new TweetQlSyntaxToken("", TweetQlTokenKind.UNDETERMINED_TOKEN, true, true));
+            result.add(new TweetQlSyntaxToken("", TweetQlTokenKind.UNDETERMINED_TOKEN, SyntaxError.getMissingError("")));
         }
         return result;
     }

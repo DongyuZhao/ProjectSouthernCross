@@ -1,5 +1,6 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
+import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
@@ -14,19 +15,19 @@ public class CRLFToken extends TweetQlSyntaxToken {
         super(TweetQlTokenString.CRLF, TweetQlTokenKind.CRLF_TOKEN);
     }
 
-    public CRLFToken(boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CRLF, TweetQlTokenKind.CRLF_TOKEN, missing, unexpected);
+    public CRLFToken(SyntaxError error) {
+        super(TweetQlTokenString.CRLF, TweetQlTokenKind.CRLF_TOKEN, error);
     }
 
-    public CRLFToken(int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CRLF, TweetQlTokenKind.CRLF_TOKEN, start, missing, unexpected);
+    public CRLFToken(int start, SyntaxError error) {
+        super(TweetQlTokenString.CRLF, TweetQlTokenKind.CRLF_TOKEN, start, error);
     }
 
-    public CRLFToken(SyntaxNode parent, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CRLF, TweetQlTokenKind.CRLF_TOKEN, parent, missing, unexpected);
+    public CRLFToken(SyntaxNode parent, SyntaxError error) {
+        super(TweetQlTokenString.CRLF, TweetQlTokenKind.CRLF_TOKEN, parent, error);
     }
 
-    public CRLFToken(SyntaxNode parent, int start, boolean missing, boolean unexpected) {
-        super(TweetQlTokenString.CRLF, TweetQlTokenKind.CRLF_TOKEN, parent, start, missing, unexpected);
+    public CRLFToken(SyntaxNode parent, int start, SyntaxError error) {
+        super(TweetQlTokenString.CRLF, TweetQlTokenKind.CRLF_TOKEN, parent, start, error);
     }
 }
