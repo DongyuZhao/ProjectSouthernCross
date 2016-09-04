@@ -4,6 +4,9 @@ import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This is a open source project provided as-is without any
  * guarantee.
@@ -29,5 +32,11 @@ public class StreamSourceList extends TweetQlSyntaxNode {
 
     public StreamSourceList(SyntaxNode parent, int start, SyntaxError error) {
         super(TweetQlNodeKind.STREAM_SOURCE_LIST, parent, start, error);
+    }
+
+    public List<StreamSource> getStreamSources() {
+        ArrayList<StreamSource> result = new ArrayList<>();
+        this.getChildNodes().stream().filter(n -> n.getKind() == TweetQlNodeKind.STREAM_SOURCE).forEach(n -> result.add((StreamSource) n));
+        return result;
     }
 }

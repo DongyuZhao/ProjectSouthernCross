@@ -4,6 +4,7 @@ import project.code_analysis.core.ISyntaxKind;
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
+import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.FieldAccessExpression;
 
 /**
  * This is a open source project provided as-is without any
@@ -33,6 +34,6 @@ public class EvaluableExpression extends TweetQlSyntaxNode {
     }
 
     public static boolean isEvaluable(SyntaxNode node) {
-        return node != null && (node.getKind() == TweetQlNodeKind.BINARY_EXPRESSION || node.getKind() == TweetQlNodeKind.UNARY_EXPRESSION);
+        return node != null && EvaluableExpression.class.isAssignableFrom(node.getClass());
     }
 }

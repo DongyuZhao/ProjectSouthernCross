@@ -3,6 +3,11 @@ package project.code_analysis.tweet_ql.syntax.nodes;
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
+import project.code_analysis.tweet_ql.syntax.tokens.IdentifierToken;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is a open source project provided as-is without any
@@ -29,5 +34,11 @@ public class AttributeList extends TweetQlSyntaxNode {
 
     public AttributeList(SyntaxNode parent, int start, SyntaxError error) {
         super(TweetQlNodeKind.ATTRIBUTE_LIST, parent, start, error);
+    }
+
+    public List<IdentifierToken> getAttributes() {
+        ArrayList<IdentifierToken> result = new ArrayList<>();
+        this.getChildTokens().stream().filter(IdentifierToken::isIdentifier).forEach(t -> result.add((IdentifierToken) t));
+        return result;
     }
 }
