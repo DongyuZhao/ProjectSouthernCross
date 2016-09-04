@@ -2,27 +2,31 @@ package project.code_analysis.tweet_ql.syntax.builders;
 
 import project.code_analysis.core.syntax.builders.AbstractSyntaxNodeBuilder;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
-import project.code_analysis.tweet_ql.syntax.nodes.SelectExpressionSyntax;
+import project.code_analysis.tweet_ql.syntax.nodes.SelectExpression;
 
 /**
- * ProjectSouthernCross
+ * This is a open source project provided as-is without any
+ * guarantee.
  * <p>
- * SELECTd by Dy.Zhao on 2016/8/15.
+ * Created by Dy.Zhao on 2016/9/4.
  */
-public class SelectExpressionBuilder extends AbstractSyntaxNodeBuilder<SelectExpressionSyntax> {
-    private AttributeListBuilder attributeListBuilder = new AttributeListBuilder();
-    private StreamListBuilder sourceListBuilder = new StreamListBuilder();
-    private ParseStates currentState = ParseStates.ROOT;
+public class SelectExpressionBuilder extends AbstractSyntaxNodeBuilder<SelectExpression> {
+    private AttributeListBuilder attributeListBuilder;
+    private StreamSourceListBuilder streamSourceListBuilder;
+    private State currentState = State.ROOT;
 
-    public SelectExpressionSyntax build() {
-        this.root = new SelectExpressionSyntax();
+    @Override
+    public SelectExpression build() {
+        this.currentState = State.ROOT;
+        this.root = new SelectExpression();
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:
                     switch ((TweetQlTokenKind) token.getKind()) {
                         case SELECT_KEYWORD:
-                            this.currentState = ParseStates.AFTER_SELECT;
+                            this.currentState = State.AFTER_SELECT;
                             this.root.addChildToken(token);
+                            this.attributeListBuilder = new AttributeListBuilder();
                             break;
                         default:
                             break;
@@ -30,82 +34,51 @@ public class SelectExpressionBuilder extends AbstractSyntaxNodeBuilder<SelectExp
                     break;
                 case AFTER_SELECT:
                     switch ((TweetQlTokenKind) token.getKind()) {
-                        case IDENTIFIER_TOKEN:
-                            this.currentState = ParseStates.AFTER_IDENTIFIER;
-                            this.attributeListBuilder.append(token);
-                            break;
-                        case STAR_TOKEN:
-                            this.currentState = ParseStates.AFTER_STAR;
-                            this.attributeListBuilder.append(token);
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case AFTER_STAR:
-                    switch ((TweetQlTokenKind) token.getKind()) {
                         case FROM_KEYWORD:
-                            this.currentState = ParseStates.AFTER_FROM;
-                            this.root.addChildNode(this.attributeListBuilder.build());
-                            this.sourceListBuilder.clear();
+                            this.currentState = State.AFTER_FROM;
+                            if (this.attributeListBuilder != null) {
+                                this.root.addChildNode(this.attributeListBuilder.build());
+                            }
                             this.root.addChildToken(token);
+                            this.streamSourceListBuilder = new StreamSourceListBuilder();
                             break;
                         default:
-                            break;
-                    }
-                    break;
-                case AFTER_IDENTIFIER:
-                    switch ((TweetQlTokenKind) token.getKind()) {
-                        case COMMA_TOKEN:
-                            this.currentState = ParseStates.AFTER_COMMA;
-                            this.attributeListBuilder.append(token);
-                            break;
-                        case FROM_KEYWORD:
-                            this.currentState = ParseStates.AFTER_FROM;
-                            this.root.addChildNode(this.attributeListBuilder.build());
-                            this.sourceListBuilder.clear();
-                            this.root.addChildToken(token);
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case AFTER_COMMA:
-                    switch ((TweetQlTokenKind) token.getKind()) {
-                        case IDENTIFIER_TOKEN:
-                            this.currentState = ParseStates.AFTER_IDENTIFIER;
-                            this.attributeListBuilder.append(token);
-                            break;
-                        default:
+                            if (this.attributeListBuilder != null) {
+                                this.attributeListBuilder.append(token);
+                            }
                             break;
                     }
                     break;
                 case AFTER_FROM:
                     switch ((TweetQlTokenKind) token.getKind()) {
+                        case COMMA_TOKEN:
+                            if (this.streamSourceListBuilder != null) {
+                                this.root.addChildNode(this.streamSourceListBuilder.build());
+                            }
+                            this.root.addChildToken(token);
+                            this.streamSourceListBuilder = new StreamSourceListBuilder();
+                            break;
                         case SEMICOLON_TOKEN:
-                            this.currentState = ParseStates.ROOT;
-                            //this.sourceListBuilder.append(token);
-                            this.root.addChildNode(this.sourceListBuilder.build());
+                            if (this.streamSourceListBuilder != null) {
+                                this.root.addChildNode(this.streamSourceListBuilder.build());
+                            }
                             this.root.addChildToken(token);
                             break;
                         default:
-                            this.sourceListBuilder.append(token);
+                            if (this.streamSourceListBuilder != null) {
+                                this.streamSourceListBuilder.append(token);
+                            }
                             break;
                     }
                     break;
-                default:
-                    break;
             }
         });
-        return this.root;
+        return root;
     }
 
-    private enum ParseStates {
+    private enum State {
         ROOT,
         AFTER_SELECT,
-        AFTER_IDENTIFIER,
-        AFTER_STAR,
-        AFTER_COMMA,
         AFTER_FROM,
     }
 }

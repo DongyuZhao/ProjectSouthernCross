@@ -12,7 +12,6 @@ import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
  * Created by Dy.Zhao on 2016/8/26.
  */
 public class TweetQlSyntaxNode extends SyntaxNode {
-
     public TweetQlSyntaxNode(ISyntaxKind kind) {
         super(TweetQlSyntaxFacts.getInstance().getLanguage(), kind);
     }

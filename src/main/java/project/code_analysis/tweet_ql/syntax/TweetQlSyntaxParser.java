@@ -4,7 +4,7 @@ import project.code_analysis.core.ISyntaxParser;
 import project.code_analysis.core.SyntaxToken;
 import project.code_analysis.core.SyntaxUnit;
 import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
-import project.code_analysis.tweet_ql.syntax.builders.CompileUnitBuilder;
+import project.code_analysis.tweet_ql.syntax.builders.CompilationUnitBuilder;
 import project.code_analysis.tweet_ql.syntax.lexers.TweetQlLexer;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class TweetQlSyntaxParser implements ISyntaxParser {
     public CompilationUnitSyntax parse(String source) {
         List<? extends SyntaxToken> tokenList = preProcessing(source);
         if (tokenList.stream().filter(SyntaxUnit::isError).count() == 0) {
-            CompileUnitBuilder builder = new CompileUnitBuilder();
+            CompilationUnitBuilder builder = new CompilationUnitBuilder();
             tokenList.forEach(builder::append);
             return builder.build();
         }

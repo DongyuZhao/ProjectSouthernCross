@@ -35,11 +35,19 @@ public class SyntaxNode extends SyntaxNodeOrToken {
     }
 
     public boolean hasChildNode() {
-        return this.children.stream().filter(SyntaxUnit::isSyntaxNode).count() != 0;
+        return this.getChildNodeCount() != 0;
+    }
+
+    public int getChildNodeCount() {
+        return (int) this.children.stream().filter(SyntaxUnit::isSyntaxNode).count();
     }
 
     public boolean hasChildToken() {
-        return this.children.stream().filter(SyntaxUnit::isSyntaxToken).count() != 0;
+        return this.getChildTokenCount() != 0;
+    }
+
+    public int getChildTokenCount() {
+        return (int) this.children.stream().filter(SyntaxUnit::isSyntaxToken).count();
     }
 
     public void addChildToken(SyntaxToken token) {
@@ -82,6 +90,14 @@ public class SyntaxNode extends SyntaxNodeOrToken {
         result.add(this);
         result.forEach(t -> result.addAll(t.getChildNodes()));
         return result;
+    }
+
+    public void replaceNode(SyntaxNode target, SyntaxNode newValue) {
+        int index = this.children.indexOf(target);
+        if (index >= 0) {
+            this.children.set(index, newValue);
+            newValue.setParentNode(this);
+        }
     }
 
     @Override

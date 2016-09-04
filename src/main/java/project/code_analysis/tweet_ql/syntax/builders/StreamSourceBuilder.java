@@ -1,28 +1,32 @@
 package project.code_analysis.tweet_ql.syntax.builders;
 
+import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.core.syntax.builders.AbstractSyntaxNodeBuilder;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
-import project.code_analysis.tweet_ql.syntax.nodes.VariableSyntax;
+import project.code_analysis.tweet_ql.syntax.nodes.StreamSource;
 
 /**
- * ProjectSouthernCross
+ * This is a open source project provided as-is without any
+ * guarantee.
  * <p>
- * Created by Dy.Zhao on 2016/8/14.
+ * Created by Dy.Zhao on 2016/9/3.
  */
-public class UserDefinedTypeBuilder extends AbstractSyntaxNodeBuilder<VariableSyntax> {
-    private StreamFilterExpressionBuilder filterBuilder = new StreamFilterExpressionBuilder();
-    private ParseStates currentState = ParseStates.ROOT;
+public class StreamSourceBuilder extends AbstractSyntaxNodeBuilder<StreamSource> {
+    private EvaluableExpressionBuilder filterBuilder;
+    private State currentState = State.ROOT;
 
-    public VariableSyntax build() {
+    @Override
+    public StreamSource build() {
+        this.currentState = State.ROOT;
+        this.root = new StreamSource();
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:
                     switch ((TweetQlTokenKind) token.getKind()) {
-                        case IDENTIFIER_TOKEN:
                         case STAR_TOKEN:
-                            this.currentState = ParseStates.AFTER_IDENTIFIER;
-                            this.root = new VariableSyntax("stream", token.getRawString());
+                        case IDENTIFIER_TOKEN:
                             this.root.addChildToken(token);
+                            this.currentState = State.AFTER_IDENTIFIER;
                             break;
                         default:
                             break;
@@ -32,24 +36,28 @@ public class UserDefinedTypeBuilder extends AbstractSyntaxNodeBuilder<VariableSy
                     switch ((TweetQlTokenKind) token.getKind()) {
                         case WHERE_KEYWORD:
                             this.root.addChildToken(token);
-                            this.currentState = ParseStates.AFTER_WHERE;
-                            this.filterBuilder.append(token);
+                            this.currentState = State.AFTER_WHERE;
+                            this.filterBuilder = new EvaluableExpressionBuilder();
                             break;
                         default:
                             break;
                     }
                     break;
                 case AFTER_WHERE:
-                    this.filterBuilder.append(token);
+                    if (this.filterBuilder != null) {
+                        this.filterBuilder.append(token);
+                    }
                     break;
-
             }
         });
-        this.root.addChildNode(this.filterBuilder.build());
-        return this.root;
+        if (this.filterBuilder != null) {
+            SyntaxNode result = this.filterBuilder.build();
+            this.root.addChildNode(result);
+        }
+        return root;
     }
 
-    private enum ParseStates {
+    private enum State {
         ROOT,
         AFTER_IDENTIFIER,
         AFTER_WHERE,

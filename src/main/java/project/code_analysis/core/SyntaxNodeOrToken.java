@@ -56,6 +56,11 @@ public abstract class SyntaxNodeOrToken extends SyntaxUnit {
     }
 
     @Override
+    public String toString() {
+        return this.getClass().getName() + ":\t" + this.getRawString();
+    }
+
+    @Override
     public int getLeadingTriviaLength() {
         int result = 0;
         for (SyntaxTrivia syntaxTrivia : this.leadingTrivia) {

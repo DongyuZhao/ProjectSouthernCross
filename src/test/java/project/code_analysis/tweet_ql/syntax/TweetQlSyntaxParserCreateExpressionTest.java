@@ -8,50 +8,50 @@ import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
 /**
  * This is a open source project provided as-is without any
  * guarantee.
- *
- * Created by Dy.Zhao on 2016/8/16.
+ * <p>
+ * Created by Dy.Zhao on 2016/9/5.
  */
-public class TweetQlSyntaxParserSelectExpressionTest {
+public class TweetQlSyntaxParserCreateExpressionTest {
     @Test
-    public void parseForSingleAttributeSingleFilterTest() throws Exception {
+    public void parseForSingleStreamSingleFilterTest() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a FROM * WHERE t = \"u\";";
+        String source = "CREATE a FROM * WHERE t = \"u\";";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForSingleAttributeMultiFilterTest() throws Exception {
+    public void parseForSingleStreamMultiFilterTest() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a FROM * WHERE (t = \"u\") AND (b = \"c\");";
+        String source = "CREATE a FROM * WHERE (t = \"u\") AND (b = \"c\");";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForSingleAttributeMultiFilter2Test() throws Exception {
+    public void parseForSingleStreamMultiFilter2Test() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a FROM * WHERE (t = \"u\") AND (b = \"c\") OR (c = 123);";
+        String source = "CREATE a FROM * WHERE (t = \"u\") AND (b = \"c\") OR (c = 123);";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForSingleAttributeComplexFilterTest() throws Exception {
+    public void parseForSingleStreamComplexFilterTest() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a FROM * WHERE (t = \"u\") AND ((b = \"c\") OR (c = 123));";
+        String source = "CREATE a FROM * WHERE (t = \"u\") AND ((b = \"c\") OR (c = 123));";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForSingleAttributeComplexFilter2Test() throws Exception {
+    public void parseForSingleStreamComplexFilter2Test() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a FROM * WHERE ((t = \"u\") AND ((b = \"c\") OR (c = 123)) OR (d = 345));";
+        String source = "CREATE a FROM * WHERE ((t = \"u\") AND ((b = \"c\") OR (c = 123)) OR (d = 345));";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
@@ -59,81 +59,81 @@ public class TweetQlSyntaxParserSelectExpressionTest {
 
 
     @Test
-    public void parseForMultiAttributeSingleFilterTest() throws Exception {
+    public void parseForMultiStreamSingleFilterTest() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a, b FROM * WHERE t = \"u\", a WHERE b = \"c\";";
+        String source = "CREATE a FROM * WHERE t = \"u\", b FROM a WHERE b = \"c\";";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForMultiAttributeMultiMixedFilterTest() throws Exception {
+    public void parseForMultiStreamMultiMixedFilterTest() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a, b FROM * WHERE (t = \"u\") AND (b = \"c\"), a WHERE b = \"c\";";
+        String source = "CREATE a FROM * WHERE (t = \"u\") AND (b = \"c\"), b FROM a WHERE b = \"c\";";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForMultiAttributeMultiMixedFilter2Test() throws Exception {
+    public void parseForMultiStreamMultiMixedFilter2Test() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a, b FROM * WHERE (t = \"u\") AND (b = \"c\") OR (c = 123), a WHERE b = \"c\";";
+        String source = "CREATE a FROM * WHERE (t = \"u\") AND (b = \"c\") OR (c = 123), b FROM a WHERE b = \"c\";";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForMultiAttributeComplexMixedFilterTest() throws Exception {
+    public void parseForMultiStreamComplexMixedFilterTest() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a, b FROM * WHERE (t = \"u\") AND ((b = \"c\") OR (c = 123)), a WHERE b = \"c\";";
+        String source = "CREATE a FROM * WHERE (t = \"u\") AND ((b = \"c\") OR (c = 123)), b FROM a WHERE b = \"c\";";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForMultiAttributeComplexMixedFilter2Test() throws Exception {
+    public void parseForMultiStreamComplexMixedFilter2Test() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a, b FROM * WHERE ((t = \"u\") AND ((b = \"c\") OR (c = 123)) OR (d = 345)), a WHERE b = \"c\";";
+        String source = "CREATE a FROM * WHERE ((t = \"u\") AND ((b = \"c\") OR (c = 123)) OR (d = 345)), b FROM a WHERE b = \"c\";";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForMultiAttributeMultiFilterTest() throws Exception {
+    public void parseForMultiStreamMultiFilterTest() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a, b FROM * WHERE (t = \"u\") AND (b = \"c\"), * WHERE (t = \"u\") AND (b = \"c\");";
+        String source = "CREATE a FROM * WHERE (t = \"u\") AND (b = \"c\"), b FROM * WHERE (t = \"u\") AND (b = \"c\");";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForMultiAttributeMultiFilter2Test() throws Exception {
+    public void parseForMultiStreamMultiFilter2Test() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a, b FROM * WHERE (t = \"u\") AND (b = \"c\") OR (c = 123), a WHERE (t = \"u\") AND (b = \"c\") OR (c = 123);";
+        String source = "CREATE a FROM * WHERE (t = \"u\") AND (b = \"c\") OR (c = 123), b FROM a WHERE (t = \"u\") AND (b = \"c\") OR (c = 123);";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForMultiAttributeComplexFilterTest() throws Exception {
+    public void parseForMultiStreamComplexFilterTest() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a, b FROM * WHERE (t = \"u\") AND ((b = \"c\") OR (c = 123)), a WHERE (t = \"u\") AND ((b = \"c\") OR (c = 123));";
+        String source = "CREATE a FROM * WHERE (t = \"u\") AND ((b = \"c\") OR (c = 123)), b FROM a WHERE (t = \"u\") AND ((b = \"c\") OR (c = 123));";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());
     }
 
     @Test
-    public void parseForMultiAttributeComplexFilter2Test() throws Exception {
+    public void parseForMultiStreamComplexFilter2Test() throws Exception {
         ISyntaxParser parser = TweetQlSyntaxParser.create();
-        String source = "SELECT a, b FROM * WHERE ((t = \"u\") AND ((b = \"c\") OR (c = 123)) OR (d = 345)), a WHERE ((t = \"u\") AND ((b = \"c\") OR (c = 123)) OR (d = 345));";
+        String source = "CREATE a FROM * WHERE ((t = \"u\") AND ((b = \"c\") OR (c = 123)) OR (d = 345)), b FROM a WHERE ((t = \"u\") AND ((b = \"c\") OR (c = 123)) OR (d = 345));";
         CompilationUnitSyntax root = parser.parse(source);
         System.out.println(root.getRawString());
         Assert.assertEquals(source, root.getRawString());

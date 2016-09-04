@@ -6,28 +6,33 @@ import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
 
 /**
- * ProjectSouthernCross
+ * This is a open source project provided as-is without any
+ * guarantee.
  * <p>
- * Created by Dy.Zhao on 2016/8/13.
+ * Created by Dy.Zhao on 2016/9/3.
  */
-public class CompileUnitBuilder extends AbstractSyntaxNodeBuilder<CompilationUnitSyntax> {
-    private BuildStates currentState = BuildStates.ROOT;
-    private CreateExpressionBuilder createExpressionBuilder = new CreateExpressionBuilder();
-    private SelectExpressionBuilder selectExpressionBuilder = new SelectExpressionBuilder();
+public class CompilationUnitBuilder extends AbstractSyntaxNodeBuilder<CompilationUnitSyntax> {
+    private State currentState = State.ROOT;
+    private CreateExpressionBuilder createExpressionBuilder;
+    private SelectExpressionBuilder selectExpressionBuilder;
 
+    @Override
     public CompilationUnitSyntax build() {
+        this.currentState = State.ROOT;
         this.root = new CompilationUnitSyntax(TweetQlSyntaxFacts.getInstance().getLanguage());
         this.tokenList.forEach(token -> {
             switch (this.currentState) {
                 case ROOT:
                     switch ((TweetQlTokenKind) token.getKind()) {
                         case CREATE_KEYWORD:
-                            this.currentState = BuildStates.IN_CREATE_EXPRESSION;
+                            this.createExpressionBuilder = new CreateExpressionBuilder();
+                            this.currentState = State.IN_CREATE_EXPRESSION;
                             this.createExpressionBuilder.clear();
                             this.createExpressionBuilder.append(token);
                             break;
                         case SELECT_KEYWORD:
-                            this.currentState = BuildStates.IN_SELECT_EXPRESSION;
+                            this.selectExpressionBuilder = new SelectExpressionBuilder();
+                            this.currentState = State.IN_SELECT_EXPRESSION;
                             this.selectExpressionBuilder.clear();
                             this.selectExpressionBuilder.append(token);
                             break;
@@ -38,9 +43,10 @@ public class CompileUnitBuilder extends AbstractSyntaxNodeBuilder<CompilationUni
                 case IN_CREATE_EXPRESSION:
                     switch ((TweetQlTokenKind) token.getKind()) {
                         case SEMICOLON_TOKEN:
-                            this.selectExpressionBuilder.append(token);
-                            this.currentState = BuildStates.ROOT;
+                            this.createExpressionBuilder.append(token);
+                            this.currentState = State.ROOT;
                             this.root.addChildNode(this.createExpressionBuilder.build());
+                            this.createExpressionBuilder = null;
                             break;
                         default:
                             this.createExpressionBuilder.append(token);
@@ -51,8 +57,9 @@ public class CompileUnitBuilder extends AbstractSyntaxNodeBuilder<CompilationUni
                     switch ((TweetQlTokenKind) token.getKind()) {
                         case SEMICOLON_TOKEN:
                             this.selectExpressionBuilder.append(token);
-                            this.currentState = BuildStates.ROOT;
+                            this.currentState = State.ROOT;
                             this.root.addChildNode(this.selectExpressionBuilder.build());
+                            this.selectExpressionBuilder = null;
                             break;
                         default:
                             this.selectExpressionBuilder.append(token);
@@ -66,7 +73,7 @@ public class CompileUnitBuilder extends AbstractSyntaxNodeBuilder<CompilationUni
         return this.root;
     }
 
-    private enum BuildStates {
+    private enum State {
         IN_CREATE_EXPRESSION,
         IN_SELECT_EXPRESSION,
         ROOT,

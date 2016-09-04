@@ -2,6 +2,7 @@ package project.code_analysis.tweet_ql.syntax.tokens;
 
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
+import project.code_analysis.core.SyntaxToken;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 
 /**
@@ -28,5 +29,9 @@ public class IdentifierToken extends TweetQlSyntaxToken {
 
     public IdentifierToken(String rawString, SyntaxNode parent, int start, SyntaxError error) {
         super(rawString, TweetQlTokenKind.IDENTIFIER_TOKEN, parent, start, error);
+    }
+
+    public static boolean isIdentifier(SyntaxToken token) {
+        return token != null && (token.getKind() == TweetQlTokenKind.IDENTIFIER_TOKEN || token.getKind() == TweetQlTokenKind.STAR_TOKEN);
     }
 }

@@ -46,6 +46,18 @@ public abstract class SyntaxUnit {
         this.parentNode = parentNode;
     }
 
+    public SyntaxNode getRootNode() {
+        if (this.getParentNode() != null) {
+            return this.parentNode.getRootNode();
+        } else {
+            if (this.isSyntaxNode()) {
+                return (SyntaxNode) this;
+            } else {
+                return null;
+            }
+        }
+    }
+
     public List<SyntaxNode> getAncestorNode() {
         ArrayList<SyntaxNode> result = new ArrayList<>();
         SyntaxNode node = this.getParentNode();

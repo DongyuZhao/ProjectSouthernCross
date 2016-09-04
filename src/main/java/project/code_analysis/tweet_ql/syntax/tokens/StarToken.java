@@ -10,24 +10,29 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  * <p>
  * Created by Dy.Zhao on 2016/8/14.
  */
-public class StarToken extends TweetQlSyntaxToken {
+public class StarToken extends IdentifierToken {
     public StarToken() {
-        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN);
+        super(TweetQlTokenString.STAR);
+        this.setKind(TweetQlTokenKind.STAR_TOKEN);
     }
 
     public StarToken(SyntaxError error) {
-        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, error);
+        super(TweetQlTokenString.STAR, error);
+        this.setKind(TweetQlTokenKind.STAR_TOKEN);
     }
 
     public StarToken(int start, SyntaxError error) {
-        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, start, error);
+        super(TweetQlTokenString.STAR, start, error);
+        this.setKind(TweetQlTokenKind.STAR_TOKEN);
     }
 
     public StarToken(SyntaxNode parent, SyntaxError error) {
-        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, parent, error);
+        super(TweetQlTokenString.STAR, parent, error);
+        this.setKind(TweetQlTokenKind.STAR_TOKEN);
     }
 
     public StarToken(SyntaxNode parent, int start, SyntaxError error) {
-        super(TweetQlTokenString.STAR, TweetQlTokenKind.STAR_TOKEN, parent, start, error);
+        super(TweetQlTokenString.STAR, parent, start, error);
+        this.setKind(TweetQlTokenKind.STAR_TOKEN);
     }
 }
