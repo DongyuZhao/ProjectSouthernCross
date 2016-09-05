@@ -10,7 +10,7 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  * <p>
  * Created by Dy.Zhao on 2016/8/11.
  */
-public class OrKeywordToken extends TweetQlSyntaxToken {
+public class OrKeywordToken extends BinaryOperatorToken {
     public OrKeywordToken() {
         super(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD);
     }

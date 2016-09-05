@@ -10,7 +10,7 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  * <p>
  * Created by Dy.Zhao on 2016/8/11.
  */
-public class NotKeywordToken extends TweetQlSyntaxToken {
+public class NotKeywordToken extends UnaryOperatorToken {
     public NotKeywordToken() {
         super(TweetQlTokenString.NOT_KEYWORD, TweetQlTokenKind.NOT_KEYWORD);
     }

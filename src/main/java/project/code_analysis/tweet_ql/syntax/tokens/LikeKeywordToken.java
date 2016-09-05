@@ -10,7 +10,7 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  * <p>
  * Created by Dy.Zhao on 2016/8/11.
  */
-public class LikeKeywordToken extends TweetQlSyntaxToken {
+public class LikeKeywordToken extends BinaryOperatorToken {
     public LikeKeywordToken() {
         super(TweetQlTokenString.LIKE_KEYWORD, TweetQlTokenKind.LIKE_KEYWORD);
     }

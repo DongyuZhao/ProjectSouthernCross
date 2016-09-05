@@ -10,7 +10,7 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  * <p>
  * Created by Dy.Zhao on 2016/8/11.
  */
-public class EqualToken extends TweetQlSyntaxToken {
+public class EqualToken extends BinaryOperatorToken {
     public EqualToken() {
         super(TweetQlTokenString.EQUAL, TweetQlTokenKind.EQUAL_TOKEN);
     }

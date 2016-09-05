@@ -10,7 +10,7 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  * <p>
  * Created by Dy.Zhao on 2016/8/11.
  */
-public class ContainKeywordToken extends TweetQlSyntaxToken {
+public class ContainKeywordToken extends BinaryOperatorToken {
     public ContainKeywordToken() {
         super(TweetQlTokenString.CONTAIN_KEYWORD, TweetQlTokenKind.CONTAIN_KEYWORD);
     }

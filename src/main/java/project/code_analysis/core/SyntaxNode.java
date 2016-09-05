@@ -75,7 +75,9 @@ public class SyntaxNode extends SyntaxNodeOrToken {
     public List<SyntaxNode> getDescentNodes() {
         ArrayList<SyntaxNode> result = new ArrayList<>();
         this.children.stream().filter(SyntaxUnit::isSyntaxNode).forEach(t -> result.add((SyntaxNode) t));
-        result.forEach(t -> result.addAll(t.getChildNodes()));
+        for (int i = 0; i < result.size(); i++) {
+            result.addAll(result.get(i).getChildNodes());
+        }
         return result;
     }
 
@@ -88,7 +90,9 @@ public class SyntaxNode extends SyntaxNodeOrToken {
     public List<SyntaxNode> getDescentNodesOrSelf() {
         ArrayList<SyntaxNode> result = new ArrayList<>();
         result.add(this);
-        result.forEach(t -> result.addAll(t.getChildNodes()));
+        for (int i = 0; i < result.size(); i++) {
+            result.addAll(result.get(i).getChildNodes());
+        }
         return result;
     }
 
@@ -101,14 +105,14 @@ public class SyntaxNode extends SyntaxNodeOrToken {
     }
 
     @Override
-    public void shiftWindow(int offset) {
-        super.shiftWindow(offset);
-        this.children.forEach(u -> u.shiftWindow(offset));
+    public String toString() {
+        return this.getFullString();
     }
 
     @Override
-    public String toString() {
-        return this.getFullString();
+    public void shiftWindow(int offset) {
+        super.shiftWindow(offset);
+        this.children.forEach(u -> u.shiftWindow(offset));
     }
 
     @Override

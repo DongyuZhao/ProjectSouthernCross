@@ -2,8 +2,11 @@ package project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions;
 
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
+import project.code_analysis.core.SyntaxToken;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
+import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.syntax.nodes.EvaluableExpression;
+import project.code_analysis.tweet_ql.syntax.tokens.BinaryOperatorToken;
 
 import java.util.Optional;
 
@@ -40,6 +43,15 @@ public class BinaryExpression extends EvaluableExpression {
             return (EvaluableExpression) (result.get());
         } else {
             return null;
+        }
+    }
+
+    public BinaryOperatorToken getOperator() {
+        Optional<SyntaxToken> result = this.getChildTokens().stream().filter(BinaryOperatorToken::isBinaryOperator).findFirst();
+        if (result.isPresent()) {
+            return (BinaryOperatorToken) (result.get());
+        } else {
+            return new BinaryOperatorToken("", TweetQlTokenKind.UNDETERMINED_TOKEN, SyntaxError.getMissingError("BinaryOperatorToken"));
         }
     }
 

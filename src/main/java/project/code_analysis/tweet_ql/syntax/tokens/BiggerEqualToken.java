@@ -10,7 +10,7 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  * <p>
  * Created by Dy.Zhao on 2016/8/11.
  */
-public class BiggerEqualToken extends TweetQlSyntaxToken {
+public class BiggerEqualToken extends BinaryOperatorToken {
     public BiggerEqualToken() {
         super(TweetQlTokenString.BIGGER_EQUAL, TweetQlTokenKind.BIGGER_EQUAL_TOKEN);
     }

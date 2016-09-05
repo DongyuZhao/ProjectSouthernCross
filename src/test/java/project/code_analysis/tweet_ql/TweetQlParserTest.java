@@ -4,6 +4,7 @@ import org.junit.Test;
 import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
 import project.code_analysis.tweet_ql.syntax.nodes.CreateExpression;
 import project.code_analysis.tweet_ql.syntax.nodes.SelectExpression;
+import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.BinaryExpression;
 
 /**
  * This is a open source project provided as-is without any
@@ -32,6 +33,7 @@ public class TweetQlParserTest {
                     selectExpression.getStreamSourceList().getStreamSources().forEach(source -> {
                         System.out.println(source.getStreamIdentifier());
                         System.out.println(source.getFilterConditions());
+                        source.getFilterConditions().getDescentNodesOrSelf().stream().filter(n -> n.getKind() == TweetQlNodeKind.BINARY_EXPRESSION).forEach(n -> System.out.println(((BinaryExpression) n).getOperator()));
                     });
                     break;
             }

@@ -10,7 +10,7 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
  * <p>
  * Created by Dy.Zhao on 2016/8/11.
  */
-public class LessToken extends TweetQlSyntaxToken {
+public class LessToken extends BinaryOperatorToken {
     public LessToken() {
         super(TweetQlTokenString.LESS, TweetQlTokenKind.LESS_TOKEN);
     }
