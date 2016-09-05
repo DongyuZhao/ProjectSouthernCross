@@ -5,6 +5,8 @@ import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
 import project.code_analysis.tweet_ql.syntax.nodes.CreateExpression;
 import project.code_analysis.tweet_ql.syntax.nodes.SelectExpression;
 import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.BinaryExpression;
+import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.FieldAccessExpression;
+import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.ValueExpression;
 
 /**
  * This is a open source project provided as-is without any
@@ -34,6 +36,9 @@ public class TweetQlParserTest {
                         System.out.println(source.getStreamIdentifier());
                         System.out.println(source.getFilterConditions());
                         source.getFilterConditions().getDescentNodesOrSelf().stream().filter(n -> n.getKind() == TweetQlNodeKind.BINARY_EXPRESSION).forEach(n -> System.out.println(((BinaryExpression) n).getOperator()));
+                        source.getFilterConditions().getDescentNodesOrSelf().stream().filter(n -> n.getKind() == TweetQlNodeKind.FIELD_ACCESS_EXPRESSION).forEach(n -> System.out.println(((FieldAccessExpression) n).getFieldName()));
+                        source.getFilterConditions().getDescentNodesOrSelf().stream().filter(n -> n.getKind() == TweetQlNodeKind.VALUE_EXPRESSION).forEach(n -> System.out.println(((ValueExpression) n).getValue()));
+
                     });
                     break;
             }

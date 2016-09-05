@@ -24,6 +24,9 @@ public enum TweetQlNodeKind implements ISyntaxKind {
     STREAM_SOURCE,
     STREAM_SOURCE_LIST,
 
+    FIELD_ACCESS_EXPRESSION,
+    VALUE_EXPRESSION,
+
     SCOPE_EXPRESSION,
 
     UNDETERMINED_NODE,
