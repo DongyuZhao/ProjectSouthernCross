@@ -51,7 +51,7 @@ public class BinaryExpression extends EvaluableExpression {
         if (result.isPresent()) {
             return (BinaryOperatorToken) (result.get());
         } else {
-            return new BinaryOperatorToken("", TweetQlTokenKind.UNDETERMINED_TOKEN, SyntaxError.getMissingError("BinaryOperatorToken"));
+            return new BinaryOperatorToken("", TweetQlTokenKind.UNDETERMINED_TOKEN);
         }
     }
 

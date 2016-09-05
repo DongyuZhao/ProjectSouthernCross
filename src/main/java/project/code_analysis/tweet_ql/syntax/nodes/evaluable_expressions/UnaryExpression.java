@@ -50,7 +50,7 @@ public class UnaryExpression extends EvaluableExpression {
         if (result.isPresent()) {
             return (UnaryOperatorToken) (result.get());
         } else {
-            return new UnaryOperatorToken("", TweetQlTokenKind.UNDETERMINED_TOKEN, SyntaxError.getMissingError("UnaryOperatorToken"));
+            return new UnaryOperatorToken("", TweetQlTokenKind.UNDETERMINED_TOKEN);
         }
     }
 }
