@@ -8,6 +8,7 @@ import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.syntax.nodes.EvaluableExpression;
 import project.code_analysis.tweet_ql.syntax.tokens.BinaryOperatorToken;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -56,9 +57,10 @@ public class BinaryExpression extends EvaluableExpression {
     }
 
     public EvaluableExpression getSecondSubExpression() {
-        EvaluableExpression[] result = (EvaluableExpression[]) this.getChildNodes().stream().filter(EvaluableExpression::isEvaluable).toArray();
-        if (result.length == 2) {
-            return result[1];
+        ArrayList<EvaluableExpression> result = new ArrayList<>();
+        this.getChildNodes().stream().filter(EvaluableExpression::isEvaluable).forEach(n -> result.add((EvaluableExpression) n));
+        if (result.size() == 2) {
+            return result.get(1);
         } else {
             return null;
         }

@@ -3,6 +3,7 @@ package project.code_analysis.tweet_ql;
 import org.junit.Test;
 import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
 import project.code_analysis.tweet_ql.syntax.nodes.CreateExpression;
+import project.code_analysis.tweet_ql.syntax.nodes.EvaluableExpression;
 import project.code_analysis.tweet_ql.syntax.nodes.SelectExpression;
 import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.BinaryExpression;
 import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.FieldAccessExpression;
@@ -39,6 +40,39 @@ public class TweetQlParserTest {
                         source.getFilterConditions().getDescentNodesOrSelf().stream().filter(n -> n.getKind() == TweetQlNodeKind.FIELD_ACCESS_EXPRESSION).forEach(n -> System.out.println(((FieldAccessExpression) n).getFieldName()));
                         source.getFilterConditions().getDescentNodesOrSelf().stream().filter(n -> n.getKind() == TweetQlNodeKind.VALUE_EXPRESSION).forEach(n -> System.out.println(((ValueExpression) n).getValue()));
 
+                    });
+                    break;
+            }
+        });
+    }
+
+    @Test
+    public void TweetQlParserUsageTest2() {
+        TweetQlSyntaxTree tree = TweetQlSyntaxTree.parseText("SELECT * FROM * WHERE lang = \"ar\";");
+        CompilationUnitSyntax root = tree.getRoot();
+        root.getChildNodes().forEach(node -> {
+            switch ((TweetQlNodeKind) node.getKind()) {
+                case CREATE_EXPRESSION:
+                    CreateExpression createExpression = (CreateExpression) node;
+                    createExpression.getCreatedStreams().forEach(stream -> {
+                        System.out.println(stream.getStreamIdentifier());
+                        System.out.println(stream.getStreamSource().getStreamIdentifier());
+                        System.out.println(stream.getStreamSource().getFilterConditions());
+                    });
+                    break;
+                case SELECT_EXPRESSION:
+                    SelectExpression selectExpression = (SelectExpression) node;
+                    selectExpression.getAttributeList().getAttributes().forEach(System.out::println);
+                    selectExpression.getStreamSourceList().getStreamSources().forEach(source -> {
+                        System.out.println(source.getStreamIdentifier());
+                        System.out.println(source.getFilterConditions());
+                        EvaluableExpression condition = source.getFilterConditions();
+                        if (condition.getKind() == TweetQlNodeKind.BINARY_EXPRESSION) {
+                            BinaryExpression binaryExpression = (BinaryExpression) condition;
+                            System.out.println(binaryExpression.getOperator());
+                            System.out.println(binaryExpression.getFirstSubExpression());
+                            System.out.println(binaryExpression.getSecondSubExpression());
+                        }
                     });
                     break;
             }
