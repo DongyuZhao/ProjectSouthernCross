@@ -70,8 +70,8 @@ public class TweetQlParserTest {
                         if (condition.getKind() == TweetQlNodeKind.BINARY_EXPRESSION) {
                             BinaryExpression binaryExpression = (BinaryExpression) condition;
                             System.out.println(binaryExpression.getOperator());
-                            System.out.println(binaryExpression.getFirstSubExpression());
-                            System.out.println(binaryExpression.getSecondSubExpression());
+                            System.out.println(binaryExpression.getLeftSubExpression());
+                            System.out.println(binaryExpression.getRightSubExpression());
                         }
                     });
                     break;

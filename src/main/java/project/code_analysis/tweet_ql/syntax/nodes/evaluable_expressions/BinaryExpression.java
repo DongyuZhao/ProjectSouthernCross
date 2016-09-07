@@ -38,7 +38,7 @@ public class BinaryExpression extends EvaluableExpression {
         super(TweetQlNodeKind.BINARY_EXPRESSION, parent, start, error);
     }
 
-    public EvaluableExpression getFirstSubExpression() {
+    public EvaluableExpression getLeftSubExpression() {
         Optional<SyntaxNode> result = this.getChildNodes().stream().filter(EvaluableExpression::isEvaluable).findFirst();
         if (result.isPresent()) {
             return (EvaluableExpression) (result.get());
@@ -56,7 +56,7 @@ public class BinaryExpression extends EvaluableExpression {
         }
     }
 
-    public EvaluableExpression getSecondSubExpression() {
+    public EvaluableExpression getRightSubExpression() {
         ArrayList<EvaluableExpression> result = new ArrayList<>();
         this.getChildNodes().stream().filter(EvaluableExpression::isEvaluable).forEach(n -> result.add((EvaluableExpression) n));
         if (result.size() == 2) {
