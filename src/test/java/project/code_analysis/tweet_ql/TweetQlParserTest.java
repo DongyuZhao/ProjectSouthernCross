@@ -9,6 +9,9 @@ import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.BinaryE
 import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.FieldAccessExpression;
 import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.ValueExpression;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This is a open source project provided as-is without any
  * guarantee.
@@ -49,33 +52,30 @@ public class TweetQlParserTest {
     @Test
     public void TweetQlParserUsageTest2() {
         TweetQlSyntaxTree tree = TweetQlSyntaxTree.parseText("SELECT * FROM * WHERE lang = \"ar\";");
+        List<String> targetAttributeList = new ArrayList<String>();
+        List<String> operateList = new ArrayList<String>();
+        List<String> ExpectedValueList = new ArrayList<String>();
         CompilationUnitSyntax root = tree.getRoot();
         root.getChildNodes().forEach(node -> {
             switch ((TweetQlNodeKind) node.getKind()) {
-                case CREATE_EXPRESSION:
-                    CreateExpression createExpression = (CreateExpression) node;
-                    createExpression.getCreatedStreams().forEach(stream -> {
-                        System.out.println(stream.getStreamIdentifier());
-                        System.out.println(stream.getStreamSource().getStreamIdentifier());
-                        System.out.println(stream.getStreamSource().getFilterConditions());
-                    });
-                    break;
                 case SELECT_EXPRESSION:
                     SelectExpression selectExpression = (SelectExpression) node;
-                    selectExpression.getAttributeList().getAttributes().forEach(System.out::println);
                     selectExpression.getStreamSourceList().getStreamSources().forEach(source -> {
                         System.out.println(source.getStreamIdentifier());
                         System.out.println(source.getFilterConditions());
                         EvaluableExpression condition = source.getFilterConditions();
                         if (condition.getKind() == TweetQlNodeKind.BINARY_EXPRESSION) {
                             BinaryExpression binaryExpression = (BinaryExpression) condition;
-                            System.out.println(binaryExpression.getOperator());
-                            System.out.println(binaryExpression.getLeftSubExpression());
-                            System.out.println(binaryExpression.getRightSubExpression());
+                            operateList.add(binaryExpression.getOperator().getRawString());
+                            targetAttributeList.add(((FieldAccessExpression) binaryExpression.getLeftSubExpression()).getFieldName());
+                            ExpectedValueList.add(((ValueExpression) binaryExpression.getRightSubExpression()).getValue());
                         }
                     });
                     break;
             }
         });
+        System.out.println(operateList.get(0));
+        System.out.println(targetAttributeList.get(0));
+        System.out.println(ExpectedValueList.get(0));
     }
 }

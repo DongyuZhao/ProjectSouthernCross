@@ -79,6 +79,8 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
         this.binaryOperatorKindMap.put(TweetQlTokenString.LESS_EQUAL, TweetQlTokenKind.LESS_EQUAL_TOKEN);
         this.binaryOperatorKindMap.put(TweetQlTokenString.AND_KEYWORD, TweetQlTokenKind.AND_KEYWORD);
         this.binaryOperatorKindMap.put(TweetQlTokenString.OR_KEYWORD, TweetQlTokenKind.OR_KEYWORD);
+        this.binaryOperatorKindMap.put(TweetQlTokenString.CONTAIN_KEYWORD, TweetQlTokenKind.CONTAIN_KEYWORD);
+        this.binaryOperatorKindMap.put(TweetQlTokenString.LIKE_KEYWORD, TweetQlTokenKind.LIKE_KEYWORD);
 
         this.unaryOperatorKindMap.put(TweetQlTokenString.NOT_KEYWORD, TweetQlTokenKind.NOT_KEYWORD);
 
