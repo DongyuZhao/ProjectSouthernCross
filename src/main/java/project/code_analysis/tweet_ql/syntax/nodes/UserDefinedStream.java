@@ -32,6 +32,10 @@ public class UserDefinedStream extends TweetQlSyntaxNode {
         super(TweetQlNodeKind.USER_DEFINED_STREAM, parent, start, error);
     }
 
+    /**
+     * Get the identifier of the stream
+     * @return the identifier
+     */
     public IdentifierToken getStreamIdentifier() {
         if (this.hasChildToken() && IdentifierToken.isIdentifier(this.getChildTokens().get(0))) {
             return (IdentifierToken) this.getChildTokens().get(0);
@@ -40,6 +44,10 @@ public class UserDefinedStream extends TweetQlSyntaxNode {
         }
     }
 
+    /**
+     * Get the stream source
+     * @return the stream source
+     */
     public StreamSource getStreamSource() {
         if (this.hasChildNode() && this.getChildNodes().get(0).getKind() == TweetQlNodeKind.STREAM_SOURCE) {
             return (StreamSource) this.getChildNodes().get(0);

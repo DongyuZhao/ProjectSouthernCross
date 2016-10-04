@@ -33,6 +33,10 @@ public class SelectExpression extends TweetQlSyntaxNode {
         super(TweetQlNodeKind.SELECT_EXPRESSION, parent, start, error);
     }
 
+    /**
+     * Get the specified attributes
+     * @return the attribute list contains the specified attributes
+     */
     public AttributeList getAttributeList() {
         Optional<SyntaxNode> result = this.getChildNodes().stream().filter(n -> n.getKind() == TweetQlNodeKind.ATTRIBUTE_LIST).findFirst();
         if (result.isPresent()) {
@@ -42,6 +46,10 @@ public class SelectExpression extends TweetQlSyntaxNode {
         }
     }
 
+    /**
+     * Get the specified stream sources
+     * @return the stream source list contains the specified source streams
+     */
     public StreamSourceList getStreamSourceList() {
         Optional<SyntaxNode> result = this.getChildNodes().stream().filter(n -> n.getKind() == TweetQlNodeKind.STREAM_SOURCE_LIST).findFirst();
         if (result.isPresent()) {

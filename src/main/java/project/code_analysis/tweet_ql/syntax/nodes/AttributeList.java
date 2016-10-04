@@ -36,6 +36,10 @@ public class AttributeList extends TweetQlSyntaxNode {
         super(TweetQlNodeKind.ATTRIBUTE_LIST, parent, start, error);
     }
 
+    /**
+     * Get the specified attribute names
+     * @return the list of tokens contains attribute name
+     */
     public List<IdentifierToken> getAttributes() {
         ArrayList<IdentifierToken> result = new ArrayList<>();
         this.getChildTokens().stream().filter(IdentifierToken::isIdentifier).forEach(t -> result.add((IdentifierToken) t));

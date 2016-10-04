@@ -35,6 +35,10 @@ public class ValueExpression extends UnaryExpression {
         this.setKind(TweetQlNodeKind.VALUE_EXPRESSION);
     }
 
+    /**
+     * Get the value hold by this node
+     * @return the value
+     */
     public String getValue() {
         if (this.hasChildToken()) {
             return this.getChildTokens().get(0).getRawString();

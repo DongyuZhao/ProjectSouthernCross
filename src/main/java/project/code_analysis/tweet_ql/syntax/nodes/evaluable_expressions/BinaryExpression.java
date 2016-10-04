@@ -38,6 +38,10 @@ public class BinaryExpression extends EvaluableExpression {
         super(TweetQlNodeKind.BINARY_EXPRESSION, parent, start, error);
     }
 
+    /**
+     * Get the left sub expression in this node
+     * @return the left sub expression
+     */
     public EvaluableExpression getLeftSubExpression() {
         Optional<SyntaxNode> result = this.getChildNodes().stream().filter(EvaluableExpression::isEvaluable).findFirst();
         if (result.isPresent()) {
@@ -47,6 +51,10 @@ public class BinaryExpression extends EvaluableExpression {
         }
     }
 
+    /**
+     * Get the operator
+     * @return the operator
+     */
     public BinaryOperatorToken getOperator() {
         Optional<SyntaxToken> result = this.getChildTokens().stream().filter(BinaryOperatorToken::isBinaryOperator).findFirst();
         if (result.isPresent()) {
@@ -56,6 +64,10 @@ public class BinaryExpression extends EvaluableExpression {
         }
     }
 
+    /**
+     * Get the right sub expression in this node
+     * @return the right sub expression
+     */
     public EvaluableExpression getRightSubExpression() {
         ArrayList<EvaluableExpression> result = new ArrayList<>();
         this.getChildNodes().stream().filter(EvaluableExpression::isEvaluable).forEach(n -> result.add((EvaluableExpression) n));

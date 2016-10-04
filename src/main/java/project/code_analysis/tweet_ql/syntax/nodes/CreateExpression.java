@@ -34,6 +34,10 @@ public class CreateExpression extends TweetQlSyntaxNode {
         super(TweetQlNodeKind.CREATE_EXPRESSION, parent, start, error);
     }
 
+    /**
+     * Get a list of UserDefinedStream declared by this Create Expression
+     * @return the list of UserDefinedStream
+     */
     public List<UserDefinedStream> getCreatedStreams() {
         ArrayList<UserDefinedStream> result = new ArrayList<>();
         this.getChildNodes().stream().filter(n -> n.getKind() == TweetQlNodeKind.USER_DEFINED_STREAM).forEach(n -> result.add((UserDefinedStream) n));

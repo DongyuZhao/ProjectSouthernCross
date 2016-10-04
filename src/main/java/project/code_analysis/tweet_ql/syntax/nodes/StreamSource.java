@@ -32,6 +32,10 @@ public class StreamSource extends TweetQlSyntaxNode {
         super(TweetQlNodeKind.STREAM_SOURCE, parent, start, error);
     }
 
+    /**
+     * Get the identifier of this stream
+     * @return the identifier
+     */
     public IdentifierToken getStreamIdentifier() {
         if (this.hasChildToken() && IdentifierToken.isIdentifier(this.getChildTokens().get(0))) {
             return (IdentifierToken) this.getChildTokens().get(0);
@@ -40,6 +44,10 @@ public class StreamSource extends TweetQlSyntaxNode {
         }
     }
 
+    /**
+     * Get the filter conditions
+     * @return the filter conditions
+     */
     public EvaluableExpression getFilterConditions() {
         if (this.hasChildNode() && EvaluableExpression.isEvaluable(this.getChildNodes().get(0))) {
             return (EvaluableExpression) this.getChildNodes().get(0);

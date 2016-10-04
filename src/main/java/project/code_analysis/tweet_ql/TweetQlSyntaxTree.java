@@ -15,6 +15,11 @@ public class TweetQlSyntaxTree extends SyntaxTree {
         super(parser);
     }
 
+    /**
+     * Parse the given text into a SyntaxTree
+     * @param text the given text
+     * @return the SyntaxTree
+     */
     public static TweetQlSyntaxTree parseText(String text) {
         TweetQlSyntaxTree tree = new TweetQlSyntaxTree(TweetQlSyntaxParser.create());
         tree.parse(text);

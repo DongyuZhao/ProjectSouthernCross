@@ -64,12 +64,12 @@ public class TweetQlParserTest {
                         System.out.println(source.getStreamIdentifier());
                         System.out.println(source.getFilterConditions());
                         EvaluableExpression condition = source.getFilterConditions();
-                        if (condition.getKind() == TweetQlNodeKind.BINARY_EXPRESSION) {
-                            BinaryExpression binaryExpression = (BinaryExpression) condition;
-                            operateList.add(binaryExpression.getOperator().getRawString());
-                            targetAttributeList.add(((FieldAccessExpression) binaryExpression.getLeftSubExpression()).getFieldName());
-                            ExpectedValueList.add(((ValueExpression) binaryExpression.getRightSubExpression()).getValue());
-                        }
+//                        if (condition.getKind() == TweetQlNodeKind.BINARY_EXPRESSION) {
+//                            BinaryExpression binaryExpression = (BinaryExpression) condition;
+//                            operateList.add(binaryExpression.getOperator().getRawString());
+//                            targetAttributeList.add(((FieldAccessExpression) binaryExpression.getLeftSubExpression()).getFieldName());
+//                            ExpectedValueList.add(((ValueExpression) binaryExpression.getRightSubExpression()).getValue());
+//                        }
                     });
                     break;
             }

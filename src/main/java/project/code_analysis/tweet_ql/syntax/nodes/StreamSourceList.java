@@ -34,6 +34,10 @@ public class StreamSourceList extends TweetQlSyntaxNode {
         super(TweetQlNodeKind.STREAM_SOURCE_LIST, parent, start, error);
     }
 
+    /**
+     * Get the list of the stream sources
+     * @return the list
+     */
     public List<StreamSource> getStreamSources() {
         ArrayList<StreamSource> result = new ArrayList<>();
         this.getChildNodes().stream().filter(n -> n.getKind() == TweetQlNodeKind.STREAM_SOURCE).forEach(n -> result.add((StreamSource) n));

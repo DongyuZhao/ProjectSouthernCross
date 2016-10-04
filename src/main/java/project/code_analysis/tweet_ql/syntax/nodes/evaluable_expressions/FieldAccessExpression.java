@@ -35,6 +35,10 @@ public class FieldAccessExpression extends UnaryExpression {
         this.setKind(TweetQlNodeKind.FIELD_ACCESS_EXPRESSION);
     }
 
+    /**
+     * Get the field name
+     * @return the field name
+     */
     public String getFieldName() {
         if (this.hasChildToken()) {
             return this.getChildTokens().get(0).getRawString();

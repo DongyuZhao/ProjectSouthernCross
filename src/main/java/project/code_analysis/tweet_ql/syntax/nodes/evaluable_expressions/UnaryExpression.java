@@ -37,6 +37,10 @@ public class UnaryExpression extends EvaluableExpression {
         super(TweetQlNodeKind.UNARY_EXPRESSION, parent, start, error);
     }
 
+    /**
+     * Get the expression augmented by this node.
+     * @return the expression
+     */
     public EvaluableExpression getSubExpression() {
         if (this.hasChildNode() && EvaluableExpression.isEvaluable(this.getChildNodes().get(0))) {
             return ((EvaluableExpression) this.getChildNodes().get(0));
@@ -45,6 +49,10 @@ public class UnaryExpression extends EvaluableExpression {
         }
     }
 
+    /**
+     * Get the operator
+     * @return the operator
+     */
     public UnaryOperatorToken getOperator() {
         Optional<SyntaxToken> result = this.getChildTokens().stream().filter(UnaryOperatorToken::isUnaryOperator).findFirst();
         if (result.isPresent()) {
