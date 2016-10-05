@@ -1,0 +1,12 @@
+project.code_analysis.core
+project.code_analysis.core.semantic
+project.code_analysis.core.syntax.builders
+project.code_analysis.core.syntax.nodes
+project.code_analysis.tweet_ql
+project.code_analysis.tweet_ql.syntax
+project.code_analysis.tweet_ql.syntax.builders
+project.code_analysis.tweet_ql.syntax.lexers
+project.code_analysis.tweet_ql.syntax.nodes
+project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions
+project.code_analysis.tweet_ql.syntax.tokens
+project.code_analysis.tweet_ql.syntax.trivias
