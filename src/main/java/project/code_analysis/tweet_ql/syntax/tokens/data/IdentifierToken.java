@@ -7,12 +7,6 @@ import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.syntax.tokens.DataToken;
 
 /**
- * ProjectSouthernCross
- * <p>
- * Created by Dy.Zhao on 2016/8/11.
- */
-
-/**
  * A syntax token class holds identifier
  */
 public class IdentifierToken extends DataToken {

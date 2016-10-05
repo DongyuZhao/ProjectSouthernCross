@@ -23,13 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/8/27.
- */
-
-/**
  * The implement of ISyntaxFacts for TweetQL
  */
 public class TweetQlSyntaxFactory implements ISyntaxFactory {
@@ -148,8 +141,7 @@ public class TweetQlSyntaxFactory implements ISyntaxFactory {
 
     @Override
     public List<SyntaxToken> bindSyntaxTrivia(List<SyntaxToken> rawTokenList) {
-        for (int i = 0; i < rawTokenList.size(); i++) {
-            SyntaxToken token = rawTokenList.get(i);
+        for (SyntaxToken token : rawTokenList) {
             switch (this.currentState) {
                 case IDLE:
                     switch ((TweetQlTokenKind) token.getKind()) {
@@ -213,8 +205,7 @@ public class TweetQlSyntaxFactory implements ISyntaxFactory {
                         case LF_TOKEN:
                             this.currentSession.appendTrialingTrivia(new ChangeLineTrivia());
                             this.currentSession.appendTokenToCurrentTrialingTrivia(token);
-                            this.tokenList.add(this.currentSession.getToken());
-                            this.changeState(State.IDLE);
+                            this.submitSession();
                             break;
                         case DOUBLE_SLASH_TOKEN:
                             this.currentSession.appendTrialingTrivia(new LineCommentsTrivia());
@@ -254,8 +245,7 @@ public class TweetQlSyntaxFactory implements ISyntaxFactory {
                         case CRLF_TOKEN:
                         case LF_TOKEN:
                             this.currentSession.appendTokenToCurrentTrialingTrivia(token);
-                            this.tokenList.add(this.currentSession.getToken());
-                            this.changeState(State.IDLE);
+                            this.submitSession();
                             break;
                         default:
                             this.currentSession.appendTokenToCurrentTrialingTrivia(token);
@@ -287,7 +277,7 @@ public class TweetQlSyntaxFactory implements ISyntaxFactory {
             }
         }
         if (this.currentSession.peak() != null) {
-            this.tokenList.add(this.currentSession.getToken());
+            this.submitSession();
         }
         return this.tokenList;
     }
@@ -315,43 +305,43 @@ public class TweetQlSyntaxFactory implements ISyntaxFactory {
         private ArrayList<SyntaxTrivia> leadingTrivia = new ArrayList<>();
         private SyntaxToken token;
 
-        public SyntaxToken peak() {
+        SyntaxToken peak() {
             return this.token;
         }
 
-        public void appendLeadingTrivia(SyntaxTrivia trivia) {
+        void appendLeadingTrivia(SyntaxTrivia trivia) {
             if (this.leadingTrivia == null) {
                 this.leadingTrivia = new ArrayList<>();
             }
             this.leadingTrivia.add(trivia);
         }
 
-        public void appendTrialingTrivia(SyntaxTrivia trivia) {
+        void appendTrialingTrivia(SyntaxTrivia trivia) {
             if (this.token != null) {
                 this.token.addTrialingTrivia(trivia);
             }
         }
 
-        public void appendTokenToCurrentLeadingTrivia(SyntaxToken token) {
+        void appendTokenToCurrentLeadingTrivia(SyntaxToken token) {
             if (this.leadingTrivia.size() != 0) {
                 this.leadingTrivia.get(this.leadingTrivia.size() - 1).addChildToken(token);
             }
         }
 
-        public void appendTokenToCurrentTrialingTrivia(SyntaxToken token) {
+        void appendTokenToCurrentTrialingTrivia(SyntaxToken token) {
             if (this.token != null && this.token.getTrialingTrivia().size() != 0) {
                 this.token.getTrialingTrivia().get(this.token.getTrialingTrivia().size() - 1).addChildToken(token);
             }
         }
 
-        public SyntaxToken getToken() {
+        SyntaxToken getToken() {
             SyntaxToken result = this.token;
             this.leadingTrivia.clear();
             this.token = null;
             return result;
         }
 
-        public void setToken(SyntaxToken token) {
+        void setToken(SyntaxToken token) {
             this.token = token;
             if (this.token != null) {
                 this.leadingTrivia.forEach(this.token::addLeadingTrivia);

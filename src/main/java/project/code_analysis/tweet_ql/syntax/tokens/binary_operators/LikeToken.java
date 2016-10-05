@@ -7,12 +7,6 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
 import project.code_analysis.tweet_ql.syntax.tokens.BinaryOperatorToken;
 
 /**
- * ProjectSouthernCross
- * <p>
- * Created by Dy.Zhao on 2016/8/11.
- */
-
-/**
  * A syntax token class holds "LIKE"
  */
 public class LikeToken extends BinaryOperatorToken {

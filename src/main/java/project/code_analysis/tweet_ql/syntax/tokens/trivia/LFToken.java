@@ -7,12 +7,6 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
 import project.code_analysis.tweet_ql.syntax.tokens.TriviaToken;
 
 /**
- * ProjectSouthernCross
- * <p>
- * Created by Dy.Zhao on 2016/8/13.
- */
-
-/**
  * A syntax token class holds "\n"
  */
 public class LFToken extends TriviaToken {

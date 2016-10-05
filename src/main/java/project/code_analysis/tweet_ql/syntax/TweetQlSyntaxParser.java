@@ -10,12 +10,6 @@ import project.code_analysis.tweet_ql.syntax.lexers.TweetQlLexer;
 import java.util.List;
 
 /**
- * ProjectSouthernCross
- * <p>
- * Created by Dy.Zhao on 2016/8/14.
- */
-
-/**
  * The implement of ISyntaxParser for TweetQL
  */
 public class TweetQlSyntaxParser implements ISyntaxParser {

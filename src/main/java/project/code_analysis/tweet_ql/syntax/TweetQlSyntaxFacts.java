@@ -11,12 +11,6 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * ProjectSouthernCross
- * <p>
- * Created by Dy.Zhao on 2016/8/14.
- */
-
-/**
  * The implement of ISyntaxFacts for TweetQL
  */
 public class TweetQlSyntaxFacts implements ISyntaxFacts {

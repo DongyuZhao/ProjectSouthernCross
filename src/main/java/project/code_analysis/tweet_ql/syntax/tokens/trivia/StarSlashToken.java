@@ -7,13 +7,6 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
 import project.code_analysis.tweet_ql.syntax.tokens.TriviaToken;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/8/28.
- */
-
-/**
  * A syntax token class holds "* /"(no space in the middle)
  */
 public class StarSlashToken extends TriviaToken {
