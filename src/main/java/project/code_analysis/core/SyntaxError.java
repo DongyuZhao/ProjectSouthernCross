@@ -1,13 +1,6 @@
 package project.code_analysis.core;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/9/2.
- */
-
-/**
  * The class that hold syntax errors found by the lexer and the syntax parser.
  */
 public class SyntaxError {

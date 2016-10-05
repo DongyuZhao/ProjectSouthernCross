@@ -1,12 +1,6 @@
 package project.code_analysis.core;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- *
- * Created by Dy.Zhao on 2016/8/25.
- */
-/**
  * The basic class of all of the syntax trivia
  */
 public class SyntaxTrivia extends SyntaxNode {

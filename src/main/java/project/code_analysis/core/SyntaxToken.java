@@ -1,13 +1,6 @@
 package project.code_analysis.core;
 
 /**
- * Project Southern Cross
- * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
- *
- * Created by Dy.Zhao on 2016/7/11.
- */
-
-/**
  * The basic class of all of the syntax tokens
  */
 public class SyntaxToken extends SyntaxNodeOrToken {

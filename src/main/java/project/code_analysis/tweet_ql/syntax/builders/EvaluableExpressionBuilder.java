@@ -22,8 +22,7 @@ public class EvaluableExpressionBuilder extends AbstractSyntaxNodeBuilder<Evalua
 
     @Override
     public EvaluableExpression build() {
-        EvaluableExpression result = buildExpressionTree(null, this.tokenList);
-        return result;
+        return buildExpressionTree(null, this.tokenList);
     }
 
     private EvaluableExpression buildExpressionTree(EvaluableExpression currentRoot, List<SyntaxToken> tokenList) {

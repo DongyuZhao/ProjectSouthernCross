@@ -3,13 +3,6 @@ package project.code_analysis.core;
 import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
 
 /**
- * Project Southern Cross
- * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
- * <p>
- * Created by Dy.Zhao on 2016/7/11.
- */
-
-/**
  * The basic class of all of the syntax trees
  */
 public abstract class SyntaxTree {

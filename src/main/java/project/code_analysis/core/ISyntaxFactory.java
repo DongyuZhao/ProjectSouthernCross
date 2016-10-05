@@ -3,13 +3,6 @@ package project.code_analysis.core;
 import java.util.List;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/8/26.
- */
-
-/**
  * The interface that all of the syntax factories should implement
  * <p>
  *     A syntax factory is a class that provide the method to transform a given text to its corresponded syntax token

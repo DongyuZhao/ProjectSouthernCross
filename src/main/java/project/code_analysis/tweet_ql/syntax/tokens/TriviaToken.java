@@ -1,9 +1,5 @@
 package project.code_analysis.tweet_ql.syntax.tokens;
 
-/**
- * Created by Dy.Zhao on 10/5/2016.
- */
-
 import project.code_analysis.core.ISyntaxKind;
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;

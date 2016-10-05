@@ -3,12 +3,6 @@ package project.code_analysis.core;
 import java.util.Set;
 
 /**
- * ProjectSouthernCross
- * <p>
- * Created by Dy.Zhao on 2016/8/13.
- */
-
-/**
  * The interface that all of the syntax facts providers should implement
  *
  * <p>

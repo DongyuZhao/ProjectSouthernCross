@@ -4,13 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Project Southern Cross
- * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
- * <p>
- * Created by Dy.Zhao on 2016/7/11.
- */
-
-/**
  * The common root of all of the element that could used to construct abstract syntax tree
  */
 public abstract class SyntaxUnit {
@@ -40,6 +33,14 @@ public abstract class SyntaxUnit {
         this.parentNode = null;
         this.language = language;
         this.shiftWindow(offset);
+    }
+
+    /**
+     * Shift this unit's full start with given offset
+     * @param offset the given offset
+     */
+    public void shiftWindow(int offset) {
+        this.offset += offset;
     }
 
     /**
@@ -98,7 +99,7 @@ public abstract class SyntaxUnit {
 
     /**
      * Get the ancestor nodes of this syntax unit
-     * @return
+     * @return the ancestor nodes of this syntax unit
      */
     public List<SyntaxNode> getAncestorNodes() {
         ArrayList<SyntaxNode> result = new ArrayList<>();
@@ -274,14 +275,6 @@ public abstract class SyntaxUnit {
     public void shiftWindowTo(int position) {
         int offset = position - this.getFullStart();
         this.shiftWindow(offset);
-    }
-
-    /**
-     * Shift this unit's full start with given offset
-     * @param offset the given offset
-     */
-    public void shiftWindow(int offset) {
-        this.offset += offset;
     }
 
     /**

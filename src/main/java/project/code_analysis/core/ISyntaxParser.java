@@ -3,13 +3,6 @@ package project.code_analysis.core;
 import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- *
- * Created by Dy.Zhao on 2016/8/16.
- */
-
-/**
  * The interface all syntax parser should implement
  *
  * <p>

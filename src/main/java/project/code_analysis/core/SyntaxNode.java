@@ -5,13 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Project Southern Cross
- * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
- *
- * Created by Dy.Zhao on 2016/7/11.
- */
-
-/**
  * The basic class of all of the syntax nodes
  */
 public class SyntaxNode extends SyntaxNodeOrToken {

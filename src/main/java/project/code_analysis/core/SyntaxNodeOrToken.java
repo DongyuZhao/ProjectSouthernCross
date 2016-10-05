@@ -4,13 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Project Southern Cross
- * A language parser framework come up with TweetQL parser. Originally designed for R.A.P.I.D
- * <p>
- * Created by Dy.Zhao on 2016/7/11.
- */
-
-/**
  * The common parent of all of the syntax nodes and syntax tokens
  */
 public abstract class SyntaxNodeOrToken extends SyntaxUnit {
@@ -101,6 +94,13 @@ public abstract class SyntaxNodeOrToken extends SyntaxUnit {
     }
 
     @Override
+    public void shiftWindow(int offset) {
+        this.leadingTrivia.forEach(t -> t.shiftWindow(offset));
+        this.trialingTrivia.forEach(t -> t.shiftWindow(offset));
+        super.shiftWindow(offset);
+    }
+
+    @Override
     public String toString() {
         return this.getClass().getName() + ":\t" + this.getRawString();
     }
@@ -121,13 +121,6 @@ public abstract class SyntaxNodeOrToken extends SyntaxUnit {
             result += syntaxTrivia.getFullLength();
         }
         return result;
-    }
-
-    @Override
-    public void shiftWindow(int offset) {
-        this.leadingTrivia.forEach(t -> t.shiftWindow(offset));
-        this.trialingTrivia.forEach(t -> t.shiftWindow(offset));
-        super.shiftWindow(offset);
     }
 
     @Override

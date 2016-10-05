@@ -1,11 +1,6 @@
 package project.code_analysis.core;
 
 /**
- * ProjectSouthernCross
- * <p>
- * Created by Dy.Zhao on 2016/8/11.
- */
-/**
  * Provide the basic types that most languages would need to construct its syntax tree
  */
 public enum AbstractSyntaxKind implements ISyntaxKind {
