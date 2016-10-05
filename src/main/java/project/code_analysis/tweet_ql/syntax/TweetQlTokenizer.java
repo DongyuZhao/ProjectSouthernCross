@@ -13,6 +13,10 @@ public class TweetQlTokenizer extends AbstractTokenizer {
         super(TweetQlSyntaxFacts.getInstance(), TweetQlSyntaxFactory.create());
     }
 
+    /**
+     * Create a new instance of TweetQlTokenizer
+     * @return the tokenizer instance
+     */
     public static TweetQlTokenizer create() {
         return new TweetQlTokenizer();
     }

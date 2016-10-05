@@ -11,6 +11,10 @@ import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxParser;
  * Created by Dy.Zhao on 2016/8/28.
  */
 public class TweetQlSyntaxTree extends SyntaxTree {
+    /**
+     * Constructor for the TweetQlSyntaxTree
+     * @param parser the parser will be used to construct the SyntaxTree.
+     */
     protected TweetQlSyntaxTree(ISyntaxParser parser) {
         super(parser);
     }

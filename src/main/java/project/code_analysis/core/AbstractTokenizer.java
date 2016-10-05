@@ -9,6 +9,9 @@ import java.util.List;
  * <p>
  * Created by Dy.Zhao on 2016/8/26.
  */
+/**
+ * The abstract tokenizer that provide a default behavior for the most general tokenize support
+ */
 public abstract class AbstractTokenizer {
     private Session currentSession = new Session();
     private ISyntaxFactory syntaxFactory;
@@ -21,6 +24,11 @@ public abstract class AbstractTokenizer {
         this.syntaxFacts = syntaxFacts;
     }
 
+    /**
+     * Tokenize the given text into a list of syntax token
+     * @param code the plain text of the code
+     * @return the list of token
+     */
     public List<SyntaxToken> tokenize(String code) {
         this.tokenList.clear();
         char[] charArray = code.toCharArray();

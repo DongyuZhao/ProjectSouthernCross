@@ -48,7 +48,7 @@ public class EvaluableExpressionBuilder extends AbstractSyntaxNodeBuilder<Evalua
                     return buildExpressionTree(scopeExpression, tokenList.subList(1, tokenList.size()));
                 case CLOSE_PARENTHESES:
                     if (currentRoot.getKind() != TweetQlNodeKind.SCOPE_EXPRESSION || currentRoot.getChildTokens().get(currentRoot.getChildTokenCount() - 1).getKind() == TweetQlTokenKind.CLOSE_PARENTHESES) {
-                        Optional<SyntaxNode> newRootCandidate = currentRoot.getAncestorNode().stream().filter(n -> n.getKind() == TweetQlNodeKind.SCOPE_EXPRESSION).findFirst();
+                        Optional<SyntaxNode> newRootCandidate = currentRoot.getAncestorNodes().stream().filter(n -> n.getKind() == TweetQlNodeKind.SCOPE_EXPRESSION).findFirst();
                         if (newRootCandidate.isPresent()) {
                             EvaluableExpression newRoot = (EvaluableExpression) newRootCandidate.get();
                             newRoot.addChildToken(token);
