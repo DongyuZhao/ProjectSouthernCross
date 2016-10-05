@@ -1,9 +1,7 @@
 package project.code_analysis.tweet_ql;
 
 /**
- * ProjectSouthernCross
- * <p>
- * Created by Dy.Zhao on 2016/8/11.
+ * The enum provide the plain text of reserved keywords and symbols in TweetQL
  */
 public class TweetQlTokenString {
     public static final String CREATE_KEYWORD = "CREATE";

@@ -15,6 +15,10 @@ import java.util.Set;
  * <p>
  * Created by Dy.Zhao on 2016/8/14.
  */
+
+/**
+ * The implement of ISyntaxFacts for TweetQL
+ */
 public class TweetQlSyntaxFacts implements ISyntaxFacts {
     private static TweetQlSyntaxFacts ourInstance = new TweetQlSyntaxFacts();
     private HashMap<String, ISyntaxKind> keywordKindMap = new HashMap<>();
@@ -26,6 +30,9 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
     private HashMap<String, ISyntaxKind> blockCommentsTriggerKindMap = new HashMap<>();
     private HashMap<String, ISyntaxKind> blockCommentsTerminatorKindMap = new HashMap<>();
 
+    /**
+     * Get a new instance of TweetQlSyntaxFacts
+     */
     private TweetQlSyntaxFacts() {
         this.keywordKindMap.put(TweetQlTokenString.CREATE_KEYWORD, TweetQlTokenKind.CREATE_KEYWORD);
         this.keywordKindMap.put(TweetQlTokenString.SELECT_KEYWORD, TweetQlTokenKind.SELECT_KEYWORD);
@@ -93,6 +100,11 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
         this.blockCommentsTerminatorKindMap.put(TweetQlTokenString.STAR_SLASH, TweetQlTokenKind.STAR_SLASH_TOKEN);
     }
 
+    /**
+     * Get the singleton instance of the TweetQlSyntaxFacts class
+     *
+     * @return the singleton instance of the TweetQlSyntaxFacts class
+     */
     public static TweetQlSyntaxFacts getInstance() {
         return ourInstance;
     }
@@ -147,10 +159,20 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
         return this.isUnaryOperator(rawString) || this.isBinaryOperator(rawString);
     }
 
+    /**
+     * Determine if the given plain text indicates a unary operator in this language
+     * @param rawString the given plain text
+     * @return if the given ISyntaxKind indicates a unary operator terminator
+     */
     public boolean isUnaryOperator(String rawString) {
         return this.unaryOperatorKindMap.keySet().contains(rawString);
     }
 
+    /**
+     * Determine if the given plain text indicates a binary operator in this language
+     * @param rawString the given plain text
+     * @return if the given ISyntaxKind indicates a binary operator terminator
+     */
     public boolean isBinaryOperator(String rawString) {
         return this.binaryOperatorKindMap.keySet().contains(rawString);
     }
@@ -242,10 +264,20 @@ public class TweetQlSyntaxFacts implements ISyntaxFacts {
         return "TweetQL";
     }
 
+    /**
+     * Determine if the given ISyntaxKind indicates a unary operator in this language
+     * @param rawKind the given ISyntaxKind
+     * @return if the given ISyntaxKind indicates a unary operator terminator
+     */
     public boolean isUnaryOperator(ISyntaxKind rawKind) {
         return this.unaryOperatorKindMap.values().contains(rawKind);
     }
 
+    /**
+     * Determine if the given ISyntaxKind indicates a binary operator in this language
+     * @param rawKind the given ISyntaxKind
+     * @return if the given ISyntaxKind indicates a binary operator terminator
+     */
     public boolean isBinaryOperator(ISyntaxKind rawKind) {
         return this.binaryOperatorKindMap.values().contains(rawKind);
     }

@@ -3,13 +3,10 @@ package project.code_analysis.tweet_ql.syntax.nodes;
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
-import project.code_analysis.tweet_ql.syntax.tokens.IdentifierToken;
+import project.code_analysis.tweet_ql.syntax.tokens.data.IdentifierToken;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/9/3.
+ * A syntax node class holds stream source
  */
 public class StreamSource extends TweetQlSyntaxNode {
     public StreamSource() {

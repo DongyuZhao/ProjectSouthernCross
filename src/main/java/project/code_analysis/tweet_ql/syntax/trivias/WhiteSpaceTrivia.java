@@ -5,10 +5,7 @@ import project.code_analysis.core.SyntaxNodeOrToken;
 import project.code_analysis.tweet_ql.TweetQlTriviaKind;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/8/28.
+ * A syntax trivia class holds white space
  */
 public class WhiteSpaceTrivia extends TweetQlSyntaxTrivia {
     public WhiteSpaceTrivia() {

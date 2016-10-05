@@ -3,8 +3,7 @@ package project.code_analysis.tweet_ql.syntax.nodes;
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
-import project.code_analysis.tweet_ql.TweetQlTokenKind;
-import project.code_analysis.tweet_ql.syntax.tokens.IdentifierToken;
+import project.code_analysis.tweet_ql.syntax.tokens.data.IdentifierToken;
 
 import java.util.ArrayList;
 import java.util.List;

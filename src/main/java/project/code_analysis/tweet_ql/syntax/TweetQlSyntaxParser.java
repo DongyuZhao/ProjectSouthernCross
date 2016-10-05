@@ -14,6 +14,10 @@ import java.util.List;
  * <p>
  * Created by Dy.Zhao on 2016/8/14.
  */
+
+/**
+ * The implement of ISyntaxParser for TweetQL
+ */
 public class TweetQlSyntaxParser implements ISyntaxParser {
     private TweetQlSyntaxParser() {
     }

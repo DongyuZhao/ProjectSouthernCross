@@ -6,10 +6,7 @@ import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.core.SyntaxToken;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/9/5.
+ * A common parent of all of binary operators in TweetQL
  */
 public class BinaryOperatorToken extends TweetQlSyntaxToken {
     public BinaryOperatorToken(String rawString, ISyntaxKind kind) {

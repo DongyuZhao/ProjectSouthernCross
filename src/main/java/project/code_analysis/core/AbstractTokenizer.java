@@ -4,12 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/8/26.
- */
-/**
  * The abstract tokenizer that provide a default behavior for the most general tokenize support
  */
 public abstract class AbstractTokenizer {
@@ -19,6 +13,12 @@ public abstract class AbstractTokenizer {
     private ArrayList<SyntaxToken> tokenList = new ArrayList<>();
     private State currentState = State.IDLE;
 
+    /**
+     * Get an instance of the tokenizer
+     *
+     * @param syntaxFacts   the syntax facts provider this tokenizer will use
+     * @param syntaxFactory the syntax factory this tokenizer will use
+     */
     protected AbstractTokenizer(ISyntaxFacts syntaxFacts, ISyntaxFactory syntaxFactory) {
         this.syntaxFactory = syntaxFactory;
         this.syntaxFacts = syntaxFacts;

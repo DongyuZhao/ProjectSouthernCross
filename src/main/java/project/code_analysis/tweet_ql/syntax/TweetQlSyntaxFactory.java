@@ -5,7 +5,16 @@ import project.code_analysis.core.SyntaxToken;
 import project.code_analysis.core.SyntaxTrivia;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.TweetQlTokenString;
-import project.code_analysis.tweet_ql.syntax.tokens.*;
+import project.code_analysis.tweet_ql.syntax.tokens.TweetQlSyntaxToken;
+import project.code_analysis.tweet_ql.syntax.tokens.binary_operators.*;
+import project.code_analysis.tweet_ql.syntax.tokens.data.DigitToken;
+import project.code_analysis.tweet_ql.syntax.tokens.data.IdentifierToken;
+import project.code_analysis.tweet_ql.syntax.tokens.data.LiteralStringToken;
+import project.code_analysis.tweet_ql.syntax.tokens.data.StarToken;
+import project.code_analysis.tweet_ql.syntax.tokens.keywords.*;
+import project.code_analysis.tweet_ql.syntax.tokens.symbols.*;
+import project.code_analysis.tweet_ql.syntax.tokens.trivia.*;
+import project.code_analysis.tweet_ql.syntax.tokens.unary_operators.NotToken;
 import project.code_analysis.tweet_ql.syntax.trivias.BlockCommentsTrivia;
 import project.code_analysis.tweet_ql.syntax.trivias.ChangeLineTrivia;
 import project.code_analysis.tweet_ql.syntax.trivias.LineCommentsTrivia;
@@ -19,11 +28,25 @@ import java.util.List;
  * <p>
  * Created by Dy.Zhao on 2016/8/27.
  */
+
+/**
+ * The implement of ISyntaxFacts for TweetQL
+ */
 public class TweetQlSyntaxFactory implements ISyntaxFactory {
     private Session currentSession = new Session();
     private ArrayList<SyntaxToken> tokenList = new ArrayList<>();
     private State currentState = State.IDLE;
 
+    /**
+     * Get a new instance of TweetQlSyntaxFactory
+     */
+    private TweetQlSyntaxFactory() {
+
+    }
+
+    /**
+     * Get a new instance of TweetQlSyntaxFactory
+     */
     public static TweetQlSyntaxFactory create() {
         return new TweetQlSyntaxFactory();
     }
@@ -40,15 +63,15 @@ public class TweetQlSyntaxFactory implements ISyntaxFactory {
             case TweetQlTokenString.WHERE_KEYWORD:
                 return (new WhereKeywordToken());
             case TweetQlTokenString.CONTAIN_KEYWORD:
-                return (new ContainKeywordToken());
+                return (new ContainToken());
             case TweetQlTokenString.LIKE_KEYWORD:
-                return (new LikeKeywordToken());
+                return (new LikeToken());
             case TweetQlTokenString.AND_KEYWORD:
-                return (new AndKeywordToken());
+                return (new AndToken());
             case TweetQlTokenString.OR_KEYWORD:
-                return (new OrKeywordToken());
+                return (new OrToken());
             case TweetQlTokenString.NOT_KEYWORD:
-                return (new NotKeywordToken());
+                return (new NotToken());
             case TweetQlTokenString.SKIP_KEYWORD:
                 return (new SkipKeywordToken());
             case TweetQlTokenString.WINDOW_KEYWORD:

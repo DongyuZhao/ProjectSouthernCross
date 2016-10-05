@@ -7,10 +7,7 @@ import project.code_analysis.core.SyntaxTrivia;
 import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/8/28.
+ * A common parent of all of the TweetQL syntax trivia
  */
 public class TweetQlSyntaxTrivia extends SyntaxTrivia {
     public TweetQlSyntaxTrivia(ISyntaxKind kind) {
