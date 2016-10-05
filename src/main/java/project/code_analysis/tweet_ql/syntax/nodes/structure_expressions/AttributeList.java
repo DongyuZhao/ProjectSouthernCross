@@ -1,8 +1,9 @@
-package project.code_analysis.tweet_ql.syntax.nodes;
+package project.code_analysis.tweet_ql.syntax.nodes.structure_expressions;
 
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
+import project.code_analysis.tweet_ql.syntax.nodes.StructureExpression;
 import project.code_analysis.tweet_ql.syntax.tokens.data.IdentifierToken;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
  * <p>
  * Created by Dy.Zhao on 2016/9/4.
  */
-public class AttributeList extends TweetQlSyntaxNode {
+public class AttributeList extends StructureExpression {
     public AttributeList() {
         super(TweetQlNodeKind.ATTRIBUTE_LIST);
     }

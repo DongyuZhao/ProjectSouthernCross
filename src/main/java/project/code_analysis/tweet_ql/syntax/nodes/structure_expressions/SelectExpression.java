@@ -1,15 +1,16 @@
-package project.code_analysis.tweet_ql.syntax.nodes;
+package project.code_analysis.tweet_ql.syntax.nodes.structure_expressions;
 
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
+import project.code_analysis.tweet_ql.syntax.nodes.StructureExpression;
 
 import java.util.Optional;
 
 /**
  * A syntax node class holds select expression
  */
-public class SelectExpression extends TweetQlSyntaxNode {
+public class SelectExpression extends StructureExpression {
     public SelectExpression() {
         super(TweetQlNodeKind.SELECT_EXPRESSION);
     }

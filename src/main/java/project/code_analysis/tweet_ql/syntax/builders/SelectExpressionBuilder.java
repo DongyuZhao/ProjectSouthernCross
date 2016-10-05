@@ -2,13 +2,10 @@ package project.code_analysis.tweet_ql.syntax.builders;
 
 import project.code_analysis.core.syntax.builders.AbstractSyntaxNodeBuilder;
 import project.code_analysis.tweet_ql.TweetQlTokenKind;
-import project.code_analysis.tweet_ql.syntax.nodes.SelectExpression;
+import project.code_analysis.tweet_ql.syntax.nodes.structure_expressions.SelectExpression;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/9/4.
+ * An implement of AbstractSyntaxNodeBuilder to build SelectExpression node
  */
 public class SelectExpressionBuilder extends AbstractSyntaxNodeBuilder<SelectExpression> {
     private AttributeListBuilder attributeListBuilder;

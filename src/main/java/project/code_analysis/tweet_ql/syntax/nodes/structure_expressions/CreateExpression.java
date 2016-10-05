@@ -1,8 +1,9 @@
-package project.code_analysis.tweet_ql.syntax.nodes;
+package project.code_analysis.tweet_ql.syntax.nodes.structure_expressions;
 
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
+import project.code_analysis.tweet_ql.syntax.nodes.StructureExpression;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * <p>
  * Created by Dy.Zhao on 2016/9/3.
  */
-public class CreateExpression extends TweetQlSyntaxNode {
+public class CreateExpression extends StructureExpression {
     public CreateExpression() {
         super(TweetQlNodeKind.CREATE_EXPRESSION);
     }

@@ -50,8 +50,8 @@ public class UnaryExpression extends EvaluableExpression {
     }
 
     /**
-     * Get the operator
-     * @return the operator
+     * Get the operator of this expression
+     * @return the operator of this expression
      */
     public UnaryOperatorToken getOperator() {
         Optional<SyntaxToken> result = this.getChildTokens().stream().filter(UnaryOperatorToken::isUnaryOperator).findFirst();

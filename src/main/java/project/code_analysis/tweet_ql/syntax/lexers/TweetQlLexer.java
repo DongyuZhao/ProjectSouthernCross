@@ -11,10 +11,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/8/28.
+ * The lexer of TweetQL
  */
 public class TweetQlLexer {
     private State currentState = State.IDLE;
@@ -24,10 +21,21 @@ public class TweetQlLexer {
 
     }
 
+    /**
+     * Get new instance of TweetQlLexer
+     *
+     * @return the new instance of TweetQlLexer
+     */
     public static TweetQlLexer create() {
         return new TweetQlLexer();
     }
 
+    /**
+     * Check the given token list and output a list with updated error info
+     *
+     * @param originTokenList the given token list
+     * @return the token list with updated error info
+     */
     public List<? extends SyntaxToken> lex(List<? extends SyntaxToken> originTokenList) {
         ArrayList<SyntaxToken> result = new ArrayList<>();
         for (int i = 0; i < originTokenList.size(); i++) {

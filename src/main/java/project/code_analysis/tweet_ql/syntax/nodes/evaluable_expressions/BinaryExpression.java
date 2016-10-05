@@ -52,8 +52,8 @@ public class BinaryExpression extends EvaluableExpression {
     }
 
     /**
-     * Get the operator
-     * @return the operator
+     * Get the operator of this expression
+     * @return the operator of this expression
      */
     public BinaryOperatorToken getOperator() {
         Optional<SyntaxToken> result = this.getChildTokens().stream().filter(BinaryOperatorToken::isBinaryOperator).findFirst();

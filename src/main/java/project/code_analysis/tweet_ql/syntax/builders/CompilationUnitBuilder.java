@@ -6,10 +6,7 @@ import project.code_analysis.tweet_ql.TweetQlTokenKind;
 import project.code_analysis.tweet_ql.syntax.TweetQlSyntaxFacts;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/9/3.
+ * An implement of AbstractSyntaxNodeBuilder to build CompilationUnit node
  */
 public class CompilationUnitBuilder extends AbstractSyntaxNodeBuilder<CompilationUnitSyntax> {
     private State currentState = State.ROOT;

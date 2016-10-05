@@ -2,12 +2,12 @@ package project.code_analysis.tweet_ql;
 
 import org.junit.Test;
 import project.code_analysis.core.syntax.nodes.CompilationUnitSyntax;
-import project.code_analysis.tweet_ql.syntax.nodes.CreateExpression;
 import project.code_analysis.tweet_ql.syntax.nodes.EvaluableExpression;
-import project.code_analysis.tweet_ql.syntax.nodes.SelectExpression;
 import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.BinaryExpression;
 import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.FieldAccessExpression;
 import project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions.ValueExpression;
+import project.code_analysis.tweet_ql.syntax.nodes.structure_expressions.CreateExpression;
+import project.code_analysis.tweet_ql.syntax.nodes.structure_expressions.SelectExpression;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,9 +52,9 @@ public class TweetQlParserTest {
     @Test
     public void TweetQlParserUsageTest2() {
         TweetQlSyntaxTree tree = TweetQlSyntaxTree.parseText("SELECT * FROM * WHERE lang = \"ar\";");
-        List<String> targetAttributeList = new ArrayList<String>();
-        List<String> operateList = new ArrayList<String>();
-        List<String> ExpectedValueList = new ArrayList<String>();
+        List<String> targetAttributeList = new ArrayList<>();
+        List<String> operateList = new ArrayList<>();
+        List<String> ExpectedValueList = new ArrayList<>();
         CompilationUnitSyntax root = tree.getRoot();
         root.getChildNodes().forEach(node -> {
             switch ((TweetQlNodeKind) node.getKind()) {

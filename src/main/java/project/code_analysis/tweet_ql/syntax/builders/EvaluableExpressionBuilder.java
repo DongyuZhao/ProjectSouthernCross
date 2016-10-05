@@ -13,10 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/9/3.
+ * An implement of AbstractSyntaxNodeBuilder to build EvaluableExpression node
  */
 public class EvaluableExpressionBuilder extends AbstractSyntaxNodeBuilder<EvaluableExpression> {
 

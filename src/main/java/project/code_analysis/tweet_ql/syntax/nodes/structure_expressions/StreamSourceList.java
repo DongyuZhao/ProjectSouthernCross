@@ -1,8 +1,9 @@
-package project.code_analysis.tweet_ql.syntax.nodes;
+package project.code_analysis.tweet_ql.syntax.nodes.structure_expressions;
 
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
+import project.code_analysis.tweet_ql.syntax.nodes.StructureExpression;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * A syntax node class holds stream list
  */
-public class StreamSourceList extends TweetQlSyntaxNode {
+public class StreamSourceList extends StructureExpression {
     public StreamSourceList() {
         super(TweetQlNodeKind.STREAM_SOURCE_LIST);
     }

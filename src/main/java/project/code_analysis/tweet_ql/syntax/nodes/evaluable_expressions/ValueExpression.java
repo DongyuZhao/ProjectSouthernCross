@@ -37,7 +37,7 @@ public class ValueExpression extends UnaryExpression {
 
     /**
      * Get the value hold by this node
-     * @return the value
+     * @return the value hold by this node
      */
     public String getValue() {
         if (this.hasChildToken()) {

@@ -1,14 +1,16 @@
-package project.code_analysis.tweet_ql.syntax.nodes;
+package project.code_analysis.tweet_ql.syntax.nodes.structure_expressions;
 
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
+import project.code_analysis.tweet_ql.syntax.nodes.EvaluableExpression;
+import project.code_analysis.tweet_ql.syntax.nodes.StructureExpression;
 import project.code_analysis.tweet_ql.syntax.tokens.data.IdentifierToken;
 
 /**
  * A syntax node class holds stream source
  */
-public class StreamSource extends TweetQlSyntaxNode {
+public class StreamSource extends StructureExpression {
     public StreamSource() {
         super(TweetQlNodeKind.STREAM_SOURCE);
     }

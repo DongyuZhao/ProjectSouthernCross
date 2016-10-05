@@ -5,9 +5,7 @@ import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 
 /**
- * ProjectSouthernCross
- * <p>
- * Created by Dy.Zhao on 2016/8/11.
+ * A syntax node class holds the root of a syntax tree of a compilation unit
  */
 public class CompilationUnitSyntax extends SyntaxNode {
 

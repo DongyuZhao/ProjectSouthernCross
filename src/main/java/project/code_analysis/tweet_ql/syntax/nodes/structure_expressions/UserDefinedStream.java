@@ -1,14 +1,15 @@
-package project.code_analysis.tweet_ql.syntax.nodes;
+package project.code_analysis.tweet_ql.syntax.nodes.structure_expressions;
 
 import project.code_analysis.core.SyntaxError;
 import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
+import project.code_analysis.tweet_ql.syntax.nodes.StructureExpression;
 import project.code_analysis.tweet_ql.syntax.tokens.data.IdentifierToken;
 
 /**
  * A syntax node class holds user defined stream
  */
-public class UserDefinedStream extends TweetQlSyntaxNode {
+public class UserDefinedStream extends StructureExpression {
     public UserDefinedStream() {
         super(TweetQlNodeKind.USER_DEFINED_STREAM);
     }
