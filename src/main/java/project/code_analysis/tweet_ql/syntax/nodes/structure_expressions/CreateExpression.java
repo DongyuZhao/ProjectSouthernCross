@@ -9,10 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/9/3.
+ * A syntax node class holds create expression in TweetQL
  */
 public class CreateExpression extends StructureExpression {
     public CreateExpression() {

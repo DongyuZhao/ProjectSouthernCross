@@ -6,10 +6,7 @@ import project.code_analysis.tweet_ql.TweetQlNodeKind;
 import project.code_analysis.tweet_ql.syntax.nodes.EvaluableExpression;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/9/4.
+ * A syntax node class holds scope expression(e.g. expression surrounded by parentheses) in TweetQL
  */
 public class ScopeExpression extends EvaluableExpression {
     public ScopeExpression() {

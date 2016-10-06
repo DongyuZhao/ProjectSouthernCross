@@ -29,6 +29,12 @@ public class BinaryOperatorToken extends TweetQlSyntaxToken {
         super(rawString, kind, parent, start, error);
     }
 
+    /**
+     * Determine if the given syntax token is a binary operator token
+     *
+     * @param token the given syntax token
+     * @return if the given syntax token is a binary operator token
+     */
     public static boolean isBinaryOperator(SyntaxToken token) {
         return token != null && BinaryOperatorToken.class.isAssignableFrom(token.getClass());
     }

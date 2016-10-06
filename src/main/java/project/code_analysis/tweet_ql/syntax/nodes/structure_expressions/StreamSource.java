@@ -32,7 +32,7 @@ public class StreamSource extends StructureExpression {
     }
 
     /**
-     * Get the identifier of this stream
+     * Get the identifier represent the name of this stream
      * @return the identifier
      */
     public IdentifierToken getStreamIdentifier() {
@@ -44,7 +44,7 @@ public class StreamSource extends StructureExpression {
     }
 
     /**
-     * Get the filter conditions
+     * Get the filter conditions applied on this stream
      * @return the filter conditions
      */
     public EvaluableExpression getFilterConditions() {

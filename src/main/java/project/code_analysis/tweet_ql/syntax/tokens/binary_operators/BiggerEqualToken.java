@@ -7,7 +7,7 @@ import project.code_analysis.tweet_ql.TweetQlTokenString;
 import project.code_analysis.tweet_ql.syntax.tokens.BinaryOperatorToken;
 
 /**
- * A syntax token class holds ">="
+ * A syntax token class holds bigger or equal operator
  */
 public class BiggerEqualToken extends BinaryOperatorToken {
     public BiggerEqualToken() {

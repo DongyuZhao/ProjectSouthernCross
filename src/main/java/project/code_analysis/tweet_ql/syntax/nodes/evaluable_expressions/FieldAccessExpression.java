@@ -5,10 +5,7 @@ import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/9/3.
+ * A syntax node class holds field access expression in TweetQL
  */
 public class FieldAccessExpression extends UnaryExpression {
     public FieldAccessExpression() {
@@ -36,8 +33,8 @@ public class FieldAccessExpression extends UnaryExpression {
     }
 
     /**
-     * Get the field name
-     * @return the field name
+     * Get the field name this expression refers to
+     * @return the field name this expression refers to
      */
     public String getFieldName() {
         if (this.hasChildToken()) {

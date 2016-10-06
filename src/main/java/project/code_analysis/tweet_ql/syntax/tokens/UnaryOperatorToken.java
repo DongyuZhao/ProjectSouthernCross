@@ -29,6 +29,12 @@ public class UnaryOperatorToken extends TweetQlSyntaxToken {
         super(rawString, kind, parent, start, error);
     }
 
+    /**
+     * Determine if the given syntax token is a unary operator token
+     *
+     * @param token the given syntax token
+     * @return if the given syntax token is a unary operator token
+     */
     public static boolean isUnaryOperator(SyntaxToken token) {
         return token != null && UnaryOperatorToken.class.isAssignableFrom(token.getClass());
     }

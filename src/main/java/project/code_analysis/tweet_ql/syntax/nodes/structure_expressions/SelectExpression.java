@@ -32,7 +32,7 @@ public class SelectExpression extends StructureExpression {
     }
 
     /**
-     * Get the specified attributes
+     * Get the specified attributes in this select expression
      * @return the attribute list contains the specified attributes
      */
     public AttributeList getAttributeList() {
@@ -45,7 +45,7 @@ public class SelectExpression extends StructureExpression {
     }
 
     /**
-     * Get the specified stream sources
+     * Get the specified stream sources in this select expression
      * @return the stream source list contains the specified source streams
      */
     public StreamSourceList getStreamSourceList() {

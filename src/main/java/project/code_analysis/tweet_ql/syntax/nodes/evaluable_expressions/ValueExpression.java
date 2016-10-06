@@ -5,10 +5,7 @@ import project.code_analysis.core.SyntaxNode;
 import project.code_analysis.tweet_ql.TweetQlNodeKind;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/9/3.
+ * A syntax node class holds value in TweetQL
  */
 public class ValueExpression extends UnaryExpression {
     public ValueExpression() {
@@ -36,8 +33,8 @@ public class ValueExpression extends UnaryExpression {
     }
 
     /**
-     * Get the value hold by this node
-     * @return the value hold by this node
+     * Get the value held by this node
+     * @return the value held by this node
      */
     public String getValue() {
         if (this.hasChildToken()) {

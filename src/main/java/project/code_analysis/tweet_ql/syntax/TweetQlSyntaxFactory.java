@@ -30,15 +30,13 @@ public class TweetQlSyntaxFactory implements ISyntaxFactory {
     private ArrayList<SyntaxToken> tokenList = new ArrayList<>();
     private State currentState = State.IDLE;
 
-    /**
-     * Get a new instance of TweetQlSyntaxFactory
-     */
     private TweetQlSyntaxFactory() {
 
     }
 
     /**
      * Get a new instance of TweetQlSyntaxFactory
+     * @return the new instance of TweetQlSyntaxFactory
      */
     public static TweetQlSyntaxFactory create() {
         return new TweetQlSyntaxFactory();

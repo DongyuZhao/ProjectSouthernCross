@@ -12,10 +12,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 /**
- * This is a open source project provided as-is without any
- * guarantee.
- * <p>
- * Created by Dy.Zhao on 2016/9/3.
+ * A syntax node class holds binary expression in TweetQL
  */
 public class BinaryExpression extends EvaluableExpression {
     public BinaryExpression() {

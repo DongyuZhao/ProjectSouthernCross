@@ -1,5 +1,4 @@
 project.code_analysis.core
-project.code_analysis.core.semantic
 project.code_analysis.core.syntax.builders
 project.code_analysis.core.syntax.nodes
 project.code_analysis.tweet_ql
@@ -8,5 +7,12 @@ project.code_analysis.tweet_ql.syntax.builders
 project.code_analysis.tweet_ql.syntax.lexers
 project.code_analysis.tweet_ql.syntax.nodes
 project.code_analysis.tweet_ql.syntax.nodes.evaluable_expressions
+project.code_analysis.tweet_ql.syntax.nodes.structure_expressions
 project.code_analysis.tweet_ql.syntax.tokens
+project.code_analysis.tweet_ql.syntax.tokens.binary_operators
+project.code_analysis.tweet_ql.syntax.tokens.data
+project.code_analysis.tweet_ql.syntax.tokens.keywords
+project.code_analysis.tweet_ql.syntax.tokens.symbols
+project.code_analysis.tweet_ql.syntax.tokens.trivia
+project.code_analysis.tweet_ql.syntax.tokens.unary_operators
 project.code_analysis.tweet_ql.syntax.trivias
